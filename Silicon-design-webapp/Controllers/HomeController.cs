@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Silicon_design_webapp.Models.Views;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -7,6 +8,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+
+        var viewModel = new HomeIndexViewModel();      
+
+        ViewData["Title"] = viewModel.Title;        
+
+        return View(viewModel);
     }
 }

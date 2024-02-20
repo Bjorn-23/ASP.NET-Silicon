@@ -1,0 +1,25 @@
+﻿@model FeaturesViewModel
+
+<section id="@Model.Id" class="features">
+    <div class="container">
+
+        <h1>@Model.Title</h1>
+        <span>@Model.Text</span>
+
+        <div class="grid-container">
+            @if (Model.featuresBoxes.Count >= 1)
+            {
+                foreach (var boxes in Model.featuresBoxes)
+                {
+                    <a class="grid-item" asp-controller="@boxes.Link.ControllerName" asp-action="@boxes.Link.ActionName">
+                        <img src="@boxes.Image.ImageUrl" alt="@boxes.Image.AltText">
+                        <h5>@boxes.SubHeading</h5>
+                        <span>@boxes.Text</span>
+                    </a>          
+                    
+                }
+            }
+        </div>
+
+    </div>
+</section>

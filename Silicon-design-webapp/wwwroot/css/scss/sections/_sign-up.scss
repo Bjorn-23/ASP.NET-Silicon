@@ -1,0 +1,89 @@
+.sign-up{
+    .sign-up-form{
+        text-align: start;
+        
+        @include lg{
+            margin: 2rem auto;
+            width: 700px;
+        }
+        
+        .title{
+            text-align: center;
+            @include h3;
+    
+            @include lg{
+                text-align: start;
+                @include h1;
+            }
+        }
+    
+        .sign-up{
+            text-align: center;
+            @include text-s;
+
+            @include lg{
+                text-align: start;
+                @include text-m;
+            }
+        }
+
+        .name-wrapper{
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+
+            .name-box{
+                width: 100%;
+            }
+            
+        }
+
+        label{
+            @include h6;
+            margin: 1rem 0 0;
+        }
+
+        input{
+            @include text-s;
+        }
+
+        .submit{
+            width: 100%;
+            margin: 1rem 0;
+
+            // @include md{
+            //     width: unset;
+            // }
+        }
+
+        a{
+            font-size: 0.875rem;
+
+            @include lg{
+                font-size: 1rem;
+            }
+        }
+
+        .divider{
+            border: 1px solid $gray-300;
+            margin: 2rem 0;
+        }
+
+        .social-sign-in{
+            text-align: center;
+
+            @include lg{
+                margin: 0 0 1rem;
+            }
+        }
+
+        .button-wrapper{
+            display: flex;
+            gap: 1rem;
+
+            button{
+                width: 100%;
+            }
+        }
+    }
+}

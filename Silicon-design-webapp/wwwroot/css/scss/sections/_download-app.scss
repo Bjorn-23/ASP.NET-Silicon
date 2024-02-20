@@ -1,0 +1,179 @@
+.download-app{
+    position: relative;
+    background-color: $gray-100;
+
+    .container{
+        .blue-rectangle{
+            display: flex;
+            flex-direction: column-reverse;
+            background-color: $gray-200;
+            padding: 2rem 0;
+
+            
+            @include md{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+            
+            @include lg{
+                border-radius: 0.5rem;
+                padding: 4rem;
+                margin: -1rem -2rem 1rem;
+                gap: 5rem;
+            }
+    
+            .download-left{
+                img{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+    
+            .download-right{       
+                
+                @include md{
+                    padding: 0 4rem 0 0;
+                }
+
+                @include lg{
+                    padding: 5rem 0;
+                }
+
+                @include xl{
+                    padding: 0 4rem 0 0;
+                }
+
+
+                h1{                
+                    text-align: center;
+                    @include h4;
+
+                    @include md{
+                        text-align: start;
+                        padding: 0;
+                    }
+
+                    @include lg{
+                        @include h3
+                    }
+
+                    @include xxl{
+                        @include h1;
+                        padding: 3rem 0;
+                    }
+                }
+
+                .grid-container{
+                    display: grid;
+                    grid-template-columns: auto auto;
+                    text-align: start;
+                    margin-left: 1rem;
+
+                    @include md{
+                        margin: 0;
+                    }
+                    
+                    @include xl{
+                        grid-template-columns: auto;
+                    }
+                    
+                    .store-box{
+                        position: relative;
+                        margin: 1rem 0 2rem;
+
+                        @include md{
+                            margin: 1rem;
+                        }
+
+                        @include lg{
+                            margin: 1rem 0 2rem;
+                        }
+        
+                        .title{
+                            @include text-s;
+                            margin: 0;
+
+                            @include xl{
+                                @include text-m;
+                                margin: 0 0 0.3rem 0;
+                            }
+                        }
+        
+                        .stars{
+                            @include text-xs;
+                            color: $warning;
+                            i{
+                                margin-right: 3px;
+                            }
+
+                            @include xl{
+                                @include text-s;
+                                color: $warning;  
+                            }
+                        }
+        
+                        .description{
+                            @include h6;
+                            margin: 0;
+
+                            @include xl{
+                                @include h4;
+                                margin: 0.5rem 0 0 0;
+                            }
+                        }
+        
+                        .rating{
+                            @include text-xs;
+
+                            @include xl{
+                                @include text-m;
+                            }
+                        }
+
+                        .app-link{
+                            
+                            img{
+                                width: 85%;
+                                
+                                @include md{
+                                    margin-top: -0.5rem;
+                                    width: 60%;
+                                }
+
+                                @include lg{
+                                    width: 70%
+                                }
+
+                                @include xl{
+                                    width: 50%;
+                                }
+                                
+                                @include xxl{
+                                    position: absolute;
+                                    bottom: 1.2rem;
+                                    right: 0;
+                                    width: 45%;
+
+                                }
+                            }
+                        }
+                    }                    
+                }
+            }   
+        }
+    }
+
+    .bottom-rectangle{
+        @include lg{
+            position: absolute;
+            bottom: -0.5rem;
+            z-index: 2;
+            left: calc(50% - 40.5rem);
+            background-color: $gray-100;
+            width: 81rem;
+            height: 0.5rem;
+        }
+    }
+    
+}

@@ -1,0 +1,27 @@
+﻿@model ShowcaseViewModel
+
+<section id="@Model.Id" class="showcase">
+    <div class="container">
+
+        <div class="showcase-left">
+            <h1>@Model.Title</h1>
+            <p class="text">@Model.SubHeading</p>
+            <a class="btn-theme-s" asp-controller="@Model.Link.ControllerName" asp-action="@Model.Link.ActionName" >@Model.Link.Text</a>
+            <h6>@Model.BrandsText</h6>
+            <div class="brands">
+                @if (Model.Brands != null)
+                {
+                    foreach (var brand in Model.Brands)
+                    {
+                        <img class="sc-logo1" src="@brand.ImageUrl" alt="@brand.AltText">                        
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="showcase-right">
+            <img src="@Model.ShowcaseImage.ImageUrl" alt="@Model.ShowcaseImage.AltText">
+        </div>
+
+    </div>
+</section>

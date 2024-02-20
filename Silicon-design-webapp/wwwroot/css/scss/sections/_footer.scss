@@ -1,0 +1,54 @@
+footer {
+    padding: 3rem 0 2rem 0;
+    @include text-m;
+    color: $gray-600;
+
+    @include lg{
+        padding: 4rem 0;
+    }
+
+
+
+    .container {
+        text-align: center;
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .copyright-wrapper{
+            @include text-lg;
+            
+            @include md{
+                @include text-m;               
+            }
+
+            @include lg{
+                @include text-lg;
+                padding: 0;
+            }
+
+            @include xl{
+                @include text-xl;
+                padding: 3rem;
+            }
+
+        }
+        .copyright{
+            font-weight: 700;
+        }
+        
+        .details{
+            display: none;
+
+            @include md{
+                display: inline;
+            }
+        }
+
+    }
+}

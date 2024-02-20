@@ -1,0 +1,72 @@
+.integrate-tools{
+    padding: 2rem 0;
+
+    @include lg{
+        text-align: center;
+        padding: 6rem 0;
+    }
+
+    h1{
+        @include h4;
+    }
+
+    .description{
+        @include text-xs;
+        @include lg{
+            padding: 0 20rem;
+            margin-bottom: 3rem;
+        }
+
+    }
+
+    .grid-container{
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1rem;
+        text-align: start;
+
+
+        @include lg{
+            grid-template-columns: auto auto auto auto;
+        }
+
+        .grid-item{
+            border: 1px solid $gray-500;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            text-decoration: none; 
+
+            @include lg{
+                border: none;
+                padding: 2rem;
+            }
+
+            img{
+                width: 40px;
+                height: auto;
+                margin-bottom: 0.5rem;
+                @include lg{
+                    width: 56px;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            p{
+                @include text-xs;
+
+                @include lg{
+                    @include text-m;
+                }
+            }
+
+            &:hover{
+                transform: scale(1.1, 1.1);
+                box-shadow: 0 0 8px #e9e9e9;
+                transition: transform 0.3s ease-in-out;
+
+            }
+        }
+
+        
+    }
+}

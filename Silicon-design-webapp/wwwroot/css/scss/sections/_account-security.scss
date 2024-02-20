@@ -1,0 +1,110 @@
+.account-security{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-areas:
+    'sidebar'
+    'details';
+
+    @include lg{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+        'sidebar details details';
+        gap: 2rem;
+    }
+
+    @include xl{
+        gap: 8rem;
+
+    }
+
+    .sidebar{
+        grid-area: sidebar;
+    }
+
+    .content-box-security {
+        grid-area: details;
+
+        .title{
+            @include h3;
+            margin: 1rem 0 0;
+            text-align: center;
+
+            @include lg{
+                @include h1;
+                text-align: start;
+            }
+        }
+
+        form{
+            .current-password{
+                max-width: calc(50% - 0.5rem);                
+            }
+            
+            .password-wrapper{
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+
+                .form-box{
+                    width: 100%;    
+                }
+            }
+
+            .form-title{
+                color: $theme;
+                text-align: center;
+
+                @include xl{
+                    text-align: start;
+                }
+            }
+
+            label{
+                @include h6;
+                margin: 1rem 0 0 0;
+            }
+
+            input::placeholder, textarea::placeholder{
+                color: $gray-500;
+            }
+
+            span{
+                color: $gray-600;
+                margin: 0 0 0 0.2rem;
+            }
+
+            .button-wrapper{
+                display: flex;
+                gap: 1rem;
+                margin: 1rem 0;
+
+                @include xl{
+                    margin: 2rem 0;
+                }
+            }
+        }
+
+        .divider{
+            border: 1px solid $gray-300;
+            margin: 3rem 0 2rem;
+        }
+
+        .delete-account{
+            p{
+                @include xl{
+                    @include text-lg;                    
+                }
+            }
+
+            label{
+                @include text-m;
+            }
+
+            .delete-button{
+                background-color: $danger;
+                margin: 2rem 0;
+            }
+        }
+    }
+}
+

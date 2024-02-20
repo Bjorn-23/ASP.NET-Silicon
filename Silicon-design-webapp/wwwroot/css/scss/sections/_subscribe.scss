@@ -1,0 +1,128 @@
+.subscribe{
+    background-color: $gray-200;
+    padding: 2rem 0;
+
+    @include lg{
+        padding: 6rem 0;
+    }
+
+    .container{
+        position: relative;
+        @include lg{
+            padding: 0 12rem;
+        }
+        
+        h1{
+            @include h4;
+
+            @include xl{
+                @include h1;
+                margin-bottom: 2rem;
+            }
+        }
+
+        .blue-squiggle{
+            position: absolute;
+            top: 10%;
+            right:20%;
+            width: 12%;
+
+            @include md{
+                top: 0;
+                right:35%;
+                width: 8%;
+            }
+
+            @include lg{
+                top: 0;
+                right:25%;
+                width: 6%;
+            }
+
+            @include xxl{
+                top: 5%;
+                right: 35%;
+                width: 5%;
+            }
+        }
+
+        .checkbox-wrapper{         
+            @include xl{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-areas: "text grid grid grid";
+                align-items: baseline;
+            }                
+            h5{
+                @include lg{
+                    grid-area: text;
+                    padding-right: 10rem;
+                }
+            }
+            
+            .grid-container{
+                display: grid;
+                grid-template-columns: auto auto;
+    
+                @include lg{
+                    grid-template-columns: auto auto auto;
+                    grid-area: grid;
+                }
+    
+                .grid-item{
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin: 0.5rem 0 0 0;
+                    
+                    //maybe sort out some custom styling later?
+                    input{
+                        color:  $gray-500;
+                    }
+                    label{
+                        @include text-xs;
+                    }
+                }
+            }
+        }
+
+
+        .subscribe-wrapper{
+            margin: 2rem 0 0.5rem;
+
+            @include xl{
+                display: flex;
+                align-items: self-end;
+                margin: 1rem 0 0 0;
+
+            }
+
+            input{
+                display: block;
+                width: 100%;
+                border: 1px solid $gray-400;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+
+                @include lg{
+                    margin-right: 1rem;
+                }                
+            }
+
+            .mail-icon{
+                display: none;
+            }
+
+            .btn-theme-s{
+                margin-top: 1rem;
+
+                @include lg{
+                    margin: 0 1rem;
+                }
+            }
+        }
+        .terms-policy{
+            @include text-xs;
+        }
+    }
+}

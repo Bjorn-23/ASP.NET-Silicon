@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+$font-manrope: 'Manrope', sans-serif;
+
+@mixin standard-text {
+    line-height: 160%;
+    font-weight: 400;
+    color: $gray-700;
+    font-family: $font-manrope;
+}
+
+@mixin standard-heading {
+    @include standard-text();
+    font-weight: 800;
+    color: $gray-900;
+}
+
+@mixin text-nav { @include standard-text; font-size: 1rem; color: $gray-800; font-weight: 600 !important; }
+
+@mixin text-xs { @include standard-text; font-size: 0.75rem !important;}
+@mixin text-s { @include standard-text; font-size: 0.875rem !important; }
+@mixin text-m { @include standard-text; font-size: 1rem !important; }
+@mixin text-lg { @include standard-text; font-size: 1.125rem !important; }
+@mixin text-xl { @include standard-text; font-size: 1.25rem !important; }
+@mixin text-lead { @include standard-text; font-size: 1.5rem !important; }
+
+@mixin d1 { @include standard-heading; font-size: 5rem !important; }
+@mixin d2 { @include standard-heading; font-size: 4.5rem !important; }
+@mixin d3 { @include standard-heading; font-size: 4rem !important; }
+@mixin d4 { @include standard-heading; font-size: 3.5rem !important; }
+@mixin d5 { @include standard-heading; font-size: 3rem !important; }
+@mixin d6 { @include standard-heading; font-size: 2.625rem !important; }
+
+@mixin h1 { @include standard-heading; font-size: 2.5rem !important; }
+@mixin h2 { @include standard-heading; font-size: 2rem !important; }
+@mixin h3 { @include standard-heading; font-size: 1.75rem !important; }
+@mixin h4 { @include standard-heading; font-size: 1.5rem !important; }
+@mixin h5 { @include standard-heading; font-size: 1.25rem !important; }
+@mixin h6 { @include standard-heading; font-size: 1rem !important; }
