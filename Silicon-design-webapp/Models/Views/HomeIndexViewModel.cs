@@ -7,7 +7,7 @@ public class HomeIndexViewModel
 {
     public string Title { get; set; } = "Task Management Assistant You're Gonna Love";
 
-    public ShowcaseViewModel Showcase { get; set; } = new ShowcaseViewModel
+    public ShowcaseViewModel Showcase { get; set; } = new()
     {
         Id = "overview",
         Title = "Task Management Assistant You're Gonna Love",
@@ -25,7 +25,7 @@ public class HomeIndexViewModel
         ShowcaseImage = new() { ImageUrl = "/img/showcase-dashboard.png", AltText = "Taskmanager dashboard" }
     };
 
-    public FeaturesViewModel Features { get; set; } = new FeaturesViewModel
+    public FeaturesViewModel Features { get; set; } = new()
     {
         Id = "features",
         Title = "What Do You Get With Our Tool?",
@@ -78,7 +78,7 @@ public class HomeIndexViewModel
         ]
     };
 
-    public DarkModeSliderViewModel DarkModeSlider { get; set; } = new DarkModeSliderViewModel()
+    public DarkModeSliderViewModel DarkModeSlider { get; set; } = new()
     {
         Id = "DarkModeSlider",
         Title = "Switch between Light & Dark mode",
@@ -94,6 +94,25 @@ public class HomeIndexViewModel
         }
     };
 
+    public ManageYourWorkViewModel ManageYourWork { get; set; } = new()
+    {
+        Id = "ManageYourWork",
+        Title = "Manage Your Work",
+        Image = new()
+        {
+            ImageUrl = "/img/dashboard-regular.png",
+            AltText = "Dashboard"
+        },
+        Checklist =
+        [
+            new CheckListViewModel() { Text = "Powerful project management" },
+            new CheckListViewModel() { Text = "Transparent work management" },
+            new CheckListViewModel() { Text = "Manage work & focus on the most important tasks" },
+            new CheckListViewModel() { Text = "Track your progress with interactive charts" },
+            new CheckListViewModel() { Text = "Easiest way to track time spent on tasks" }
+        ],
+        Link = new LinkViewModel() { ControllerName="Features", ActionName="Index", Text="Learn more"}
+    };
 
 
 }
