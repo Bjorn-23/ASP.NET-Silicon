@@ -2,6 +2,6 @@
 
 public class CheckListViewModel
 {
-    public string Icon { get; set; } = null!;
+    public string Icon { get; set; } = "fa - regular fa-circle-check";
     public string Text { get; set; } = null!;
 }

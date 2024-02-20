@@ -1040,6 +1040,9 @@ footer .container .details {
 .manage-your-work .container .manage-right a {
   margin-bottom: 1rem;
 }
+.manage-your-work .container .manage-right a span {
+  margin: 0 0.2rem 0 0;
+}
 @media (min-width: 992px) {
   .manage-your-work .container .manage-right a {
     display: inline-block;
