@@ -1,8 +1,11 @@
 ﻿@model HomeIndexViewModel
 
 @* Use this one when you need to deal with different database contexts and models. *@
-    @await Html.PartialAsync("~/Views/Shared/Sections/_ShowcasePartial.cshtml", Model.Showcase) 
-    @await Html.PartialAsync("~/Views/Shared/Sections/_FeaturesPartial.cshtml", Model.Features)
+@await Html.PartialAsync("~/Views/Shared/Sections/_ShowcasePartial.cshtml", Model.Showcase) 
+@await Html.PartialAsync("~/Views/Shared/Sections/_FeaturesPartial.cshtml", Model.Features)
+@await Html.PartialAsync("~/Views/Shared/Sections/_DarkModeSliderPartial.cshtml", Model.DarkModeSlider)
+@* @await Html.PartialAsync("~/Views/Shared/Sections/_ManageYourWorkPartial.cshtml", Model.ManageYourWork) *@
+
 
 
 

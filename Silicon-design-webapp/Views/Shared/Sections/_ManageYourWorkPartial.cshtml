@@ -1,0 +1,31 @@
+﻿@model ManageYourWorkViewModel
+
+<section id="@Model.Id" class="manage-your-work">
+    <div class="container">
+
+        <div class="manage-left">
+           <img src="@Model.Image.ImageUrl" alt="@Model.Image.AltText">
+        </div>
+
+        <div class="manage-right">
+            <h2>@Model.Title</h2>
+
+            @if (Model.Checklist.Count >= 1)
+            {
+                foreach (var item in Model.Checklist)
+                {
+                    <p><i class="@item.Icon"></i>@item.Text</p>                    
+                }
+            }
+
+            <a
+                class="btn-theme"
+                asp-controller="@Model.Link.ControllerName"
+                asp-action="@Model.Link.ActionName">
+                <span>@Model.Link.Text</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
