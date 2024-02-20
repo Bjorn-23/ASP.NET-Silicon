@@ -10,5 +10,5 @@ public class FeaturesViewModel
 
     public string Text { get; set; } = null!;
 
-    public List<FeaturesBox> featuresBoxes { get; set; } = [];
+    public List<FeaturesBoxViewModel> FeaturesBoxes { get; set; } = [];
 }

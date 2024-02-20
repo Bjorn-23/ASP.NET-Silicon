@@ -7,9 +7,9 @@
         <span>@Model.Text</span>
 
         <div class="grid-container">
-            @if (Model.featuresBoxes.Count >= 1)
+            @if (Model.FeaturesBoxes.Count >= 1)
             {
-                foreach (var boxes in Model.featuresBoxes)
+                foreach (var boxes in Model.FeaturesBoxes)
                 {
                     <a class="grid-item" asp-controller="@boxes.Link.ControllerName" asp-action="@boxes.Link.ActionName">
                         <img src="@boxes.Image.ImageUrl" alt="@boxes.Image.AltText">

@@ -12,9 +12,9 @@
                 <h1>@Model.Title</h1>
 
                 <div class="grid-container">
-                    @if (Model.AppDisplay.Count >= 1)
+                    @if (Model.AppDisplays.Count >= 1)
                     {
-                        foreach (var app in Model.AppDisplay)
+                        foreach (var app in Model.AppDisplays)
                         {
                             <div class="App-store store-box">
                                 <p class="title">@app.Title</p>

@@ -11,7 +11,7 @@ public class HomeIndexViewModel
     public ShowcaseViewModel Showcase { get; set; } = new()
     {
         Id = "overview",
-        Title = "Task Management Assistant You're Gonna Love",
+        Title = "The Task Management Assistant You're Gonna Love",
         SubHeading = "We offer you a new generation of task management system. Plan, manage & track all your tasks in one flexible tool.",
         Link = new() { ControllerName = "Downloads", ActionName = "Index", Text = "Get started for free" },
         BrandsText = "The largest companies use our tools to work efficiently",
@@ -32,7 +32,7 @@ public class HomeIndexViewModel
         Title = "What Do You Get With Our Tool?",
         Text = "Make sure all your tasks are organized so you can set priorities and focus on what's important.",
 
-        featuresBoxes =
+        FeaturesBoxes =
         [
             new()
             {
@@ -81,7 +81,7 @@ public class HomeIndexViewModel
 
     public DarkModeSliderViewModel DarkModeSlider { get; set; } = new()
     {
-        Id = "DarkModeSlider",
+        Id = "darkModeSlider",
         Title = "Switch between Light & Dark mode",
         ImageOne = new()
         {
@@ -97,7 +97,7 @@ public class HomeIndexViewModel
 
     public ManageYourWorkViewModel ManageYourWork { get; set; } = new()
     {
-        Id = "ManageYourWork",
+        Id = "manageYourWork",
         Title = "Manage Your Work",
         Image = new()
         {
@@ -117,14 +117,14 @@ public class HomeIndexViewModel
 
     public DownloadAppViewModel DownloadApp { get; set; } = new()
     {
-        Id = "DownloadApp",
+        Id = "downloadApp",
         Image = new()
         {
             ImageUrl = "./img/smartphone.png",
             AltText = "Smartphones"
         },
         Title = "Download Our App For Any Devices:",
-        AppDisplay =
+        AppDisplays =
         [
             new AppDisplayViewModel()
             {
@@ -153,5 +153,85 @@ public class HomeIndexViewModel
         ]
     };
 
+    public IntegrateToolsViewModel IntegrateTools { get; set; } = new()
+    {
+        Id = "integrateTools",
+        Title = "Integrate Top Work Tools",
+        SubHeading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat mollis egestas. Nam luctus facilisis ultrices. Pellentesque volutpat ligula est. Mattis fermentum, at nec lacus",
+        Boxes =
+        [
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/Google.svg", AltText= "Google Logo"
+                },
+                Text = "Lorem magnis pretium sed curabitur nunc facilisi nunc cursus sagittis."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/Zoom.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "In eget a mauris quis. Tortor dui tempus quis integer est sit natoque placerat dolor."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/color.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "Id mollis consectetur congue egestas egestas suspendisse blandit justo."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/gmail.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "Rutrum interdum tortor, sed at nulla. A cursus bibendum elit purus cras praesent."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/blue-circle.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "Congue pellentesque amet, viverra curabitur quam diam scelerisque fermentum urna."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/survey-monkey.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/dropbox.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "Ut in turpis consequat odio diam lectus elementum. Est faucibus blandit platea."
+            },
+            new ToolBoxViewModel()
+            {
+                Image = new ImageViewModel()
+                {
+                    ImageUrl = "./img/evernote.svg",
+                    AltText = "Google Logo"
+                },
+                Text = "Faucibus cursus maecenas lorem cursus nibh. Sociis sit risus id. Sit facilisis dolor arcu."
+            },
+        ]
+    };
 
 }

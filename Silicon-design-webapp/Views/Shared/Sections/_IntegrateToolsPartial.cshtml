@@ -1,0 +1,23 @@
+﻿@model IntegrateToolsViewModel
+
+<section id="@Model.Id" class="integrate-tools">
+    <div class="container">
+
+        <h1>@Model.Title</h1>
+        <p class="@Model.SubHeading"></p>
+
+        <div class="grid-container">
+            @if (Model.Boxes.Count >= 1)
+            {
+                @foreach (var box in @Model.Boxes)
+                {                    
+                    <a class="grid-item">
+                        <img src="@box.Image.ImageUrl" alt="@box.Image.AltText">
+                        <p>@box.Text</p>
+                    </a>
+                }                
+            }
+        </div>
+
+    </div>
+</section>

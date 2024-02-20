@@ -1,6 +1,6 @@
 ﻿namespace Silicon_design_webapp.Models.Components;
 
-public class FeaturesBox
+public class FeaturesBoxViewModel
 {
     public LinkViewModel Link { get; set; } = new LinkViewModel();
 
