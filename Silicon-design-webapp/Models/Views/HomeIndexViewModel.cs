@@ -16,13 +16,13 @@ public class HomeIndexViewModel
         BrandsText = "The largest companies use our tools to work efficiently",
         Brands =
                 [
-                    new() { ImageUrl = "./img/showcase-logo1.svg", AltText = "Logo 1" },
-                    new() { ImageUrl = "./img/showcase-logo2.svg", AltText = "Logo 2" },
-                    new() { ImageUrl = "./img/showcase-logo3.svg", AltText = "Logo 3" },
-                    new() { ImageUrl = "./img/showcase-logo4.svg", AltText = "Logo 4" }
+                    new() { ImageUrl = "/img/showcase-logo1.svg", AltText = "Logo 1" },
+                    new() { ImageUrl = "/img/showcase-logo2.svg", AltText = "Logo 2" },
+                    new() { ImageUrl = "/img/showcase-logo3.svg", AltText = "Logo 3" },
+                    new() { ImageUrl = "/img/showcase-logo4.svg", AltText = "Logo 4" }
 
                 ],
-        ShowcaseImage = new() { ImageUrl = "./img/showcase-dashboard.png", AltText = "Taskmanager dashboard" }
+        ShowcaseImage = new() { ImageUrl = "/img/showcase-dashboard.png", AltText = "Taskmanager dashboard" }
     };
 
     public FeaturesViewModel Features { get; set; } = new FeaturesViewModel
@@ -36,45 +36,64 @@ public class HomeIndexViewModel
             new()
             {
                 Link = new LinkViewModel() { ControllerName="Features", ActionName="Comments" },
-                Image = new ImageViewModel() { ImageUrl = "./img/chat.svg", AltText = "Chat icon" },
+                Image = new ImageViewModel() { ImageUrl = "/img/chat.svg", AltText = "Chat icon" },
                 SubHeading = "Comments On Tasks",
                 Text = "Id mollis consectetur congue egestas egestas suspendisse blandit justo."
             },
             new()
             {
                 Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Analytics" },
-                Image = new ImageViewModel() { ImageUrl = "./img/presentation.svg", AltText = "graph trending up on screen" },
+                Image = new ImageViewModel() { ImageUrl = "/img/presentation.svg", AltText = "graph trending up on screen" },
                 SubHeading = "Task analytics",
                 Text = "Non imperdiet facilisis nulla tellus Morbi scelerisque eget adipiscing vulputate."
             },
             new()
             {
                 Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Teams" },
-                Image = new ImageViewModel() { ImageUrl = "./img/add-group.svg", AltText = "Group icon" },
+                Image = new ImageViewModel() { ImageUrl = "/img/add-group.svg", AltText = "Group icon" },
                 SubHeading = "Multiple Assigneess",
                 Text = "A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris."
             },
             new()
             {
                 Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Notifications" },
-                Image = new ImageViewModel() { ImageUrl = "./img/bell.svg", AltText = "Bell ringing" },
+                Image = new ImageViewModel() { ImageUrl = "/img/bell.svg", AltText = "Bell ringing" },
                 SubHeading = "Notifications",
                 Text = "Diam, suspendisse velit cras ac. Lobortis diam volutpat, eget pellentesque viverra."
             },
             new()
             {
                 Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Subtasks" },
-                Image = new ImageViewModel() { ImageUrl = "./img/test.svg", AltText = "Checklist" },
+                Image = new ImageViewModel() { ImageUrl = "/img/test.svg", AltText = "Checklist" },
                 SubHeading = "Selections & Subtasks",
                 Text = "Mi feugiat hac id in. Sit elit placerat lacus nibh lorem ridiculus lectus."
             },
             new()
             {
                 Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Security" },
-                Image = new ImageViewModel() { ImageUrl = "./img/shield.svg", AltText = "Shield icon" },
+                Image = new ImageViewModel() { ImageUrl = "/img/shield.svg", AltText = "Shield icon" },
                 SubHeading = "DataSecurity",
                 Text = "Aliquam malesuada neque eget elit nulla vestibulum nunc cras."
             }
         ]
     };
+
+    public DarkModeSliderViewModel DarkModeSlider { get; set; } = new DarkModeSliderViewModel()
+    {
+        Id = "DarkModeSlider",
+        Title = "Switch between Light & Dark mode",
+        ImageOne = new()
+        {
+            ImageUrl = "/img/mbp-dark-full.png",
+            AltText= "before dark image"
+        },
+        ImageTwo = new()
+        {
+            ImageUrl = "/img/mbp-light-full.png",
+            AltText= "after light image"
+        }
+    };
+
+
+
 }
