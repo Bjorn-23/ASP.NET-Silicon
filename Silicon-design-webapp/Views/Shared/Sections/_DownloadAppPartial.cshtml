@@ -1,0 +1,44 @@
+﻿@model DownloadAppViewModel
+
+<section id="@Model.Id" class="download-app">
+    <div class="container">
+        <div class="blue-rectangle">
+
+            <div class="download-left">
+                <img src="@Model.Image.ImageUrl" alt="@Model.Image.AltText">
+            </div>
+
+            <div class="download-right">
+                <h1>@Model.Title</h1>
+
+                <div class="grid-container">
+                    @if (Model.AppDisplay.Count >= 1)
+                    {
+                        foreach (var app in Model.AppDisplay)
+                        {
+                            <div class="App-store store-box">
+                                <p class="title">@app.Title</p>
+                                <span class="stars">
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                     <i class="fa-solid fa-star"></i>
+                                    }
+                                </span>
+                                <h4 class="description">@app.Description</h4>
+                                <p class="rating">@app.Rating</p>
+                                <a class="app-link"
+                                   asp-controller="@app.Link.ControllerName"
+                                   asp-action="@app.Link.ActionName">
+                                    <img src="@app.Image.ImageUrl" alt="@app.Image.AltText">
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="bottom-rectangle"></div>
+
+</section>

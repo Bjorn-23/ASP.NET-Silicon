@@ -1,5 +1,6 @@
 ﻿using Silicon_design_webapp.Models.Components;
 using Silicon_design_webapp.Models.Sections;
+using System.Reflection;
 
 namespace Silicon_design_webapp.Models.Views;
 
@@ -112,6 +113,44 @@ public class HomeIndexViewModel
             new CheckListViewModel() { Text = "Easiest way to track time spent on tasks" }
         ],
         Link = new LinkViewModel() { ControllerName="Features", ActionName="Index", Text="Learn more"}
+    };
+
+    public DownloadAppViewModel DownloadApp { get; set; } = new()
+    {
+        Id = "DownloadApp",
+        Image = new()
+        {
+            ImageUrl = "./img/smartphone.png",
+            AltText = "Smartphones"
+        },
+        Title = "Download Our App For Any Devices:",
+        AppDisplay =
+        [
+            new AppDisplayViewModel()
+            {
+               Title = "App Store",
+               Icon = "fa-solid fa-star",
+               Description ="Editor's Choice",
+               Rating = "rating 4.7, 187K+ reviews",
+               Image = new()
+               {
+                   ImageUrl = "./img/appstore.svg",
+                   AltText="Apples app store"
+               }
+            },
+            new AppDisplayViewModel()
+            {
+                Title = "Goole Play",
+                Icon = "fa-solid fa-star",
+                Description = "App of the Day",
+                Rating = "rating 4.8, 30K+ reviews",
+                Image = new()
+                {
+                    ImageUrl = "./img/googleplay.svg",
+                    AltText = "Googles play store"
+                }
+            }
+        ]
     };
 
 
