@@ -8,10 +8,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var viewModel = new HomeIndexViewModel();
 
-        var viewModel = new HomeIndexViewModel();      
-
-        ViewData["Title"] = viewModel.Title;        
+        ViewData["Title"] = viewModel.Title;
 
         return View(viewModel);
     }
