@@ -1686,7 +1686,7 @@ footer .container .details {
   border-radius: 50%;
   background-color: #fff;
 }
-.courses .container .grid-container .grid-item .bookmark-wrapper .circle .bookmark {
+.courses .container .grid-container .grid-item .bookmark-wrapper .circle .bookmark, .courses .container .grid-container .grid-item .bookmark-wrapper .circle .bookmark-filled {
   position: absolute;
   top: 0.2rem;
   right: 0.2rem;
@@ -1703,7 +1703,12 @@ footer .container .details {
 .courses .container .grid-container .grid-item .text-wrapper .by {
   margin-right: 0.2rem;
 }
-.courses .container .grid-container .grid-item .text-wrapper .price {
+.courses .container .grid-container .grid-item .text-wrapper .price-wrapper {
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+.courses .container .grid-container .grid-item .text-wrapper .price-wrapper .price {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -1712,12 +1717,11 @@ footer .container .details {
   color: #0B0F19;
   font-size: 1.25rem !important;
   color: #6366F1;
-  margin-top: 0.5rem;
 }
-.courses .container .grid-container .grid-item .text-wrapper .discount-applied {
+.courses .container .grid-container .grid-item .text-wrapper .price-wrapper .discount-applied {
   text-decoration-line: line-through;
 }
-.courses .container .grid-container .grid-item .text-wrapper .discount-price {
+.courses .container .grid-container .grid-item .text-wrapper .price-wrapper .discount-price {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -1726,7 +1730,6 @@ footer .container .details {
   color: #0B0F19;
   font-size: 1.25rem !important;
   color: #EF4444;
-  margin-top: 0.5rem;
 }
 .courses .container .grid-container .grid-item .text-wrapper .divider {
   width: 100%;
