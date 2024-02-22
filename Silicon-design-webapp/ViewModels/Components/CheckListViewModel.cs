@@ -1,4 +1,4 @@
-﻿namespace Silicon_design_webapp.Models.Components;
+﻿namespace Silicon_design_webapp.ViewModels.Components;
 
 public class CheckListViewModel
 {

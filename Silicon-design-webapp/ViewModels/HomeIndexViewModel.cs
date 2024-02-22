@@ -1,8 +1,8 @@
-﻿using Silicon_design_webapp.Models.Components;
-using Silicon_design_webapp.Models.Sections;
-using System.Reflection;
+﻿
+using Silicon_design_webapp.ViewModels.Components;
+using Silicon_design_webapp.ViewModels.Sections;
 
-namespace Silicon_design_webapp.Models.Views;
+namespace Silicon_design_webapp.ViewModels;
 
 public class HomeIndexViewModel
 {
@@ -36,7 +36,7 @@ public class HomeIndexViewModel
         [
             new()
             {
-                Link = new LinkViewModel() { ControllerName="Features", ActionName="Comments" },
+                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Comments" },
                 Image = new ImageViewModel() { ImageUrl = "/img/chat.svg", AltText = "Chat icon" },
                 SubHeading = "Comments On Tasks",
                 Text = "Id mollis consectetur congue egestas egestas suspendisse blandit justo."
@@ -86,12 +86,12 @@ public class HomeIndexViewModel
         ImageOne = new()
         {
             ImageUrl = "/img/mbp-dark-full.png",
-            AltText= "before dark image"
+            AltText = "before dark image"
         },
         ImageTwo = new()
         {
             ImageUrl = "/img/mbp-light-full.png",
-            AltText= "after light image"
+            AltText = "after light image"
         }
     };
 
@@ -112,7 +112,7 @@ public class HomeIndexViewModel
             new CheckListViewModel() { Text = "Track your progress with interactive charts" },
             new CheckListViewModel() { Text = "Easiest way to track time spent on tasks" }
         ],
-        Link = new LinkViewModel() { ControllerName="Features", ActionName="Index", Text="Learn more"}
+        Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Index", Text = "Learn more" }
     };
 
     public DownloadAppViewModel DownloadApp { get; set; } = new()
@@ -128,15 +128,15 @@ public class HomeIndexViewModel
         [
             new AppDisplayViewModel()
             {
-               Title = "App Store",
-               Icon = "fa-solid fa-star",
-               Description ="Editor's Choice",
-               Rating = "rating 4.7, 187K+ reviews",
-               Image = new()
-               {
-                   ImageUrl = "./img/appstore.svg",
-                   AltText="Apples app store"
-               }
+                Title = "App Store",
+                Icon = "fa-solid fa-star",
+                Description = "Editor's Choice",
+                Rating = "rating 4.7, 187K+ reviews",
+                Image = new()
+                {
+                    ImageUrl = "./img/appstore.svg",
+                    AltText = "Apples app store"
+                }
             },
             new AppDisplayViewModel()
             {
@@ -164,7 +164,8 @@ public class HomeIndexViewModel
             {
                 Image = new ImageViewModel()
                 {
-                    ImageUrl = "./img/Google.svg", AltText= "Google Logo"
+                    ImageUrl = "./img/Google.svg",
+                    AltText = "Google Logo"
                 },
                 Text = "Lorem magnis pretium sed curabitur nunc facilisi nunc cursus sagittis."
             },
