@@ -99,10 +99,14 @@ header {
 
         .account-buttons{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+
+            @include md{
+                flex-direction: row;
+            }
 
             a{
-                transform: translateX(-25%);
+                margin: 0;
             }
         }
 
