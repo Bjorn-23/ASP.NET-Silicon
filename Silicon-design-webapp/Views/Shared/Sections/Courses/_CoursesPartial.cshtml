@@ -1,0 +1,90 @@
+﻿@model CoursesViewModel
+
+<section id="@Model.Id" class="courses">
+    <div class="container">
+        <div class="top-row">
+
+            <h1>@Model.Title</h1>
+
+            <div class="top-right">
+
+                <select class="form-select" name="category" id="category-select">
+                    <option selected>All categories</option>
+                    <option value="Html">Html</option>
+                    <option value="Css/Scss">Css/Scss</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="C#">C#</option>
+                    <option value="SQL">SQL</option>
+                    <option value="Fullstack">Fullstack</option>
+                    <option value="Frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                </select>
+
+                <div class="search-wrapper">
+                    <input class="search-field form-control" type="search" name="search-bar" id="search-bar"
+                           placeholder="Search courses">
+                    <i class="fa-light fa-magnifying-glass"></i>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="grid-container">
+            @if (@Model.Courses.Count >= 1)
+            {
+                foreach (var box in Model.Courses)
+                {
+                    <a class="grid-item" href="/course-details.html">
+                        <div class="img-wrapper">
+                            <img class="course-image" src="@box.CourseImage.ImageUrl" alt="@box.CourseImage.AltText">
+                            <p class="@box.BestSeller ? best-seller : hidden">Best Seller</p>
+                        </div>
+                        <div class="bookmark-wrapper">
+                            <div class="circle">
+                                <img class="@(box.Bookmark != true ? "bookmark" : "bookmark hidden")" src="/img/bookmark.svg" alt="Bookmark">
+                                <img class="@(box.Bookmark == true ? "bookmark-filled" : "bookmark-filled hidden")" src="/img/bookmark-filled.svg" alt="Bookmark Filled in">
+                            </div>
+                        </div>
+                        <div class="text-wrapper">
+                            <h5>@box.CourseLink</h5>
+                            <span class="by">By</span><span class="author">@box.Author</span>
+                            <div class="price-wrapper">
+                                <div class="@(box.DiscountPrice >= 1 ? "discount-price" : "hidden")"><span>@box.Currency</span><span>@box.DiscountPrice</span></div>
+                                <div class="@(box.DiscountPrice >= 1 ? "price discount-applied" : "price")"><span>@box.Currency</span><span>@box.Price</span></div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="description-wrapper">
+                                <!-- maybe replace html unicode with font awesome icons instead? -->
+                                <span class="description">&#128340 @box.Length hours</span>
+                                <span class="description">&#128077 @box.Rating</span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+
+        <div class="pagination">
+            <ol class="list-wrapper">
+                <ul class=""><</ul>
+                <ul class="">1</ul>
+                <ul class="btn-gray">2</ul>
+                <ul class="btn-theme">3</ul>
+                <ul class="">4</ul>
+                <ul class="">></ul>
+            </ol>
+        </div>
+
+        <div class="get-started">
+            <div class="text-wrapper">
+                <p>Ready to get started?</p>
+                <h2>Take Your<span class="theme-text"> Skill </span>to the Next Level</h2>
+                <button class="btn-theme">Work with us</button>
+            </div>
+            <div class="image-wrapper">
+                <img src="/img/office-worker.png" alt="">
+            </div>
+        </div>
+
+    </div>
+</section>
