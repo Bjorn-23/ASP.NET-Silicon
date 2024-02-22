@@ -1,7 +1,11 @@
 ﻿//using Silicon_design_webapp.Models.Components;
-using Silicon_design_webapp.Models.Components;
+using Silicon_design_webapp.Models;
 
-namespace Silicon_design_webapp.Models.Sections;
+
+//using Silicon_design_webapp.Models.Components;
+using Silicon_design_webapp.ViewModels.Components;
+
+namespace Silicon_design_webapp.ViewModels.Sections;
 
 public class SubscribeViewModel
 {

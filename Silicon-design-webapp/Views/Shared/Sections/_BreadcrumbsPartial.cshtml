@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<section class="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Home" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Auth" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Account") ? "hidden" : "container")">
     <nav class="breadcrumbs" style="--bs-breadcrumb-divider:'&#187';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <i class="fa-light fa-house"></i>
@@ -7,7 +7,7 @@
             </li>
             @if (ViewContext.RouteData.Values["controller"]!.ToString() != "Home")
             {
-                <li class="breadcrumb-item active">
+                <li class="@(ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")! ? "breadcrumb-item" : "breadcrumb-item active")">
                     <a asp-controller="@ViewContext.RouteData.Values["controller"]!.ToString()"
                        asp-action="@ViewContext.RouteData.Values["action"]!.ToString()">
                         @ViewContext.RouteData.Values["controller"]!.ToString()
@@ -21,4 +21,4 @@
             }
         </ol>
     </nav>
-</div>
+</section>

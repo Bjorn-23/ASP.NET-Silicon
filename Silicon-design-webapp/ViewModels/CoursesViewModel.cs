@@ -1,4 +1,4 @@
-﻿using Silicon_design_webapp.Models.Components;
+﻿using Silicon_design_webapp.ViewModels.Components;
 
 namespace Silicon_design_webapp.ViewModels;
 

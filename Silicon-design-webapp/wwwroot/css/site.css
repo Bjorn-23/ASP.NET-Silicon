@@ -691,10 +691,15 @@ header #mobile-menu .btn-switch {
 }
 header #mobile-menu .account-buttons {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  header #mobile-menu .account-buttons {
+    flex-direction: row;
+  }
 }
 header #mobile-menu .account-buttons a {
-  transform: translateX(-25%);
+  margin: 0;
 }
 header #mobile-menu nav {
   display: flex;

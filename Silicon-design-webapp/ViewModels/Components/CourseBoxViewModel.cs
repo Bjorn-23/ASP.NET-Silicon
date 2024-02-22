@@ -1,4 +1,4 @@
-﻿namespace Silicon_design_webapp.Models.Components;
+﻿namespace Silicon_design_webapp.ViewModels.Components;
 
 public class CourseBoxViewModel
 {
@@ -8,7 +8,7 @@ public class CourseBoxViewModel
     public bool Bookmark { get; set; } = false;
     public string Title { get; set; } = null!;
     public string Author { get; set; } = null!;
-    public string Currency {  get; set; } = null!;
+    public string Currency { get; set; } = null!;
     public decimal Price { get; set; }
     public decimal? DiscountPrice { get; set; }
     public string Length { get; set; } = null!;
