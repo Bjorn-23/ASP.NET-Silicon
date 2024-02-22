@@ -21,8 +21,8 @@ public class AuthController : Controller
         if (!ModelState.IsValid)
             return View(viewModel);
 
-        return View(viewModel);
+        //add logic for creating an account in service here.
 
-        //return RedirectToAction("SignIn", "Auth")
+        return RedirectToAction("SignIn", "Auth");
     }
 }

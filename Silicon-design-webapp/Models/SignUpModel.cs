@@ -17,15 +17,14 @@ public class SignUpModel
     [Required(ErrorMessage = "Invalid email")]
     [Display(Name = "Email", Prompt = "Enter your Email", Order = 2)]
     [DataType(DataType.EmailAddress)]
-    [RegularExpression("/ ^\\w + ([\\.-] ? w +) *@\\w + ([\\.-] ?\\w +)*(\\.\\w{2,})+$/", ErrorMessage = "Email invalid")]
+    [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w{2,}$", ErrorMessage = "Email invalid")]
     public string Email { get; set; } = null!;
 
 
     [Required(ErrorMessage = "Invalid password")]
     [Display(Name = "Password", Prompt = "********", Order = 3)]
     [DataType(DataType.Password)]
-    [RegularExpression("/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$/", ErrorMessage = "Password invalid")]
-
+    [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$", ErrorMessage = "Password invalid")]
     public string Password { get; set; } = null!;
 
 

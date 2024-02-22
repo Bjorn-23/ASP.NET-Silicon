@@ -5,41 +5,42 @@
         
         <h1 class="title">Create Account</h1>
         <p class="sign-up">Already have an account? <a asp-controller="Auth" asp-action="SignIn">Sign in here.</a></p>
-             
-        <div id="firstName" class="input-group">
-            <label asp-for="Form.FirstName"></label>
-            <span asp-validation-for="Form.FirstName"></span>
-            <input class="form-control" asp-for="Form.FirstName">
-        </div>
+        
+        <div class="group-wrapper">
+            <div id="firstName" class="input-group">
+                <label asp-for="Form.FirstName"></label>
+                <span asp-validation-for="Form.FirstName"></span>
+                <input  asp-for="Form.FirstName">
+            </div>
 
-        <div id="lastName" class="input-group">
-            <label asp-for="Form.LastName"></label>
-            <span asp-validation-for="Form.LastName"></span>
-            <input class="form-control" asp-for="Form.LastName">
+            <div id="lastName" class="input-group">
+                <label asp-for="Form.LastName"></label>
+                <span asp-validation-for="Form.LastName"></span>
+                <input asp-for="Form.LastName">
+            </div>
         </div>
 
         <div id="Email" class="input-group">
             <label asp-for="Form.Email"></label>
             <span asp-validation-for="Form.Email"></span>
-            <input class="form-control" asp-for="Form.Email">
+            <input asp-for="Form.Email">
         </div>
 
         <div id="password" class="input-group">
             <label asp-for="Form.Password"></label>
             <span asp-validation-for="Form.Password"></span>
-            <input class="form-control" asp-for="Form.Password">
+            <input asp-for="Form.Password">
         </div>
 
         <div id="confirmPassword" class="input-group">
             <label asp-for="Form.ConfirmPassword"></label>
             <span asp-validation-for="Form.ConfirmPassword"></span>
-            <input class="form-control" asp-for="Form.ConfirmPassword">
+            <input asp-for="Form.ConfirmPassword">
         </div>
 
-        @* Add links to the terms an conditions *@
         <div id="terms" class="checkbox-group">
-            <input class="form-control" asp-for="Form.TermsConditions">
-            <label asp-for="Form.TermsConditions">I Agree to the <a>Terms</a> & <a>Conditions</a>.</label> 
+            <input asp-for="Form.TermsConditions">
+            <label asp-for="Form.TermsConditions">I Agree to the <a asp-controller="About" asp-action="Terms">Terms</a> & <a asp-controller="About" asp-action="Conditions">Conditions</a>.</label> 
             <span asp-validation-for="Form.TermsConditions"></span>
         </div>
 

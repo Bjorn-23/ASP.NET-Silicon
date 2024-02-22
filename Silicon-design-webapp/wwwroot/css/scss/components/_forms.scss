@@ -1,0 +1,31 @@
+﻿form {
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.1rem;
+        margin: 0 0 1rem;
+
+        input {
+            width: 100%;
+            padding: 0.4rem;
+            border-radius: 0.5rem !important;
+            border: 1px solid $gray-500;
+            outline-color: $theme;
+            @include text-s;
+
+            @media md {
+                @include text-m;
+            }
+        }
+
+        ::placeholder {
+            color: $gray-500;
+        }
+
+        label {
+            @include h6;
+        }
+    }
+}
