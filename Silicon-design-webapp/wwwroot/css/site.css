@@ -200,24 +200,24 @@ h6, .h6 {
     margin: 2rem 0;
   }
 }
-.breadcrumbs .container nav ol {
+.breadcrumbs ol {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
 }
-.breadcrumbs .container nav ol i {
+.breadcrumbs ol i {
   color: #9397AD;
 }
-.breadcrumbs .container nav ol li {
+.breadcrumbs ol li {
   padding: 0.2rem;
 }
-.breadcrumbs .container nav ol li a {
+.breadcrumbs ol li a {
   color: #9397AD;
 }
-.breadcrumbs .container nav ol .active {
+.breadcrumbs ol .active {
   margin-left: -0.5rem;
 }
-.breadcrumbs .container nav ol .active a {
+.breadcrumbs ol .active a {
   color: #6366F1;
 }
 
