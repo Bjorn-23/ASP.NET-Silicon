@@ -485,6 +485,48 @@ section .sidebar a .sign-out {
   margin-left: -0.2rem;
 }
 
+form .input-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.1rem;
+  margin: 0 0 1rem;
+}
+form .input-group input {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 0.5rem !important;
+  border: 1px solid #B4B7C9;
+  outline-color: #6366F1;
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.875rem !important;
+}
+@media md {
+  form .input-group input {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem !important;
+  }
+}
+form .input-group ::placeholder {
+  color: #B4B7C9;
+}
+form .input-group label {
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  color: #0B0F19;
+  font-size: 1rem !important;
+}
+
 header {
   padding: 1rem 0;
   position: relative;
@@ -2777,16 +2819,27 @@ footer, .google-map, .contact-form {
 }
 
 .sign-up .sign-up-form {
-  text-align: start;
+  /*text-align: start;*/
+}
+@media (min-width: 768px) {
+  .sign-up .sign-up-form {
+    margin: 2rem auto;
+    width: 60%;
+  }
 }
 @media (min-width: 992px) {
   .sign-up .sign-up-form {
     margin: 2rem auto;
-    width: 700px;
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .sign-up .sign-up-form {
+    margin: 2rem auto;
+    width: 40%;
   }
 }
 .sign-up .sign-up-form .title {
-  text-align: center;
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -2795,29 +2848,37 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.75rem !important;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .sign-up .sign-up-form .title {
-    text-align: start;
     line-height: 160%;
     font-weight: 400;
     color: #565973;
     font-family: "Manrope", sans-serif;
     font-weight: 800;
     color: #0B0F19;
-    font-size: 2.5rem !important;
+    font-size: 2rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .sign-up .sign-up-form .title {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-weight: 800;
+    color: #0B0F19;
+    font-size: 1.75rem !important;
   }
 }
 .sign-up .sign-up-form .sign-up {
-  text-align: center;
   line-height: 160%;
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
   font-size: 0.875rem !important;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .sign-up .sign-up-form .sign-up {
-    text-align: start;
     line-height: 160%;
     font-weight: 400;
     color: #565973;
@@ -2825,30 +2886,12 @@ footer, .google-map, .contact-form {
     font-size: 1rem !important;
   }
 }
-.sign-up .sign-up-form .name-wrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.sign-up .sign-up-form .name-wrapper .name-box {
-  width: 100%;
-}
-.sign-up .sign-up-form label {
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-weight: 800;
-  color: #0B0F19;
-  font-size: 1rem !important;
-  margin: 1rem 0 0;
-}
-.sign-up .sign-up-form input {
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-size: 0.875rem !important;
+@media (min-width: 1200px) {
+  .sign-up .sign-up-form .group-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
 }
 .sign-up .sign-up-form .submit {
   width: 100%;
@@ -2861,25 +2904,6 @@ footer, .google-map, .contact-form {
   .sign-up .sign-up-form a {
     font-size: 1rem;
   }
-}
-.sign-up .sign-up-form .divider {
-  border: 1px solid #E2E5F1;
-  margin: 2rem 0;
-}
-.sign-up .sign-up-form .social-sign-in {
-  text-align: center;
-}
-@media (min-width: 992px) {
-  .sign-up .sign-up-form .social-sign-in {
-    margin: 0 0 1rem;
-  }
-}
-.sign-up .sign-up-form .button-wrapper {
-  display: flex;
-  gap: 1rem;
-}
-.sign-up .sign-up-form .button-wrapper button {
-  width: 100%;
 }
 
 .account-details {
