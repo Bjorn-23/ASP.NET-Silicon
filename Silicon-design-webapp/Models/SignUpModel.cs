@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Silicon_design_webapp.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Silicon_design_webapp.Models;
 
@@ -35,7 +36,7 @@ public class SignUpModel
     public string ConfirmPassword { get; set; } = null!;
 
 
-    [Required(ErrorMessage = "You must agree to the terms and conditions")]
+    [CheckboxRequired(ErrorMessage = "You must accept the terms and conditions")]
     [Display(Order = 5)]
     public bool TermsConditions { get; set; } = false;
 }
