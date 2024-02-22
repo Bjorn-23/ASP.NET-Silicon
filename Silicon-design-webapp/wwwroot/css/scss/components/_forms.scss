@@ -1,5 +1,6 @@
 ﻿form {
     .input-group {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -18,14 +19,64 @@
             @media md {
                 @include text-m;
             }
-        }
 
-        ::placeholder {
-            color: $gray-500;
+            &::placeholder {
+                color: $gray-500;
+            }
+
+            &.input-validation-error {
+                border: 1px solid $danger;
+
+                &::placeholder {
+                    color: $danger;
+                }
+            }
         }
 
         label {
             @include h6;
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            @include text-xs;
+
+            @include md {
+                @include text-m;
+            }
+
+            &.field-validation-error {
+                color: $danger;
+            }
+        }
+    }
+
+    .checkbox-group {
+        position: relative;
+        margin: 2rem 0 0 0;
+        gap: 0.5rem;
+
+        input[type="checkbox"] {
+            align-self: center;
+            height: 1rem;
+            width: 1rem;
+        }
+
+        span {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            @include text-xs;
+
+            @include md {
+                @include text-m;
+            }
+
+            &.field-validation-error {
+                color: $danger;
+            }
         }
     }
 }

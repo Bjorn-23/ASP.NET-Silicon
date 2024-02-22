@@ -18,7 +18,7 @@
 
             <div id="menu">
                 <nav>
-                    <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview" >Overview</a>
+                    <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview">Overview</a>
                     <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="features">Features</a>
                     <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
                     <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
@@ -36,11 +36,11 @@
             </div>
 
             <div class="account-buttons">
-                <a class="btn-gray" asp-controller="Account" asp-action="SignIn">
+                <a class="btn-gray" asp-controller="Auth" asp-action="SignIn">
                     <img class="sign-in" src="/img/icons/sign-in.svg"
                          alt="account logo" aria-hidden="true">Sign in
                 </a>
-                <a class="btn-theme" asp-controller="Account" asp-action="SignUp">
+                <a class="btn-theme" asp-controller="Auth" asp-action="SignUp">
                     <img class="sign-up" src="/img/icons/sign-up.svg"
                          alt="sign in logo" aria-hidden="true">Sign up
                 </a>
@@ -60,14 +60,14 @@
                 </div>
 
                 <div class="account-buttons">
-                    <button class="btn-gray" href="">
+                    <a class="btn-gray" asp-controller="Auth" asp-action="SignIn">
                         <img class="sign-in" src="/img/icons/sign-in.svg"
                              alt="account logo" aria-hidden="true">Sign in
-                    </button>
-                    <button class="btn-theme" href="">
+                    </a>
+                    <a class="btn-theme" asp-controller="Auth" asp-action="SignUp">
                         <img class="sign-up" src="/img/icons/sign-up.svg"
                              alt="sign in logo" aria-hidden="true">Sign up
-                    </button>
+                    </a>
                     <a href="/account-details.html"><img class="user-logged-in hidden" src="/img/user-logged-in.png" alt="profile picture of user" aria-hidden="false"></a>
                 </div>
 
@@ -83,6 +83,32 @@
 
         </div>
     </header>
+
+
+    <section class="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Home" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Auth" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Account") ? "hidden" : "container")">
+        <nav class="breadcrumbs" style="--bs-breadcrumb-divider:'&#187';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <i class="fa-light fa-house"></i>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                @if (ViewContext.RouteData.Values["controller"]!.ToString() != "Home")
+                {
+                    <li class="@(ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")! ? "breadcrumb-item" : "breadcrumb-item active")">
+                        <a asp-controller="@ViewContext.RouteData.Values["controller"]!.ToString()"
+                           asp-action="@ViewContext.RouteData.Values["action"]!.ToString()">
+                            @ViewContext.RouteData.Values["controller"]!.ToString()
+                        </a>
+                    </li>
+                }
+                @* If there a subpage that ends with Details is active then this code prints that out in the breadcrumb. *@
+                @if (ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")!)
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@ViewContext.RouteData.Values["action"]!.ToString()</li>
+                }
+            </ol>
+        </nav>
+    </section>
 
     <main>
         @RenderBody()
