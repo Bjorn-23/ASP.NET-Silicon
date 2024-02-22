@@ -2727,17 +2727,25 @@ footer, .google-map, .contact-form {
   }
 }
 
-.sign-in .sign-in-form {
-  text-align: start;
-}
-@media (min-width: 992px) {
-  .sign-in .sign-in-form {
+@media (min-width: 768px) {
+  .sign-in-section {
     margin: 2rem auto;
-    width: 700px;
+    width: 60%;
   }
 }
-.sign-in .sign-in-form .title {
-  text-align: center;
+@media (min-width: 992px) {
+  .sign-in-section {
+    margin: 3rem auto;
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .sign-in-section {
+    margin: 4rem auto;
+    width: 30%;
+  }
+}
+.sign-in-section .sign-in-form .title {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -2746,37 +2754,29 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.75rem !important;
 }
-@media (min-width: 992px) {
-  .sign-in .sign-in-form .title {
-    text-align: start;
+@media (min-width: 768px) {
+  .sign-in-section .sign-in-form .title {
     line-height: 160%;
     font-weight: 400;
     color: #565973;
     font-family: "Manrope", sans-serif;
     font-weight: 800;
     color: #0B0F19;
-    font-size: 2.5rem !important;
+    font-size: 2rem !important;
   }
 }
-.sign-in .sign-in-form .sign-up {
-  text-align: center;
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-size: 0.875rem !important;
-}
 @media (min-width: 992px) {
-  .sign-in .sign-in-form .sign-up {
-    text-align: start;
+  .sign-in-section .sign-in-form .title {
     line-height: 160%;
     font-weight: 400;
     color: #565973;
     font-family: "Manrope", sans-serif;
-    font-size: 1rem !important;
+    font-weight: 800;
+    color: #0B0F19;
+    font-size: 1.75rem !important;
   }
 }
-.sign-in .sign-in-form label {
+.sign-in-section .sign-in-form .input-group label {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -2786,35 +2786,53 @@ footer, .google-map, .contact-form {
   font-size: 1rem !important;
   margin: 1rem 0 0;
 }
-.sign-in .sign-in-form .submit {
+.sign-in-section .sign-in-form .sign-up {
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.875rem !important;
+}
+@media (min-width: 768px) {
+  .sign-in-section .sign-in-form .sign-up {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem !important;
+  }
+}
+.sign-in-section .sign-in-form .submit {
   width: 100%;
   margin: 1rem 0;
 }
-.sign-in .sign-in-form a {
+.sign-in-section .sign-in-social {
+  text-align: center;
+}
+.sign-in-section .sign-in-social a {
   font-size: 0.875rem;
+  font-weight: 700;
 }
 @media (min-width: 992px) {
-  .sign-in .sign-in-form a {
+  .sign-in-section .sign-in-social a {
     font-size: 1rem;
   }
 }
-.sign-in .sign-in-form .divider {
+.sign-in-section .sign-in-social .divider {
   border: 1px solid #E2E5F1;
   margin: 2rem 0;
 }
-.sign-in .sign-in-form .social-sign-in {
-  text-align: center;
-}
 @media (min-width: 992px) {
-  .sign-in .sign-in-form .social-sign-in {
+  .sign-in-section .sign-in-social h6 {
     margin: 0 0 1rem;
   }
 }
-.sign-in .sign-in-form .button-wrapper {
+.sign-in-section .sign-in-social .button-wrapper {
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
 }
-.sign-in .sign-in-form .button-wrapper button {
+.sign-in-section .sign-in-social .button-wrapper a {
   width: 100%;
 }
 

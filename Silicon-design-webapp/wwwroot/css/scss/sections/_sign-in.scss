@@ -1,72 +1,83 @@
-.sign-in{
-    .sign-in-form{
-        text-align: start;
-                
-        @include lg{
-            margin: 2rem auto;
-            width: 700px;
-        }
-        
-        .title{
-            text-align: center;
+.sign-in-section {
+    @include md {
+        margin: 2rem auto;
+        width: 60%;
+    }
+
+    @include lg {
+        margin: 3rem auto;
+        width: 50%;
+    }
+
+    @include xl {
+        margin: 4rem auto;
+        width: 30%;
+    }
+
+    .sign-in-form {
+
+        .title {
             @include h3;
-    
-            @include lg{
-                text-align: start;
-                @include h1;
+
+            @include md {
+                @include h2;
+            }
+
+            @include lg {
+                @include h3;
             }
         }
-    
-        .sign-up{
-            text-align: center;
+
+        .input-group {
+            label {
+                @include h6;
+                margin: 1rem 0 0;
+            }
+        }
+
+        .sign-up {
             @include text-s;
 
-            @include lg{
-                text-align: start;
+            @include md {
                 @include text-m;
             }
         }
 
-        label{
-            @include h6;
-            margin: 1rem 0 0;
-        }
-
-        .submit{
+        .submit {
             width: 100%;
             margin: 1rem 0;
-
-            // @include md{
-            //     width: unset;
-            // }
         }
+    }
 
-        a{
+    .sign-in-social {
+        text-align: center;
+
+        a {
             font-size: 0.875rem;
+            font-weight: 700;
 
-            @include lg{
+            @include lg {
                 font-size: 1rem;
             }
         }
 
-        .divider{
+        .divider {
             border: 1px solid $gray-300;
             margin: 2rem 0;
         }
 
-        .social-sign-in{
-            text-align: center;
-
-            @include lg{
+        h6 {
+            @include lg {
                 margin: 0 0 1rem;
             }
         }
 
-        .button-wrapper{
+        .button-wrapper {
             display: flex;
+            justify-content: space-between;
             gap: 1rem;
 
-            button{
+            a {
                 width: 100%;
             }
         }
