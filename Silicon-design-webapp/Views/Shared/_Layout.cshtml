@@ -36,11 +36,11 @@
             </div>
 
             <div class="account-buttons">
-                <a class="btn-gray" asp-controller="Account" asp-action="SignIn">
+                <a class="btn-gray" asp-controller="Auth" asp-action="SignIn">
                     <img class="sign-in" src="/img/icons/sign-in.svg"
                          alt="account logo" aria-hidden="true">Sign in
                 </a>
-                <a class="btn-theme" asp-controller="Account" asp-action="SignUp">
+                <a class="btn-theme" asp-controller="Auth" asp-action="SignUp">
                     <img class="sign-up" src="/img/icons/sign-up.svg"
                          alt="sign in logo" aria-hidden="true">Sign up
                 </a>
@@ -60,14 +60,14 @@
                 </div>
 
                 <div class="account-buttons">
-                    <button class="btn-gray" href="">
+                    <a class="btn-gray" asp-controller="Auth" asp-action="SignIn">
                         <img class="sign-in" src="/img/icons/sign-in.svg"
                              alt="account logo" aria-hidden="true">Sign in
-                    </button>
-                    <button class="btn-theme" href="">
+                    </a>
+                    <a class="btn-theme" asp-controller="Auth" asp-action="SignUp">
                         <img class="sign-up" src="/img/icons/sign-up.svg"
                              alt="sign in logo" aria-hidden="true">Sign up
-                    </button>
+                    </a>
                     <a href="/account-details.html"><img class="user-logged-in hidden" src="/img/user-logged-in.png" alt="profile picture of user" aria-hidden="false"></a>
                 </div>
 
