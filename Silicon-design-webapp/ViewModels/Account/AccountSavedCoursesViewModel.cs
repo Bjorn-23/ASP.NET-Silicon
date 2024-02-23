@@ -1,6 +1,5 @@
 ﻿
-
-using Silicon_design_webapp.ViewModels.Components;
+using Silicon_design_webapp.ViewModels.Shared;
 
 namespace Silicon_design_webapp.ViewModels.Account;
 

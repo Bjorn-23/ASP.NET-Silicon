@@ -1,4 +1,4 @@
-﻿namespace Silicon_design_webapp.ViewModels.Components;
+﻿namespace Silicon_design_webapp.ViewModels.Shared;
 
 public class ToolBoxViewModel
 {
