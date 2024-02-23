@@ -1,6 +1,6 @@
-﻿using Silicon_design_webapp.ViewModels.Components;
+﻿using Silicon_design_webapp.ViewModels.Shared;
 
-namespace Silicon_design_webapp.ViewModels.Sections;
+namespace Silicon_design_webapp.ViewModels.Home;
 
 
 public class ShowcaseViewModel

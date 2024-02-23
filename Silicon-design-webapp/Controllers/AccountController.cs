@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.Models;
-using Silicon_design_webapp.ViewModels;
+using Silicon_design_webapp.ViewModels.Account;
 
 namespace Silicon_design_webapp.Controllers;
 
