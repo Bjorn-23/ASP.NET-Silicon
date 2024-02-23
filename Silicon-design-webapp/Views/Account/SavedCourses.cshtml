@@ -1,0 +1,7 @@
+﻿@model AccountSavedCoursesViewModel
+
+<section class="account-saved-courses container">
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSidebarPartial.cshtml", Model.Sidebar)
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSavedCoursesPartial.cshtml")
+</section>
+

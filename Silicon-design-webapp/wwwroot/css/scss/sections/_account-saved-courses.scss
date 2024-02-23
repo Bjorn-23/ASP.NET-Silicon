@@ -1,75 +1,73 @@
-.account-saved-courses{
+.account-saved-courses {
     display: grid;
     grid-template-columns: auto;
     grid-template-areas:
-    'sidebar'
-    'details';
+        'sidebar' 'details';
 
-    @include lg{
+    @include lg {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas:
-        'sidebar details details';
+            'sidebar details details';
         gap: 2rem;
     }
 
-    @include xl{
+    @include xl {
         gap: 8rem;
-
+        padding: 2rem 0;
     }
 
-    .sidebar{
+    .sidebar {
         grid-area: sidebar;
     }
 
     .content-box-saved-courses {
         grid-area: details;
 
-        .top-wrapper{
+        .top-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
 
-            .title{
+            .title {
                 @include h3;
                 margin: 1rem 0 0;
                 text-align: center;
 
-                @include lg{
+                @include lg {
                     @include h1;
                     text-align: start;
                 }
             }
 
-            .btn-delete-all{
+            .btn-delete-all {
                 padding: 0.2rem 1rem;
                 border: 1px solid $danger;
                 border-radius: 0.4rem;
                 background-color: #fff;
                 color: $danger;
-                
-                @include md{
+
+                @include md {
                     padding: 0.4rem 2rem;
-                    transform: translateY(-15%); 
+                    transform: translateY(-15%);
                 }
             }
-
-
         }
 
-        .grid-container{
+        .grid-container {
             display: grid;
             grid-template-columns: auto;
             margin: 2rem 0 4rem;
             gap: 2rem 1rem;
 
-            @include md{
+            @include md {
                 grid-template-columns: auto auto;
-            }         
+            }
 
-            @include xl{
+            @include xl {
                 gap: 3rem 2rem;
             }
-            .grid-item{                
+
+            .grid-item {
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -78,28 +76,28 @@
                 overflow: hidden;
                 text-decoration: none;
 
-                .img-wrapper{
-                    .course-image{
+                .img-wrapper {
+                    .course-image {
                         width: 100%;
                         height: auto;
-                        object-fit: cover;                 
+                        object-fit: cover;
                     }
-                    
-                    .best-seller{
+
+                    .best-seller {
                         @include course-button;
                         position: absolute;
                         top: 1rem;
                         left: 1rem;
                     }
-                }                
-                
-                .bookmark-wrapper{
+                }
+
+                .bookmark-wrapper {
                     position: absolute;
                     top: 0;
                     right: 0;
-                    z-index: 2;
-                    
-                    .circle{
+                    z-index: 10;
+
+                    .circle {
                         position: relative;
                         top: 1rem;
                         right: 1rem;
@@ -109,58 +107,61 @@
                         border-radius: 50%;
                         background-color: #fff;
 
-                        .bookmark{
+                        .bookmark, .bookmark-filled {
                             position: absolute;
-                            top: 0.2rem;
-                            right: 0.2rem;
-                            width: 80%;
+                            top: 50%;
+                            left: 50%;
+                            width: 50%;
+                            transform: translate(-50%, -50%);
                             color: $gray-800;
                             z-index: 2;
                         }
 
-                        .marked{
+                        .marked {
                             color: $warning;
                         }
                     }
-                }                
+                }
 
-                .text-wrapper{
+                .text-wrapper {
                     padding: 0.5rem;
 
-                    .by{
+                    .by {
                         margin-right: 0.2rem;
                     }
 
-                    .price{
-                        @include h5;
-                        color: $theme;
-                        margin-top: 0.5rem;
+                    .price-wrapper {
+                        display: flex;
+                        gap: 1rem;
+                        margin: 0.5rem 0;
+
+                        .price {
+                            @include h5;
+                            color: $theme;
+                        }
+
+                        .discount-applied {
+                            text-decoration-line: line-through;
+                        }
+
+                        .discount-price {
+                            @include h5;
+                            color: $danger;
+                        }
                     }
 
-                    .discount-applied{
-                        text-decoration-line: line-through;
-                    }
-
-                    .discount-price{
-                        @include h5;
-                        color: $danger;
-                        margin-top: 0.5rem;
-                    }
-
-                    .divider{
+                    .divider {
                         width: 100%;
                         height: 1px;
-                        background-color:  $gray-300;
+                        background-color: $gray-300;
                         margin-bottom: 1rem;
                     }
 
-                    .description-wrapper{
+                    .description-wrapper {
                         margin-bottom: 0.5rem;
                     }
                 }
             }
         }
-
     }
 }
-
