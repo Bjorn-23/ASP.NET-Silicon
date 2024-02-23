@@ -1,0 +1,6 @@
+﻿@model AccountSecurityViewModel
+
+<section class="account-security container">
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSidebarPartial.cshtml", Model.Sidebar)
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSecurityPartial.cshtml")
+</section>

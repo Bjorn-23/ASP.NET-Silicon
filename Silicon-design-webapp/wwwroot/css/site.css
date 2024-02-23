@@ -494,7 +494,7 @@ form .input-group {
   gap: 0.1rem;
   margin: 0 0 1rem;
 }
-form .input-group input {
+form .input-group input, form .input-group textarea {
   width: 100%;
   padding: 0.4rem;
   border-radius: 0.5rem !important;
@@ -508,7 +508,7 @@ form .input-group input {
   font-size: 0.875rem !important;
 }
 @media md {
-  form .input-group input {
+  form .input-group input, form .input-group textarea {
     line-height: 160%;
     font-weight: 400;
     color: #565973;
@@ -516,13 +516,13 @@ form .input-group input {
     font-size: 1rem !important;
   }
 }
-form .input-group input::placeholder {
+form .input-group input::placeholder, form .input-group textarea::placeholder {
   color: #B4B7C9;
 }
-form .input-group input.input-validation-error {
+form .input-group input.input-validation-error, form .input-group textarea.input-validation-error {
   border: 1px solid #EF4444;
 }
-form .input-group input.input-validation-error::placeholder {
+form .input-group input.input-validation-error::placeholder, form .input-group textarea.input-validation-error::placeholder {
   color: #EF4444;
 }
 form .input-group label {
@@ -3010,6 +3010,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .account-details {
     gap: 8rem;
+    padding: 2rem 0;
   }
 }
 .account-details .sidebar {
@@ -3041,17 +3042,19 @@ footer, .google-map, .contact-form {
     text-align: start;
   }
 }
-.account-details .content-box-account-details form .name-wrapper, .account-details .content-box-account-details form .contact-wrapper, .account-details .content-box-account-details form .address-wrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.account-details .content-box-account-details form .name-wrapper .form-box, .account-details .content-box-account-details form .contact-wrapper .form-box, .account-details .content-box-account-details form .address-wrapper .form-box {
-  width: 100%;
+@media (min-width: 768px) {
+  .account-details .content-box-account-details form .group-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .account-details .content-box-account-details form .group-wrapper input {
+    width: 100%;
+  }
 }
 .account-details .content-box-account-details form .form-title {
   color: #6366F1;
-  text-align: center;
+  margin: 1rem 0 0;
 }
 @media (min-width: 1200px) {
   .account-details .content-box-account-details form .form-title {
@@ -3066,7 +3069,6 @@ footer, .google-map, .contact-form {
   font-weight: 800;
   color: #0B0F19;
   font-size: 1rem !important;
-  margin: 1rem 0 0 0;
 }
 .account-details .content-box-account-details form input::placeholder, .account-details .content-box-account-details form textarea::placeholder {
   color: #B4B7C9;
@@ -3105,6 +3107,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .account-security {
     gap: 8rem;
+    padding: 2rem 0;
   }
 }
 .account-security .sidebar {
@@ -3136,38 +3139,29 @@ footer, .google-map, .contact-form {
     text-align: start;
   }
 }
-.account-security .content-box-security form .current-password {
-  max-width: calc(50% - 0.5rem);
+@media (min-width: 992px) {
+  .account-security .content-box-security form .current-password {
+    max-width: calc(50% - 0.5rem);
+  }
 }
-.account-security .content-box-security form .password-wrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+@media (min-width: 992px) {
+  .account-security .content-box-security form .group-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
 }
-.account-security .content-box-security form .password-wrapper .form-box {
+.account-security .content-box-security form .group-wrapper input {
   width: 100%;
 }
 .account-security .content-box-security form .form-title {
   color: #6366F1;
-  text-align: center;
+  margin: 1rem 0 0;
 }
 @media (min-width: 1200px) {
   .account-security .content-box-security form .form-title {
     text-align: start;
   }
-}
-.account-security .content-box-security form label {
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-weight: 800;
-  color: #0B0F19;
-  font-size: 1rem !important;
-  margin: 1rem 0 0 0;
-}
-.account-security .content-box-security form input::placeholder, .account-security .content-box-security form textarea::placeholder {
-  color: #B4B7C9;
 }
 .account-security .content-box-security form span {
   color: #9397AD;
@@ -3205,7 +3199,12 @@ footer, .google-map, .contact-form {
 }
 .account-security .content-box-security .delete-account .delete-button {
   background-color: #EF4444;
-  margin: 2rem 0;
+  margin: 1rem 0;
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security .delete-account .delete-button {
+    margin: 2rem 0;
+  }
 }
 
 .account-saved-courses {
@@ -3223,6 +3222,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .account-saved-courses {
     gap: 8rem;
+    padding: 2rem 0;
   }
 }
 .account-saved-courses .sidebar {
@@ -3315,7 +3315,7 @@ footer, .google-map, .contact-form {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 2;
+  z-index: 10;
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle {
   position: relative;
@@ -3327,11 +3327,12 @@ footer, .google-map, .contact-form {
   border-radius: 50%;
   background-color: #fff;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle .bookmark {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle .bookmark, .account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle .bookmark-filled {
   position: absolute;
-  top: 0.2rem;
-  right: 0.2rem;
-  width: 80%;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
   color: #33354D;
   z-index: 2;
 }
@@ -3344,7 +3345,12 @@ footer, .google-map, .contact-form {
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .by {
   margin-right: 0.2rem;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper {
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper .price {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -3353,12 +3359,11 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.25rem !important;
   color: #6366F1;
-  margin-top: 0.5rem;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .discount-applied {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper .discount-applied {
   text-decoration-line: line-through;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .discount-price {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper .discount-price {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -3367,7 +3372,6 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.25rem !important;
   color: #EF4444;
-  margin-top: 0.5rem;
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .divider {
   width: 100%;
