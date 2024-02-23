@@ -1,8 +1,7 @@
 ﻿using Silicon_design_webapp.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
-namespace Silicon_design_webapp.ViewModels;
+
+namespace Silicon_design_webapp.ViewModels.Auth;
 
 public class SignInViewModel
 {

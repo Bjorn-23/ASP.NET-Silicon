@@ -1,6 +1,6 @@
 ﻿using Silicon_design_webapp.Models;
 
-namespace Silicon_design_webapp.ViewModels;
+namespace Silicon_design_webapp.ViewModels.Auth;
 
 public class SignUpViewModel
 {

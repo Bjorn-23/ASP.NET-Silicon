@@ -1,7 +1,7 @@
 ﻿using Silicon_design_webapp.Models;
 using Silicon_design_webapp.ViewModels.Components;
 
-namespace Silicon_design_webapp.ViewModels.Sections.Account;
+namespace Silicon_design_webapp.ViewModels.Account;
 
 public class AccountSidebarViewModel
 {

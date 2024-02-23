@@ -1,8 +1,6 @@
-﻿
-using Silicon_design_webapp.ViewModels.Components;
-using Silicon_design_webapp.ViewModels.Sections;
+﻿using Silicon_design_webapp.ViewModels.Components;
 
-namespace Silicon_design_webapp.ViewModels;
+namespace Silicon_design_webapp.ViewModels.Home;
 
 public class HomeIndexViewModel
 {

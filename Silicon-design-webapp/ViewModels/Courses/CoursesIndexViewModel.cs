@@ -1,6 +1,6 @@
 ﻿using Silicon_design_webapp.ViewModels.Components;
 
-namespace Silicon_design_webapp.ViewModels;
+namespace Silicon_design_webapp.ViewModels.Courses;
 
 public class CoursesIndexViewModel
 {
@@ -15,17 +15,19 @@ public class CoursesIndexViewModel
             {
                 CourseLink = new()
                 {
-                    ControllerName = "Courses", ActionName = "details" //need to add an asp-aspect prop to LinkViewModel 
+                    ControllerName = "Courses",
+                    ActionName = "details" //need to add an asp-aspect prop to LinkViewModel 
                 },
                 CourseImage = new()
                 {
-                    ImageUrl = "./img/course1.png", AltText = "hands typing on laptop"
+                    ImageUrl = "./img/course1.png",
+                    AltText = "hands typing on laptop"
                 },
                 BestSeller = true,
                 Bookmark = true,
                 Title = "Fullstack Web Developer Course From Scratch",
                 Author = "Robert Fox",
-                Currency ="$",
+                Currency = "$",
                 Price = 12.50m,
                 DiscountPrice = 5.99m,
                 //DiscountPrice = 0m, //When price is less than 1 the discount price will be hidden, and price will not be strikethrough.

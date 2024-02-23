@@ -1,7 +1,8 @@
-﻿using Silicon_design_webapp.ViewModels.Components;
-using Silicon_design_webapp.ViewModels.Sections.Account;
+﻿
 
-namespace Silicon_design_webapp.ViewModels;
+using Silicon_design_webapp.ViewModels.Components;
+
+namespace Silicon_design_webapp.ViewModels.Account;
 
 public class AccountSavedCoursesViewModel
 {
@@ -22,8 +23,8 @@ public class AccountSavedCoursesViewModel
             Phone = "0789456123",
             Biography = null!,
         }
-    }; 
-    
+    };
+
     public List<CourseBoxViewModel> Courses { get; set; } =
         [
             new CourseBoxViewModel()
