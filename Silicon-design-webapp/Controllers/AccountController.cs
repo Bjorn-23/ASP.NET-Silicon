@@ -37,4 +37,27 @@ public class AccountController : Controller
         //_accountservice.SaveAddresInfo(viewModel.AddressInfo)
         return RedirectToAction(nameof(Details));
     }
+        
+    [HttpGet]
+    public IActionResult Security()
+    {
+        var viewModel = new AccountSecurityViewModel();
+        ViewData["Title"] = viewModel.Title;
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public IActionResult PasswordInfo(AccountSecurityViewModel viewModel)
+    {
+        // _accountService.UpdatedPassword(viewModel.AccountSecurityPasswordInfoModel)
+        return RedirectToAction(nameof(Security));
+    }
+
+    [HttpPost]
+    public IActionResult DeleteAccount(AccountSecurityViewModel viewModel)
+    {
+        // _accountService.DeleteAccount(viewmodel.AccountSecurityDeleteModel)
+        return RedirectToAction(nameof(Security));
+    }
+
 }
