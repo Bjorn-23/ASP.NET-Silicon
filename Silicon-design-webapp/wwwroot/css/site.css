@@ -3222,6 +3222,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .account-saved-courses {
     gap: 8rem;
+    padding: 2rem 0;
   }
 }
 .account-saved-courses .sidebar {
@@ -3314,7 +3315,7 @@ footer, .google-map, .contact-form {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 2;
+  z-index: 10;
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle {
   position: relative;
@@ -3326,11 +3327,12 @@ footer, .google-map, .contact-form {
   border-radius: 50%;
   background-color: #fff;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle .bookmark {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle .bookmark, .account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-wrapper .circle .bookmark-filled {
   position: absolute;
-  top: 0.2rem;
-  right: 0.2rem;
-  width: 80%;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
   color: #33354D;
   z-index: 2;
 }
@@ -3343,7 +3345,12 @@ footer, .google-map, .contact-form {
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .by {
   margin-right: 0.2rem;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper {
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper .price {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -3352,12 +3359,11 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.25rem !important;
   color: #6366F1;
-  margin-top: 0.5rem;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .discount-applied {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper .discount-applied {
   text-decoration-line: line-through;
 }
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .discount-price {
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .price-wrapper .discount-price {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -3366,7 +3372,6 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.25rem !important;
   color: #EF4444;
-  margin-top: 0.5rem;
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .divider {
   width: 100%;

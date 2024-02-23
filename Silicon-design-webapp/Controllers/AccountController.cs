@@ -60,4 +60,26 @@ public class AccountController : Controller
         return RedirectToAction(nameof(Security));
     }
 
+    [HttpGet]
+    public IActionResult SavedCourses()
+    {
+        var viewModel = new AccountSavedCoursesViewModel();
+        ViewData["Title"] = viewModel.Title;
+        return View(viewModel);
+    }
+
+    // How do I pick just one item to delete?
+    [HttpPost]
+    public IActionResult DeleteBookmarkedCourse(AccountSavedCoursesViewModel viewModel)
+    {
+        // _accountService.UpdateSavedCourses(viewModel.Courses) // set one bookmark to false?
+        return RedirectToAction(nameof(SavedCourses));
+    }
+
+    [HttpPost]
+    public IActionResult DeleteAllSavedCourses(AccountSavedCoursesViewModel viewModel)
+    {
+        // _accountService.UpdateSavedCourses(viewModel.Courses) // set all bookmarks to false?
+        return RedirectToAction(nameof(SavedCourses));
+    }
 }
