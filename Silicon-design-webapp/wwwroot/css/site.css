@@ -3048,7 +3048,7 @@ footer, .google-map, .contact-form {
     justify-content: space-between;
     gap: 1rem;
   }
-  .account-details .content-box-account-details form .group-wrapper .form-box {
+  .account-details .content-box-account-details form .group-wrapper input {
     width: 100%;
   }
 }
@@ -3107,6 +3107,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .account-security {
     gap: 8rem;
+    padding: 2rem 0;
   }
 }
 .account-security .sidebar {
@@ -3138,38 +3139,29 @@ footer, .google-map, .contact-form {
     text-align: start;
   }
 }
-.account-security .content-box-security form .current-password {
-  max-width: calc(50% - 0.5rem);
+@media (min-width: 992px) {
+  .account-security .content-box-security form .current-password {
+    max-width: calc(50% - 0.5rem);
+  }
 }
-.account-security .content-box-security form .password-wrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+@media (min-width: 992px) {
+  .account-security .content-box-security form .group-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
 }
-.account-security .content-box-security form .password-wrapper .form-box {
+.account-security .content-box-security form .group-wrapper input {
   width: 100%;
 }
 .account-security .content-box-security form .form-title {
   color: #6366F1;
-  text-align: center;
+  margin: 1rem 0 0;
 }
 @media (min-width: 1200px) {
   .account-security .content-box-security form .form-title {
     text-align: start;
   }
-}
-.account-security .content-box-security form label {
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-weight: 800;
-  color: #0B0F19;
-  font-size: 1rem !important;
-  margin: 1rem 0 0 0;
-}
-.account-security .content-box-security form input::placeholder, .account-security .content-box-security form textarea::placeholder {
-  color: #B4B7C9;
 }
 .account-security .content-box-security form span {
   color: #9397AD;
@@ -3207,7 +3199,12 @@ footer, .google-map, .contact-form {
 }
 .account-security .content-box-security .delete-account .delete-button {
   background-color: #EF4444;
-  margin: 2rem 0;
+  margin: 1rem 0;
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security .delete-account .delete-button {
+    margin: 2rem 0;
+  }
 }
 
 .account-saved-courses {
