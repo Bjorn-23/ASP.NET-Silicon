@@ -15,7 +15,6 @@ public class SignInModel
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
-    [Required(ErrorMessage = "You must agree to the terms and conditions")]
-    [Display(Order = 5)]
+    [Display(Name = "Remember Me", Order = 5)]
     public bool RememberMe { get; set; } = false;
 }

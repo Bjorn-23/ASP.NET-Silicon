@@ -1,11 +1,12 @@
 ﻿@model SignInViewModel
 
 <section class="sign-in-section container">
+
     <form class="sign-in-form" method="post" asp-controller="Auth" asp-action="SignIn" novalidate>
 
         <h1 class="title">Welcome Back</h1>
-        <p class="sign-up">Don't' have an account yet? <a asp-controller="Auth" asp-action="SignUp">Sign up here.</a></p>
-                
+        <p class="sign-up">Don't' have an account yet? <a asp-controller="Auth" asp-action="SignUp">Sign up here.</a></p>      
+  
         <div id="Email" class="input-group">
             <label asp-for="Form.Email"></label>
             <span asp-validation-for="Form.Email"></span>
@@ -42,5 +43,7 @@
             <a href="#" class="btn-gray"><i class="fa-brands fa-square-facebook"></i>Facebook</a>
         </div>
     </div>
-
+    
 </section>
+
+@await Html.PartialAsync("_SignInValidationPartial")

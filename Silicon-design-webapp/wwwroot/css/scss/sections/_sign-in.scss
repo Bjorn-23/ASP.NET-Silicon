@@ -29,9 +29,10 @@
         }
 
         .input-group {
+            margin: 1rem 0 0;
+
             label {
                 @include h6;
-                margin: 1rem 0 0;
             }
         }
 

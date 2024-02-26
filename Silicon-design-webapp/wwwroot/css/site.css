@@ -2865,6 +2865,9 @@ footer, .google-map, .contact-form {
     font-size: 1.75rem !important;
   }
 }
+.sign-in-section .sign-in-form .input-group {
+  margin: 1rem 0 0;
+}
 .sign-in-section .sign-in-form .input-group label {
   line-height: 160%;
   font-weight: 400;
@@ -2873,7 +2876,6 @@ footer, .google-map, .contact-form {
   font-weight: 800;
   color: #0B0F19;
   font-size: 1rem !important;
-  margin: 1rem 0 0;
 }
 .sign-in-section .sign-in-form .sign-up {
   line-height: 160%;
