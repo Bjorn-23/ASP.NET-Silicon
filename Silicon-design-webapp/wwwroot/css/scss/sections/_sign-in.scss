@@ -16,6 +16,21 @@
 
     .sign-in-form {
 
+        .IncorrectEmailOrPassword {
+            text-align: center;
+            background-color: #EF444420;
+            border: 2px solid $danger;
+            color: $danger;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+
+            @include md {
+                padding: 1rem 0;
+                @include text-lg;
+                color: $danger;
+            }
+        }
+
         .title {
             @include h3;
 
