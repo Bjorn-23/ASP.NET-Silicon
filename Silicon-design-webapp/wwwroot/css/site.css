@@ -520,7 +520,8 @@ form .input-group input::placeholder, form .input-group textarea::placeholder {
   color: #B4B7C9;
 }
 form .input-group input.input-validation-error, form .input-group textarea.input-validation-error {
-  border: 1px solid #EF4444;
+  border: 1px solid #EF4444 !important;
+  box-shadow: 0 0 0 0.063rem #EF4444 !important;
 }
 form .input-group input.input-validation-error::placeholder, form .input-group textarea.input-validation-error::placeholder {
   color: #EF4444;
@@ -583,7 +584,7 @@ form .checkbox-group span {
     font-weight: 400;
     color: #565973;
     font-family: "Manrope", sans-serif;
-    font-size: 1rem !important;
+    font-size: 0.875rem !important;
   }
 }
 form .checkbox-group span.field-validation-error {
@@ -2834,6 +2835,25 @@ footer, .google-map, .contact-form {
     width: 30%;
   }
 }
+.sign-in-section .sign-in-form .IncorrectEmailOrPassword {
+  text-align: center;
+  background-color: rgba(239, 68, 68, 0.1254901961);
+  border: 2px solid #EF4444;
+  color: #EF4444;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+@media (min-width: 768px) {
+  .sign-in-section .sign-in-form .IncorrectEmailOrPassword {
+    padding: 1rem 0;
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1.125rem !important;
+    color: #EF4444;
+  }
+}
 .sign-in-section .sign-in-form .title {
   line-height: 160%;
   font-weight: 400;
@@ -2865,6 +2885,9 @@ footer, .google-map, .contact-form {
     font-size: 1.75rem !important;
   }
 }
+.sign-in-section .sign-in-form .input-group {
+  margin: 1rem 0 0;
+}
 .sign-in-section .sign-in-form .input-group label {
   line-height: 160%;
   font-weight: 400;
@@ -2873,7 +2896,6 @@ footer, .google-map, .contact-form {
   font-weight: 800;
   color: #0B0F19;
   font-size: 1rem !important;
-  margin: 1rem 0 0;
 }
 .sign-in-section .sign-in-form .sign-up {
   line-height: 160%;
