@@ -1,7 +1,7 @@
 ﻿<header>
     <div class="container">
 
-        <a id="logo" href="/index.html"><img src="/img/logo.svg" alt="Silicon logo"></a>
+        <a id="logo" asp-controller="Home" asp-action="Index"><img src="/img/logo.svg" alt="Silicon logo"></a>
 
         <div id="menu">
             <nav>
@@ -15,7 +15,7 @@
         <div class="btn-switch">
             <span>Light</span>
             <label class="switch">
-                <input type="checkbox" id="switch" role="switch">
+                <input type="checkbox" id="switch" role="checkbox">
                 <span class="slider round"></span>
             </label>
             <span>Dark</span>
@@ -59,10 +59,10 @@
             </div>
 
             <nav>
-                <a class="menu-link" href="/index.html">Overview</a>
-                <a class="menu-link" href="#">Features</a>
-                <a class="menu-link" href="/contact.html">Contact</a>
-                <a class="menu-link" href="/courses.html">Courses</a>
+                <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview">Overview</a>
+                <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="features">Features</a>
+                <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
             </nav>
 
         </div>

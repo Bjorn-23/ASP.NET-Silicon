@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silicon_design_webapp.ViewModels;
+using Silicon_design_webapp.ViewModels.Auth;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -40,7 +40,10 @@ public class AuthController : Controller
     public IActionResult SignIn(SignInViewModel viewModel)
     {
         if (!ModelState.IsValid)
+        {
+            viewModel.ErrorMessage = "Incorrect Email or Password";            
             return View(viewModel);
+        }
 
         //add logic for creating an account in service here.
 

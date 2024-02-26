@@ -1,96 +1,88 @@
-.account-details{
+.account-details {
     display: grid;
     grid-template-columns: auto;
     grid-template-areas:
-    'sidebar'
-    'details';
+        'sidebar' 'details';
 
-    @include lg{
+    @include lg {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas:
-        'sidebar details details';
+            'sidebar details details';
         gap: 2rem;
     }
 
-    @include xl{
+    @include xl {
         gap: 8rem;
-
+        padding: 2rem 0;
     }
 
-    .sidebar{
+    .sidebar {
         grid-area: sidebar;
     }
 
     .content-box-account-details {
         grid-area: details;
 
-        .title{
+        .title {
             @include h3;
             margin: 1rem 0 0;
             text-align: center;
 
-            @include lg{
+            @include lg {
                 @include h1;
                 text-align: start;
             }
         }
 
-        form{            
-            .name-wrapper, .contact-wrapper, .address-wrapper{
-                display: flex;
-                justify-content: space-between;
-                gap: 1rem;
+        form {
+            .group-wrapper {
+                @include md {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 1rem;
 
-                .form-box{
-                    width: 100%;    
+                    input {
+                        width: 100%;
+                    }
                 }
             }
 
-            .form-title{
+            .form-title {
                 color: $theme;
-                text-align: center;
+                margin: 1rem 0 0;
 
-                @include xl{
+                @include xl {
                     text-align: start;
                 }
             }
 
-            label{
+            label {
                 @include h6;
-                margin: 1rem 0 0 0;
             }
 
-            input::placeholder, textarea::placeholder{
+            input::placeholder, textarea::placeholder {
                 color: $gray-500;
             }
 
-            span{
+            span {
                 color: $gray-600;
                 margin: 0 0 0 0.2rem;
             }
 
-            .button-wrapper{
+            .button-wrapper {
                 display: flex;
                 gap: 1rem;
                 margin: 1rem 0;
 
-                @include xl{
+                @include xl {
                     margin: 2rem 0;
                 }
             }
-
-
         }
 
-        .divider{
+        .divider {
             border: 1px solid $gray-300;
             margin: 3rem 0 2rem;
-
-            // @include xl{
-            //     margin: 3rem 0 2rem;
-            // }
-
         }
     }
 }
-

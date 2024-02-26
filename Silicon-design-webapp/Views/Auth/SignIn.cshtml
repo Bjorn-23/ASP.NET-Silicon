@@ -1,27 +1,28 @@
 ﻿@model SignInViewModel
 
 <section class="sign-in-section container">
+
     <form class="sign-in-form" method="post" asp-controller="Auth" asp-action="SignIn" novalidate>
+        <div class="@(string.IsNullOrWhiteSpace(Model.ErrorMessage) ? "field-validation-valid" : "IncorrectEmailOrPassword")">@Model.ErrorMessage</div> 
 
         <h1 class="title">Welcome Back</h1>
-        <p class="sign-up">Don't' have an account yet? <a asp-controller="Auth" asp-action="SignUp">Sign up here.</a></p>
-                
+        <p class="sign-up">Don't' have an account yet? <a asp-controller="Auth" asp-action="SignUp">Sign up here.</a></p>      
+  
         <div id="Email" class="input-group">
             <label asp-for="Form.Email"></label>
-            <span asp-validation-for="Form.Email"></span>
-            <input asp-for="Form.Email">
+@*             <span asp-validation-for="Form.Email"></span>
+ *@            <input asp-for="Form.Email">
         </div>
 
         <div id="password" class="input-group">
             <label asp-for="Form.Password"></label>
-            <span asp-validation-for="Form.Password"></span>
-            <input asp-for="Form.Password">
+@*             <span asp-validation-for="Form.Password"></span>
+ *@            <input asp-for="Form.Password">
         </div>
         
         <div id="terms" class="checkbox-group">
             <input asp-for="Form.RememberMe">
             <label asp-for="Form.RememberMe">Remember me</label>
-            <span asp-validation-for="Form.RememberMe"></span>
         </div>
 
         <button class="btn-theme submit" type="submit">@Model.Title</button>
@@ -30,7 +31,7 @@
 
     <div class="sign-in-social">
         @* add a link to retrieve password *@
-        <a class="forgot-password" href="#">Forgot your password?</a>
+        <a id="forgot-password" asp-controller="Account" asp-action="Forgot">Forgot your password?</a>
 
         <div class="divider"></div>
 
@@ -42,5 +43,7 @@
             <a href="#" class="btn-gray"><i class="fa-brands fa-square-facebook"></i>Facebook</a>
         </div>
     </div>
-
+    
 </section>
+
+@await Html.PartialAsync("_SignInValidationPartial")
