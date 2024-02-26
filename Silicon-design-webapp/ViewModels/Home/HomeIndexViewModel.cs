@@ -1,4 +1,5 @@
-﻿using Silicon_design_webapp.ViewModels.Shared;
+﻿using Silicon_design_webapp.Models;
+using Silicon_design_webapp.ViewModels.Shared;
 
 namespace Silicon_design_webapp.ViewModels.Home;
 
@@ -237,16 +238,6 @@ public class HomeIndexViewModel
     {
         Title = "Don't Want To Miss Anything?",
         Image = new() { ImageUrl = "./img/blue-squiggle.svg", AltText = "blue squiggle" },
-        Subheading = "Sign Up For Newsletters",
-        Checkboxes =
-        [
-            new CheckBoxViewModel() { Id = "cb1", Text = "Daily Newsletter" },
-            new CheckBoxViewModel() { Id = "cb2", Text = "Daily Newsletter" },
-            new CheckBoxViewModel() { Id = "cb3", Text = "Advertising Updates" },
-            new CheckBoxViewModel() { Id = "cb4", Text = "Week in Review" },
-            new CheckBoxViewModel() { Id = "cb5", Text = "Event Updates" },
-            new CheckBoxViewModel() { Id = "cb6", Text = "Startups Weekly" },
-        ]
+        Subheading = "Sign Up For Newsletters"
     };
-
 }
