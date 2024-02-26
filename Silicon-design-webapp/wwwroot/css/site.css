@@ -1548,7 +1548,7 @@ footer .container .details {
   }
 }
 @media (min-width: 1200px) {
-  .subscribe .container .checkbox-wrapper {
+  .subscribe .container form .top-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas: "text grid grid grid";
@@ -1556,48 +1556,61 @@ footer .container .details {
   }
 }
 @media (min-width: 992px) {
-  .subscribe .container .checkbox-wrapper h5 {
+  .subscribe .container form .top-wrapper h5 {
     grid-area: text;
-    padding-right: 10rem;
+    padding-right: 2rem;
   }
 }
-.subscribe .container .checkbox-wrapper .grid-container {
+.subscribe .container form .top-wrapper .grid-container {
   display: grid;
   grid-template-columns: auto auto;
 }
 @media (min-width: 992px) {
-  .subscribe .container .checkbox-wrapper .grid-container {
+  .subscribe .container form .top-wrapper .grid-container {
     grid-template-columns: auto auto auto;
     grid-area: grid;
   }
 }
-.subscribe .container .checkbox-wrapper .grid-container .grid-item {
+.subscribe .container form .top-wrapper .grid-container .checkbox-group {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin: 0.5rem 0 0 0;
 }
-.subscribe .container .checkbox-wrapper .grid-container .grid-item input {
+.subscribe .container form .top-wrapper .grid-container .checkbox-group input {
   color: #B4B7C9;
 }
-.subscribe .container .checkbox-wrapper .grid-container .grid-item label {
+.subscribe .container form .top-wrapper .grid-container .checkbox-group label {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
   font-size: 0.75rem !important;
 }
-.subscribe .container .subscribe-wrapper {
-  margin: 2rem 0 0.5rem;
-}
 @media (min-width: 1200px) {
-  .subscribe .container .subscribe-wrapper {
-    display: flex;
-    align-items: self-end;
-    margin: 1rem 0 0 0;
+  .subscribe .container form .top-wrapper .grid-container .checkbox-group label {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem !important;
   }
 }
-.subscribe .container .subscribe-wrapper input {
+.subscribe .container form .bottom-wrapper {
+  positive: relative;
+}
+@media (min-width: 1200px) {
+  .subscribe .container form .bottom-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0 1rem;
+  }
+}
+.subscribe .container form .bottom-wrapper .input-group {
+  margin: 2rem 0 0.5rem;
+}
+.subscribe .container form .bottom-wrapper .input-group input {
   display: block;
   width: 100%;
   border: 1px solid #D4D7E5;
@@ -1605,22 +1618,27 @@ footer .container .details {
   padding: 0.5rem;
 }
 @media (min-width: 992px) {
-  .subscribe .container .subscribe-wrapper input {
+  .subscribe .container form .bottom-wrapper .input-group input {
     margin-right: 1rem;
   }
 }
-.subscribe .container .subscribe-wrapper .mail-icon {
+.subscribe .container form .bottom-wrapper .input-group .mail-icon {
   display: none;
 }
-.subscribe .container .subscribe-wrapper .btn-theme-s {
+.subscribe .container form .bottom-wrapper .input-group span {
+  position: absolute;
+  top: -65%;
+  right: 0.5rem;
+}
+.subscribe .container form .bottom-wrapper .btn-theme {
   margin-top: 1rem;
 }
 @media (min-width: 992px) {
-  .subscribe .container .subscribe-wrapper .btn-theme-s {
+  .subscribe .container form .bottom-wrapper .btn-theme {
     margin: 0 1rem;
   }
 }
-.subscribe .container .terms-policy {
+.subscribe .container form .terms-policy {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
