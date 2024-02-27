@@ -520,7 +520,8 @@ form .input-group input::placeholder, form .input-group textarea::placeholder {
   color: #B4B7C9;
 }
 form .input-group input.input-validation-error, form .input-group textarea.input-validation-error {
-  border: 1px solid #EF4444;
+  border: 1px solid #EF4444 !important;
+  box-shadow: 0 0 0 0.063rem #EF4444 !important;
 }
 form .input-group input.input-validation-error::placeholder, form .input-group textarea.input-validation-error::placeholder {
   color: #EF4444;
@@ -543,15 +544,9 @@ form .input-group span {
   color: #565973;
   font-family: "Manrope", sans-serif;
   font-size: 0.75rem !important;
-}
-@media (min-width: 768px) {
-  form .input-group span {
-    line-height: 160%;
-    font-weight: 400;
-    color: #565973;
-    font-family: "Manrope", sans-serif;
-    font-size: 1rem !important;
-  }
+  /*            @include md {
+                  @include text-s;
+              }*/
 }
 form .input-group span.field-validation-error {
   color: #EF4444;
@@ -583,7 +578,7 @@ form .checkbox-group span {
     font-weight: 400;
     color: #565973;
     font-family: "Manrope", sans-serif;
-    font-size: 1rem !important;
+    font-size: 0.875rem !important;
   }
 }
 form .checkbox-group span.field-validation-error {
@@ -1548,7 +1543,7 @@ footer .container .details {
   }
 }
 @media (min-width: 1200px) {
-  .subscribe .container .checkbox-wrapper {
+  .subscribe .container form .top-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas: "text grid grid grid";
@@ -1556,48 +1551,61 @@ footer .container .details {
   }
 }
 @media (min-width: 992px) {
-  .subscribe .container .checkbox-wrapper h5 {
+  .subscribe .container form .top-wrapper h5 {
     grid-area: text;
-    padding-right: 10rem;
+    padding-right: 2rem;
   }
 }
-.subscribe .container .checkbox-wrapper .grid-container {
+.subscribe .container form .top-wrapper .grid-container {
   display: grid;
   grid-template-columns: auto auto;
 }
 @media (min-width: 992px) {
-  .subscribe .container .checkbox-wrapper .grid-container {
+  .subscribe .container form .top-wrapper .grid-container {
     grid-template-columns: auto auto auto;
     grid-area: grid;
   }
 }
-.subscribe .container .checkbox-wrapper .grid-container .grid-item {
+.subscribe .container form .top-wrapper .grid-container .checkbox-group {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin: 0.5rem 0 0 0;
 }
-.subscribe .container .checkbox-wrapper .grid-container .grid-item input {
+.subscribe .container form .top-wrapper .grid-container .checkbox-group input {
   color: #B4B7C9;
 }
-.subscribe .container .checkbox-wrapper .grid-container .grid-item label {
+.subscribe .container form .top-wrapper .grid-container .checkbox-group label {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
   font-size: 0.75rem !important;
 }
-.subscribe .container .subscribe-wrapper {
-  margin: 2rem 0 0.5rem;
-}
 @media (min-width: 1200px) {
-  .subscribe .container .subscribe-wrapper {
-    display: flex;
-    align-items: self-end;
-    margin: 1rem 0 0 0;
+  .subscribe .container form .top-wrapper .grid-container .checkbox-group label {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem !important;
   }
 }
-.subscribe .container .subscribe-wrapper input {
+.subscribe .container form .bottom-wrapper {
+  positive: relative;
+}
+@media (min-width: 1200px) {
+  .subscribe .container form .bottom-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0 1rem;
+  }
+}
+.subscribe .container form .bottom-wrapper .input-group {
+  margin: 2rem 0 0.5rem;
+}
+.subscribe .container form .bottom-wrapper .input-group input {
   display: block;
   width: 100%;
   border: 1px solid #D4D7E5;
@@ -1605,22 +1613,27 @@ footer .container .details {
   padding: 0.5rem;
 }
 @media (min-width: 992px) {
-  .subscribe .container .subscribe-wrapper input {
+  .subscribe .container form .bottom-wrapper .input-group input {
     margin-right: 1rem;
   }
 }
-.subscribe .container .subscribe-wrapper .mail-icon {
+.subscribe .container form .bottom-wrapper .input-group .mail-icon {
   display: none;
 }
-.subscribe .container .subscribe-wrapper .btn-theme-s {
+.subscribe .container form .bottom-wrapper .input-group span {
+  position: absolute;
+  top: -65%;
+  right: 0.5rem;
+}
+.subscribe .container form .bottom-wrapper .btn-theme {
   margin-top: 1rem;
 }
 @media (min-width: 992px) {
-  .subscribe .container .subscribe-wrapper .btn-theme-s {
+  .subscribe .container form .bottom-wrapper .btn-theme {
     margin: 0 1rem;
   }
 }
-.subscribe .container .terms-policy {
+.subscribe .container form .terms-policy {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -2816,6 +2829,25 @@ footer, .google-map, .contact-form {
     width: 30%;
   }
 }
+.sign-in-section .sign-in-form .IncorrectEmailOrPassword {
+  text-align: center;
+  background-color: rgba(239, 68, 68, 0.1254901961);
+  border: 2px solid #EF4444;
+  color: #EF4444;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+@media (min-width: 768px) {
+  .sign-in-section .sign-in-form .IncorrectEmailOrPassword {
+    padding: 1rem 0;
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1.125rem !important;
+    color: #EF4444;
+  }
+}
 .sign-in-section .sign-in-form .title {
   line-height: 160%;
   font-weight: 400;
@@ -2847,6 +2879,9 @@ footer, .google-map, .contact-form {
     font-size: 1.75rem !important;
   }
 }
+.sign-in-section .sign-in-form .input-group {
+  margin: 1rem 0 0;
+}
 .sign-in-section .sign-in-form .input-group label {
   line-height: 160%;
   font-weight: 400;
@@ -2855,7 +2890,6 @@ footer, .google-map, .contact-form {
   font-weight: 800;
   color: #0B0F19;
   font-size: 1rem !important;
-  margin: 1rem 0 0;
 }
 .sign-in-section .sign-in-form .sign-up {
   line-height: 160%;
@@ -3114,7 +3148,59 @@ footer, .google-map, .contact-form {
   grid-area: sidebar;
 }
 .account-security .content-box-security {
+  position: relative;
   grid-area: details;
+}
+.account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+  text-align: center;
+  background-color: rgba(239, 68, 68, 0.1254901961);
+  border: 2px solid #EF4444;
+  color: #EF4444;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  margin: 1rem 0;
+}
+@media (min-width: 768px) {
+  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+    padding: 0.2rem 2rem;
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1.125rem !important;
+    color: #EF4444;
+  }
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+    width: calc(50% - 0.5rem);
+    top: 8.7rem;
+    right: 0;
+  }
+}
+.account-security .content-box-security .delete-failed {
+  top: unset;
+  right: unset;
+  bottom: 0;
+  right: 0;
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security .delete-failed {
+    padding: 0.2rem 1rem;
+    bottom: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .account-security .content-box-security .delete-failed {
+    width: calc(50% - 0.5rem);
+    top: unset;
+    right: unset;
+    bottom: 5.8rem;
+    left: 18rem;
+  }
 }
 .account-security .content-box-security .title {
   line-height: 160%;
@@ -3125,7 +3211,8 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.75rem !important;
   margin: 1rem 0 0;
-  text-align: center;
+  /*            text-align: center;
+  */
 }
 @media (min-width: 992px) {
   .account-security .content-box-security .title {
@@ -3136,23 +3223,9 @@ footer, .google-map, .contact-form {
     font-weight: 800;
     color: #0B0F19;
     font-size: 2.5rem !important;
-    text-align: start;
+    /*                text-align: start;
+    */
   }
-}
-@media (min-width: 992px) {
-  .account-security .content-box-security form .current-password {
-    max-width: calc(50% - 0.5rem);
-  }
-}
-@media (min-width: 992px) {
-  .account-security .content-box-security form .group-wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-}
-.account-security .content-box-security form .group-wrapper input {
-  width: 100%;
 }
 .account-security .content-box-security form .form-title {
   color: #6366F1;
@@ -3163,9 +3236,34 @@ footer, .google-map, .contact-form {
     text-align: start;
   }
 }
-.account-security .content-box-security form span {
-  color: #9397AD;
-  margin: 0 0 0 0.2rem;
+@media (min-width: 992px) {
+  .account-security .content-box-security form .group-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+.account-security .content-box-security form .input-group {
+  margin: 0 0 2rem;
+}
+.account-security .content-box-security form .input-group span {
+  top: 100%;
+}
+@media (min-width: 768px) {
+  .account-security .content-box-security form .input-group span {
+    /*                        top: auto;
+    */
+  }
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security form .input-group .current-password {
+    max-width: calc(50% - 0.5rem);
+  }
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security form .input-group .current-password-span {
+    right: calc(50% + 0.5rem);
+  }
 }
 .account-security .content-box-security form .button-wrapper {
   display: flex;

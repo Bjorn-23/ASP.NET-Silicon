@@ -21,38 +21,69 @@
     }
 
     .content-box-security {
+        position: relative;
         grid-area: details;
+
+        .update-failed, .delete-failed {
+            position: absolute;
+            top: 0.5rem;
+            right: 0;
+            text-align: center;
+            background-color: #EF444420;
+            border: 2px solid $danger;
+            color: $danger;
+            border-radius: 0.5rem;
+            padding: 0.2rem 0.5rem;
+            margin: 1rem 0;
+
+            @include md {
+                padding: 0.2rem 2rem;
+                @include text-lg;
+                color: $danger;
+            }
+
+            @include lg {
+                width: calc(50% - 0.5rem);
+                top: 8.7rem;
+                right: 0;
+            }
+        }
+
+        .delete-failed {
+            top: unset;
+            right: unset;
+            bottom: 0;
+            right: 0;
+
+            @include lg {
+                padding: 0.2rem 1rem;
+                bottom: 1rem;
+            }
+
+            @include xl {
+                width: calc(50% - 0.5rem);
+                top: unset;
+                right: unset;
+                bottom: 5.8rem;
+                left: 18rem;
+            }
+        }
+
+
 
         .title {
             @include h3;
             margin: 1rem 0 0;
-            text-align: center;
-
+            /*            text-align: center;
+*/
             @include lg {
                 @include h1;
-                text-align: start;
+                /*                text-align: start;
+*/
             }
         }
 
         form {
-            .current-password {
-                @include lg {
-                    max-width: calc(50% - 0.5rem);
-                }
-            }
-
-            .group-wrapper {
-                @include lg {
-                    display: flex;
-                    justify-content: space-between;
-                    gap: 1rem;
-                }
-
-                input {
-                    width: 100%;
-                }
-            }
-
             .form-title {
                 color: $theme;
                 margin: 1rem 0 0;
@@ -62,9 +93,38 @@
                 }
             }
 
-            span {
-                color: $gray-600;
-                margin: 0 0 0 0.2rem;
+            .group-wrapper {
+                @include lg {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 1rem;
+                }
+            }
+
+            .input-group {
+                margin: 0 0 2rem;
+
+                span {
+                    top: 100%;
+
+                    @include md {
+                        /*                        top: auto;
+*/
+                    }
+                }
+
+                .current-password {
+                    @include lg {
+                        max-width: calc(50% - 0.5rem);
+                    }
+                }
+
+                .current-password-span {
+
+                    @include lg {
+                        right: calc(50% + 0.5rem);
+                    }
+                }
             }
 
             .button-wrapper {
@@ -98,7 +158,7 @@
                 background-color: $danger;
                 margin: 1rem 0;
 
-                @include lg{
+                @include lg {
                     margin: 2rem 0;
                 }
             }

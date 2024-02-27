@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.Models;
-using Silicon_design_webapp.ViewModels;
+using Silicon_design_webapp.ViewModels.Account;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -37,27 +37,52 @@ public class AccountController : Controller
         //_accountservice.SaveAddresInfo(viewModel.AddressInfo)
         return RedirectToAction(nameof(Details));
     }
-        
+
+    [Route("/security")]
     [HttpGet]
     public IActionResult Security()
     {
         var viewModel = new AccountSecurityViewModel();
-        ViewData["Title"] = viewModel.Title;
+        ViewData["Title"] = "Security";
         return View(viewModel);
     }
 
+    [Route("/update-password-failed")]
     [HttpPost]
-    public IActionResult PasswordInfo(AccountSecurityViewModel viewModel)
+    public IActionResult PasswordInfo(AccountSecurityPasswordInfoModel viewModel)
     {
-        // _accountService.UpdatedPassword(viewModel.AccountSecurityPasswordInfoModel)
-        return RedirectToAction(nameof(Security));
+        var errors = ModelState
+            .Where(x => x.Value.Errors.Count > 0)
+            .Select(x => new { x.Key, x.Value.Errors })
+            .ToArray();
+
+        if(ModelState.IsValid)
+        {
+            // _accountService.UpdatePassword(viewModel.Forml) + other logic here.
+
+            return RedirectToAction(nameof(Security));
+        }
+
+        var viewModelError = new AccountSecurityViewModel();
+        viewModelError.ErrorMessage = "Failed to update password";
+        ViewData["Title"] = "Security";
+        return View("Security",  viewModelError);
     }
 
+    [Route("/delete-account-failed")]
     [HttpPost]
-    public IActionResult DeleteAccount(AccountSecurityViewModel viewModel)
+    public IActionResult DeleteAccount(AccountSecurityDeleteModel viewModel)
     {
-        // _accountService.DeleteAccount(viewmodel.AccountSecurityDeleteModel)
-        return RedirectToAction(nameof(Security));
+        if (ModelState.IsValid)
+        {
+            // _accountService.UpdatePassword(viewModel.Forml) + other logic here.
+            return RedirectToAction(nameof(Security));
+        }
+
+        var viewModelError = new AccountSecurityViewModel();
+        viewModelError.ErrorMessage = "Account could not be deleted";
+        ViewData["Title"] = "Security";
+        return View("Security", viewModelError);
     }
 
     [HttpGet]

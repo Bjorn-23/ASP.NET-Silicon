@@ -1,128 +1,145 @@
-.subscribe{
+.subscribe {
     background-color: $gray-200;
     padding: 2rem 0;
 
-    @include lg{
+    @include lg {
         padding: 6rem 0;
     }
 
-    .container{
+    .container {
         position: relative;
-        @include lg{
+
+        @include lg {
             padding: 0 12rem;
         }
-        
-        h1{
+
+        h1 {
             @include h4;
 
-            @include xl{
+            @include xl {
                 @include h1;
                 margin-bottom: 2rem;
             }
         }
 
-        .blue-squiggle{
+        .blue-squiggle {
             position: absolute;
             top: 10%;
-            right:20%;
+            right: 20%;
             width: 12%;
 
-            @include md{
+            @include md {
                 top: 0;
-                right:35%;
+                right: 35%;
                 width: 8%;
             }
 
-            @include lg{
+            @include lg {
                 top: 0;
-                right:25%;
+                right: 25%;
                 width: 6%;
             }
 
-            @include xxl{
+            @include xxl {
                 top: 5%;
                 right: 35%;
                 width: 5%;
             }
         }
 
-        .checkbox-wrapper{         
-            @include xl{
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                grid-template-areas: "text grid grid grid";
-                align-items: baseline;
-            }                
-            h5{
-                @include lg{
-                    grid-area: text;
-                    padding-right: 10rem;
+        form {
+            .top-wrapper {
+                @include xl {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                    grid-template-areas: "text grid grid grid";
+                    align-items: baseline;
+                }
+
+                h5 {
+                    @include lg {
+                        grid-area: text;
+                        padding-right: 2rem;
+                    }
+                }
+
+                .grid-container {
+                    display: grid;
+                    grid-template-columns: auto auto;
+
+                    @include lg {
+                        grid-template-columns: auto auto auto;
+                        grid-area: grid;
+                    }
+
+                    .checkbox-group {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin: 0.5rem 0 0 0;
+
+                        input {
+                            color: $gray-500;
+                        }
+
+                        label {
+                            @include text-xs;
+                            
+                            @include xl{
+                                @include text-m;
+                            }
+                        }
+                    }
                 }
             }
-            
-            .grid-container{
-                display: grid;
-                grid-template-columns: auto auto;
-    
-                @include lg{
-                    grid-template-columns: auto auto auto;
-                    grid-area: grid;
-                }
-    
-                .grid-item{
+
+            .bottom-wrapper {
+                positive: relative;
+                @include xl {
                     display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    margin: 0.5rem 0 0 0;
-                    
-                    //maybe sort out some custom styling later?
-                    input{
-                        color:  $gray-500;
+                    justify-content: space-between;
+                    align-items: baseline;
+                    gap: 0 1rem;
+                }
+
+                .input-group {
+                    margin: 2rem 0 0.5rem;
+
+                    input {
+                        display: block;
+                        width: 100%;
+                        border: 1px solid $gray-400;
+                        border-radius: 0.5rem;
+                        padding: 0.5rem;
+
+                        @include lg {
+                            margin-right: 1rem;
+                        }
                     }
-                    label{
-                        @include text-xs;
+
+                    .mail-icon {
+                        display: none;
+                    }
+
+                    span {
+                        position: absolute;
+                        top: -65%;
+                        right: 0.5rem;
+                    }
+                }
+
+                .btn-theme {
+                    margin-top: 1rem;
+
+                    @include lg {
+                        margin: 0 1rem;
                     }
                 }
             }
-        }
 
-
-        .subscribe-wrapper{
-            margin: 2rem 0 0.5rem;
-
-            @include xl{
-                display: flex;
-                align-items: self-end;
-                margin: 1rem 0 0 0;
-
+            .terms-policy {
+                @include text-xs;
             }
-
-            input{
-                display: block;
-                width: 100%;
-                border: 1px solid $gray-400;
-                border-radius: 0.5rem;
-                padding: 0.5rem;
-
-                @include lg{
-                    margin-right: 1rem;
-                }                
-            }
-
-            .mail-icon{
-                display: none;
-            }
-
-            .btn-theme-s{
-                margin-top: 1rem;
-
-                @include lg{
-                    margin: 0 1rem;
-                }
-            }
-        }
-        .terms-policy{
-            @include text-xs;
         }
     }
 }

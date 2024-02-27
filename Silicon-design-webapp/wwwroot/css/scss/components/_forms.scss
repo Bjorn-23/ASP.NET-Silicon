@@ -26,7 +26,8 @@
             }
 
             &.input-validation-error {
-                border: 1px solid $danger;
+                border: 1px solid $danger !important;
+                box-shadow: 0 0 0 0.063rem $danger !important;
 
                 &::placeholder {
                     color: $danger;
@@ -44,9 +45,9 @@
             right: 0;
             @include text-xs;
 
-            @include md {
-                @include text-m;
-            }
+/*            @include md {
+                @include text-s;
+            }*/
 
             &.field-validation-error {
                 color: $danger;
@@ -73,7 +74,7 @@
             @include text-xs;
 
             @include md {
-                @include text-m;
+                @include text-s;
             }
 
             &.field-validation-error {

@@ -40,6 +40,7 @@ public class SignUpModel
 
 
     [CheckboxRequired(ErrorMessage = "You must accept the terms and conditions")]
+    [Required(ErrorMessage = "You must accept the terms and conditions")]
     [Display(Order = 5)]
     public bool TermsConditions { get; set; } = false;
 }
