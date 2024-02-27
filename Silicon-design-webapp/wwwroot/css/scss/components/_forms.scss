@@ -45,9 +45,9 @@
             right: 0;
             @include text-xs;
 
-            @include md {
-                @include text-m;
-            }
+/*            @include md {
+                @include text-s;
+            }*/
 
             &.field-validation-error {
                 color: $danger;
