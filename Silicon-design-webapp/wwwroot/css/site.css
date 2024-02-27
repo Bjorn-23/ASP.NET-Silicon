@@ -1963,7 +1963,7 @@ footer .container .details {
 @media (min-width: 1200px) {
   .course-details .top-container .grid-container .button-wrapper {
     position: absolute;
-    top: 1.5rem;
+    top: 2.5rem;
   }
 }
 @media (min-width: 1400px) {
@@ -2016,10 +2016,10 @@ footer .container .details {
     inset: inherit;
   }
 }
-.course-details .top-container .grid-container nav ol {
-  /*         .breadcrumb-details {
-      color: #fff;
-  }*/
+@media (min-width: 1200px) {
+  .course-details .top-container .grid-container nav {
+    margin: 0;
+  }
 }
 @media (min-width: 1400px) {
   .course-details .top-container .grid-container nav ol {
@@ -2061,7 +2061,7 @@ footer .container .details {
     margin: 3rem 0 1rem;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .course-details .top-container .grid-container .title-wrapper {
     margin: 6rem 0 4rem;
   }
@@ -2129,9 +2129,19 @@ footer .container .details {
   gap: 1rem;
   margin: 1rem 0 0 0;
 }
+@media (min-width: 1200px) {
+  .course-details .top-container .grid-container .author-wrapper {
+    margin: 3rem 0 0 0;
+  }
+}
 @media (min-width: 1400px) {
   .course-details .top-container .grid-container .author-wrapper {
-    margin: 6rem 0 0 0;
+    margin: 4rem 0 0 0;
+  }
+}
+@media (min-width: 1920px) {
+  .course-details .top-container .grid-container .author-wrapper {
+    margin: 8rem 0 0 0;
   }
 }
 .course-details .top-container .grid-container .author-wrapper .course-instructor-picture {
