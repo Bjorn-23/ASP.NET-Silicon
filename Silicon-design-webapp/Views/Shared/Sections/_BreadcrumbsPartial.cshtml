@@ -1,4 +1,6 @@
-﻿<section class="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Home" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Auth" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Account") ? "hidden" : "container")">
+﻿
+
+<section class="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Home" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Auth" || ViewContext.RouteData.Values["Controller"]!.ToString() == "Account" || ViewContext.RouteData.Values["Action"]!.ToString() == "Details" ) ? "hidden" : "container")">
     <nav class="breadcrumb" style="--bs-breadcrumb-divider:'&#187';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <i class="fa-light fa-house"></i>
