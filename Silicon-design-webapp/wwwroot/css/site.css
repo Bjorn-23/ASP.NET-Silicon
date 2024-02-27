@@ -3151,19 +3151,20 @@ footer, .google-map, .contact-form {
   position: relative;
   grid-area: details;
 }
-.account-security .content-box-security .update-failed {
+.account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
   position: absolute;
-  top: 8rem;
-  left: 26.5rem;
+  top: 0.5rem;
+  right: 0;
   text-align: center;
   background-color: rgba(239, 68, 68, 0.1254901961);
   border: 2px solid #EF4444;
   color: #EF4444;
   border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
   margin: 1rem 0;
 }
 @media (min-width: 768px) {
-  .account-security .content-box-security .update-failed {
+  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
     padding: 0.2rem 2rem;
     line-height: 160%;
     font-weight: 400;
@@ -3173,10 +3174,32 @@ footer, .google-map, .contact-form {
     color: #EF4444;
   }
 }
+@media (min-width: 992px) {
+  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+    width: calc(50% - 0.5rem);
+    top: 8.7rem;
+    right: 0;
+  }
+}
+.account-security .content-box-security .delete-failed {
+  top: unset;
+  right: unset;
+  bottom: 0;
+  right: 0;
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security .delete-failed {
+    padding: 0.2rem 1rem;
+    bottom: 1rem;
+  }
+}
 @media (min-width: 1200px) {
-  .account-security .content-box-security .update-failed {
-    top: 8.6rem;
-    left: 26.5rem;
+  .account-security .content-box-security .delete-failed {
+    width: calc(50% - 0.5rem);
+    top: unset;
+    right: unset;
+    bottom: 5.8rem;
+    left: 18rem;
   }
 }
 .account-security .content-box-security .title {
@@ -3188,7 +3211,8 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.75rem !important;
   margin: 1rem 0 0;
-  text-align: center;
+  /*            text-align: center;
+  */
 }
 @media (min-width: 992px) {
   .account-security .content-box-security .title {
@@ -3199,7 +3223,8 @@ footer, .google-map, .contact-form {
     font-weight: 800;
     color: #0B0F19;
     font-size: 2.5rem !important;
-    text-align: start;
+    /*                text-align: start;
+    */
   }
 }
 .account-security .content-box-security form .form-title {
@@ -3226,7 +3251,8 @@ footer, .google-map, .contact-form {
 }
 @media (min-width: 768px) {
   .account-security .content-box-security form .input-group span {
-    top: auto;
+    /*                        top: auto;
+    */
   }
 }
 @media (min-width: 992px) {
@@ -3234,7 +3260,7 @@ footer, .google-map, .contact-form {
     max-width: calc(50% - 0.5rem);
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .account-security .content-box-security form .input-group .current-password-span {
     right: calc(50% + 0.5rem);
   }

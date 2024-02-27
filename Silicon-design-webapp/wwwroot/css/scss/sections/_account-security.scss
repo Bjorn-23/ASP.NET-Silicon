@@ -24,15 +24,16 @@
         position: relative;
         grid-area: details;
 
-        .update-failed {
+        .update-failed, .delete-failed {
             position: absolute;
-            top: 8rem;
-            left: 26.5rem;
+            top: 0.5rem;
+            right: 0;
             text-align: center;
             background-color: #EF444420;
             border: 2px solid $danger;
             color: $danger;
             border-radius: 0.5rem;
+            padding: 0.2rem 0.5rem;
             margin: 1rem 0;
 
             @include md {
@@ -41,20 +42,44 @@
                 color: $danger;
             }
 
-            @include xl {
-                top: 8.6rem;
-                left: 26.5rem;
+            @include lg {
+                width: calc(50% - 0.5rem);
+                top: 8.7rem;
+                right: 0;
             }
         }
+
+        .delete-failed {
+            top: unset;
+            right: unset;
+            bottom: 0;
+            right: 0;
+
+            @include lg {
+                padding: 0.2rem 1rem;
+                bottom: 1rem;
+            }
+
+            @include xl {
+                width: calc(50% - 0.5rem);
+                top: unset;
+                right: unset;
+                bottom: 5.8rem;
+                left: 18rem;
+            }
+        }
+
+
 
         .title {
             @include h3;
             margin: 1rem 0 0;
-            text-align: center;
-
+            /*            text-align: center;
+*/
             @include lg {
                 @include h1;
-                text-align: start;
+                /*                text-align: start;
+*/
             }
         }
 
@@ -82,11 +107,10 @@
                 span {
                     top: 100%;
 
-                    @include md{
-                        top: auto;
+                    @include md {
+                        /*                        top: auto;
+*/
                     }
-
-
                 }
 
                 .current-password {
@@ -97,7 +121,7 @@
 
                 .current-password-span {
 
-                    @include xl {
+                    @include lg {
                         right: calc(50% + 0.5rem);
                     }
                 }

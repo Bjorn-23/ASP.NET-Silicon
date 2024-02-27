@@ -28,10 +28,10 @@ const PasswordValidator = (element) => {
     
 }
 
-let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
+let signInForms = document.querySelectorAll('form')
+let signInInputs = signInForms[0].querySelectorAll('input')
 
-inputs.forEach(input => {
+signInInputs.forEach(input => {
     if (input.dataset.val === 'true') {
 
         input.addEventListener('keyup', (e) => {

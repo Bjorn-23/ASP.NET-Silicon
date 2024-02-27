@@ -23,10 +23,10 @@ const EmailValidator = (element) => {
 }
 
 
-let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
+let emailForms = document.querySelectorAll('form')
+let emailInputs = emailForms[0].querySelectorAll('input')
 
-inputs.forEach(input => {
+emailInputs.forEach(input => {
     if (input.dataset.val === 'true') {
         input.addEventListener('keyup', (e) => {
             EmailValidator(e.target)

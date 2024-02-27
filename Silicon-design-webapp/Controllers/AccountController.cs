@@ -62,6 +62,7 @@ public class AccountController : Controller
 
             return RedirectToAction(nameof(Security));
         }
+
         var viewModelError = new AccountSecurityViewModel();
         viewModelError.ErrorMessage = "Failed to update password";
         ViewData["Title"] = "Security";
@@ -78,8 +79,10 @@ public class AccountController : Controller
             return RedirectToAction(nameof(Security));
         }
 
+        var viewModelError = new AccountSecurityViewModel();
+        viewModelError.ErrorMessage = "Account could not be deleted";
         ViewData["Title"] = "Security";
-        return View("Security", new AccountSecurityViewModel());
+        return View("Security", viewModelError);
     }
 
     [HttpGet]

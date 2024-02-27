@@ -25,10 +25,10 @@ const CheckboxValidator = (element) => {
     }
 }
 
-//let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
+let checkboxForms = document.querySelectorAll('form')
+let checkboxInputs = checkboxForms[0].querySelectorAll('input')
 
-inputs.forEach(input => {
+checkboxInputs.forEach(input => {
     if (input.dataset.val === 'true') {
 
         if (input.type === 'checkbox') {
