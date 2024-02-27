@@ -192,32 +192,32 @@ h6, .h6 {
   display: none !important;
 }
 
-.breadcrumbs {
+.breadcrumb {
   margin: 1rem 0;
 }
 @media (min-width: 992px) {
-  .breadcrumbs {
+  .breadcrumb {
     margin: 2rem 0;
   }
 }
-.breadcrumbs ol {
+.breadcrumb ol {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
 }
-.breadcrumbs ol i {
+.breadcrumb ol i {
   color: #9397AD;
 }
-.breadcrumbs ol li {
+.breadcrumb ol li {
   padding: 0.2rem;
 }
-.breadcrumbs ol li a {
+.breadcrumb ol li a {
   color: #9397AD;
 }
-.breadcrumbs ol .active {
+.breadcrumb ol .active {
   margin-left: -0.5rem;
 }
-.breadcrumbs ol .active a {
+.breadcrumb ol .active a {
   color: #6366F1;
 }
 
@@ -2017,20 +2017,20 @@ footer .container .details {
   }
 }
 .course-details .top-container .grid-container nav ol {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
+  /*         .breadcrumb-details {
+      color: #fff;
+  }*/
 }
 @media (min-width: 1400px) {
   .course-details .top-container .grid-container nav ol {
     margin: 1rem 0;
   }
 }
-.course-details .top-container .grid-container nav ol i, .course-details .top-container .grid-container nav ol li > a, .course-details .top-container .grid-container nav ol .active > a {
+.course-details .top-container .grid-container nav ol i, .course-details .top-container .grid-container nav ol li > a, .course-details .top-container .grid-container nav ol .active > a, .course-details .top-container .grid-container nav ol .breadcrumb-details {
   color: #0B0F19;
 }
 @media (min-width: 1200px) {
-  .course-details .top-container .grid-container nav ol i, .course-details .top-container .grid-container nav ol li > a, .course-details .top-container .grid-container nav ol .active > a {
+  .course-details .top-container .grid-container nav ol i, .course-details .top-container .grid-container nav ol li > a, .course-details .top-container .grid-container nav ol .active > a, .course-details .top-container .grid-container nav ol .breadcrumb-details {
     color: #fff;
   }
 }
@@ -2040,8 +2040,21 @@ footer .container .details {
 .course-details .top-container .grid-container nav ol li a {
   font-size: 0.6rem;
 }
+@media (min-width: 992px) {
+  .course-details .top-container .grid-container nav ol li a {
+    font-size: 0.8125rem;
+  }
+}
+@media (min-width: 1200px) {
+  .course-details .top-container .grid-container nav ol li a {
+    font-size: 1rem;
+  }
+}
 .course-details .top-container .grid-container nav ol .active {
   margin-left: -0.5rem;
+}
+.course-details .top-container .grid-container nav ol .breadcrumb-item + .breadcrumb-item::before {
+  color: #fff;
 }
 @media (min-width: 1200px) {
   .course-details .top-container .grid-container .title-wrapper {
