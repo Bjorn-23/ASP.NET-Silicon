@@ -1,5 +1,5 @@
 ﻿
-const SignInErrorHandler = (element, validationResult) => {
+const PasswordErrorHandler = (element, validationResult) => {
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
 
     if (validationResult) {
@@ -17,35 +17,34 @@ const SignInErrorHandler = (element, validationResult) => {
 }
 
 
-const EmailValidator = (element) => {
-    const regExp = /^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/
-    SignInErrorHandler(element, regExp.test(element.value))
+const CompareValidator = (element, comparisonValue) => {
+    if (element === comparisonValue)
+        return true
+    else
+        return false
 }
 
+
 const PasswordValidator = (element) => {
-    const regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/
-    SignInErrorHandler(element, regExp.test(element.value))
-    
+    if (element.dataset.valEqualtoOther !== undefined) {
+        let renamedElement = document.getElementsByName(element.dataset.valEqualtoOther.replace('*.', ''))
+        let result = CompareValidator(element.value, renamedElement[0].value)
+        PasswordErrorHandler(element, result)
+    }
+    else {
+        const regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/
+        PasswordErrorHandler(element, regExp.test(element.value))
+    }
 }
+
 
 let forms = document.querySelectorAll('form')
 let inputs = forms[0].querySelectorAll('input')
 
 inputs.forEach(input => {
     if (input.dataset.val === 'true') {
-
         input.addEventListener('keyup', (e) => {
-            switch (e.target.type) {
-
-                case 'email':
-                    EmailValidator(e.target)
-                    break;
-
-                case 'password':
-                    PasswordValidator(e.target)
-                    break;
-            }
-        })
-        
+            PasswordValidator(e.target)
+        })        
     }
 })

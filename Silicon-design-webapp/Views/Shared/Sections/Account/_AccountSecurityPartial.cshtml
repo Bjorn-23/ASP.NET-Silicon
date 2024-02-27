@@ -1,50 +1,15 @@
 ﻿@model AccountSecurityViewModel
 
 <div class="content-box-security">
+
     <h1 class="title">@Model.Title</h1>
 
-    <form method="post" class="password-info" asp-controller="Account" asp-action="PasswordInfo">
-        <h5 class="form-title">Password</h5>
+    <div class="@(string.IsNullOrWhiteSpace(@Model.ErrorMessage) ? "hidden" : "update-failed" )">@Model.ErrorMessage</div>
 
-        <div class="input-group">
-            <label asp-for="@Model.Passwords.CurrentPassword"></label>
-            <span asp-validation-for="@Model.Passwords.CurrentPassword"></span>
-            <input class="current-password" asp-for="@Model.Passwords.CurrentPassword">
-        </div>
-
-        <div class="group-wrapper">
-            <div class="input-group">
-                <label asp-for="@Model.Passwords.NewPassword"></label>
-                <span asp-validation-for="@Model.Passwords.NewPassword"></span>
-                <input asp-for="@Model.Passwords.NewPassword">
-            </div>
-            <div class="input-group">
-                <label asp-for="@Model.Passwords.ConfirmNewPassword"></label>
-                <span asp-validation-for="@Model.Passwords.ConfirmNewPassword"></span>
-                <input asp-for="@Model.Passwords.ConfirmNewPassword">
-            </div>
-        </div>
-
-         <div class="button-wrapper">
-            <button type="reset" class="cancel btn-gray">Cancel</button>
-            <button type="submit" class="save btn-theme">Save changes</button>
-        </div>
-
-    </form>
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSecurityUpdatePasswordPartial.cshtml", Model.Form )
 
     <div class="divider"></div>
 
-    <form method="post" class="delete-account" asp-controller="Account" asp-action="DeleteAccount">
-        <h5 class="form-title">Delete account</h5>
-        <p>When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we’ll send you a link to reactivate your account.</p>
-
-        <div id="terms" class="checkbox-group">
-            <input asp-for="@Model.DeleteAccount.Confirm">
-            <label asp-for="@Model.DeleteAccount.Confirm">Yes, I want to delete my account.</label>
-            <span asp-validation-for="@Model.DeleteAccount.Confirm"></span>
-        </div>
-       
-        <button type="submit" class="delete-button btn-theme">Delete</button>
-    </form>
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSecurityDeletePartial.cshtml", Model.DeleteAccount)
 
 </div>

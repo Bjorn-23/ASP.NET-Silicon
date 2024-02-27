@@ -21,7 +21,31 @@
     }
 
     .content-box-security {
+        position: relative;
         grid-area: details;
+
+        .update-failed {
+            position: absolute;
+            top: 8rem;
+            left: 26.5rem;
+            text-align: center;
+            background-color: #EF444420;
+            border: 2px solid $danger;
+            color: $danger;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+
+            @include md {
+                padding: 0.2rem 2rem;
+                @include text-lg;
+                color: $danger;
+            }
+
+            @include xl {
+                top: 8.6rem;
+                left: 26.5rem;
+            }
+        }
 
         .title {
             @include h3;
@@ -35,24 +59,6 @@
         }
 
         form {
-            .current-password {
-                @include lg {
-                    max-width: calc(50% - 0.5rem);
-                }
-            }
-
-            .group-wrapper {
-                @include lg {
-                    display: flex;
-                    justify-content: space-between;
-                    gap: 1rem;
-                }
-
-                input {
-                    width: 100%;
-                }
-            }
-
             .form-title {
                 color: $theme;
                 margin: 1rem 0 0;
@@ -62,9 +68,39 @@
                 }
             }
 
-            span {
-                color: $gray-600;
-                margin: 0 0 0 0.2rem;
+            .group-wrapper {
+                @include lg {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 1rem;
+                }
+            }
+
+            .input-group {
+                margin: 0 0 2rem;
+
+                span {
+                    top: 100%;
+
+                    @include md{
+                        top: auto;
+                    }
+
+
+                }
+
+                .current-password {
+                    @include lg {
+                        max-width: calc(50% - 0.5rem);
+                    }
+                }
+
+                .current-password-span {
+
+                    @include xl {
+                        right: calc(50% + 0.5rem);
+                    }
+                }
             }
 
             .button-wrapper {
@@ -98,7 +134,7 @@
                 background-color: $danger;
                 margin: 1rem 0;
 
-                @include lg{
+                @include lg {
                     margin: 2rem 0;
                 }
             }

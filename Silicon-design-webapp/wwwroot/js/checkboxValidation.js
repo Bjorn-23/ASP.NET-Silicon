@@ -1,5 +1,5 @@
 ﻿
-const EmailErrorHandler = (element, validationResult) => {
+const CheckboxErrorHandler = (element, validationResult) => {
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
 
     if (validationResult) {
@@ -16,20 +16,25 @@ const EmailErrorHandler = (element, validationResult) => {
     }
 }
 
-
-const EmailValidator = (element) => {
-    const regExp = /^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/
-    EmailErrorHandler(element, regExp.test(element.value))
+const CheckboxValidator = (element) => {
+    if (element.checked) {
+        CheckboxErrorHandler(element, true)
+    }
+    else {
+        CheckboxErrorHandler(element, false)
+    }
 }
 
-
-let forms = document.querySelectorAll('form')
+//let forms = document.querySelectorAll('form')
 let inputs = forms[0].querySelectorAll('input')
 
 inputs.forEach(input => {
     if (input.dataset.val === 'true') {
-        input.addEventListener('keyup', (e) => {
-            EmailValidator(e.target)
-        })
+
+        if (input.type === 'checkbox') {
+            input.addEventListener('change', (e) => {
+                CheckboxValidator(e.target)
+            })
+        }        
     }
 })

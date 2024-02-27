@@ -6,6 +6,8 @@ public class AccountSecurityViewModel
 {
     public string Title { get; set; } = "Security";
 
+    public string? ErrorMessage { get; set; } = "";
+
     public AccountSidebarViewModel Sidebar { get; set; } = new()
     {
         ProfileImage = new()
@@ -20,11 +22,11 @@ public class AccountSecurityViewModel
             LastName = "Andersson",
             Email = "bjorn@domain.com",
             Phone = "0789456123",
-            Biography = null!,
+            Biography = "",
         }
     };
 
-    public AccountSecurityPasswordInfoModel Passwords { get; set; } = new();
+    public AccountSecurityPasswordInfoModel Form { get; set; } = new();
 
     public AccountSecurityDeleteModel DeleteAccount { get; set; } = new();
 }
