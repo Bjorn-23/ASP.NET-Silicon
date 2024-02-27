@@ -637,6 +637,9 @@ header .container .account-buttons {
     display: flex;
   }
 }
+header .container .account-buttons a {
+  white-space: nowrap;
+}
 header .container .account-buttons .user-logged-in {
   width: 50%;
   height: auto;

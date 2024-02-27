@@ -48,6 +48,10 @@ header {
                 display: flex;
             }
 
+            a{
+                white-space: nowrap; 
+            }
+
             .user-logged-in{
                 width: 50%;
                 height: auto;
