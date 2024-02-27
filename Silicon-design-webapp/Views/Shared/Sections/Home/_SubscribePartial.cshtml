@@ -1,0 +1,57 @@
+﻿@model SubscribeViewModel
+
+<section id="@Model.Id" class="subscribe">
+    <div class="container">
+        <h1>@Model.Title</h1>
+        <img class="blue-squiggle" src="@Model.Image.ImageUrl" alt="@Model.Image.AltText">
+
+        <form method="post" asp-controller="Home" asp-action="Subscribe" novalidate>
+
+            <div class="top-wrapper">
+                <h5>@Model.Subheading</h5>
+
+                <div class="grid-container">
+
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.Subscribe.DailyNewsletter" type="checkbox">
+                        <label asp-for="@Model.Subscribe.DailyNewsletter"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.Subscribe.AdvertisingUpdates" type="checkbox">
+                        <label asp-for="@Model.Subscribe.AdvertisingUpdates"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.Subscribe.WeekInReview" type="checkbox">
+                        <label asp-for="@Model.Subscribe.WeekInReview"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.Subscribe.EventUpdates" type="checkbox">
+                        <label asp-for="@Model.Subscribe.EventUpdates"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.Subscribe.StartupsWeekly" type="checkbox">
+                        <label asp-for="@Model.Subscribe.StartupsWeekly"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.Subscribe.Podcasts" type="checkbox">
+                        <label asp-for="@Model.Subscribe.Podcasts"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-wrapper">
+                <div class="input-group">
+                    <span asp-validation-for="@Model.Subscribe.Email"></span>
+                    <input asp-for="@Model.Subscribe.Email" placeholder="&#9993 Enter your Email" />
+                </div>
+            
+                <button class="btn-theme" type="submit">Subscribe *</button>
+            </div>
+            
+            <span class="terms-policy">* Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</span>
+
+        </form>
+    </div>
+
+    <script src="~/js/emailValidation.js"></script>
+</section>

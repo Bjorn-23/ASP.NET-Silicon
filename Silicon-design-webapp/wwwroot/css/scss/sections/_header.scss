@@ -48,6 +48,10 @@ header {
                 display: flex;
             }
 
+            a{
+                white-space: nowrap; 
+            }
+
             .user-logged-in{
                 width: 50%;
                 height: auto;
@@ -99,10 +103,14 @@ header {
 
         .account-buttons{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+
+            @include md{
+                flex-direction: row;
+            }
 
             a{
-                transform: translateX(-25%);
+                margin: 0;
             }
         }
 
