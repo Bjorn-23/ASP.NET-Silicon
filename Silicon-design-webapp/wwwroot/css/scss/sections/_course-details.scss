@@ -23,7 +23,7 @@
             .button-wrapper {
                 @include xl {
                     position: absolute;
-                    top: 1.5rem;
+                    top: 2.5rem;
                 }
 
                 @include xxl {
@@ -69,6 +69,10 @@
             }
 
             nav {
+                @include xl {
+                    margin: 0;
+                }
+
                 ol {
                     @include xxl {
                         margin: 1rem 0;
@@ -101,10 +105,7 @@
                     .active {
                         margin-left: -0.5rem;
                     }
-                    /*         .breadcrumb-details {
-                        color: #fff;
-                    }*/
-                    // targets the style of the breadcrumb divider
+
                     .breadcrumb-item {
                         + .breadcrumb-item {
                             &::before {
@@ -121,7 +122,7 @@
                     margin: 3rem 0 1rem;
                 }
 
-                @include xl {
+                @include xxl {
                     margin: 6rem 0 4rem;
                 }
 
@@ -186,8 +187,16 @@
                 gap: 1rem;
                 margin: 1rem 0 0 0;
 
+                @include xl {
+                    margin: 3rem 0 0 0;
+                }
+
                 @include xxl {
-                    margin: 6rem 0 0 0;
+                    margin: 4rem 0 0 0;
+                }
+
+                @include xxxl {
+                    margin: 8rem 0 0 0;
                 }
 
                 .course-instructor-picture {
