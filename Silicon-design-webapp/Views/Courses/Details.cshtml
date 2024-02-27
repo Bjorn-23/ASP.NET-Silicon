@@ -11,7 +11,9 @@
                 <span class="digital">Digital</span>
             </div>
 
-            <nav style="--bs-breadcrumb-divider:'&#187';" aria-label="breadcrumb">
+            @await Html.PartialAsync("~/Views/shared/Sections/_BreadcrumbsPartial.cshtml");
+
+           @*  <nav style="--bs-breadcrumb-divider:'&#187';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <div class="img-wrapper"><i class="fa-light fa-house"></i></div>
                     <li class="breadcrumb-item inactive"><a href="index.html">Home</a></li>
@@ -23,7 +25,7 @@
                         </a>
                     </li>
                 </ol>
-            </nav>
+            </nav> *@
 
             <div class="title-wrapper">
                 <h1>Fullstack Web Developer Course from Scratch</h1>
