@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Silicon_design_webapp.Models;
 using Silicon_design_webapp.ViewModels.Home;
 
@@ -10,9 +11,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var viewModel = new HomeIndexViewModel();
-
         ViewData["Title"] = viewModel.Title;
-
         return View(viewModel);
     }
 
@@ -26,6 +25,9 @@ public class HomeController : Controller
             // Add notification saying that subscription was succesful.
             return RedirectToAction(nameof(Index));
         }
-        return RedirectToAction(nameof(Index));
+
+        var viewModel = new HomeIndexViewModel();
+        // Add an announcement function that opens a modal to confirm email subscription was succesful. Or similar
+        return View(nameof(Index), viewModel);
     }
 }

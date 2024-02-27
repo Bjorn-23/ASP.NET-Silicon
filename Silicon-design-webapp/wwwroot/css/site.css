@@ -1632,7 +1632,7 @@ footer .container .details {
   white-space: nowrap;
   margin-top: 1rem;
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .subscribe .container form .bottom-wrapper .btn-theme {
     margin: 0 1rem;
   }

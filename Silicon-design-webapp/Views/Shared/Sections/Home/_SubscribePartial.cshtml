@@ -1,6 +1,6 @@
 ﻿@model SubscribeViewModel
 
-<section class="subscribe">
+<section id="@Model.Id" class="subscribe">
     <div class="container">
         <h1>@Model.Title</h1>
         <img class="blue-squiggle" src="@Model.Image.ImageUrl" alt="@Model.Image.AltText">
@@ -53,5 +53,5 @@
         </form>
     </div>
 
-    @await Html.PartialAsync("_EmailValidationPartial")
+    <script src="~/js/emailValidation.js"></script>
 </section>
