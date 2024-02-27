@@ -34,7 +34,7 @@
             {
                 foreach (var box in Model.Courses)
                 {
-                    <a class="grid-item" href="/course-details.html">
+                    <a class="grid-item" asp-controller="Courses" asp-action="Details">
                         <div class="img-wrapper">
                             <img class="course-image" src="@box.CourseImage.ImageUrl" alt="@box.CourseImage.AltText">
                             <p class="@box.BestSeller ? best-seller : hidden">Best Seller</p>
