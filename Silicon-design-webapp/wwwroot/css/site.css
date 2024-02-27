@@ -195,11 +195,6 @@ h6, .h6 {
 .breadcrumb {
   margin: 1rem 0;
 }
-@media (min-width: 992px) {
-  .breadcrumb {
-    margin: 2rem 0;
-  }
-}
 .breadcrumb ol {
   display: flex;
   align-items: baseline;

@@ -1,10 +1,6 @@
 .breadcrumb {
     margin: 1rem 0;
 
-    @include lg {
-        margin: 2rem 0;
-    }
-
     ol {
         display: flex;
         align-items: baseline;
