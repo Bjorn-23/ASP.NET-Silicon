@@ -1,358 +1,383 @@
 ///Responsiveness is ok but it needs to be refactored to be more effective.
 
-.course-details{
+.course-details {
     position: relative;
     margin: 1rem 0;
 
-    .bg-container-s-to-lg{
+    .bg-container-s-to-lg {
         @include background;
     }
 
-    .top-container{
-        @include xl{
+    .top-container {
+        @include xl {
             position: absolute;
             inset: 0;
             display: flex;
             max-height: 700px;
         }
 
-        .grid-container{
+        .grid-container {
             grid-template-columns: auto;
 
-            .button-wrapper{
-                @include xl{
+
+            .button-wrapper {
+                @include xl {
                     position: absolute;
                     top: 1.5rem;
                 }
 
-                @include xxl{
+                @include xxl {
                     top: 3.5rem;
                 }
 
-                .best-seller{
+                .best-seller {
                     @include course-button;
                     position: absolute;
                     top: 1rem;
                     right: 1rem;
-            
-                    @include lg{
+
+                    @include lg {
                         top: 4rem;
                         right: 2rem;
                     }
-            
-                    @include xl{
+
+                    @include xl {
                         position: relative;
                         inset: inherit;
                         margin: 0 0.5rem 0 0;
-                    }   
+                    }
                 }
-            
-                .digital{
+
+                .digital {
                     @include course-button;
                     background-color: $gray-200;
                     color: $gray-900;
                     position: absolute;
                     top: 3.5rem;
                     right: 1rem;
-            
-                    @include lg{
+
+                    @include lg {
                         top: 6.5rem;
                         right: 2rem;
                     }
-            
-                    @include xl{
+
+                    @include xl {
                         position: relative;
-                        inset: inherit; 
-                    }   
+                        inset: inherit;
+                    }
                 }
             }
 
-            nav{
-                ol{
-                    display: flex;
-                    align-items: baseline;
-                    gap: 0.6rem;
-
-                    @include xxl{
+            nav {
+                ol {
+                    @include xxl {
                         margin: 1rem 0;
                     }
-        
-                    i, li > a, .active > a{
+
+                    i, li > a, .active > a, .breadcrumb-details {
                         color: $gray-900;
-                        @include xl{
+
+                        @include xl {
                             color: #fff;
                         }
                     }
-        
-                    li{
-                        padding: 0.2rem;    
-                        a{
+
+                    li {
+                        padding: 0.2rem;
+
+                        a {
                             font-size: 0.6rem;
+
+                            @include lg {
+                                font-size: 0.8125rem;
+                            }
+
+                            @include xl {
+                                font-size: 1rem;
+                            }
                         }
                     }
-        
-                    .active{
+
+                    .active {
                         margin-left: -0.5rem;
+                    }
+                    /*         .breadcrumb-details {
+                        color: #fff;
+                    }*/
+                    // targets the style of the breadcrumb divider
+                    .breadcrumb-item {
+                        + .breadcrumb-item {
+                            &::before {
+                                color: #fff;
+                            }
+                        }
                     }
                 }
             }
-            
-            .title-wrapper{
-    
-                @include xl{
+
+            .title-wrapper {
+
+                @include xl {
                     margin: 3rem 0 1rem;
                 }
 
-                @include xl{
+                @include xl {
                     margin: 6rem 0 4rem;
                 }
-    
-                h1{
+
+                h1 {
                     @include h4;
-    
-                    @include xl{
+
+                    @include xl {
                         color: #fff;
                     }
                 }
-                
-                p{
+
+                p {
                     @include text-s;
-                    
-                    @include xl{
+
+                    @include xl {
                         color: #fff;
                     }
                 }
             }
-    
-            .ratings-wrapper{ 
-                .stars{  
+
+            .ratings-wrapper {
+                .stars {
                     display: block;
-                    @include lg{
-                            display: inline;
+
+                    @include lg {
+                        display: inline;
                     }
-                    
-                    .fa-solid{
+
+                    .fa-solid {
                         color: $warning;
                     }
-                    .fa-light{
+
+                    .fa-light {
                         color: $gray-500;
                     }
-                    .fa-star{
+
+                    .fa-star {
                         margin-left: 0.2rem;
                     }
-                    .leftmost-star{
+
+                    .leftmost-star {
                         margin-left: -0.5rem;
                     }
                 }
-                    
-                i, span{
+
+                i, span {
                     margin-left: 0.5rem;
-                    
-                    @include xl{
+
+                    @include xl {
                         color: #fff;
                     }
                 }
-    
-                .course-ingress{
+
+                .course-ingress {
                     margin-left: 0
                 }
-    
             }
-            
-            .author-wrapper{
+
+            .author-wrapper {
                 display: flex;
                 justify-content: flex-start;
                 gap: 1rem;
                 margin: 1rem 0 0 0;
-    
-                @include xxl{
+
+                @include xxl {
                     margin: 6rem 0 0 0;
                 }
-    
-                .course-instructor-picture{
+
+                .course-instructor-picture {
                     max-width: 4rem;
                     max-height: 4rem;
                 }
-    
-                .author-text{
-                    p{
+
+                .author-text {
+                    p {
                         margin: 0;
-                        padding: 0;   
-                        color: $gray-900;   
+                        padding: 0;
+                        color: $gray-900;
                     }
-                    
-                    .by{
+
+                    .by {
                         @include h6;
                         margin: 0.4rem 0 0 0;
 
-                        @include xl{
+                        @include xl {
                             color: #fff;
                         }
                     }
-    
-                    .author{
+
+                    .author {
                         @include text-m;
                         margin: 0 0 0.4rem 0;
-                        @include xl{
+
+                        @include xl {
                             color: #fff;
                         }
                     }
                 }
             }
-        }            
+        }
     }
 
-    .course-description{
+    .course-description {
         margin-top: 2rem;
 
-        @include xl{
+        @include xl {
             margin-top: 6rem;
         }
 
-        .grid-container{
+        .grid-container {
 
-            @include md{
+            @include md {
                 display: grid;
                 grid-template-columns: 1fr auto;
                 grid-template-areas:
-                ' title includes'
-                ' learn learn';
-                gap: 0 4rem;                
+                    ' title includes' ' learn learn';
+                gap: 0 4rem;
             }
 
-            @include lg{
+            @include lg {
                 grid-template-areas:
-                ' title includes'
-                ' learn includes'
-                ' learn .';
+                    ' title includes' ' learn includes' ' learn .';
             }
-            
-            
-            @include xxl{
+
+
+            @include xxl {
                 grid-template-columns: auto auto auto;
                 grid-template-areas:
-                ' title title includes'
-                ' learn learn includes'
+                    ' title title includes' ' learn learn includes'
             }
 
-            .title-box{
+            .title-box {
                 grid-area: title;
 
-                @include xl{
+                @include xl {
                     padding-right: 9rem;
                 }
-                h2{
+
+                h2 {
                     @include h5;
 
-                    @include xl{
+                    @include xl {
                         @include h2;
                     }
                 }
-        
-                p{
+
+                p {
                     @include text-s;
-                    @include xl{
+
+                    @include xl {
                         @include text-m;
                     }
                 }
             }
 
-            .what-you-learn-box{ 
+            .what-you-learn-box {
                 grid-area: learn;
 
-                h3{
-                   @include h6;
-                 
-                   @include xl{
+                h3 {
+                    @include h6;
+
+                    @include xl {
                         @include h3;
                     }
                 }
-    
-                p{
+
+                p {
                     @include text-s;
-                    i{
+
+                    i {
                         margin-right: 0.5rem;
                     }
                 }
             }
-    
-            .course-includes-box{
+
+            .course-includes-box {
                 grid-area: includes;
                 @include card;
                 padding: 1rem;
 
-                @include md{
+                @include md {
                     padding: 1rem 2rem;
                     // margin-right: 4rem;
                 }
 
-                @include xl{
+                @include xl {
                     padding: 2rem 8rem 2rem 2rem;
                 }
 
-                h3{
+                h3 {
                     @include h6;
-                    @include xl{
+
+                    @include xl {
                         @include h4;
                     }
                 }
-    
-                p{
+
+                p {
                     @include text-s;
-                    img{
+
+                    img {
                         margin-right: 0.5rem;
                     }
                 }
-    
-                span{
+
+                span {
                     margin-right: 0.5rem;
                 }
-                .discount-price{
+
+                .discount-price {
                     @include h6;
 
-                    @include xl{
+                    @include xl {
                         @include h4;
                     }
                 }
-    
-                .price{
+
+                .price {
                     @include text-xs;
                     text-decoration-line: line-through;
 
-                    @include xl{
+                    @include xl {
                         @include text-m;
                     }
                 }
-    
-                button{
+
+                button {
                     margin: 1rem 0;
                 }
             }
         }
     }
 
-    .program-details{
+    .program-details {
         margin-top: 2rem;
 
-        @include xl{
+        @include xl {
             margin-top: 4rem;
         }
 
-        h2{
+        h2 {
             @include h5;
-            @include xl{
+
+            @include xl {
                 @include h2;
             }
         }
 
-        .grid-container{
-            @include xl{
+        .grid-container {
+            @include xl {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
             }
 
-            .progression-boxes{
-                .progress-box{
+            .progression-boxes {
+                .progress-box {
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
@@ -360,24 +385,24 @@
                     gap: 1rem;
                     margin: 1rem 0;
 
-                    @include xl{
+                    @include xl {
                         gap: 3rem;
                     }
-    
-                    .outer-circle{
+
+                    .outer-circle {
                         position: relative;
                         padding: 0.4rem;
                         background-color: $gray-100;
                         border-radius: 100%;
                         box-shadow: 1px 1px 3px $gray-400, 1px 3px 5px $gray-300, 2px 6px 8px $gray-200, 3px 9px 12px $gray-100;
-    
-                        .inner-circle{
+
+                        .inner-circle {
                             padding: 0.8rem;
                             background-color: #fefefe;
                             border-radius: 100%;
                             box-shadow: 1px 1px 3px $gray-500, 2px 3px 5px $gray-400, 2px 5px 7px $gray-300, 3px 7px 9px $gray-200;
-    
-                            .number{
+
+                            .number {
                                 position: absolute;
                                 top: 50%;
                                 left: 50%;
@@ -385,15 +410,16 @@
                                 @include h6;
                             }
                         }
+
                         .connector-line {
-                            position: absolute;                            
-                            top:100%;
+                            position: absolute;
+                            top: 100%;
                             left: 50%;
                             transform: translateX(-50%);
                             height: 2rem;
                             width: 0.1rem;
                             background-color: $gray-100;
-        
+
                             @include md {
                                 height: 8rem;
                             }
@@ -406,125 +432,128 @@
                                 height: 12rem;
                             }
 
-                            @include xxl{
+                            @include xxl {
                                 height: 10.5rem;
                             }
-                        }                  
+                        }
                     }
-    
-                    .text-box{
-                        .progress-title{
+
+                    .text-box {
+                        .progress-title {
                             @include h6;
                             margin: 0;
                         }
-        
-                        .progress-description{
+
+                        .progress-description {
                             display: none;
-        
-                            @include md{
+
+                            @include md {
                                 display: block;
-                            }                                  
+                            }
                         }
                     }
-                }                 
+                }
             }
 
-            .empty-container{
+            .empty-container {
                 display: none;
             }
         }
     }
 
-    .about-author-box{
-        
-        .grid-wrapper{             
+    .about-author-box {
+
+        .grid-wrapper {
             box-shadow: 1px 1px 3px $gray-400, 1px 3px 5px $gray-300, 2px 6px 8px $gray-200, 3px 9px 12px $gray-100;
             border-radius: 0.5rem;
             overflow: hidden;
             display: grid;
-            grid-template-columns: auto;;
-            
-            @include md{
+            grid-template-columns: auto;
+            ;
+
+            @include md {
                 grid-template-columns: auto 1fr;
                 margin: 4rem 0 0;
             }
-            
-            img{
+
+            img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
 
-                @include xxl{
+                @include xxl {
                     width: auto;
                     height: auto;
                 }
             }
 
-            .bio-wrapper{
+            .bio-wrapper {
                 position: relative;
                 background-color: $gray-900;
-                padding: 0.5rem;                    
-                
-                @include md{
+                padding: 0.5rem;
+
+                @include md {
                     padding: 4rem 2rem;
                 }
 
-                @include xxl{
-                    padding: 6rem; 
+                @include xxl {
+                    padding: 6rem;
                 }
 
-                .sub-heading, .about-heading, .text, button{
+                .sub-heading, .about-heading, .text, button {
                     color: #fff;
                 }
-                
-                p{
+
+                p {
                     @include text-xs;
 
-                    @include xl{
+                    @include xl {
                         @include text-lg;
                     }
                 }
 
-                .button-wrapper{
-                    @include md{
+                .button-wrapper {
+                    @include md {
                         display: flex;
                         justify-content: flex-start;
-                        gap: 1rem;                            
+                        gap: 1rem;
                     }
 
-                    @include lg{
-                        gap: 1rem;                            
+                    @include lg {
+                        gap: 1rem;
                     }
 
-                    button{
+                    button {
                         margin: 0.5rem 0 0;
-                        @include md{
+
+                        @include md {
                             @include text-xs;
                             color: #fff;
                             text-align: start;
                         }
 
-                        @include lg{
+                        @include lg {
                             @include text-s;
                             color: #fff;
                             text-align: center;
                         }
                     }
 
-                    .subscribers{
+                    .subscribers {
                         background-color: $danger;
                     }
-                    .followers{
+
+                    .followers {
                         background-color: $info;
                     }
                 }
 
-                .pattern{
+                .pattern {
                     position: absolute;
                     inset: 0;
                     z-index: 0;
                 }
             }
         }
-    }    
+    }
 }
