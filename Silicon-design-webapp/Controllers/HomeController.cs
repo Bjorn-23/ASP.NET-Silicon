@@ -27,6 +27,7 @@ public class HomeController : Controller
         }
 
         var viewModel = new HomeIndexViewModel();
+        // Add an announcement function that opens a modal to confirm email subscription was succesful. Or similar
         return View(nameof(Index), viewModel);
     }
 }
