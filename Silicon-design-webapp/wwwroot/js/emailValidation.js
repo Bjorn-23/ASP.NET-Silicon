@@ -12,7 +12,11 @@ const EmailErrorHandler = (element, validationResult) => {
         element.classList.add('input-validation-error')
         spanElement.classList.add('field-validation-error')
         spanElement.classList.remove('field-validation-valid')
-        spanElement.innerHTML = element.dataset.valRequired
+        if (element.value === "") {
+            spanElement.innerHTML = element.dataset.valRequired
+        }
+        else
+            spanElement.innerHTML = element.dataset.valRegex
     }
 }
 

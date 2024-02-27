@@ -23,10 +23,10 @@ public class SubscribeModel
     [Display(Name = "Podcasts", Order = 5)]
     public bool Podcasts { get; set; } = false;
 
-    [Display(Order = 6)]
     [Required(ErrorMessage = "Email required")]
+    [Display(Name = "Email", Prompt = "Enter your Email", Order = 2)]
     [DataType(DataType.EmailAddress)]
-    [RegularExpression(@"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$", ErrorMessage = "Email invalid")]
+    [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w{2,}$", ErrorMessage = "Email invalid")]
     public string Email { get; set; } = null!;
 }
 
