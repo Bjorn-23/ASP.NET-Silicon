@@ -1,0 +1,38 @@
+﻿@model ContactModel
+
+<form class="contact-form" method="post" novalidate>
+
+    <div class="@((@Model.StatusMessage == "Success - Form submitted") ? "form-success" : ((@Model.StatusMessage == "Error - Form could not be submitted") ? "form-error" : "hidden"))">@Model.StatusMessage</div>
+
+    <h2>Get In Contact With Us</h2>
+
+    <div class="input-group">
+        <label asp-for="FullName"></label>
+        <span asp-validation-for="FullName"></span>
+        <input asp-for="FullName">
+    </div>
+
+    <div class="input-group">
+        <label asp-for="Email"></label>
+        <span asp-validation-for="Email"></span>
+        <input asp-for="Email">
+    </div>
+
+    <div class="input-group">
+        <label asp-for="Services"></label>
+        <select asp-for="Services">
+            <option disabled selected style="display: none;">Choose the service you are interested in</option>
+            <option value="Consulting">Consulting</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label asp-for="Message"></label>
+        <span asp-validation-for="Message"></span>
+        <textarea asp-for="Message" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="btn-theme">Send Contact Request</button>
+</form>
+
+@await Html.PartialAsync("_ValidationScriptPartial")
