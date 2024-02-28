@@ -9,7 +9,7 @@
 
 
 </head>
-<body class="wrapper">
+<body class="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Contact") ? "contact-body wrapper" : "wrapper")">
 
     @await Html.PartialAsync("~/Views/Shared/Sections/_HeaderPartial.cshtml")
     @await Html.PartialAsync("~/Views/Shared/Sections/_BreadcrumbsPartial.cshtml")
