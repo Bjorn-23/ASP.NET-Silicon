@@ -2880,19 +2880,19 @@ footer, .google-map, .contact-form {
 @media (min-width: 768px) {
   .sign-in-section {
     margin: 2rem auto;
-    width: 60%;
+    width: 55%;
   }
 }
 @media (min-width: 992px) {
   .sign-in-section {
-    margin: 3rem auto;
-    width: 50%;
+    margin: 2rem auto;
+    width: 45%;
   }
 }
 @media (min-width: 1200px) {
   .sign-in-section {
     margin: 4rem auto;
-    width: 40%;
+    width: 30%;
   }
 }
 .sign-in-section .sign-in-form .IncorrectEmailOrPassword {

@@ -1,20 +1,21 @@
 .sign-in-section {
     @include md {
         margin: 2rem auto;
-        width: 60%;
+        width: 55%;
     }
 
     @include lg {
-        margin: 3rem auto;
-        width: 50%;
+        margin: 2rem auto;
+        width: 45%;
     }
 
     @include xl {
         margin: 4rem auto;
-        width: 40%;
+        width: 30%;
     }
 
     .sign-in-form {
+
 
         .IncorrectEmailOrPassword {
             text-align: center;
