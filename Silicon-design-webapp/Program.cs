@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 
 
 //add services here such as repositories, services, dbcontext etc.
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer());
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 
 var app = builder.Build();
