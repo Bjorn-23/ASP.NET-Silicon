@@ -1,6 +1,7 @@
-body{
+.contact-body {
     background-color: $gray-100;
 }
+
 
 footer, .google-map, .contact-form{
     background-color: #fff !important;
@@ -17,12 +18,12 @@ footer, .google-map, .contact-form{
         display: grid;
         grid-template-columns: auto;
         grid-template-areas:
-            'title' 'box' 'form';
+        'title' 'box' 'form';
 
         @include xl {
             grid-template-columns: 1fr 1fr;
             grid-template-areas:
-                ' title empty' ' box   empty';
+            'title empty' 'box empty';
             margin: 0 0 8rem;
         }
 
