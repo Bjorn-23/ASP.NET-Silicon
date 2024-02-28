@@ -2600,7 +2600,7 @@ footer .container .details {
   z-index: 0;
 }
 
-body {
+.contact-body {
   background-color: #F3F6FF;
 }
 
@@ -2623,7 +2623,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .contact .contact-wrapper {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: " title empty" " box   empty";
+    grid-template-areas: "title empty" "box empty";
     margin: 0 0 8rem;
   }
 }
