@@ -3007,9 +3007,6 @@ footer, .google-map, .contact-form {
   width: 100%;
 }
 
-.sign-up .sign-up-form {
-  /*text-align: start;*/
-}
 @media (min-width: 768px) {
   .sign-up .sign-up-form {
     margin: 2rem auto;
@@ -3024,7 +3021,7 @@ footer, .google-map, .contact-form {
 }
 @media (min-width: 1200px) {
   .sign-up .sign-up-form {
-    margin: 2rem auto;
+    margin: 4rem auto;
     width: 40%;
   }
 }
