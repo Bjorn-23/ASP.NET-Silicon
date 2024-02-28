@@ -1,5 +1,9 @@
 ﻿@model AccountDetailsViewModel
 
+@{
+    ViewData["Title"] = Model.Title;
+}
+
 <section class="account-details container">
     @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSidebarPartial.cshtml", Model.Sidebar)
     @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountDetailsPartial.cshtml")
