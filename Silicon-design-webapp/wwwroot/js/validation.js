@@ -23,7 +23,8 @@ const CompareValidator = (element, comparisonValue) => {
     return false
 }
 
-const TextValidator = (element, minLength = 2) => {    
+const TextValidator = (element, minLength = 2) => {  
+    console.log("inne")
     if (element.value.length >= minLength) {
         FormErrorHandler(element, true)
     }
@@ -57,6 +58,12 @@ const CheckboxValidator = (element) => {
         FormErrorHandler(element, false)
     }
 }
+
+let textarea = document.querySelector('textarea[name="Message"]');
+
+textarea.addEventListener('keyup', (e) => {
+    TextValidator(e.target);
+});
 
 let forms = document.querySelectorAll('form')
 let inputs = forms[0].querySelectorAll('input')

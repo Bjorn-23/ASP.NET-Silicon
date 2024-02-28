@@ -1,0 +1,46 @@
+﻿@model ContactViewModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<section class="contact container">
+
+    <div class="contact-wrapper">
+        <h1 class="title">Contact us</h1>
+
+        <div class="contact-box">
+                
+            <div class="email cb-item">
+                <div class="icon-wrapper">                        
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div class="text-wrapper">
+                    <h3>Email us</h3>
+                    <p>Please feel free to drop us a line. We will respond as soon as possible.</p>
+                    <a href="">Leave a message <i class="fa-regular fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="careers cb-item">
+                <div class="icon-wrapper">                        
+                    <i class="fa-solid fa-users-medical"></i>
+                </div>
+                <div class="text-wrapper">
+                    <h3>Careers</h3>
+                    <p>Sit ac ipsum leo lorem magna nunc mattis maecenas non vestibulum.</p>
+                    <a href="">Send an application <i class="fa-regular fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        @await Html.PartialAsync("~/Views/Shared/Sections/Contact/_ContactFormPartial.cshtml", Model.Form)
+
+        <div class="empty-container"></div>
+    </div>
+</section>
+
+<section class="google-map container-fluid">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6310.756984825758!2d-122.40920657323554!3d37.73426384374668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7efa5a5a8d3b%3A0x4e084517d56c656b!2s538%20Silliman%20St%2C%20San%20Francisco%2C%20CA%2094134%2C%20USA!5e0!3m2!1sen!2sse!4v1708258340172!5m2!1sen!2sse" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>

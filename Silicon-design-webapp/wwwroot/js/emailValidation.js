@@ -1,5 +1,5 @@
 ﻿
-const FormErrorHandler = (element, validationResult) => {
+const EmailErrorHandler = (element, validationResult) => {
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
 
     if (validationResult) {
@@ -12,21 +12,25 @@ const FormErrorHandler = (element, validationResult) => {
         element.classList.add('input-validation-error')
         spanElement.classList.add('field-validation-error')
         spanElement.classList.remove('field-validation-valid')
-        spanElement.innerHTML = element.dataset.valRequired
+        if (element.value === "") {
+            spanElement.innerHTML = element.dataset.valRequired
+        }
+        else
+            spanElement.innerHTML = element.dataset.valRegex
     }
 }
 
 
 const EmailValidator = (element) => {
     const regExp = /^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/
-    FormErrorHandler(element, regExp.test(element.value))
+    EmailErrorHandler(element, regExp.test(element.value))
 }
 
 
-let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
+let emailForms = document.querySelectorAll('form')
+let emailInputs = emailForms[0].querySelectorAll('input')
 
-inputs.forEach(input => {
+emailInputs.forEach(input => {
     if (input.dataset.val === 'true') {
         input.addEventListener('keyup', (e) => {
             EmailValidator(e.target)

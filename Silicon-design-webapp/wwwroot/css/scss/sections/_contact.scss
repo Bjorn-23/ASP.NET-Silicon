@@ -1,9 +1,10 @@
-.contact-wrap{
+.contact-body {
     background-color: $gray-100;
 }
 
+
 footer, .google-map, .contact-form{
-    background-color: #fff;
+    background-color: #fff !important;
 }
 
 .breadcrumbs{
@@ -12,69 +13,67 @@ footer, .google-map, .contact-form{
 
 .contact {
     position: relative;
-    .contact-wrapper{
+
+    .contact-wrapper {
         display: grid;
         grid-template-columns: auto;
         grid-template-areas:
-        'title'
-        'box'
-        'form';
-    
-        @include xl{
+        'title' 'box' 'form';
+
+        @include xl {
             grid-template-columns: 1fr 1fr;
             grid-template-areas:
-            ' title empty'
-            ' box   empty';
+            'title empty' 'box empty';
             margin: 0 0 8rem;
         }
-    
-        @include xxl{
+
+        @include xxl {
             margin: 0 0 8rem;
         }
-        
-        .title{
+
+        .title {
             grid-area: title;
             @include h3;
-    
-            @include md{
+
+            @include md {
                 @include h2
             }
-            @include lg{
+
+            @include lg {
                 @include h1
             }
         }
-        
-        .contact-box{
+
+        .contact-box {
             grid-area: box;
 
-            @include md{
+            @include md {
                 display: flex;
                 gap: 2rem;
             }
-    
-            @include xl{
+
+            @include xl {
                 display: block;
             }
-    
-            .cb-item{
-                // grid-area: box;
+
+            .cb-item {
                 display: flex;
                 gap: 1rem;
                 margin: 1rem 0;
                 padding: 1rem;
                 border: 1px solid $gray-300;
                 border-radius: 0.5rem;
-    
-                @include md{
+
+                @include md {
                     padding: 1rem 2rem 1rem 1rem;
                 }
-    
-                @include xl{
+
+                @include xl {
                     padding: 1rem 17rem 0 0;
                     border: none;
                 }
-                
-                .icon-wrapper{
+
+                .icon-wrapper {
                     position: relative;
                     background-color: white;
                     width: 1px;
@@ -82,109 +81,149 @@ footer, .google-map, .contact-form{
                     padding: 1.5rem;
                     border-radius: 100%;
                     text-align: center;
-    
-                    i{
+
+                    i {
                         position: absolute;
                         display: block;
                         color: $theme;
                         transform: translate(-50%, -50%);
                     }
                 }
-    
-                .text-wrapper{
-                    h3{
+
+                .text-wrapper {
+                    h3 {
                         @include h5;
-    
-                        @include xl{
+
+                        @include xl {
                             @include h3;
                         }
                     }
-    
-                    p{
+
+                    p {
                         @include text-s;
                     }
-    
-                    a{
+
+                    a {
                         font-size: 14px;
                     }
-    
-    
                 }
             }
         }
-        
-        .contact-form{
+
+        .contact-form {
+            position: relative;
             grid-area: form;
             @include card;
-            padding: 1rem;
+            background-color: #fff;
+            padding: 1rem 0.5rem 3rem;
             margin: 0 0 2rem;
-           
-            @include xl{
+
+            @include xl {
                 position: absolute;
                 top: 0;
                 right: 0;
                 padding: 4rem;
             }
-    
-            h2{
+
+            .form-error, .form-success {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 1rem);
+                background-color: #EF444420;
+                border: 2px solid $danger;
+                border-radius: 0.5rem;
+                text-align: center;
+                white-space: nowrap;
+                color: $danger;
+                padding: 0.2rem 0;
+                margin: 1rem 0;
+
+                @include md {
+                    @include text-lg;
+                    color: $danger;
+                    padding: 0.2rem 2rem;
+                    top: unset;
+                    right: 0.5rem;
+                    bottom: 2rem;
+                    left: unset;
+                    transform: translateX(0);
+                    width: inherit;
+                }
+
+                @include xl {
+                    top: 1rem;
+                    right: unset;
+                    bottom: unset;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 0.2rem 3.2rem;
+                    margin: 0;
+                }
+            }
+
+            .form-success {
+                background-color: #22C55E20;
+                border: 2px solid $success;
+                color: $gray-700;
+
+                @include md {
+                    color: $gray-700;
+                }
+            }
+
+            h2 {
                 @include h4;
-    
-                @include xl{
+
+                @include xl {
                     padding: 0 8rem 0 0;
                 }
             }
-    
-            label{
-                @include h6;
-                margin: 1rem 0 0;
-    
-                @include xl{
-                    margin: 2rem 0 0;
-                }
-            }
-    
-            input::placeholder, textarea::placeholder{
+
+            input::placeholder, textarea::placeholder {
                 font-size: 0.875rem;
                 color: $gray-500;
             }
-    
-            select{
+
+            select {
                 font-size: 0.875rem;
                 color: $gray-500;
             }
-    
-            select option{
+
+            select option {
                 font-size: 0.875rem;
                 color: $gray-900;
             }
-            
-            button{
+
+            button {
                 margin: 1rem 0;
                 width: 100%;
-                            
-                @include md{
+
+                @include md {
                     // display: inline-block;
                     width: unset;
                     margin: 2rem 0 0 0
                 }
             }
         }
-    
-        .empty-container{
+
+        .empty-container {
             display: none;
-            @include xl{
+
+            @include xl {
                 grid-area: empty;
-                display:block;
+                display: block;
             }
         }
-    
-    
     }
 }
 
 .google-map{
+    padding: 0;
     iframe{
         height: 20rem;
+        width: 100%;
 
         @include lg{
             height: 25rem;

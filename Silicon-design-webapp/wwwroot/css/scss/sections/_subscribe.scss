@@ -129,9 +129,10 @@
                 }
 
                 .btn-theme {
+                    white-space: nowrap;
                     margin-top: 1rem;
 
-                    @include lg {
+                    @include xl {
                         margin: 0 1rem;
                     }
                 }

@@ -2,6 +2,7 @@
 
 public class CourseBoxViewModel
 {
+    public string Id { get; set; } = null!;
     public LinkViewModel CourseLink { get; set; } = new();
     public ImageViewModel CourseImage { get; set; } = null!;
     public bool BestSeller { get; set; } = false;

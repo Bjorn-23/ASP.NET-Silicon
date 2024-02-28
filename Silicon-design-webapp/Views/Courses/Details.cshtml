@@ -1,0 +1,225 @@
+﻿@model CourseDetailsViewModel
+
+<section class="course-details">
+
+    <div class="bg-container-s-to-lg container-fluid"></div>
+
+    <div class="top-container container">
+        <div class="grid-container">
+            <div class="button-wrapper">
+                <span class="best-seller">Best Seller</span>
+                <span class="digital">Digital</span>
+            </div>
+
+            <nav class="breadcrumb" style="--bs-breadcrumb-divider:'&#187'" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <i class="fa-light fa-house"></i>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+@*                     @if (ViewContext.RouteData.Values["controller"]!.ToString() != "Home")
+                    { *@
+                        <li class="@(ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")! ? "breadcrumb-item" : "breadcrumb-item active")">
+                            <a asp-controller="@ViewContext.RouteData.Values["controller"]!.ToString()"
+                               asp-action="@ViewContext.RouteData.Values["action"]!.ToString()">
+                                @ViewContext.RouteData.Values["controller"]!.ToString()
+                            </a>
+                        </li>
+ @*                    } *@
+                    @* If there a subpage that ends with Details is active then this code prints that out in the breadcrumb. *@
+                    @if (ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")!)
+                    {
+                        <li class="breadcrumb-item active breadcrumb-details" aria-current="page">@ViewContext.RouteData.Values["action"]!.ToString()</li>
+                    }
+                </ol>
+            </nav>
+
+            <div class="title-wrapper">
+                <h1>Fullstack Web Developer Course from Scratch</h1>
+                <p>Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.</p>
+            </div>
+
+            <div class="ratings-wrapper">
+                <span class="stars">
+                    <i class="fa-solid fa-star leftmost-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-light fa-star"></i>
+                </span>
+                <span class="course-details">(1.2K reviews)</span>
+                <i class="fa-thin fa-pipe"></i>
+                <i class="fa-regular fa-thumbs-up"></i>
+                <span>5K likes</span>
+                <i class="fa-thin fa-pipe"></i>
+                <i class="fa-light fa-clock"></i>
+                <span class="course-ingress">220 hours</span>
+            </div>
+
+            <div class="author-wrapper">
+                <img class="course-instructor-picture" src="/img/albert-flores-small-round.png" alt="">
+                <div class="author-text">
+                    <p class="by">Created By</p>
+                    <p class="author">Albert Flores</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="course-description container">
+        <div class="grid-container">
+            <div class="title-box">
+                <h2>Course Description</h2>
+                <p>
+                    Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus
+                    accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat
+                    velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu
+                    nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris
+                    sed dictum ultrices.
+                </p>
+            </div>
+
+            <!-- Exactly the same layout as manage your work from index - reuse this box in ASP.NET -->
+            <div class="what-you-learn-box">
+                <h3>
+                    What you'll learn</h2>
+
+                    <p><i class="fa-regular fa-circle-check"></i>Sed lectus donec amet eu turpis interdum.</p>
+                    <p><i class="fa-regular fa-circle-check"></i>Nulla at consectetur vitae dignissim porttitor.</p>
+                    <p><i class="fa-regular fa-circle-check"></i>Phasellus id vitae dui aliquet mi.</p>
+                    <p><i class="fa-regular fa-circle-check"></i>Integer cursus vitae, odio feugiat iaculis aliquet diam, et purus.</p>
+                    <p><i class="fa-regular fa-circle-check"></i>In aenean dolor diam tortor orci eu.</p>
+            </div>
+
+            <div class="course-includes-box">
+                <h3>This course includes:</h3>
+
+                <p><img src="/img/screen.svg" alt="">148 hours on-demand video</p>
+                <p><img src="/img/file.svg" alt="">18 Articles</p>
+                <p><img src="/img/download.svg" alt="">25 downloadable resources</p>
+                <p><img src="/img/infinity.svg" alt="">Full lifetime access</p>
+                <p><img src="/img/trophy.svg" alt="">Certificate of completion</p>
+
+                <span class="discount-price">$28.99</span><span class="price">$49.00</span>
+
+                <button class="btn-theme">Join course</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="program-details container">
+        <h2>Program Details</h2>
+        <div class="grid-container">
+            <div class="progression-boxes">
+                <div class="progress-box">
+                    <div class="outer-circle">
+                        <div class="inner-circle"><span class="number">1</span></div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <div class="text-box">
+                        <h3 class="progress-title">Introduction. Getting started</h3>
+                        <p class="progress-description">
+                            Nulla faucibus mauris pellentesque blandit faucibus non. Sit
+                            ut et at suspendisse gravida hendrerit tempus placerat.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="progress-box">
+                    <div class="outer-circle">
+                        <div class="inner-circle"><span class="number">2</span></div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <div class="text-box">
+                        <h3 class="progress-title">The ultimate HTML developer: advanced HTML</h3>
+                        <p class="progress-description">
+                            Lobortis diam elit id nibh ultrices sed penatibus donec.
+                            Nibh iaculis eu sit cras ultricies. Nam eu eget etiam egestas donec scelerisque ut ac
+                            enim. Vitae ac nisl, enim nec accumsan vitae est.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="progress-box">
+                    <div class="outer-circle">
+                        <div class="inner-circle"><span class="number">3</span></div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <div class="text-box">
+                        <h3 class="progress-title">CSS & CSS3: basic</h3>
+                        <p class="progress-description">
+                            Duis euismod enim, facilisis risus tellus pharetra lectus
+                            diam neque. Nec ultrices mi faucibus est. Magna ullamcorper potenti elementum ultricies
+                            auctor nec volutpat augue.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="progress-box">
+                    <div class="outer-circle">
+                        <div class="inner-circle"><span class="number">4</span></div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <div class="text-box">
+                        <h3 class="progress-title">JavaScript basics for beginners</h3>
+                        <p class="progress-description">
+                            Morbi porttitor risus imperdiet a, nisl mattis. Amet,
+                            faucibus eget in platea vitae, velit, erat eget velit. At lacus ut proin erat.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="progress-box">
+                    <div class="outer-circle">
+                        <div class="inner-circle"><span class="number">5</span></div>
+                        <div class="connector-line last-line"></div>
+                    </div>
+                    <div class="text-box">
+                        <h3 class="progress-title">Understanding APIs</h3>
+                        <p class="progress-description">
+                            Risus morbi euismod in congue scelerisque fusce pellentesque
+                            diam consequat. Nisi mauris nibh sed est morbi amet arcu urna. Malesuada feugiat quisque
+                            consectetur elementum diam vitae. Dictumst facilisis odio eu quis maecenas risus odio
+                            fames bibendum.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="progress-box">
+                    <div class="outer-circle">
+                        <div class="inner-circle"><span class="number">6</span></div>
+                    </div>
+                    <div class="text-box">
+                        <h3 class="progress-title">C# and .NET from beginner to advanced</h3>
+                        <p class="progress-description">
+                            Quis risus quisque diam diam. Volutpat neque eget eu
+                            faucibus sed urna fermentum risus. Est, mauris morbi nibh massa.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="empty-container"></div>
+        </div>
+    </div>
+
+    <div class="about-author-box container">
+        <div class="grid-wrapper">
+            <div class="image-wrapper"><img src="/img/albert-flores-lg.png" alt=""></div>
+            <div class="bio-wrapper">
+                <p class="sub-heading">Learn from the best</p>
+                <h3 class="about-heading">Albert Flores</h3>
+                <p class="text">
+                    Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac
+                    dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in
+                    tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam
+                    condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus,
+                    feugiat at. Eget pellentesque tristique felis magna fringilla.
+                </p>
+                <div class="button-wrapper">
+                    <button class="btn-gray subscribers"><i class="fa-brands fa-youtube"></i> 240K subscribers</button>
+                    <button class="btn-gray followers"><i class="fa-brands fa-facebook"></i> 180K followers</button>
+                    <img class="pattern" src="/img/pattern.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

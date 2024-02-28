@@ -111,7 +111,7 @@ public class HomeIndexViewModel
             new CheckListViewModel() { Text = "Track your progress with interactive charts" },
             new CheckListViewModel() { Text = "Easiest way to track time spent on tasks" }
         ],
-        Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Index", Text = "Learn more" }
+        Link = new LinkViewModel() { ControllerName = "Home", ActionName = "Index", FragmentName = "features", Text = "Learn more" }
     };
 
     public DownloadAppViewModel DownloadApp { get; set; } = new()
