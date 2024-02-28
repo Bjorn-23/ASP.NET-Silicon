@@ -19,10 +19,12 @@ public class ContactController : Controller
         {
             // Add submit contactform info here.
 
-            //var viewModel = new ContactViewModel();
-            //viewModel.Form.StatusMessage = "Success - Form submitted";
-            //return View(nameof(Index), viewModel);
-            return RedirectToAction("Index");
+            var viewModel = new ContactViewModel();
+            viewModel.Form = new ContactModel();
+            ModelState.Clear();
+            viewModel.Form.StatusMessage = "Success - Form submitted";
+            return View(nameof(Index), viewModel);
+            //return RedirectToAction("Index");
         }
         else
         {
