@@ -20,7 +20,7 @@ public class AccountController : Controller
         //viewModel.BasicInfo = _accountService.GetBasicInfo
         //viewModel.AddressInfo = _accountService.GetBasicInfo
         //viewModel.Sidebar = _accountService.GetBasicInfo(viewModel.BasicInfo.Email) //fetches the data needed based on email and matches that with account...might not be needed
-        ViewData["Title"] = viewModel.Title;
+
         return View(viewModel);
     }
 
@@ -43,7 +43,6 @@ public class AccountController : Controller
     public IActionResult Security()
     {
         var viewModel = new AccountSecurityViewModel();
-        ViewData["Title"] = "Security";
         return View(viewModel);
     }
 
@@ -51,6 +50,7 @@ public class AccountController : Controller
     [HttpPost]
     public IActionResult PasswordInfo(AccountSecurityPasswordInfoModel viewModel)
     {
+        ///Checks for errors in the ModelState, handy for debugging.
         var errors = ModelState
             .Where(x => x.Value.Errors.Count > 0)
             .Select(x => new { x.Key, x.Value.Errors })
@@ -65,7 +65,6 @@ public class AccountController : Controller
 
         var viewModelError = new AccountSecurityViewModel();
         viewModelError.ErrorMessage = "Failed to update password";
-        ViewData["Title"] = "Security";
         return View("Security",  viewModelError);
     }
 
@@ -81,7 +80,6 @@ public class AccountController : Controller
 
         var viewModelError = new AccountSecurityViewModel();
         viewModelError.ErrorMessage = "Account could not be deleted";
-        ViewData["Title"] = "Security";
         return View("Security", viewModelError);
     }
 
@@ -89,7 +87,6 @@ public class AccountController : Controller
     public IActionResult SavedCourses()
     {
         var viewModel = new AccountSavedCoursesViewModel();
-        ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
 
