@@ -4,6 +4,7 @@
     <h1 class="title">@Model.Title</h1>
 
     <form method="post" class="basic-info" asp-controller="Account" asp-action="BasicInfo">
+
         <h5 class="form-title">Basic Info</h5>
 
         <div class="group-wrapper">
@@ -42,11 +43,13 @@
             <button class="cancel btn-gray" type="reset">Cancel</button>
             <button class="save btn-theme" type="submit">Save changes</button>
         </div>
+
     </form>
 
     <div class="divider"></div>
 
     <form method="post" class="address" asp-controller="Account" asp-action="AddressInfo">
+
         <h5 class="form-title">Address</h5>
 
         <div class="input-group">
@@ -78,5 +81,8 @@
             <button class="cancel btn-gray" type="reset">Cancel</button>
             <button class="save btn-theme" type="submit">Save changes</button>
         </div>
+
     </form>
 </div>
+
+@* <script defer src="~/js/validation.js"></script> *@

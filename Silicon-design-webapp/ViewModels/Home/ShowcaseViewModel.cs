@@ -1,7 +1,6 @@
-﻿using Silicon_design_webapp.ViewModels.Shared;
+﻿using Business.Models;
 
 namespace Silicon_design_webapp.ViewModels.Home;
-
 
 public class ShowcaseViewModel
 {
@@ -11,12 +10,12 @@ public class ShowcaseViewModel
 
     public string? SubHeading { get; set; }
 
-    public LinkViewModel Link { get; set; } = new LinkViewModel();
+    public LinkModel Link { get; set; } = new LinkModel();
 
     public string? BrandsText { get; set; } = null!;
 
-    public List<ImageViewModel>? Brands { get; set; }
+    public List<ImageModel>? Brands { get; set; }
 
-    public ImageViewModel ShowcaseImage { get; set; } = null!;
+    public ImageModel ShowcaseImage { get; set; } = null!;
 
 }

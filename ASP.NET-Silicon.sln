@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silicon-design-webapp", "Silicon-design-webapp\Silicon-design-webapp.csproj", "{061F2573-270D-499D-A846-6C1021B7C991}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silicon-design-webapp", "Silicon-design-webapp\Silicon-design-webapp.csproj", "{061F2573-270D-499D-A846-6C1021B7C991}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{DDA728C1-264A-4E64-9EEE-334A3D69C9A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{E7673590-922E-4A4C-BE3D-B92DFFC8204A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{061F2573-270D-499D-A846-6C1021B7C991}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{061F2573-270D-499D-A846-6C1021B7C991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{061F2573-270D-499D-A846-6C1021B7C991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDA728C1-264A-4E64-9EEE-334A3D69C9A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA728C1-264A-4E64-9EEE-334A3D69C9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA728C1-264A-4E64-9EEE-334A3D69C9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA728C1-264A-4E64-9EEE-334A3D69C9A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7673590-922E-4A4C-BE3D-B92DFFC8204A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7673590-922E-4A4C-BE3D-B92DFFC8204A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7673590-922E-4A4C-BE3D-B92DFFC8204A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7673590-922E-4A4C-BE3D-B92DFFC8204A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

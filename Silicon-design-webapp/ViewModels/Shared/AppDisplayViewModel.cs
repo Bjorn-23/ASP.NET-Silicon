@@ -1,4 +1,6 @@
-﻿namespace Silicon_design_webapp.ViewModels.Shared;
+﻿using Business.Models;
+
+namespace Silicon_design_webapp.ViewModels.Shared;
 
 public class AppDisplayViewModel
 {
@@ -6,6 +8,6 @@ public class AppDisplayViewModel
     public string Icon { get; set; } = null!;
     public string Description { get; set; } = null!;
     public string Rating { get; set; } = null!;
-    public LinkViewModel Link { get; set; } = new LinkViewModel();
-    public ImageViewModel Image { get; set; } = null!;
+    public LinkModel Link { get; set; } = new LinkModel();
+    public ImageModel Image { get; set; } = new ImageModel();
 }

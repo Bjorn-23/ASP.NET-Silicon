@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Silicon_design_webapp.Helpers;
+namespace Business.Utilities;
 
 public class CheckboxRequired : ValidationAttribute
 {
