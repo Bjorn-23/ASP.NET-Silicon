@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Silicon_design_webapp.Models;
+﻿using Business.Models;
+using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Home;
 
 namespace Silicon_design_webapp.Controllers;

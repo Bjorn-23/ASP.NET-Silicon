@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
+    <Folder Include="Data\" />
+    <Folder Include="Entitites\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

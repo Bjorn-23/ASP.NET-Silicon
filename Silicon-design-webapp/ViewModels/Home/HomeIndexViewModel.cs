@@ -1,4 +1,4 @@
-﻿using Silicon_design_webapp.Models;
+﻿using Business.Models;
 using Silicon_design_webapp.ViewModels.Shared;
 
 namespace Silicon_design_webapp.ViewModels.Home;
@@ -35,43 +35,43 @@ public class HomeIndexViewModel
         [
             new()
             {
-                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Comments" },
-                Image = new ImageViewModel() { ImageUrl = "/img/chat.svg", AltText = "Chat icon" },
+                Link = new LinkModel() { ControllerName = "Features", ActionName = "Comments" },
+                Image = new ImageModel() { ImageUrl = "/img/chat.svg", AltText = "Chat icon" },
                 SubHeading = "Comments On Tasks",
                 Text = "Id mollis consectetur congue egestas egestas suspendisse blandit justo."
             },
             new()
             {
-                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Analytics" },
-                Image = new ImageViewModel() { ImageUrl = "/img/presentation.svg", AltText = "graph trending up on screen" },
+                Link = new LinkModel() { ControllerName = "Features", ActionName = "Analytics" },
+                Image = new ImageModel() { ImageUrl = "/img/presentation.svg", AltText = "graph trending up on screen" },
                 SubHeading = "Task analytics",
                 Text = "Non imperdiet facilisis nulla tellus Morbi scelerisque eget adipiscing vulputate."
             },
             new()
             {
-                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Teams" },
-                Image = new ImageViewModel() { ImageUrl = "/img/add-group.svg", AltText = "Group icon" },
+                Link = new LinkModel() { ControllerName = "Features", ActionName = "Teams" },
+                Image = new ImageModel() { ImageUrl = "/img/add-group.svg", AltText = "Group icon" },
                 SubHeading = "Multiple Assigneess",
                 Text = "A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris."
             },
             new()
             {
-                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Notifications" },
-                Image = new ImageViewModel() { ImageUrl = "/img/bell.svg", AltText = "Bell ringing" },
+                Link = new LinkModel() { ControllerName = "Features", ActionName = "Notifications" },
+                Image = new ImageModel() { ImageUrl = "/img/bell.svg", AltText = "Bell ringing" },
                 SubHeading = "Notifications",
                 Text = "Diam, suspendisse velit cras ac. Lobortis diam volutpat, eget pellentesque viverra."
             },
             new()
             {
-                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Subtasks" },
-                Image = new ImageViewModel() { ImageUrl = "/img/test.svg", AltText = "Checklist" },
+                Link = new LinkModel() { ControllerName = "Features", ActionName = "Subtasks" },
+                Image = new ImageModel() { ImageUrl = "/img/test.svg", AltText = "Checklist" },
                 SubHeading = "Selections & Subtasks",
                 Text = "Mi feugiat hac id in. Sit elit placerat lacus nibh lorem ridiculus lectus."
             },
             new()
             {
-                Link = new LinkViewModel() { ControllerName = "Features", ActionName = "Security" },
-                Image = new ImageViewModel() { ImageUrl = "/img/shield.svg", AltText = "Shield icon" },
+                Link = new LinkModel() { ControllerName = "Features", ActionName = "Security" },
+                Image = new ImageModel() { ImageUrl = "/img/shield.svg", AltText = "Shield icon" },
                 SubHeading = "DataSecurity",
                 Text = "Aliquam malesuada neque eget elit nulla vestibulum nunc cras."
             }
@@ -111,7 +111,7 @@ public class HomeIndexViewModel
             new CheckListViewModel() { Text = "Track your progress with interactive charts" },
             new CheckListViewModel() { Text = "Easiest way to track time spent on tasks" }
         ],
-        Link = new LinkViewModel() { ControllerName = "Home", ActionName = "Index", FragmentName = "features", Text = "Learn more" }
+        Link = new LinkModel() { ControllerName = "Home", ActionName = "Index", FragmentName = "features", Text = "Learn more" }
     };
 
     public DownloadAppViewModel DownloadApp { get; set; } = new()
@@ -161,7 +161,7 @@ public class HomeIndexViewModel
         [
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/Google.svg",
                     AltText = "Google Logo"
@@ -170,7 +170,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/Zoom.svg",
                     AltText = "Google Logo"
@@ -179,7 +179,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/color.svg",
                     AltText = "Google Logo"
@@ -188,7 +188,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/gmail.svg",
                     AltText = "Google Logo"
@@ -197,7 +197,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/blue-circle.svg",
                     AltText = "Google Logo"
@@ -206,7 +206,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/survey-monkey.svg",
                     AltText = "Google Logo"
@@ -215,7 +215,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/dropbox.svg",
                     AltText = "Google Logo"
@@ -224,7 +224,7 @@ public class HomeIndexViewModel
             },
             new ToolBoxViewModel()
             {
-                Image = new ImageViewModel()
+                Image = new ImageModel()
                 {
                     ImageUrl = "./img/evernote.svg",
                     AltText = "Google Logo"

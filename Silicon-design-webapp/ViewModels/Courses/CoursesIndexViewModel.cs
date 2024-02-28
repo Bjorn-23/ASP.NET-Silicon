@@ -1,4 +1,4 @@
-﻿using Silicon_design_webapp.ViewModels.Shared;
+﻿using Business.Models;
 
 namespace Silicon_design_webapp.ViewModels.Courses;
 
@@ -11,7 +11,7 @@ public class CoursesIndexViewModel
         Id = "Courses",
         Courses =
         [
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -34,7 +34,7 @@ public class CoursesIndexViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -57,7 +57,7 @@ public class CoursesIndexViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -80,7 +80,7 @@ public class CoursesIndexViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -103,7 +103,7 @@ public class CoursesIndexViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -126,7 +126,7 @@ public class CoursesIndexViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -149,7 +149,7 @@ public class CoursesIndexViewModel
                 Length = "180",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -172,7 +172,7 @@ public class CoursesIndexViewModel
                 Length = "95",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -195,7 +195,7 @@ public class CoursesIndexViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -220,6 +220,4 @@ public class CoursesIndexViewModel
             },
         ]
     };
-
-
 }

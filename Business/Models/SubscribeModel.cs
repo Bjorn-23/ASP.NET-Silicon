@@ -1,7 +1,7 @@
-﻿using Silicon_design_webapp.Helpers;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Silicon_design_webapp.Models;
+
+namespace Business.Models;
 
 public class SubscribeModel
 {

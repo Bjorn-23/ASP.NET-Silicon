@@ -1,4 +1,4 @@
-﻿using Silicon_design_webapp.Models;
+﻿using Business.Models;
 
 namespace Silicon_design_webapp.ViewModels.Contact;
 

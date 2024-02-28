@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Silicon_design_webapp.Models;
+﻿using Business.Models;
+using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Contact;
 
 namespace Silicon_design_webapp.Controllers;

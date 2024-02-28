@@ -1,10 +1,12 @@
-﻿namespace Silicon_design_webapp.ViewModels.Shared;
+﻿using Business.Models;
+
+namespace Silicon_design_webapp.ViewModels.Shared;
 
 public class FeaturesBoxViewModel
 {
-    public LinkViewModel Link { get; set; } = new LinkViewModel();
+    public LinkModel Link { get; set; } = new LinkModel();
 
-    public ImageViewModel Image { get; set; } = new ImageViewModel();
+    public ImageModel Image { get; set; } = new ImageModel();
 
     public string SubHeading { get; set; } = null!;
 

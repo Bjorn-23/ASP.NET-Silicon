@@ -1,5 +1,4 @@
-﻿
-using Silicon_design_webapp.ViewModels.Shared;
+﻿using Business.Models;
 
 namespace Silicon_design_webapp.ViewModels.Account;
 
@@ -24,9 +23,9 @@ public class AccountSavedCoursesViewModel
         }
     };
 
-    public List<CourseBoxViewModel> Courses { get; set; } =
+    public List<CourseBoxModel> Courses { get; set; } =
         [
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -49,7 +48,7 @@ public class AccountSavedCoursesViewModel
                 Length = "220",
                 Rating = "94% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
@@ -72,7 +71,7 @@ public class AccountSavedCoursesViewModel
                 Length = "350",
                 Rating = "96% (4.2K)"
             },
-            new CourseBoxViewModel()
+            new CourseBoxModel()
             {
                 CourseLink = new()
                 {
