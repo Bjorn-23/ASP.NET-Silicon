@@ -2892,7 +2892,7 @@ footer, .google-map, .contact-form {
 @media (min-width: 1200px) {
   .sign-in-section {
     margin: 4rem auto;
-    width: 30%;
+    width: 40%;
   }
 }
 .sign-in-section .sign-in-form .IncorrectEmailOrPassword {
