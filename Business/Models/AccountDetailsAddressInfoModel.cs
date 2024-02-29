@@ -5,6 +5,8 @@ namespace Business.Models;
 
 public class AccountDetailsAddressInfoModel
 {
+    public int Id { get; set; }
+
     [Display(Name = "Address line 1", Prompt = "Enter your address line", Order = 0)]
     [Required(ErrorMessage = "Address line 1 is required")]
     [MinLength(2, ErrorMessage = "Name too short")]
