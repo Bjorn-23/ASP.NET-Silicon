@@ -3,7 +3,6 @@ using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
