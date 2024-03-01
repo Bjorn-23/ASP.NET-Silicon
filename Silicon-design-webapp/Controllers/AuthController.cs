@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Services;
+using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Auth;
 
 namespace Silicon_design_webapp.Controllers;
 
-public class AuthController : Controller
+public class AuthController(UserService userService) : Controller
 {
+    private readonly UserService _userService = userService;
+
+
+
     [Route("/signup")]
     [HttpGet]
     public IActionResult SignUp()
@@ -16,14 +21,16 @@ public class AuthController : Controller
 
     [Route("/signup")]
     [HttpPost]
-    public IActionResult SignUp(SignUpViewModel viewModel)
+    public async Task<IActionResult> SignUp(SignUpViewModel viewModel)
     {
-        if (!ModelState.IsValid)
-            return View(viewModel);
-
-        //add logic for creating an account in service here.
-
-        return RedirectToAction("SignIn", "Auth");
+        if (ModelState.IsValid)
+        {
+            var result = await _userService.CreateUserAsync(viewModel.Form);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK);
+            RedirectToAction("Auth", "SignIn");
+        }
+        
+        return View(viewModel);
     }
 
     [Route("/signin")]
