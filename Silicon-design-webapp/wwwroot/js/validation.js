@@ -12,7 +12,20 @@ const FormErrorHandler = (element, validationResult) => {
         element.classList.add('input-validation-error')
         spanElement.classList.add('field-validation-error')
         spanElement.classList.remove('field-validation-valid')
-        spanElement.innerHTML = element.dataset.valRequired
+
+        if (element.value === null || element.value === "" || element.type === 'checkbox') {
+            spanElement.innerHTML = element.dataset.valRequired;
+        } else {
+            if (element.hasAttribute("data-val-regex")) {
+                spanElement.innerHTML = element.dataset.valRegex;
+            }
+            else if (element.hasAttribute("data-val-equalto") && element.value !== "") {
+                spanElement.innerHTML = element.dataset.valEqualto;
+            }
+            else if (element.hasAttribute("data-val-minlength")) {
+                spanElement.innerHTML = element.dataset.valMinlength;
+            }
+        }
     }
 }
 
@@ -20,11 +33,10 @@ const CompareValidator = (element, comparisonValue) => {
     if (element === comparisonValue)
         return true
     else
-    return false
+        return false
 }
 
-const TextValidator = (element, minLength = 2) => {  
-    console.log("inne")
+const TextValidator = (element, minLength = 2) => {
     if (element.value.length >= minLength) {
         FormErrorHandler(element, true)
     }
@@ -34,7 +46,7 @@ const TextValidator = (element, minLength = 2) => {
 }
 
 const EmailValidator = (element) => {
-    const regExp = /^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/
+    const regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/
     FormErrorHandler(element, regExp.test(element.value))
 }
 
@@ -51,19 +63,20 @@ const PasswordValidator = (element) => {
 }
 
 const CheckboxValidator = (element) => {
-    if (element.checked) {
-        FormErrorHandler(element, true)
+    if (!element.checked) {
+        FormErrorHandler(element, false)
     }
     else {
-        FormErrorHandler(element, false)
+        FormErrorHandler(element, true)
     }
 }
 
-let textarea = document.querySelector('textarea[name="Message"]');
-
-textarea.addEventListener('keyup', (e) => {
-    TextValidator(e.target);
-});
+const textarea = document.querySelector('textarea[name="Message"]');
+if (textarea != null) {
+    textarea.addEventListener('keyup', (e) => {
+        TextValidator(e.target);
+    });
+}
 
 let forms = document.querySelectorAll('form')
 let inputs = forms[0].querySelectorAll('input')
@@ -93,6 +106,6 @@ inputs.forEach(input => {
                         break;
                 }
             })
-        }         
+        }
     }
 })

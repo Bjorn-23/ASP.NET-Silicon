@@ -12,7 +12,11 @@ const SignInErrorHandler = (element, validationResult) => {
         element.classList.add('input-validation-error')
         spanElement.classList.add('field-validation-error')
         spanElement.classList.remove('field-validation-valid')
-        spanElement.innerHTML = element.dataset.valRequired
+        if (element.value === null || element.value === "" || element.type === 'checkbox') {
+            spanElement.innerHTML = element.dataset.valRequired;
+        } else if (element.hasAttribute("data-val-regex")) {
+                spanElement.innerHTML = element.dataset.valRegex;
+        }
     }
 }
 
