@@ -24,6 +24,7 @@ public class AddressFactory
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
+            return null!;
         }
     }
 
@@ -35,7 +36,7 @@ public class AddressFactory
             {
                 Id = entity.Id,
                 AddresLine_1 = entity.StreetName_1,
-                AddressLine_2 = entity.StreetName_2
+                AddressLine_2 = entity.StreetName_2,
                 PostalCode = entity.PostalCode,
                 City = entity.City
             };
@@ -45,6 +46,7 @@ public class AddressFactory
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
+            return null!;
         }
     }
 }
