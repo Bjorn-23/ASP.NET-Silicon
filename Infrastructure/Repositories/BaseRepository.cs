@@ -54,7 +54,7 @@ public class BaseRepository<TEntity>(DataContext context) where TEntity : class
             var result = await _context.Set<TEntity>().Where(predicate).FirstOrDefaultAsync();
             if (result == null)
                 return ResponseFactory.NotFound();
-            
+            else
             return ResponseFactory.Ok(result);
         }
         catch (Exception ex)

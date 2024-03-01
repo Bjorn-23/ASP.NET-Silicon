@@ -44,11 +44,11 @@ public class AuthController(UserService userService) : Controller
 
     [Route("/signin")]
     [HttpPost]
-    public IActionResult SignIn(SignInViewModel viewModel)
+    public async Task<IActionResult> SignIn(SignInViewModel viewModel)
     {
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            var result = _userService.SignInUserAsync(viewModel.Form);
+            var result = await _userService.SignInUserAsync(viewModel.Form);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
                 return RedirectToAction("Details", "Account");
         }

@@ -14,6 +14,16 @@ public class ResponseFactory
         };
     }
 
+    public static ResponseResult Ok(object obj)
+    {
+        return new ResponseResult()
+        {
+            ContentResult = obj,
+            Message = "Success",
+            StatusCode = StatusCode.OK
+        };
+    }
+
     public static ResponseResult Ok(string? message = null)
     {
         return new ResponseResult()

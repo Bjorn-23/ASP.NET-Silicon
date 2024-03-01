@@ -1,5 +1,6 @@
 ﻿using Business.Factories;
 using Business.Models;
+using Business.Utilities;
 using Infrastructure.Factories;
 using Infrastructure.Repositories;
 using Infrastructure.Utilities;
@@ -36,4 +37,23 @@ public class UserService(UserRepository repository, AddressService addressServic
             return ResponseFactory.Error(ex.Message + "CreateUserAsync");
         }
     }
+
+    public async Task<ResponseResult> SignInUserAsync(SignInModel user)
+    {
+        try
+        {
+            var existingUser = await _repository.GetOneAsync(x => x.Email == user.Email);
+            
+            if (existingUser.StatusCode == StatusCode.OK)
+            {
+                //var result = PasswordGenerator.VerifyPassword(user.Password, existingUser.ContentResult.SecurityKey, existingUser.ContentResult.Password);
+                return ResponseFactory.Error();
+            }
+
+            return ResponseFactory.NotFound();
+
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SiginUserAsync");  }
+    }
+
 }
