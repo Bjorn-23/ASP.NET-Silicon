@@ -19,6 +19,7 @@ public class AuthController(UserService userService) : Controller
         return View(viewModel);
     }
 
+
     [Route("/signup")]
     [HttpPost]
     public async Task<IActionResult> SignUp(SignUpViewModel viewModel)
@@ -41,6 +42,7 @@ public class AuthController(UserService userService) : Controller
         ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
+
 
     [Route("/signin")]
     [HttpPost]
