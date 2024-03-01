@@ -5,6 +5,8 @@ namespace Business.Models;
 
 public class AccountDetailsBasicInfoModel
 {
+    public string Id { get; set; } = null!;
+
     [DataType(DataType.Text)]
     [Display(Name = "First name", Prompt = "Enter your first name", Order = 0)]
     [Required(ErrorMessage = "Invalid first name")]
