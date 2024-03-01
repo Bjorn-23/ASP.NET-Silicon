@@ -1,6 +1,7 @@
 ﻿using Business.Factories;
 using Business.Models;
 using Business.Utilities;
+using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Repositories;
 using Infrastructure.Utilities;
@@ -43,17 +44,18 @@ public class UserService(UserRepository repository, AddressService addressServic
         try
         {
             var existingUser = await _repository.GetOneAsync(x => x.Email == user.Email);
-            
             if (existingUser.StatusCode == StatusCode.OK)
             {
-                //var result = PasswordGenerator.VerifyPassword(user.Password, existingUser.ContentResult.SecurityKey, existingUser.ContentResult.Password);
-                return ResponseFactory.Error();
+                var entity = (UserEntity)existingUser.ContentResult!;
+                var result = PasswordGenerator.VerifyPassword(user.Password, entity.SecurityKey, entity.Password);
+                if (result)
+                    return ResponseFactory.Ok(entity.Id, "User succesfully signed in");
             }
 
             return ResponseFactory.NotFound();
 
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SiginUserAsync");  }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SiginUserAsync"); }
     }
 
 }
