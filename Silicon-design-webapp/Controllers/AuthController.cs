@@ -50,10 +50,14 @@ public class AuthController(UserService userService) : Controller
         {
             var result = await _userService.SignInUserAsync(viewModel.Form);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
-                return RedirectToAction("Details", "Account");
+            {
+                var Id = (string)result.ContentResult!;
+                return RedirectToAction("Details", "Account", Id);
+            }
         }
 
-        viewModel.ErrorMessage = "Incorrect Email or Password";            
+        ModelState.Clear();
+        viewModel.ErrorMessage = "Incorrect Email or Password";
         return View(viewModel);
 
     }
