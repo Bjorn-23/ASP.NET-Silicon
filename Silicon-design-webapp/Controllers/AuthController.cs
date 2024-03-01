@@ -26,8 +26,8 @@ public class AuthController(UserService userService) : Controller
         if (ModelState.IsValid)
         {
             var result = await _userService.CreateUserAsync(viewModel.Form);
-            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK);
-            RedirectToAction("Auth", "SignIn");
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+                return RedirectToAction("SignIn", "Auth");
         }
         
         return View(viewModel);
@@ -48,12 +48,13 @@ public class AuthController(UserService userService) : Controller
     {
         if (!ModelState.IsValid)
         {
-            viewModel.ErrorMessage = "Incorrect Email or Password";            
-            return View(viewModel);
+            var result = _userService.SignInUserAsync(viewModel.Form);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+                return RedirectToAction("Details", "Account");
         }
 
-        //add logic for creating an account in service here.
+        viewModel.ErrorMessage = "Incorrect Email or Password";            
+        return View(viewModel);
 
-        return RedirectToAction("Details", "Account");
     }
 }

@@ -16,7 +16,7 @@ public class BaseRepository<TEntity>(DataContext context) where TEntity : class
         {
             _context.Set<TEntity>().Add(entity);
             var result = await _context.SaveChangesAsync();
-            if (result == 200)
+            if (result == 1)
             {
                 return ResponseFactory.Ok(entity);
             }

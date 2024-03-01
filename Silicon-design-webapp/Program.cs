@@ -1,4 +1,6 @@
+using Business.Services;
 using Infrastructure.Context;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Silicon_design_webapp.Helpers;
 
@@ -9,6 +11,11 @@ builder.Services.AddControllersWithViews();
 
 //add services here such as repositories, services, dbcontext etc.
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<AddresRepository>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AddressService>();
 
 
 var app = builder.Build();
