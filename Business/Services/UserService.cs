@@ -44,18 +44,18 @@ public class UserService(UserRepository repository, AddressService addressServic
         try
         {
             var existingUser = await _repository.GetOneAsync(x => x.Email == user.Email);
-            if (existingUser.StatusCode == StatusCode.OK)
+            if (existingUser.StatusCode == StatusCode.OK && existingUser.ContentResult != null)
             {
-                var entity = (UserEntity)existingUser.ContentResult!;
+                var entity = (UserEntity)existingUser.ContentResult;
                 var result = PasswordGenerator.VerifyPassword(user.Password, entity.SecurityKey, entity.Password);
                 if (result)
                     return ResponseFactory.Ok(entity.Id, "User succesfully signed in");
             }
 
-            return ResponseFactory.NotFound();
+            return ResponseFactory.Error("Incorrect email or password");
 
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SiginUserAsync"); }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SignInUserAsync"); }
     }
 
 }
