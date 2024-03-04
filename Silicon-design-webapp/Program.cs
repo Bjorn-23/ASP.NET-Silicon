@@ -12,6 +12,13 @@ builder.Services.AddControllersWithViews();
 //add services here such as repositories, services, dbcontext etc.
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
+builder.Services.AddAuthentication("AuthCookie").AddCookie("AuthCookie", x =>
+{
+    x.LoginPath = "/signin";
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+});
+
+
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AddresRepository>();
 builder.Services.AddScoped<UserService>();
@@ -23,6 +30,8 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

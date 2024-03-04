@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Account;
 
@@ -12,7 +13,7 @@ public class AccountController : Controller
     //{
     //    _accountService = accountService;
     //}
-
+    [Authorize]
     [Route("/account")]
     public IActionResult Details()
     {
@@ -24,12 +25,14 @@ public class AccountController : Controller
         return View(viewModel);
     }
 
+
     [HttpPost]
     public IActionResult BasicInfo(AccountDetailsViewModel viewModel)
     {
         //_accountservice.SaveBasicInfo(viewModel.BasicInfo)
         return RedirectToAction(nameof(Details));
     }
+
 
     [HttpPost]
     public IActionResult AddressInfo(AccountDetailsViewModel viewModel)
@@ -38,6 +41,8 @@ public class AccountController : Controller
         return RedirectToAction(nameof(Details));
     }
 
+
+    [Authorize]
     [Route("/security")]
     [HttpGet]
     public IActionResult Security()
@@ -45,6 +50,7 @@ public class AccountController : Controller
         var viewModel = new AccountSecurityViewModel();
         return View(viewModel);
     }
+
 
     [Route("/update-password-failed")]
     [HttpPost]
@@ -68,6 +74,7 @@ public class AccountController : Controller
         return View("Security",  viewModelError);
     }
 
+
     [Route("/delete-account-failed")]
     [HttpPost]
     public IActionResult DeleteAccount(AccountSecurityDeleteModel viewModel)
@@ -83,6 +90,8 @@ public class AccountController : Controller
         return View("Security", viewModelError);
     }
 
+
+    [Authorize]
     [HttpGet]
     public IActionResult SavedCourses()
     {
