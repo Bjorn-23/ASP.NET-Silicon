@@ -5,7 +5,7 @@ namespace Business.Models;
 
 public class AccountDetailsBasicInfoModel
 {
-    public string Id { get; set; } = null!;
+    public string? Id { get; set; }
 
     [DataType(DataType.Text)]
     [Display(Name = "First name", Prompt = "Enter your first name", Order = 0)]
@@ -28,13 +28,12 @@ public class AccountDetailsBasicInfoModel
     public string Email { get; set; } = null!;
 
 
-    [Required(ErrorMessage = "Must Enter a phone number")]
     [Display(Name = "Phone", Prompt = "Enter your phone", Order = 3)]
     [DataType(DataType.PhoneNumber)]
-    public string Phone { get; set; } = null!;
+    public string? Phone { get; set; }
 
 
     [Display(Name = "Bio", Prompt = "Add a short bio...", Order = 4)]
     [DataType(DataType.MultilineText)]
-    public string Biography { get; set; } = null!;
+    public string? Biography { get; set; }
 }

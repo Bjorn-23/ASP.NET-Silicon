@@ -1,37 +1,41 @@
 ﻿using Business.Factories;
 using Business.Models;
-using Business.Utilities;
+using Infrastructure.Context;
 using Infrastructure.Entitites;
 using Infrastructure.Factories;
-using Infrastructure.Repositories;
 using Infrastructure.Utilities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Xml;
 
 namespace Business.Services;
 
-public class UserService(UserRepository repository, AddressService addressService)
+public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signIn, ApplicationDbContext context)
 {
-    private readonly UserRepository _repository = repository;
-    private readonly AddressService _addressService = addressService;
+    private readonly UserManager<UserEntity> _userManager = userManager;
+    private readonly SignInManager<UserEntity> _signIn = signIn;
+    private readonly ApplicationDbContext _context = context;
 
-    public async Task<ResponseResult> CreateUserAsync(SignUpModel user)
+
+    public async Task<ResponseResult> RegisterUserAsync(SignUpModel model)
     {
         try
         {
-            var doesUserExist = await _repository.AlreadyExistsAsync(x => x.Email == user.Email);
-            if (doesUserExist.StatusCode == StatusCode.NOT_FOUND)
+            var exists = await _userManager.Users.AnyAsync(User => User.Email == model.Email);
+            if (!exists)
             {
-                var newUser = UserFactory.Create(user);
+                UserEntity entity = UserFactory.Create(model);
 
-                var result = await _repository.CreateAsync(newUser);
-                if (result.StatusCode == StatusCode.OK)
+                var result = await _userManager.CreateAsync(entity, model.Password);
+                if (result != null)
                 {
-                    //Since I dont want to send any info back to graphical UI I create an empty instance of the responseResult
-                    return ResponseFactory.Ok("User created succesfully.");
+                    return ResponseFactory.Ok(result, "user created succesfully.");
                 }
             }
 
-            return doesUserExist;
-
+            return ResponseFactory.Exists("A user with that email alredy exists.");
         }
         catch (Exception ex)
         {
@@ -39,23 +43,123 @@ public class UserService(UserRepository repository, AddressService addressServic
         }
     }
 
+
     public async Task<ResponseResult> SignInUserAsync(SignInModel user)
     {
         try
         {
-            var existingUser = await _repository.GetOneAsync(x => x.Email == user.Email);
-            if (existingUser.StatusCode == StatusCode.OK && existingUser.ContentResult != null)
+            var existingUser = await _userManager.Users.AnyAsync(x => x.Email == user.Email);
+            if (existingUser)
             {
-                var entity = (UserEntity)existingUser.ContentResult;
-                var result = PasswordGenerator.VerifyPassword(user.Password, entity.SecurityKey, entity.Password);
-                if (result)
-                    return ResponseFactory.Ok(entity, "User succesfully signed in");
+                var result = await _signIn.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                if (result.Succeeded)
+                    return ResponseFactory.Ok("User succesfully signed in");
             }
 
-            return ResponseFactory.Error("Incorrect email or password");
+            return ResponseFactory.NotFound("User or password incorrect");
 
         }
         catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SignInUserAsync"); }
     }
 
+
+    public async Task<ResponseResult> GetActiveUserAsync(ClaimsPrincipal User)
+    {
+        try
+        {
+            var userEntity = await _userManager.GetUserAsync(User);
+            if (userEntity != null)
+                return ResponseFactory.Ok(UserFactory.Create(userEntity));
+
+            return ResponseFactory.NotFound("No active user could be found");
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "GetActiveUserAsync"); }
+
+    }
+
+    public async Task<ResponseResult> UpdateUserAsync(ClaimsPrincipal User, AccountDetailsBasicInfoModel model)
+    {
+        try
+        {
+            var userEntity = await _userManager.GetUserAsync(User);
+            if (userEntity != null)
+            {
+                userEntity.FirstName = model.FirstName ?? userEntity.FirstName;
+                userEntity.LastName = model.LastName ?? userEntity.LastName;
+                userEntity.Email = model.Email ?? userEntity.Email;
+                userEntity.PhoneNumber = model.Phone;
+                userEntity.Biography = model.Biography;                
+
+                var result = await _userManager.UpdateAsync(userEntity);
+                if (result != null)
+                    return ResponseFactory.Ok(UserFactory.Create(userEntity));
+            }
+
+            return ResponseFactory.NotFound("No active user could be found");
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserAsync"); }
+    }
+
+    public async Task<ResponseResult> CreateOrUpdateAddressAsync(ClaimsPrincipal User, AccountDetailsAddressInfoModel model)
+    {
+        try
+        {
+            AddressEntity addressEntity = new AddressEntity()
+            {
+                StreetName_1 = model.AddresLine_1,
+                StreetName_2 = model.AddressLine_2,
+                PostalCode = model.PostalCode,
+                City = model.City,
+            };
+
+            var exists = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == addressEntity.StreetName_1 && x.StreetName_2 == addressEntity.StreetName_2 && x.PostalCode == addressEntity.PostalCode && x.City == addressEntity.City);
+            if (exists == null)
+            {
+                var newAddress = await _context.Addresses.AddAsync(addressEntity);
+                var result = await _context.SaveChangesAsync();
+                if (result == 1)
+                {
+                    var user = await _userManager.GetUserAsync(User);
+                    if (user != null)
+                    {
+                        user.AddressId = newAddress.Entity.Id;
+                        var updateUser = await _userManager.UpdateAsync(user);
+                        if (updateUser != null)
+                            return ResponseFactory.Ok("Address created succefully");
+                    }
+                }
+            }
+            else
+            {
+                addressEntity.Id = exists.Id;
+                _context.Addresses.Entry(exists).CurrentValues.SetValues(addressEntity);
+                var result = await _context.SaveChangesAsync();
+                if (result == 1)
+                {
+                    return ResponseFactory.Ok("Address updated succefully");
+                }
+            }
+
+            return ResponseFactory.Error("CreateOrUpdateAddressAsync");
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "CreateOrUpdateAddressAsync"); }
+    }
+
+    public async Task<ResponseResult> GetUserAddressAsync(ClaimsPrincipal User)
+    {
+        try
+        {
+            var userEntity = await _userManager.GetUserAsync(User);
+            if (userEntity != null)
+            {
+                var result = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == userEntity.AddressId);
+                if (result != null)
+                    return ResponseFactory.Ok(AddressFactory.Create(result));
+            }
+
+            return ResponseFactory.NotFound("No active user could be found");
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "GetActiveUserAsync"); }
+
+    }
 }

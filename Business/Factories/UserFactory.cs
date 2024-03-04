@@ -1,38 +1,81 @@
 ﻿using Business.Models;
-using Business.Utilities;
 using Infrastructure.Entitites;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace Business.Factories;
 
 public class UserFactory
 {
-    public static UserEntity Create(SignUpModel user)
+    public static UserEntity Create(SignUpModel model)
     {
         try
         {
-            var securityObject = PasswordGenerator.GenerateSecurePassword(user.Password);
-            var date = DateTime.Now;
-
-            UserEntity newUser = new()
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Password = securityObject.Password,
-                SecurityKey = securityObject.SecurityKey,
-                Created = date,
-                Modified = date,
+            UserEntity entity = new()
+            {                
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                UserName = model.Email,
             };
-            
-            return newUser;
+
+            return entity;
 
         }
         catch (Exception ex)
         {
-            Debug.WriteLine(ex.Message + "Create user in factory from signup");
+            Debug.WriteLine(ex.Message + "failed to create UserEntity in factory from SignUpModel");
+            return null!;
+        }
+    }
+
+    //public static UserModel Create(UserEntity entity)
+    //{
+    //    try
+    //    {
+    //        UserModel model = new()
+    //        {
+    //            Id = entity.Id,
+    //            FirstName = entity.FirstName,
+    //            LastName = entity.LastName,
+    //            Email = entity.Email!,
+    //            Phone = entity.PhoneNumber,
+    //            //Biography = entity.Biography,
+    //            Address = entity.Address,
+    //            AddressId = entity.AddressId,
+
+
+    //        };
+
+    //        return model;
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex.Message + "failed to create UserModel in factory from UserEntity");
+    //        return null!;
+    //    }
+    //}
+
+    public static AccountDetailsBasicInfoModel Create(UserEntity entity)
+    {
+        try
+        {
+            AccountDetailsBasicInfoModel model = new()
+            {
+                Id = entity.Id,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                Email = entity.Email!,
+                Phone = entity.PhoneNumber,
+                Biography = entity.Biography
+            };
+
+            return model;
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message + "failed to create UserModel in factory from UserEntity");
             return null!;
         }
     }

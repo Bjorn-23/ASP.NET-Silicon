@@ -1,52 +1,72 @@
 ﻿using Business.Models;
+using Business.Services;
+using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Account;
 
 namespace Silicon_design_webapp.Controllers;
 
-public class AccountController : Controller
+[Authorize]
+public class AccountController(SignInManager<UserEntity> signInManager, UserService userService) : Controller
 {
-    //private readonly AccountService _accountService;
+    private readonly SignInManager<UserEntity> _signInManager = signInManager;
+    private readonly UserService _userService = userService;
 
-    //public AccountController(AccountService accountService)
-    //{
-    //    _accountService = accountService;
-    //}
-    [Authorize]
     [Route("/account")]
-    public IActionResult Details()
+    [HttpGet]
+    public async Task<IActionResult> Details()
     {
-        var viewModel = new AccountDetailsViewModel();
-        //viewModel.BasicInfo = _accountService.GetBasicInfo
-        //viewModel.AddressInfo = _accountService.GetBasicInfo
-        //viewModel.Sidebar = _accountService.GetBasicInfo(viewModel.BasicInfo.Email) //fetches the data needed based on email and matches that with account...might not be needed
+        if (!_signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction("SignIn", "Auth");
+        }
 
+        var viewModel = new AccountDetailsViewModel();
+        
+        var activeUser = await _userService.GetActiveUserAsync(User);
+        if(activeUser.ContentResult != null)
+            viewModel.BasicForm = (AccountDetailsBasicInfoModel)activeUser.ContentResult;
+
+        var UserAddress = await _userService.GetUserAddressAsync(User);
+        if (UserAddress.ContentResult != null)
+            viewModel.AddressForm = (AccountDetailsAddressInfoModel)UserAddress.ContentResult;
+            
         return View(viewModel);
     }
 
 
     [HttpPost]
-    public IActionResult BasicInfo(AccountDetailsViewModel viewModel)
+    public async Task<IActionResult> BasicInfo(AccountDetailsViewModel viewModel)
     {
-        //_accountservice.SaveBasicInfo(viewModel.BasicInfo)
-        return RedirectToAction(nameof(Details));
+        var result = await _userService.UpdateUserAsync(User, viewModel.BasicForm);
+        if (result != null)
+            return RedirectToAction(nameof(Details));
+
+        return RedirectToAction("Details");
     }
 
 
     [HttpPost]
-    public IActionResult AddressInfo(AccountDetailsViewModel viewModel)
+    public async Task<IActionResult> AddressInfo(AccountDetailsViewModel viewModel)
     {
-        //_accountservice.SaveAddresInfo(viewModel.AddressInfo)
+        var result = await _userService.CreateOrUpdateAddressAsync(User, viewModel.AddressForm);
+        if (result != null)
+            return RedirectToAction(nameof(Details));
         return RedirectToAction(nameof(Details));
     }
 
 
-    [Authorize]
     [Route("/security")]
     [HttpGet]
     public IActionResult Security()
     {
+        if (!_signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction("SignIn", "Auth");
+        }
+
         var viewModel = new AccountSecurityViewModel();
         return View(viewModel);
     }
@@ -62,7 +82,7 @@ public class AccountController : Controller
             .Select(x => new { x.Key, x.Value.Errors })
             .ToArray();
 
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             // _accountService.UpdatePassword(viewModel.Forml) + other logic here.
 
@@ -71,7 +91,7 @@ public class AccountController : Controller
 
         var viewModelError = new AccountSecurityViewModel();
         viewModelError.ErrorMessage = "Failed to update password";
-        return View("Security",  viewModelError);
+        return View("Security", viewModelError);
     }
 
 
@@ -91,10 +111,14 @@ public class AccountController : Controller
     }
 
 
-    [Authorize]
     [HttpGet]
     public IActionResult SavedCourses()
     {
+        if (!_signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction("SignIn", "Auth");
+        }
+
         var viewModel = new AccountSavedCoursesViewModel();
         return View(viewModel);
     }
