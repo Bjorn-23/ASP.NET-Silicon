@@ -1,6 +1,9 @@
 ﻿using Business.Services;
+using Infrastructure.Entitites;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Auth;
+using System.Security.Claims;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -51,16 +54,30 @@ public class AuthController(UserService userService) : Controller
         if (ModelState.IsValid)
         {
             var result = await _userService.SignInUserAsync(viewModel.Form);
-            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && result.ContentResult != null)
             {
-                var Id = (string)result.ContentResult!;
-                return RedirectToAction("Details", "Account", Id);
+                var user = (UserEntity)result.ContentResult;
+                var claims = new List<Claim>()
+                {
+                    new(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Email, user.Email)
+                };
+
+                await HttpContext.SignInAsync("AuthCookie", new ClaimsPrincipal(new ClaimsIdentity(claims, "AuthCookie")));
+                return RedirectToAction("Details", "Account");
             }
         }
 
         ModelState.Clear();
         viewModel.ErrorMessage = "Incorrect Email or Password";
         return View(viewModel);
+    }
 
+    [HttpGet]
+    public new async Task<IActionResult> SignOut()
+    {
+        await HttpContext.SignOutAsync();
+        return RedirectToAction("SignIn", "Auth");
     }
 }

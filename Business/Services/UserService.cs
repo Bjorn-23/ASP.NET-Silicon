@@ -49,7 +49,7 @@ public class UserService(UserRepository repository, AddressService addressServic
                 var entity = (UserEntity)existingUser.ContentResult;
                 var result = PasswordGenerator.VerifyPassword(user.Password, entity.SecurityKey, entity.Password);
                 if (result)
-                    return ResponseFactory.Ok(entity.Id, "User succesfully signed in");
+                    return ResponseFactory.Ok(entity, "User succesfully signed in");
             }
 
             return ResponseFactory.Error("Incorrect email or password");
