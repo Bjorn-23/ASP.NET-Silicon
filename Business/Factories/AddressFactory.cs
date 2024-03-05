@@ -7,7 +7,7 @@ namespace Business.Factories;
 
 public class AddressFactory
 {
-    public static AddressEntity Create(AccountDetailsAddressInfoModel model)
+    public static AddressEntity Create(AddressInfoModel model)
     {
         try
         {
@@ -28,11 +28,11 @@ public class AddressFactory
         }
     }
 
-    public static AccountDetailsAddressInfoModel Create(AddressEntity entity)
+    public static AddressInfoModel Create(AddressEntity entity)
     {
         try
         {
-            var address = new AccountDetailsAddressInfoModel()
+            var address = new AddressInfoModel()
             {
                 Id = entity.Id,
                 AddresLine_1 = entity.StreetName_1,

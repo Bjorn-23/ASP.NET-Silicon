@@ -24,8 +24,8 @@ public class AccountDetailsViewModel
         }
     };
 
-    public AccountDetailsBasicInfoModel BasicForm { get; set; } = new();
+    public BasicInfoModel BasicForm { get; set; } = new();
 
-    public AccountDetailsAddressInfoModel AddressForm { get; set; } = new();
+    public AddressInfoModel AddressForm { get; set; } = new();
 
 }

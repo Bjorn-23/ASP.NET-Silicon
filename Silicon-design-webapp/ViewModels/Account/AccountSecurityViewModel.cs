@@ -6,7 +6,7 @@ public class AccountSecurityViewModel
 {
     public string Title { get; set; } = "Security";
 
-    public string? ErrorMessage { get; set; } = "";
+    public string? StatusMessage { get; set; } = "Password updated succesfully";
 
     public AccountSidebarViewModel Sidebar { get; set; } = new()
     {
@@ -26,7 +26,7 @@ public class AccountSecurityViewModel
         }
     };
 
-    public AccountSecurityPasswordInfoModel Form { get; set; } = new();
+    public PasswordUpdateModel Form { get; set; } = new();
 
-    public AccountSecurityDeleteModel DeleteAccount { get; set; } = new();
+    public DeleteAccountModel DeleteAccount { get; set; } = new();
 }

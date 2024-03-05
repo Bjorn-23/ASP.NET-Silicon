@@ -5,10 +5,8 @@ using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using System.Xml;
 
 namespace Business.Services;
 
@@ -77,7 +75,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
     }
 
-    public async Task<ResponseResult> UpdateUserAsync(ClaimsPrincipal User, AccountDetailsBasicInfoModel model)
+    public async Task<ResponseResult> UpdateUserAsync(ClaimsPrincipal User, BasicInfoModel model)
     {
         try
         {
@@ -100,66 +98,24 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserAsync"); }
     }
 
-    public async Task<ResponseResult> CreateOrUpdateAddressAsync(ClaimsPrincipal User, AccountDetailsAddressInfoModel model)
-    {
-        try
-        {
-            AddressEntity addressEntity = new AddressEntity()
-            {
-                StreetName_1 = model.AddresLine_1,
-                StreetName_2 = model.AddressLine_2,
-                PostalCode = model.PostalCode,
-                City = model.City,
-            };
-
-            var exists = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == addressEntity.StreetName_1 && x.StreetName_2 == addressEntity.StreetName_2 && x.PostalCode == addressEntity.PostalCode && x.City == addressEntity.City);
-            if (exists == null)
-            {
-                var newAddress = await _context.Addresses.AddAsync(addressEntity);
-                var result = await _context.SaveChangesAsync();
-                if (result == 1)
-                {
-                    var user = await _userManager.GetUserAsync(User);
-                    if (user != null)
-                    {
-                        user.AddressId = newAddress.Entity.Id;
-                        var updateUser = await _userManager.UpdateAsync(user);
-                        if (updateUser != null)
-                            return ResponseFactory.Ok("Address created succefully");
-                    }
-                }
-            }
-            else
-            {
-                addressEntity.Id = exists.Id;
-                _context.Addresses.Entry(exists).CurrentValues.SetValues(addressEntity);
-                var result = await _context.SaveChangesAsync();
-                if (result == 1)
-                {
-                    return ResponseFactory.Ok("Address updated succefully");
-                }
-            }
-
-            return ResponseFactory.Error("CreateOrUpdateAddressAsync");
-        }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "CreateOrUpdateAddressAsync"); }
-    }
-
-    public async Task<ResponseResult> GetUserAddressAsync(ClaimsPrincipal User)
+    public async Task<ResponseResult> UpdateUserPasswordAsync(ClaimsPrincipal User, PasswordUpdateModel model)
     {
         try
         {
             var userEntity = await _userManager.GetUserAsync(User);
             if (userEntity != null)
             {
-                var result = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == userEntity.AddressId);
-                if (result != null)
-                    return ResponseFactory.Ok(AddressFactory.Create(result));
+                var result = await _userManager.ChangePasswordAsync(userEntity, model.CurrentPassword, model.NewPassword);
+                if (result.Succeeded)
+                    return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated succesfully");
+                else
+                    return ResponseFactory.Error("Failed to update password");
             }
 
+            //Possible unnecessary as method can only be reacched by logged in user? Maybe for admin??
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "GetActiveUserAsync"); }
-
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserPasswordAsync"); }
     }
+
 }

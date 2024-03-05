@@ -30,6 +30,7 @@ builder.Services.AddDefaultIdentity<UserEntity>(x =>
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AddressService>();
 //builder.Services.AddScoped<UserManager<UserEntity>>();  // not necessary?
 
 

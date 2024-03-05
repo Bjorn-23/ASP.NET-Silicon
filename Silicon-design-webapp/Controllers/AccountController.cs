@@ -9,11 +9,13 @@ using Silicon_design_webapp.ViewModels.Account;
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize]
-public class AccountController(SignInManager<UserEntity> signInManager, UserService userService) : Controller
+public class AccountController(SignInManager<UserEntity> signInManager, UserService userService, AddressService addressService) : Controller
 {
     private readonly SignInManager<UserEntity> _signInManager = signInManager;
     private readonly UserService _userService = userService;
+    private readonly AddressService _addressService = addressService;
 
+    #region Details
     [Route("/account")]
     [HttpGet]
     public async Task<IActionResult> Details()
@@ -24,19 +26,19 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         }
 
         var viewModel = new AccountDetailsViewModel();
-        
-        var activeUser = await _userService.GetActiveUserAsync(User);
-        if(activeUser.ContentResult != null)
-            viewModel.BasicForm = (AccountDetailsBasicInfoModel)activeUser.ContentResult;
 
-        var UserAddress = await _userService.GetUserAddressAsync(User);
+        var activeUser = await _userService.GetActiveUserAsync(User);
+        if (activeUser.ContentResult != null)
+            viewModel.BasicForm = (BasicInfoModel)activeUser.ContentResult;
+
+        var UserAddress = await _addressService.GetUserAddressAsync(User);
         if (UserAddress.ContentResult != null)
-            viewModel.AddressForm = (AccountDetailsAddressInfoModel)UserAddress.ContentResult;
-            
+            viewModel.AddressForm = (AddressInfoModel)UserAddress.ContentResult;
+
         return View(viewModel);
     }
 
-
+    #region Basic Form
     [HttpPost]
     public async Task<IActionResult> BasicInfo(AccountDetailsViewModel viewModel)
     {
@@ -46,18 +48,21 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
 
         return RedirectToAction("Details");
     }
+    #endregion
 
-
+    #region AddressForm
     [HttpPost]
     public async Task<IActionResult> AddressInfo(AccountDetailsViewModel viewModel)
     {
-        var result = await _userService.CreateOrUpdateAddressAsync(User, viewModel.AddressForm);
+        var result = await _addressService.GetOrCreateAddressAsync(User, viewModel.AddressForm);
         if (result != null)
             return RedirectToAction(nameof(Details));
         return RedirectToAction(nameof(Details));
     }
+    #endregion
+    #endregion
 
-
+    #region Security
     [Route("/security")]
     [HttpGet]
     public IActionResult Security()
@@ -71,33 +76,36 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         return View(viewModel);
     }
 
-
-    [Route("/update-password-failed")]
+    #region Update Password
+    [Route("/update-password")]
     [HttpPost]
-    public IActionResult PasswordInfo(AccountSecurityPasswordInfoModel viewModel)
+    public async Task<IActionResult> UpdatePassword(PasswordUpdateModel viewModel)
     {
         ///Checks for errors in the ModelState, handy for debugging.
         var errors = ModelState
-            .Where(x => x.Value.Errors.Count > 0)
-            .Select(x => new { x.Key, x.Value.Errors })
+            .Where(x => x.Value!.Errors.Count > 0)
+            .Select(x => new { x.Key, x.Value!.Errors })
             .ToArray();
 
         if (ModelState.IsValid)
         {
-            // _accountService.UpdatePassword(viewModel.Forml) + other logic here.
+            var result = await _userService.UpdateUserPasswordAsync(User, viewModel);
 
-            return RedirectToAction(nameof(Security));
+            var viewModelResult = new AccountSecurityViewModel();
+            viewModelResult.StatusMessage = result.Message;
+            return View("Security", viewModelResult);
         }
 
         var viewModelError = new AccountSecurityViewModel();
-        viewModelError.ErrorMessage = "Failed to update password";
+        viewModelError.StatusMessage = "Failed to update password";
         return View("Security", viewModelError);
     }
+    #endregion
 
-
+    #region Delete account
     [Route("/delete-account-failed")]
     [HttpPost]
-    public IActionResult DeleteAccount(AccountSecurityDeleteModel viewModel)
+    public IActionResult DeleteAccount(DeleteAccountModel viewModel)
     {
         if (ModelState.IsValid)
         {
@@ -106,11 +114,13 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         }
 
         var viewModelError = new AccountSecurityViewModel();
-        viewModelError.ErrorMessage = "Account could not be deleted";
+        viewModelError.StatusMessage = "Account could not be deleted";
         return View("Security", viewModelError);
     }
+    #endregion
+    #endregion
 
-
+    #region Courses
     [HttpGet]
     public IActionResult SavedCourses()
     {
@@ -137,4 +147,5 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         // _accountService.UpdateSavedCourses(viewModel.Courses) // set all bookmarks to false?
         return RedirectToAction(nameof(SavedCourses));
     }
+    #endregion
 }

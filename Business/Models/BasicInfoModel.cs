@@ -3,7 +3,7 @@
 
 namespace Business.Models;
 
-public class AccountDetailsBasicInfoModel
+public class BasicInfoModel
 {
     public string? Id { get; set; }
 

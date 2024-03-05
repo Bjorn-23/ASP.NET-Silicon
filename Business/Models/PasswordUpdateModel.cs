@@ -3,7 +3,7 @@
 
 namespace Business.Models;
 
-public class AccountSecurityPasswordInfoModel
+public class PasswordUpdateModel
 {
     [Display(Name = "Current password", Prompt = "********", Order = 0)]
     [Required(ErrorMessage = "You must enter your current password")]

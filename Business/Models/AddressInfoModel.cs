@@ -3,7 +3,7 @@
 
 namespace Business.Models;
 
-public class AccountDetailsAddressInfoModel
+public class AddressInfoModel
 {
     public int Id { get; set; }
 

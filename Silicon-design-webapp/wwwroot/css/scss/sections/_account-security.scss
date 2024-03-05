@@ -24,7 +24,7 @@
         position: relative;
         grid-area: details;
 
-        .update-failed, .delete-failed {
+        .update-failed, .delete-failed, .update-succeeded {
             position: absolute;
             top: 0.5rem;
             right: 0;
@@ -69,17 +69,18 @@
             }
         }
 
-
-
+        .update-succeeded{
+            color: green;
+        }
+            
         .title {
             @include h3;
             margin: 1rem 0 0;
-            /*            text-align: center;
-*/
+            text-align: center;
+
             @include lg {
                 @include h1;
-                /*                text-align: start;
-*/
+                text-align: start;
             }
         }
 
@@ -108,8 +109,7 @@
                     top: 100%;
 
                     @include md {
-                        /*                        top: auto;
-*/
+                        top: auto;
                     }
                 }
 

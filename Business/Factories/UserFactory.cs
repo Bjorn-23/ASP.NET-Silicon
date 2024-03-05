@@ -56,11 +56,11 @@ public class UserFactory
     //    }
     //}
 
-    public static AccountDetailsBasicInfoModel Create(UserEntity entity)
+    public static BasicInfoModel Create(UserEntity entity)
     {
         try
         {
-            AccountDetailsBasicInfoModel model = new()
+            BasicInfoModel model = new()
             {
                 Id = entity.Id,
                 FirstName = entity.FirstName,
