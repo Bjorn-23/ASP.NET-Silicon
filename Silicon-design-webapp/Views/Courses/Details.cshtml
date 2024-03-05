@@ -1,5 +1,9 @@
 ﻿@model CourseDetailsViewModel
 
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
 <section class="course-details">
 
     <div class="bg-container-s-to-lg container-fluid"></div>
@@ -17,16 +21,13 @@
                     <li class="breadcrumb-item">
                         <a asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-@*                     @if (ViewContext.RouteData.Values["controller"]!.ToString() != "Home")
-                    { *@
                         <li class="@(ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")! ? "breadcrumb-item" : "breadcrumb-item active")">
                             <a asp-controller="@ViewContext.RouteData.Values["controller"]!.ToString()"
                                asp-action="@ViewContext.RouteData.Values["action"]!.ToString()">
                                 @ViewContext.RouteData.Values["controller"]!.ToString()
                             </a>
                         </li>
- @*                    } *@
-                    @* If there a subpage that ends with Details is active then this code prints that out in the breadcrumb. *@
+
                     @if (ViewContext.RouteData.Values["action"]!.ToString()!.EndsWith("Details")!)
                     {
                         <li class="breadcrumb-item active breadcrumb-details" aria-current="page">@ViewContext.RouteData.Values["action"]!.ToString()</li>

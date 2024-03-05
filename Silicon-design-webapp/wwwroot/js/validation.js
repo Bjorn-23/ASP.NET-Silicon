@@ -62,6 +62,11 @@ const PasswordValidator = (element) => {
     }
 }
 
+const PostalCodeValidator = (element) => {
+    const regExp = /^\d{3}\s\d{2}$/
+    FormErrorHandler(element, regExp.test(element.value))
+}
+
 const CheckboxValidator = (element) => {
     if (!element.checked) {
         FormErrorHandler(element, false)
@@ -79,33 +84,49 @@ if (textarea != null) {
 }
 
 let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
 
-inputs.forEach(input => {
-    if (input.dataset.val === 'true') {
+forms.forEach(form => {
+    let inputs = form.querySelectorAll('input');
 
-        if (input.type === 'checkbox') {
-            input.addEventListener('change', (e) => {
-                CheckboxValidator(e.target)
-            })
+    inputs.forEach(input => {
+        if (input.dataset.val === 'true') {
+
+            if (input.type === 'checkbox') {
+                input.addEventListener('change', (e) => {
+                    CheckboxValidator(e.target)
+                })
+            }
+
+            else if (input.name.toLowerCase().includes('postalcode')) {
+                input.addEventListener('keyup', (e) => {
+                    PostalCodeValidator(e.target)
+                })
+            }
+
+            else {
+                input.addEventListener('keyup', (e) => {
+                    switch (e.target.type) {
+
+                        case 'text':
+                            TextValidator(e.target)
+                            break;
+
+                        case 'email':
+                            EmailValidator(e.target)
+                            break;
+
+                        case 'password':
+                            PasswordValidator(e.target)
+                            break;
+
+                        default:
+                            if (e.target.id.includes('postalCode') || e.target.name.includes('postalCode')) {
+                                PostalCodeValidator(e.target);
+                            }
+                            break;
+                    }
+                })
+            }
         }
-        else {
-            input.addEventListener('keyup', (e) => {
-                switch (e.target.type) {
-
-                    case 'text':
-                        TextValidator(e.target)
-                        break;
-
-                    case 'email':
-                        EmailValidator(e.target)
-                        break;
-
-                    case 'password':
-                        PasswordValidator(e.target)
-                        break;
-                }
-            })
-        }
-    }
-})
+    });
+});

@@ -1,14 +1,11 @@
 ﻿using Business.Factories;
 using Business.Models;
-using Business.Utilities;
 using Infrastructure.Context;
 using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System.Linq.Expressions;
 using System.Security.Claims;
 namespace Business.Services;
 
@@ -29,7 +26,6 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
                 City = model.City,
             };
 
-            //does the following line seem right?
             var exists = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == addressEntity.StreetName_1 && x.StreetName_2 == addressEntity.StreetName_2 && x.PostalCode == addressEntity.PostalCode && x.City == addressEntity.City);
             if (exists != null)
             {
@@ -57,13 +53,6 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
                             return ResponseFactory.Ok("Address created succefully");
                     }
                 }
-                //addressEntity.Id = exists.Id;
-                //_context.Addresses.Entry(exists).CurrentValues.SetValues(addressEntity);
-                //var result = await _context.SaveChangesAsync();
-                //if (result == 1)
-                //{
-                //    return ResponseFactory.Ok("Address updated succesfully");
-                //}
             }
 
             return ResponseFactory.Error("GetOrCreateAddressAsync");

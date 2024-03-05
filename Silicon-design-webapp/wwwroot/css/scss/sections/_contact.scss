@@ -18,12 +18,12 @@ footer, .google-map, .contact-form{
         display: grid;
         grid-template-columns: auto;
         grid-template-areas:
-        'title' 'box' 'form';
+            'title' 'box' 'form';
 
         @include xl {
             grid-template-columns: 1fr 1fr;
             grid-template-areas:
-            'title empty' 'box empty';
+                'title empty' 'box empty';
             margin: 0 0 8rem;
         }
 
@@ -168,8 +168,9 @@ footer, .google-map, .contact-form{
                 border: 2px solid $success;
                 color: $gray-700;
 
-                @include md {
+                @include xl {
                     color: $gray-700;
+                    width: calc(100% - 8rem);
                 }
             }
 

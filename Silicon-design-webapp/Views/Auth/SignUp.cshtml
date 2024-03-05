@@ -1,6 +1,13 @@
 ﻿@model SignUpViewModel 
 
+@{
+    ViewData["Title"] = "Sign up";
+}
+
 <section class="sign-up container">
+
+@*     Add conditionally display div if sign up fails, display statusmessages frrom responseresult.
+ *@
     <form class="sign-up-form" method="post" asp-controller="Auth" asp-action="SignUp" novalidate>
         
         <h1 class="title">Create Account</h1>
@@ -44,7 +51,7 @@
             <span asp-validation-for="Form.TermsConditions"></span>
         </div>
 
-        <button class="btn-theme submit" type="submit">@Model.Title</button>
+        <button class="btn-theme submit" type="submit">Sign up</button>
 
     </form>
 

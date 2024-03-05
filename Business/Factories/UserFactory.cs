@@ -28,34 +28,6 @@ public class UserFactory
         }
     }
 
-    //public static UserModel Create(UserEntity entity)
-    //{
-    //    try
-    //    {
-    //        UserModel model = new()
-    //        {
-    //            Id = entity.Id,
-    //            FirstName = entity.FirstName,
-    //            LastName = entity.LastName,
-    //            Email = entity.Email!,
-    //            Phone = entity.PhoneNumber,
-    //            //Biography = entity.Biography,
-    //            Address = entity.Address,
-    //            AddressId = entity.AddressId,
-
-
-    //        };
-
-    //        return model;
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Debug.WriteLine(ex.Message + "failed to create UserModel in factory from UserEntity");
-    //        return null!;
-    //    }
-    //}
-
     public static BasicInfoModel Create(UserEntity entity)
     {
         try

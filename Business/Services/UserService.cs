@@ -75,6 +75,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
     }
 
+
     public async Task<ResponseResult> UpdateUserAsync(ClaimsPrincipal User, BasicInfoModel model)
     {
         try
@@ -98,6 +99,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserAsync"); }
     }
 
+
     public async Task<ResponseResult> UpdateUserPasswordAsync(ClaimsPrincipal User, PasswordUpdateModel model)
     {
         try
@@ -107,7 +109,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             {
                 var result = await _userManager.ChangePasswordAsync(userEntity, model.CurrentPassword, model.NewPassword);
                 if (result.Succeeded)
-                    return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated succesfully");
+                    return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
                 else
                     return ResponseFactory.Error("Failed to update password");
             }
@@ -118,4 +120,24 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserPasswordAsync"); }
     }
 
+
+    public async Task<ResponseResult> DeleteUserAccount(ClaimsPrincipal User)
+    {
+        try
+        {
+            var userEntity = await _userManager.GetUserAsync(User);
+            if (userEntity != null)
+            {
+
+                var result = await _userManager.DeleteAsync(userEntity);
+                if (result.Succeeded)                    
+                    return ResponseFactory.Ok("account deleted successfully");
+                else
+                    return ResponseFactory.Error("Failed to delete account");
+            }
+            return ResponseFactory.NotFound("No User found");
+
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "DeleteUserAccount"); }
+    }
 }

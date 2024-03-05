@@ -19,7 +19,6 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     public IActionResult SignUp()
     {
         var viewModel = new SignUpViewModel();
-        ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
 
@@ -46,7 +45,6 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     public IActionResult SignIn()
     {
         var viewModel = new SignInViewModel();
-        ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
 

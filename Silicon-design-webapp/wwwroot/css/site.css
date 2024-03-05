@@ -362,6 +362,41 @@ h6, .h6 {
   color: #FFFFFF;
 }
 
+.confirm-dialog {
+  background-color: #EFF2FC;
+  border: 1px solid #6366F1;
+  padding: 20px;
+  /*    @include card;*/
+}
+
+.confirm-dialog .confirm-text {
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.125rem !important;
+  margin-bottom: 10px;
+}
+
+.confirm-dialog .confirm-buttons {
+  text-align: center;
+}
+
+.confirm-dialog .confirm-buttons button {
+  padding: 8px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #333;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.confirm-dialog .confirm-buttons button:hover {
+  background-color: #e0e0e0;
+}
+
 .card {
   box-shadow: 1px 1px 3px #D4D7E5, 1px 3px 5px #E2E5F1, 2px 6px 8px #EFF2FC, 3px 9px 12px #F3F6FF;
   border-radius: 0.5rem;
@@ -539,9 +574,6 @@ form .input-group span {
   color: #565973;
   font-family: "Manrope", sans-serif;
   font-size: 0.75rem !important;
-  /*            @include md {
-                  @include text-s;
-              }*/
 }
 form .input-group span.field-validation-error {
   color: #EF4444;
@@ -2808,9 +2840,10 @@ footer, .google-map, .contact-form {
   border: 2px solid #22C55E;
   color: #565973;
 }
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .contact .contact-wrapper .contact-form .form-success {
     color: #565973;
+    width: calc(100% - 8rem);
   }
 }
 .contact .contact-wrapper .contact-form h2 {
@@ -3139,6 +3172,12 @@ footer, .google-map, .contact-form {
     text-align: start;
   }
 }
+.account-details .content-box-account-details form {
+  /*            span {
+                  color: $gray-600;
+                  margin: 0 0 0 0.2rem;
+              }*/
+}
 @media (min-width: 768px) {
   .account-details .content-box-account-details form .group-wrapper {
     display: flex;
@@ -3169,10 +3208,6 @@ footer, .google-map, .contact-form {
 }
 .account-details .content-box-account-details form input::placeholder, .account-details .content-box-account-details form textarea::placeholder {
   color: #B4B7C9;
-}
-.account-details .content-box-account-details form span {
-  color: #9397AD;
-  margin: 0 0 0 0.2rem;
 }
 .account-details .content-box-account-details form .button-wrapper {
   display: flex;
@@ -3214,9 +3249,9 @@ footer, .google-map, .contact-form {
   position: relative;
   grid-area: details;
 }
-.account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+.account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed, .account-security .content-box-security .update-succeeded {
   position: absolute;
-  top: 0.5rem;
+  top: 4rem;
   right: 0;
   text-align: center;
   background-color: rgba(239, 68, 68, 0.1254901961);
@@ -3227,7 +3262,7 @@ footer, .google-map, .contact-form {
   margin: 1rem 0;
 }
 @media (min-width: 768px) {
-  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed, .account-security .content-box-security .update-succeeded {
     padding: 0.2rem 2rem;
     line-height: 160%;
     font-weight: 400;
@@ -3238,9 +3273,9 @@ footer, .google-map, .contact-form {
   }
 }
 @media (min-width: 992px) {
-  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed {
+  .account-security .content-box-security .update-failed, .account-security .content-box-security .delete-failed, .account-security .content-box-security .update-succeeded {
     width: calc(50% - 0.5rem);
-    top: 8.7rem;
+    top: 9.65rem;
     right: 0;
   }
 }
@@ -3265,6 +3300,16 @@ footer, .google-map, .contact-form {
     left: 18rem;
   }
 }
+.account-security .content-box-security .update-succeeded {
+  background-color: rgba(34, 197, 94, 0.1254901961);
+  border: 2px solid #22C55E;
+  color: #565973;
+}
+@media (min-width: 768px) {
+  .account-security .content-box-security .update-succeeded {
+    color: #565973;
+  }
+}
 .account-security .content-box-security .title {
   line-height: 160%;
   font-weight: 400;
@@ -3274,8 +3319,7 @@ footer, .google-map, .contact-form {
   color: #0B0F19;
   font-size: 1.75rem !important;
   margin: 1rem 0 0;
-  /*            text-align: center;
-  */
+  text-align: center;
 }
 @media (min-width: 992px) {
   .account-security .content-box-security .title {
@@ -3286,13 +3330,12 @@ footer, .google-map, .contact-form {
     font-weight: 800;
     color: #0B0F19;
     font-size: 2.5rem !important;
-    /*                text-align: start;
-    */
+    text-align: start;
   }
 }
 .account-security .content-box-security form .form-title {
   color: #6366F1;
-  margin: 1rem 0 0;
+  margin: 1rem 0;
 }
 @media (min-width: 1200px) {
   .account-security .content-box-security form .form-title {
@@ -3314,8 +3357,17 @@ footer, .google-map, .contact-form {
 }
 @media (min-width: 768px) {
   .account-security .content-box-security form .input-group span {
-    /*                        top: auto;
-    */
+    top: auto;
+  }
+}
+@media (min-width: 992px) {
+  .account-security .content-box-security form .input-group span {
+    top: 100%;
+  }
+}
+@media (min-width: 1400px) {
+  .account-security .content-box-security form .input-group span {
+    top: auto;
   }
 }
 @media (min-width: 992px) {

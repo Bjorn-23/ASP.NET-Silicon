@@ -26,15 +26,29 @@ const CheckboxValidator = (element) => {
 }
 
 let checkboxForms = document.querySelectorAll('form')
-let checkboxInputs = checkboxForms[0].querySelectorAll('input')
+let checkboxInputs = checkboxForms[1].querySelectorAll('input')
 
 checkboxInputs.forEach(input => {
     if (input.dataset.val === 'true') {
 
-        if (input.type === 'checkbox') {
-            input.addEventListener('change', (e) => {
-                CheckboxValidator(e.target)
-            })
-        }        
+        input.addEventListener('change', (e) => {
+            CheckboxValidator(e.target)
+        })      
     }
 })
+
+var deleteButton = document.querySelector('.delete-button');
+var form = document.querySelector('.delete-account')
+
+/* Add a click event listener to the delete button*/
+deleteButton.addEventListener('click', function (event) {
+    // Need To style this, if possible
+    var confirmed = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+    // If the user confirms the deletion, submit the form
+    if (confirmed) {
+        form.submit();
+    }
+    else
+        event.preventDefault();
+});

@@ -1,10 +1,10 @@
 ﻿@model AccountSecurityViewModel
 
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = $"{Model.Sidebar.AccountInfo.FirstName} {Model.Sidebar.AccountInfo.LastName}";
 }
 
 <section class="account-security container">
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSidebarPartial.cshtml", Model.Sidebar)
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSecurityPartial.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/SideBarPartials/_AccountSidebarPartial.cshtml", Model.Sidebar)
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/SecurityPartials/_AccountSecurityPartial.cshtml")
 </section>

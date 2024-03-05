@@ -1,11 +1,11 @@
 ﻿@model AccountSavedCoursesViewModel
 
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = $"{Model.Sidebar.AccountInfo.FirstName} {Model.Sidebar.AccountInfo.LastName}";
 }
 
 <section class="account-saved-courses container">
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSidebarPartial.cshtml", Model.Sidebar)
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSavedCoursesPartial.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/SideBarPartials/_AccountSidebarPartial.cshtml", Model.Sidebar)
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/CoursesPartials/_AccountSavedCoursesPartial.cshtml")
 </section>
 

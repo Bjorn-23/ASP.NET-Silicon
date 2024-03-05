@@ -29,7 +29,10 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
 
         var activeUser = await _userService.GetActiveUserAsync(User);
         if (activeUser.ContentResult != null)
+        {
             viewModel.BasicForm = (BasicInfoModel)activeUser.ContentResult;
+            viewModel.Sidebar.AccountInfo = viewModel.BasicForm;
+        }
 
         var UserAddress = await _addressService.GetUserAddressAsync(User);
         if (UserAddress.ContentResult != null)
@@ -65,27 +68,32 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     #region Security
     [Route("/security")]
     [HttpGet]
-    public IActionResult Security()
+    public async Task<IActionResult> Security()
     {
         if (!_signInManager.IsSignedIn(User))
         {
             return RedirectToAction("SignIn", "Auth");
         }
-
         var viewModel = new AccountSecurityViewModel();
+
+        var activeUser = await _userService.GetActiveUserAsync(User);
+        if (activeUser.ContentResult != null)
+        {
+            viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.ContentResult;
+        }
         return View(viewModel);
     }
 
     #region Update Password
-    [Route("/update-password")]
+    [Route("/security/update-password")]
     [HttpPost]
     public async Task<IActionResult> UpdatePassword(PasswordUpdateModel viewModel)
     {
         ///Checks for errors in the ModelState, handy for debugging.
-        var errors = ModelState
-            .Where(x => x.Value!.Errors.Count > 0)
-            .Select(x => new { x.Key, x.Value!.Errors })
-            .ToArray();
+        //var errors = ModelState
+        //    .Where(x => x.Value!.Errors.Count > 0)
+        //    .Select(x => new { x.Key, x.Value!.Errors })
+        //    .ToArray();
 
         if (ModelState.IsValid)
         {
@@ -103,18 +111,23 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     #endregion
 
     #region Delete account
-    [Route("/delete-account-failed")]
+    [Route("/security/delete-account")]
     [HttpPost]
-    public IActionResult DeleteAccount(DeleteAccountModel viewModel)
+    public async Task<IActionResult> DeleteAccount(DeleteAccountModel viewModel)
     {
         if (ModelState.IsValid)
         {
-            // _accountService.UpdatePassword(viewModel.Forml) + other logic here.
-            return RedirectToAction(nameof(Security));
+            var result = await _userService.DeleteUserAccount(User);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         var viewModelError = new AccountSecurityViewModel();
         viewModelError.StatusMessage = "Account could not be deleted";
+        ModelState.Clear();
         return View("Security", viewModelError);
     }
     #endregion
@@ -122,14 +135,19 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
 
     #region Courses
     [HttpGet]
-    public IActionResult SavedCourses()
+    public async Task<IActionResult> SavedCourses()
     {
         if (!_signInManager.IsSignedIn(User))
         {
             return RedirectToAction("SignIn", "Auth");
         }
-
         var viewModel = new AccountSavedCoursesViewModel();
+
+        var activeUser = await _userService.GetActiveUserAsync(User);
+        if (activeUser.ContentResult != null)
+        {
+            viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.ContentResult;
+        }
         return View(viewModel);
     }
 
