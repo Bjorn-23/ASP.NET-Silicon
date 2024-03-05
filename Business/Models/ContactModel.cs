@@ -10,6 +10,7 @@ public class ContactModel
     [Display(Name ="Full name", Prompt="Enter your full name", Order = 0)]
     [DataType(DataType.Text)]
     [Required(ErrorMessage="Full name is required")]
+    [MinLength(2, ErrorMessage = "Name too short")]
     public string FullName { get; set; } = null!;
 
 

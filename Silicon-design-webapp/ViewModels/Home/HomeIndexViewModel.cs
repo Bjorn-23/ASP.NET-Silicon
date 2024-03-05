@@ -5,7 +5,7 @@ namespace Silicon_design_webapp.ViewModels.Home;
 
 public class HomeIndexViewModel
 {
-    public string Title { get; set; } = "Task Management Assistant You're Gonna Love";
+    public string Title { get; set; } = "The number one task management assistant";
 
     public ShowcaseViewModel Showcase { get; set; } = new()
     {

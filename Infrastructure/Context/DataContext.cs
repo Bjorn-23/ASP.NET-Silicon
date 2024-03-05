@@ -1,10 +1,9 @@
-﻿using Infrastructure.Entitites;
-using Microsoft.EntityFrameworkCore;
+﻿//using Infrastructure.Entitites;
+//using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Context;
+//namespace Infrastructure.Context;
 
-public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
-{
-    public DbSet<AddressEntity> Addresses { get; set; }
-    public DbSet<UserEntity> Users { get; set; }
-}
+//public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
+//{
+//    public DbSet<AddressEntity> Addresses { get; set; }
+//}

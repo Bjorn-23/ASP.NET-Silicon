@@ -6,27 +6,11 @@ public class AccountSecurityViewModel
 {
     public string Title { get; set; } = "Security";
 
-    public string? ErrorMessage { get; set; } = "";
+    public string? StatusMessage { get; set; } = "";
 
-    public AccountSidebarViewModel Sidebar { get; set; } = new()
-    {
-        ProfileImage = new()
-        {
-            ImageUrl = "/img/user-logged-in.png",
-            AltText = "User profice pic"
-        },
+    public AccountSidebarViewModel Sidebar { get; set; } = new();
 
-        AccountInfo = new()
-        {
-            FirstName = "Björn",
-            LastName = "Andersson",
-            Email = "bjorn@domain.com",
-            Phone = "0789456123",
-            Biography = "",
-        }
-    };
+    public PasswordUpdateModel Form { get; set; } = new();
 
-    public AccountSecurityPasswordInfoModel Form { get; set; } = new();
-
-    public AccountSecurityDeleteModel DeleteAccount { get; set; } = new();
+    public DeleteAccountModel DeleteAccount { get; set; } = new();
 }

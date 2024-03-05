@@ -1,6 +1,9 @@
 using Business.Services;
 using Infrastructure.Context;
-using Infrastructure.Repositories;
+using Infrastructure.Entitites;
+using Microsoft.AspNetCore.Identity;
+
+//using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Silicon_design_webapp.Helpers;
 
@@ -10,19 +13,27 @@ builder.Services.AddControllersWithViews();
 
 
 //add services here such as repositories, services, dbcontext etc.
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 builder.Services.AddAuthentication("AuthCookie").AddCookie("AuthCookie", x =>
 {
     x.LoginPath = "/signin";
+    x.LogoutPath = "/signout";
     x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 });
 
+builder.Services.AddDefaultIdentity<UserEntity>(x =>
+{
+    x.User.RequireUniqueEmail = true;
+    x.SignIn.RequireConfirmedAccount = false;
+    x.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<AddresRepository>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
+//builder.Services.AddScoped<UserManager<UserEntity>>();  // not necessary?
+
+
 
 
 var app = builder.Build();

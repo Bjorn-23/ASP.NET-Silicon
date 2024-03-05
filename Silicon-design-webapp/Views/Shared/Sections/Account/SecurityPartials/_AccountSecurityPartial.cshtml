@@ -1,0 +1,15 @@
+﻿@model AccountSecurityViewModel
+
+<div class="content-box-security">
+
+    <h1 class="title">Security</h1>
+
+    <div class="@((@Model.StatusMessage == "Failed to update password") ? "update-failed" : ((@Model.StatusMessage == "Account could not be deleted") ? "delete-failed" : ((@Model.StatusMessage == "Password updated successfully") ? "update-succeeded" : "hidden")))">@Model.StatusMessage</div>
+
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/SecurityPartials/_AccountSecurityUpdatePasswordPartial.cshtml", Model.Form )
+
+    <div class="divider"></div>
+
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/SecurityPartials/_AccountSecurityDeletePartial.cshtml", Model.DeleteAccount)
+
+</div>

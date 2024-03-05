@@ -10,7 +10,6 @@ public class CoursesController : Controller
     public IActionResult Index()
     {
         var viewModel = new CoursesIndexViewModel();
-        ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
 

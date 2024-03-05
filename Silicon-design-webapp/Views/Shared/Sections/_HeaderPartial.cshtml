@@ -1,4 +1,7 @@
-﻿<header>
+﻿
+@inject SignInManager<UserEntity> _signInManager;
+
+<header>
     <div class="container">
 
         <a id="logo" asp-controller="Home" asp-action="Index"><img src="/img/logo.svg" alt="Silicon logo"></a>
@@ -8,7 +11,11 @@
                 <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview">Overview</a>
                 <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="features">Features</a>
                 <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
-                <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
+                @if (_signInManager.IsSignedIn(User))
+                {
+                    <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
+                }
+
             </nav>
         </div>
 
@@ -23,15 +30,15 @@
         </div>
 
         <div class="account-buttons">
-            <a class="btn-gray" asp-controller="Auth" asp-action="SignIn">
-                <img class="sign-in" src="/img/icons/sign-in.svg"
-                     alt="account logo" aria-hidden="true">Sign in
-            </a>
-            <a class="btn-theme" asp-controller="Auth" asp-action="SignUp">
-                <img class="sign-up" src="/img/icons/sign-up.svg"
-                     alt="sign in logo" aria-hidden="true">Sign up
-            </a>
-            <a href="/account-details.html"><img class="user-logged-in hidden" src="/img/user-logged-in.png" alt="profile picture of user" aria-hidden="false"></a>
+            @if (_signInManager.IsSignedIn(User))
+            {
+                <a asp-controller="Account" asp-action="Details"><img class="user-logged-in" src="/img/user-logged-in.png" alt="profile picture of user"></a>
+            }
+            else
+            {
+                <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><img class="sign-in" src="/img/icons/sign-in.svg" alt="account logo">Sign in</a>
+                <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><img class="sign-up" src="/img/icons/sign-up.svg" alt="sign in logo">Sign up</a>
+            }
         </div>
 
         <button class="btn btn-mobile" id="btn-mobile" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
@@ -47,15 +54,15 @@
             </div>
 
             <div class="account-buttons">
-                <a class="btn-gray" asp-controller="Auth" asp-action="SignIn">
-                    <img class="sign-in" src="/img/icons/sign-in.svg"
-                         alt="account logo" aria-hidden="true">Sign in
-                </a>
-                <a class="btn-theme" asp-controller="Auth" asp-action="SignUp">
-                    <img class="sign-up" src="/img/icons/sign-up.svg"
-                         alt="sign in logo" aria-hidden="true">Sign up
-                </a>
-                <a href="/account-details.html"><img class="user-logged-in hidden" src="/img/user-logged-in.png" alt="profile picture of user" aria-hidden="false"></a>
+                @if (_signInManager.IsSignedIn(User))
+                {
+                    <a asp-controller="Account" asp-action="Details"><img class="user-logged-in" src="/img/user-logged-in.png" alt="profile picture of user"></a>
+                }
+                else
+                {
+                    <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><img class="sign-in" src="/img/icons/sign-in.svg" alt="account logo">Sign in</a>
+                    <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><img class="sign-up" src="/img/icons/sign-up.svg" alt="sign in logo">Sign up</a>
+                }
             </div>
 
             <nav>

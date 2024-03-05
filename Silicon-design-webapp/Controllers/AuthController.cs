@@ -1,24 +1,24 @@
 ﻿using Business.Services;
 using Infrastructure.Entitites;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Auth;
-using System.Security.Claims;
+
 
 namespace Silicon_design_webapp.Controllers;
 
-public class AuthController(UserService userService) : Controller
+public class AuthController(UserService userService, SignInManager<UserEntity> signInManager) : Controller
 {
     private readonly UserService _userService = userService;
+    private readonly SignInManager<UserEntity> _signInManager = signInManager;
 
-
-
+    #region SignUp
     [Route("/signup")]
     [HttpGet]
     public IActionResult SignUp()
     {
         var viewModel = new SignUpViewModel();
-        ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
 
@@ -29,20 +29,22 @@ public class AuthController(UserService userService) : Controller
     {
         if (ModelState.IsValid)
         {
-            var result = await _userService.CreateUserAsync(viewModel.Form);
+            var result = await _userService.RegisterUserAsync(viewModel.Form);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
                 return RedirectToAction("SignIn", "Auth");
         }
-        
+
+        //add errormessage
         return View(viewModel);
     }
+    #endregion
 
+    #region SignIn
     [Route("/signin")]
     [HttpGet]
     public IActionResult SignIn()
     {
         var viewModel = new SignInViewModel();
-        ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }
 
@@ -54,17 +56,8 @@ public class AuthController(UserService userService) : Controller
         if (ModelState.IsValid)
         {
             var result = await _userService.SignInUserAsync(viewModel.Form);
-            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && result.ContentResult != null)
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
-                var user = (UserEntity)result.ContentResult;
-                var claims = new List<Claim>()
-                {
-                    new(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(ClaimTypes.Email, user.Email)
-                };
-
-                await HttpContext.SignInAsync("AuthCookie", new ClaimsPrincipal(new ClaimsIdentity(claims, "AuthCookie")));
                 return RedirectToAction("Details", "Account");
             }
         }
@@ -73,11 +66,15 @@ public class AuthController(UserService userService) : Controller
         viewModel.ErrorMessage = "Incorrect Email or Password";
         return View(viewModel);
     }
+    #endregion
 
+    #region SignOut
+    [Authorize]
     [HttpGet]
     public new async Task<IActionResult> SignOut()
     {
-        await HttpContext.SignOutAsync();
+        await _signInManager.SignOutAsync();
         return RedirectToAction("SignIn", "Auth");
     }
+    #endregion
 }

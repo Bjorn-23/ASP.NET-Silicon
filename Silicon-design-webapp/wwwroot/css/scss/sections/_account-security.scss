@@ -24,9 +24,9 @@
         position: relative;
         grid-area: details;
 
-        .update-failed, .delete-failed {
+        .update-failed, .delete-failed, .update-succeeded {
             position: absolute;
-            top: 0.5rem;
+            top: 4rem;
             right: 0;
             text-align: center;
             background-color: #EF444420;
@@ -44,7 +44,7 @@
 
             @include lg {
                 width: calc(50% - 0.5rem);
-                top: 8.7rem;
+                top: 9.65rem;
                 right: 0;
             }
         }
@@ -69,24 +69,31 @@
             }
         }
 
+        .update-succeeded {
+            background-color: #22C55E20;
+            border: 2px solid $success;
+            color: $gray-700;
 
+            @include md {
+                color: $gray-700;
+            }
+        }
 
         .title {
             @include h3;
             margin: 1rem 0 0;
-            /*            text-align: center;
-*/
+            text-align: center;
+
             @include lg {
                 @include h1;
-                /*                text-align: start;
-*/
+                text-align: start;
             }
         }
 
         form {
             .form-title {
                 color: $theme;
-                margin: 1rem 0 0;
+                margin: 1rem 0;
 
                 @include xl {
                     text-align: start;
@@ -108,8 +115,15 @@
                     top: 100%;
 
                     @include md {
-                        /*                        top: auto;
-*/
+                        top: auto;
+                    }
+
+                    @include lg {
+                        top: 100%;
+                    }
+
+                    @include xxl {
+                        top: auto;
                     }
                 }
 

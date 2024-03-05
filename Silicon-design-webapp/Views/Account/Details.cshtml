@@ -1,10 +1,10 @@
 ﻿@model AccountDetailsViewModel
 
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = $"{Model.BasicForm.FirstName} {Model.BasicForm.LastName}";
 }
 
 <section class="account-details container">
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountSidebarPartial.cshtml", Model.Sidebar)
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/_AccountDetailsPartial.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/SideBarPartials/_AccountSidebarPartial.cshtml", Model.Sidebar)
+    @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AccountDetailsFormsPartial.cshtml")
 </section>

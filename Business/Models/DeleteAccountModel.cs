@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Business.Models;
 
-public class AccountSecurityDeleteModel
+public class DeleteAccountModel
 {
     [CheckboxRequired(ErrorMessage = "You must check box to delete account")]
     [Display(Order = 0)]
