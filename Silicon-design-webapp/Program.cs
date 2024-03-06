@@ -44,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseHsts();
+app.UseStatusCodePagesWithReExecute("/error/404", "?statusCode={0}");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
@@ -51,13 +52,8 @@ app.UseAuthorization();
 
 app.UseUserSessionValidationMiddleware();
 
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapControllerRoute(
+app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-});
-
-app.UseNotFoundMiddleware();
 
 app.Run();
