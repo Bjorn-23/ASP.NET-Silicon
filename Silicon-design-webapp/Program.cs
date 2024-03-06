@@ -1,9 +1,6 @@
 using Business.Services;
 using Infrastructure.Context;
 using Infrastructure.Entitites;
-using Microsoft.AspNetCore.Identity;
-
-//using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Silicon_design_webapp.Helpers;
 
@@ -17,9 +14,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(builder.
 
 builder.Services.AddAuthentication("AuthCookie").AddCookie("AuthCookie", x =>
 {
+
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+});
+
+builder.Services.ConfigureApplicationCookie(x =>
+{
     x.LoginPath = "/signin";
     x.LogoutPath = "/signout";
-    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    x.Cookie.HttpOnly = true;
 });
 
 builder.Services.AddDefaultIdentity<UserEntity>(x =>
@@ -29,21 +32,24 @@ builder.Services.AddDefaultIdentity<UserEntity>(x =>
     x.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
-//builder.Services.AddScoped<UserManager<UserEntity>>();  // not necessary?
 
 
 
 
 var app = builder.Build();
+app.UseStaticFiles();
+
+app.UseRouting();
 app.UseHsts();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseUserSessionValidationMiddleware();
 
 app.UseEndpoints(endpoints =>
 {
@@ -51,6 +57,7 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+
 app.UseNotFoundMiddleware();
 
 app.Run();
