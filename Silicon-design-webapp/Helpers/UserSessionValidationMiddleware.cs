@@ -16,11 +16,11 @@ public class UserSessionValidationMiddleware(RequestDelegate next)
             //    await signInManager.SignOutAsync();
 
             var user = await userManager.GetUserAsync(context.User);
-            if(user == null)
+            if (user == null)
             {
-                await signInManager.SignOutAsync(); 
+                await signInManager.SignOutAsync();
 
-                if(!IsAjaxRequest(context.Request) && context.Request.Method.Equals("GET", StringComparison.OrdinalIgnoreCase))
+                if (!IsAjaxRequest(context.Request) && context.Request.Method.Equals("GET", StringComparison.OrdinalIgnoreCase))
                 {
                     var signInPath = "/signin";
                     context.Response.Redirect(signInPath);

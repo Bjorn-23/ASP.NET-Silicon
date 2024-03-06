@@ -42,22 +42,29 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     #region SignIn
     [Route("/signin")]
     [HttpGet]
-    public IActionResult SignIn()
+    public IActionResult SignIn(string returnurl)
     {
+        if (_signInManager.IsSignedIn(User))
+            return RedirectToAction("Details", "Account");
+
         var viewModel = new SignInViewModel();
+        ViewData["ReturnUrl"] = returnurl ?? Url.Content("~/");
         return View(viewModel);
     }
 
 
     [Route("/signin")]
     [HttpPost]
-    public async Task<IActionResult> SignIn(SignInViewModel viewModel)
+    public async Task<IActionResult> SignIn(SignInViewModel viewModel, string returnurl)
     {
         if (ModelState.IsValid)
         {
             var result = await _userService.SignInUserAsync(viewModel.Form);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
+                if (!string.IsNullOrEmpty(returnurl) && Url.IsLocalUrl(returnurl) && returnurl != "/") 
+                    return Redirect(returnurl);
+
                 return RedirectToAction("Details", "Account");
             }
         }

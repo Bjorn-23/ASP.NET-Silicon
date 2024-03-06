@@ -4,26 +4,11 @@ using Infrastructure.Entitites;
 using Microsoft.EntityFrameworkCore;
 using Silicon_design_webapp.Helpers;
 
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddRouting(x => x.LowercaseUrls = true);
 builder.Services.AddControllersWithViews();
-
-
-//add services here such as repositories, services, dbcontext etc.
+builder.Services.AddRouting(x => x.LowercaseUrls = true);
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-
-builder.Services.AddAuthentication("AuthCookie").AddCookie("AuthCookie", x =>
-{
-
-    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-});
-
-builder.Services.ConfigureApplicationCookie(x =>
-{
-    x.LoginPath = "/signin";
-    x.LogoutPath = "/signout";
-    x.Cookie.HttpOnly = true;
-});
 
 builder.Services.AddDefaultIdentity<UserEntity>(x =>
 {
@@ -32,6 +17,17 @@ builder.Services.AddDefaultIdentity<UserEntity>(x =>
     x.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = "/signin";
+    x.LogoutPath = "/signout";
+    x.AccessDeniedPath = "/denied";
+
+    x.Cookie.HttpOnly = true;
+    x.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    x.SlidingExpiration = true;
+});
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
@@ -40,16 +36,17 @@ builder.Services.AddScoped<AddressService>();
 
 
 var app = builder.Build();
-app.UseStaticFiles();
-
-app.UseRouting();
 app.UseHsts();
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseStaticFiles();
+
 
 app.UseAuthentication();
+app.UseUserSessionValidationMiddleware();
 app.UseAuthorization();
 
-app.UseUserSessionValidationMiddleware();
+app.UseStatusCodePagesWithReExecute("/error/404", "?statusCode={0}");
 
 app.UseEndpoints(endpoints =>
 {

@@ -6,7 +6,7 @@
 
 <section class="sign-in-section container">
 
-    <form class="sign-in-form" method="post" asp-controller="Auth" asp-action="SignIn" novalidate>
+    <form class="sign-in-form" method="post" asp-controller="Auth" asp-action="SignIn" asp-route-ReturnUrl="@ViewData["ReturnUrl"]" novalidate>
         <div class="@(string.IsNullOrWhiteSpace(Model.ErrorMessage) ? "field-validation-valid" : "IncorrectEmailOrPassword")">@Model.ErrorMessage</div> 
 
         <h1 class="title">Welcome Back</h1>

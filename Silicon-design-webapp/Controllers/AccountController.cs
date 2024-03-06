@@ -20,11 +20,6 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     [HttpGet]
     public async Task<IActionResult> Details()
     {
-        if (!_signInManager.IsSignedIn(User))
-        {
-            return RedirectToAction("SignIn", "Auth");
-        }
-
         var viewModel = new AccountDetailsViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);
@@ -70,10 +65,6 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     [HttpGet]
     public async Task<IActionResult> Security()
     {
-        if (!_signInManager.IsSignedIn(User))
-        {
-            return RedirectToAction("SignIn", "Auth");
-        }
         var viewModel = new AccountSecurityViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);
@@ -134,13 +125,10 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     #endregion
 
     #region Courses
+    [Route("/savedcourses")]
     [HttpGet]
     public async Task<IActionResult> SavedCourses()
     {
-        if (!_signInManager.IsSignedIn(User))
-        {
-            return RedirectToAction("SignIn", "Auth");
-        }
         var viewModel = new AccountSavedCoursesViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);

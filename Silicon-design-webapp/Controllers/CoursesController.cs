@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Courses;
 
 namespace Silicon_design_webapp.Controllers;
 
+[Authorize]
 public class CoursesController : Controller
 {
     [Route("/courses")]
