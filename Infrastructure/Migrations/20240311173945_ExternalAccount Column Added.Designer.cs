@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240304204510_Init")]
-    partial class Init
+    [Migration("20240311173945_ExternalAccount Column Added")]
+    partial class ExternalAccountColumnAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,6 +118,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("isExternalAccount")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -275,7 +278,8 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Infrastructure.Entitites.AddressEntity", "Address")
                         .WithMany("Users")
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Address");
                 });

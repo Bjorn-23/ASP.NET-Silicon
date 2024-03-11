@@ -16,4 +16,6 @@ public class UserEntity : IdentityUser
 
     public int? AddressId { get; set; }
     public AddressEntity? Address { get; set; }
+
+    public bool IsExternalAccount { get; set; } = false;
 }

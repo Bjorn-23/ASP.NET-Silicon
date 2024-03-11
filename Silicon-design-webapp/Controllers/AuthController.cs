@@ -19,6 +19,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     public IActionResult SignUp()
     {
         var viewModel = new SignUpViewModel();
+        ViewData["StatusMessage"] = "";
         return View(viewModel);
     }
 
@@ -31,10 +32,16 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
         {
             var result = await _userService.RegisterUserAsync(viewModel.Form);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+            {
+                TempData["StatusMessage"] = result.Message;
                 return RedirectToAction("SignIn", "Auth");
+            }
+
+            ViewData["StatusMessage"] = result.Message ?? "";
+            return View(viewModel);
         }
 
-        //add errormessage
+        ViewData["StatusMessage"] = "Invalid form, please check all fields and try again";
         return View(viewModel);
     }
     #endregion
@@ -49,6 +56,10 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
 
         var viewModel = new SignInViewModel();
         ViewData["ReturnUrl"] = returnurl ?? Url.Content("~/");
+       
+        string statusMessage = TempData["StatusMessage"]?.ToString() ?? "";
+        ViewBag.StatusMessage = statusMessage;
+        
         return View(viewModel);
     }
 
@@ -70,7 +81,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
         }
 
         ModelState.Clear();
-        viewModel.ErrorMessage = "Incorrect Email or Password";
+        ViewBag.StatusMessage = "Incorrect Email or Password";
         return View(viewModel);
     }
     #endregion
@@ -83,5 +94,32 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
         await _signInManager.SignOutAsync();
         return RedirectToAction("SignIn", "Auth");
     }
+    #endregion
+
+    #region External Accounts
+
+    #region Facebook
+    [HttpGet]
+    public IActionResult Facebook()
+    {
+        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback"));
+        return new ChallengeResult("Facebook", authprops);
+    }
+
+    public async Task<IActionResult> FacebookCallback()
+    {
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+        if (info != null)
+        {
+            var result = await _userService.SignInOrRegisterExternalAccount(info);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+                return RedirectToAction("Details", "Account");
+        }
+
+        TempData["StatusMessage"] = "Failed to login with Facebook - please try again later";
+        return RedirectToAction("SignIn", "Account");
+    }
+    #endregion
+
     #endregion
 }
