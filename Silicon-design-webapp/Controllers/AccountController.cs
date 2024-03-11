@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Account;
+using System.Text.RegularExpressions;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -84,7 +85,13 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         var user = await _signInManager.UserManager.GetUserAsync(User);
         var accountViewModel = new AccountSecurityViewModel();
 
-        if (user != null &&  user.IsExternalAccount && string.IsNullOrEmpty(user.PasswordHash) || ModelState.IsValid)
+        // checks either for ModelState or that the new password set for an external User lives up to the regexp validation requirements and match.
+        if (ModelState.IsValid ||
+            user != null
+            &&  user.IsExternalAccount
+            && string.IsNullOrEmpty(user.PasswordHash)
+            && viewModel.NewPassword == viewModel.ConfirmNewPassword
+            && Regex.IsMatch(viewModel.NewPassword, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w{2,}$"))
         {
             var result = await _userService.UpdateUserPasswordAsync(User, viewModel);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
@@ -95,6 +102,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
             }
         }
 
+        ViewBag.isExternalAccount = user?.IsExternalAccount;
         accountViewModel.StatusMessage = "Failed to update password";
         return View("Security", accountViewModel);
     }
