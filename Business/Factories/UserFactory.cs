@@ -1,6 +1,8 @@
 ﻿using Business.Models;
 using Infrastructure.Entitites;
+using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Business.Factories;
 
@@ -39,7 +41,8 @@ public class UserFactory
                 LastName = entity.LastName,
                 Email = entity.Email!,
                 Phone = entity.PhoneNumber,
-                Biography = entity.Biography
+                Biography = entity.Biography,
+                IsExternalAccount = entity.IsExternalAccount
             };
 
             return model;
@@ -48,6 +51,29 @@ public class UserFactory
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message + "failed to create UserModel in factory from UserEntity");
+            return null!;
+        }
+    }
+
+    public static UserEntity Create(ExternalLoginInfo info)
+    {
+        try
+        {
+            UserEntity entity = new()
+            {
+                FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
+                LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
+                Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+                UserName = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+                IsExternalAccount = true
+            };
+
+            return entity;
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message + "failed to create External user in factory from ExternalLoginInfo");
             return null!;
         }
     }
