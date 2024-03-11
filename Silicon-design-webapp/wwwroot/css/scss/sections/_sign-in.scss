@@ -17,7 +17,7 @@
     .sign-in-form {
 
 
-        .IncorrectEmailOrPassword {
+        .incorrectEmailOrPassword, .userCreateSuccess {
             text-align: center;
             background-color: #EF444420;
             border: 2px solid $danger;
@@ -29,6 +29,16 @@
                 padding: 1rem 0;
                 @include text-lg;
                 color: $danger;
+            }
+        }
+
+        .userCreateSuccess {
+            background-color: #22C55E20;
+            border: 2px solid $success;
+            color: $gray-700;
+
+            @include md {
+                color: $gray-700;
             }
         }
 

@@ -29,11 +29,11 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 var result = await _userManager.CreateAsync(entity, model.Password);
                 if (result != null)
                 {
-                    return ResponseFactory.Ok(result, "user created succesfully.");
+                    return ResponseFactory.Ok(result, "User created succesfully");
                 }
             }
 
-            return ResponseFactory.Exists("A user with that email alredy exists.");
+            return ResponseFactory.Exists("A user with that email alredy exists");
         }
         catch (Exception ex)
         {

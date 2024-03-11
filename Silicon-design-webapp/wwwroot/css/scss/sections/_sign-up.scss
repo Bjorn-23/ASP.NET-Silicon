@@ -16,6 +16,28 @@
             width: 40%;
         }
 
+        .userAlreadyExists, .invalidSignUpForm {
+            width: 100%;
+            background-color: #EF444420;
+            border: 2px solid $danger;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: $danger;
+            padding: 0.2rem 0.5rem;
+            margin: 2rem 0 1rem;
+
+            @include md {
+                @include text-m;
+                color: $danger;
+            }
+
+            @include lg {
+                @include text-lg;
+                color: $danger;
+            }
+        }
+
         .title {
             @include h3;
 

@@ -2928,7 +2928,7 @@ footer, .google-map, .contact-form {
     width: 30%;
   }
 }
-.sign-in-section .sign-in-form .IncorrectEmailOrPassword {
+.sign-in-section .sign-in-form .incorrectEmailOrPassword, .sign-in-section .sign-in-form .userCreateSuccess {
   text-align: center;
   background-color: rgba(239, 68, 68, 0.1254901961);
   border: 2px solid #EF4444;
@@ -2937,7 +2937,7 @@ footer, .google-map, .contact-form {
   margin: 1rem 0;
 }
 @media (min-width: 768px) {
-  .sign-in-section .sign-in-form .IncorrectEmailOrPassword {
+  .sign-in-section .sign-in-form .incorrectEmailOrPassword, .sign-in-section .sign-in-form .userCreateSuccess {
     padding: 1rem 0;
     line-height: 160%;
     font-weight: 400;
@@ -2945,6 +2945,16 @@ footer, .google-map, .contact-form {
     font-family: "Manrope", sans-serif;
     font-size: 1.125rem !important;
     color: #EF4444;
+  }
+}
+.sign-in-section .sign-in-form .userCreateSuccess {
+  background-color: rgba(34, 197, 94, 0.1254901961);
+  border: 2px solid #22C55E;
+  color: #565973;
+}
+@media (min-width: 768px) {
+  .sign-in-section .sign-in-form .userCreateSuccess {
+    color: #565973;
   }
 }
 .sign-in-section .sign-in-form .title {
@@ -3056,6 +3066,37 @@ footer, .google-map, .contact-form {
   .sign-up .sign-up-form {
     margin: 4rem auto;
     width: 40%;
+  }
+}
+.sign-up .sign-up-form .userAlreadyExists, .sign-up .sign-up-form .invalidSignUpForm {
+  width: 100%;
+  background-color: rgba(239, 68, 68, 0.1254901961);
+  border: 2px solid #EF4444;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #EF4444;
+  padding: 0.2rem 0.5rem;
+  margin: 2rem 0 1rem;
+}
+@media (min-width: 768px) {
+  .sign-up .sign-up-form .userAlreadyExists, .sign-up .sign-up-form .invalidSignUpForm {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem !important;
+    color: #EF4444;
+  }
+}
+@media (min-width: 992px) {
+  .sign-up .sign-up-form .userAlreadyExists, .sign-up .sign-up-form .invalidSignUpForm {
+    line-height: 160%;
+    font-weight: 400;
+    color: #565973;
+    font-family: "Manrope", sans-serif;
+    font-size: 1.125rem !important;
+    color: #EF4444;
   }
 }
 .sign-up .sign-up-form .title {
