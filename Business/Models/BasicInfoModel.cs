@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace Business.Models;
@@ -36,4 +37,6 @@ public class BasicInfoModel
     [Display(Name = "Bio", Prompt = "Add a short bio...", Order = 4)]
     [DataType(DataType.MultilineText)]
     public string? Biography { get; set; }
+
+    public bool IsExternalAccount { get; set; }
 }

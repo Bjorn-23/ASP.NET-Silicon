@@ -29,6 +29,14 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.SlidingExpiration = true;
 });
 
+builder.Services.AddAuthentication().AddFacebook(x =>
+{
+    x.AppId = "409664668414436";
+    x.AppSecret = "b24b95514960f20a315c9e4468317c15";
+    x.Fields.Add("first_name");
+    x.Fields.Add("last_name");
+});
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 
@@ -47,7 +55,7 @@ app.UseAuthentication();
 app.UseUserSessionValidationMiddleware();
 app.UseAuthorization();
 
-app.UseStatusCodePagesWithReExecute("/error/404", "?statusCode={0}");
+app.UseStatusCodePagesWithReExecute("/error/404", "?statusCode={0}"); // remove this when in main...
 
 app.MapControllerRoute(
         name: "default",

@@ -71,6 +71,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         if (activeUser.ContentResult != null)
         {
             viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.ContentResult;
+            ViewBag.isExternalAccount = viewModel.Sidebar.AccountInfo.IsExternalAccount;
         }
         return View(viewModel);
     }
@@ -80,24 +81,22 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     [HttpPost]
     public async Task<IActionResult> UpdatePassword(PasswordUpdateModel viewModel)
     {
-        ///Checks for errors in the ModelState, handy for debugging.
-        //var errors = ModelState
-        //    .Where(x => x.Value!.Errors.Count > 0)
-        //    .Select(x => new { x.Key, x.Value!.Errors })
-        //    .ToArray();
+        var user = await _signInManager.UserManager.GetUserAsync(User);
+        var accountViewModel = new AccountSecurityViewModel();
 
-        if (ModelState.IsValid)
+        if (user != null &&  user.IsExternalAccount && string.IsNullOrEmpty(user.PasswordHash) || ModelState.IsValid)
         {
             var result = await _userService.UpdateUserPasswordAsync(User, viewModel);
-
-            var viewModelResult = new AccountSecurityViewModel();
-            viewModelResult.StatusMessage = result.Message;
-            return View("Security", viewModelResult);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+            {
+                ModelState.Clear();
+                accountViewModel.StatusMessage = result.Message;
+                return View("Security", accountViewModel);
+            }
         }
 
-        var viewModelError = new AccountSecurityViewModel();
-        viewModelError.StatusMessage = "Failed to update password";
-        return View("Security", viewModelError);
+        accountViewModel.StatusMessage = "Failed to update password";
+        return View("Security", accountViewModel);
     }
     #endregion
 
@@ -155,3 +154,9 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     }
     #endregion
 }
+
+///Checks for errors in the ModelState, handy for debugging.
+//var errors = ModelState
+//    .Where(x => x.Value!.Errors.Count > 0)
+//    .Select(x => new { x.Key, x.Value!.Errors })
+//    .ToArray();

@@ -95,4 +95,31 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
         return RedirectToAction("SignIn", "Auth");
     }
     #endregion
+
+    #region External Accounts
+
+    #region Facebook
+    [HttpGet]
+    public IActionResult Facebook()
+    {
+        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback"));
+        return new ChallengeResult("Facebook", authprops);
+    }
+
+    public async Task<IActionResult> FacebookCallback()
+    {
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+        if (info != null)
+        {
+            var result = await _userService.SignInOrRegisterExternalAccount(info);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+                return RedirectToAction("Details", "Account");
+        }
+
+        TempData["StatusMessage"] = "Failed to login with Facebook - please try again later";
+        return RedirectToAction("SignIn", "Account");
+    }
+    #endregion
+
+    #endregion
 }

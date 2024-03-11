@@ -9,22 +9,50 @@
 
         <div class="group-wrapper">
             <div class="input-group">
-                <label asp-for="@Model.BasicForm.FirstName"></label>
-                <span asp-validation-for="@Model.BasicForm.FirstName"></span>
-                <input asp-for="@Model.BasicForm.FirstName">
+
+                <label asp-for="@Model.BasicForm.FirstName"></label> 
+
+                @if (Model.BasicForm.IsExternalAccount)
+                {
+                    <input asp-for="@Model.BasicForm.FirstName" disabled>
+                }
+                else
+                {
+                    <span asp-validation-for="@Model.BasicForm.FirstName"></span>
+                    <input asp-for="@Model.BasicForm.FirstName">                    
+                }
+
             </div>
             <div class="input-group">
                 <label asp-for="@Model.BasicForm.LastName"></label>
-                <span asp-validation-for="@Model.BasicForm.LastName"></span>
-                <input asp-for="@Model.BasicForm.LastName">
+
+                @if (Model.BasicForm.IsExternalAccount)
+                {
+                    <input asp-for="@Model.BasicForm.LastName" disabled>
+                }
+                else
+                {
+                    <span asp-validation-for="@Model.BasicForm.LastName"></span>
+                    <input asp-for="@Model.BasicForm.LastName">
+                }
+
+
             </div>
         </div>
 
         <div class="group-wrapper">
             <div class="input-group">
                 <label asp-for="@Model.BasicForm.Email"></label>
-                <span asp-validation-for="@Model.BasicForm.Email"></span>
-                <input asp-for="@Model.BasicForm.Email">
+
+                @if (Model.BasicForm.IsExternalAccount)
+                {
+                    <input asp-for="@Model.BasicForm.Email" disabled>
+                }
+                else
+                {
+                    <span asp-validation-for="@Model.BasicForm.Email"></span>
+                    <input asp-for="@Model.BasicForm.Email">                    
+                }
             </div>
             <div class="input-group">
                 <label asp-for="@Model.BasicForm.Phone"></label>
