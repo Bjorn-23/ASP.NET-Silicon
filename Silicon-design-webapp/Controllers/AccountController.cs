@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Account;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Silicon_design_webapp.Controllers;
@@ -39,24 +40,37 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
 
     #region Basic Form
     [HttpPost]
-    public async Task<IActionResult> BasicInfo(AccountDetailsViewModel viewModel)
-    {
-        var result = await _userService.UpdateUserAsync(User, viewModel.BasicForm);
-        if (result != null)
-            return RedirectToAction(nameof(Details));
+    public async Task<IActionResult> BasicInfo(BasicInfoModel model)
+    { 
+        if (ModelState.IsValid)
+        {
+            var result = await _userService.UpdateUserAsync(User, model);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+                return RedirectToAction(nameof(Details));
+        }
 
+        //If Modelstate is not valid I get the view again and populate with valid details.
         return RedirectToAction("Details");
     }
     #endregion
 
+    //var errors = ModelState
+    //.Where(x => x.Value!.Errors.Count > 0)
+    //.Select(x => new { x.Key, x.Value!.Errors })
+    //.ToArray();
+
     #region AddressForm
     [HttpPost]
-    public async Task<IActionResult> AddressInfo(AccountDetailsViewModel viewModel)
+    public async Task<IActionResult> AddressInfo(AddressInfoModel model)
     {
-        var result = await _addressService.GetOrCreateAddressAsync(User, viewModel.AddressForm);
-        if (result != null)
-            return RedirectToAction(nameof(Details));
-        return RedirectToAction(nameof(Details));
+        if (ModelState.IsValid)
+        {
+            var result = await _addressService.GetOrCreateAddressAsync(User, model);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+                return RedirectToAction("Details");            
+        }
+
+        return RedirectToAction("Details");
     }
     #endregion
     #endregion
@@ -85,13 +99,13 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         var user = await _signInManager.UserManager.GetUserAsync(User);
         var accountViewModel = new AccountSecurityViewModel();
 
-        // checks either for ModelState or that the new password set for an external User lives up to the regexp validation requirements and match.
+        // checks either for ModelState.IsValid or that the new password set for an external User lives up to the regexp validation requirements and match with confirmNewPassword.
         if (ModelState.IsValid ||
             user != null
-            &&  user.IsExternalAccount
+            && user.IsExternalAccount
             && string.IsNullOrEmpty(user.PasswordHash)
             && viewModel.NewPassword == viewModel.ConfirmNewPassword
-            && Regex.IsMatch(viewModel.NewPassword, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w{2,}$"))
+            && Regex.IsMatch(viewModel.NewPassword, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$"))
         {
             var result = await _userService.UpdateUserPasswordAsync(User, viewModel);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)

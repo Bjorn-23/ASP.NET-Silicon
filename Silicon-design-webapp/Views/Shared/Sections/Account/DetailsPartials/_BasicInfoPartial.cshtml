@@ -1,0 +1,72 @@
+﻿@model BasicInfoModel
+
+<form method="post" class="basic-info" asp-controller="Account" asp-action="BasicInfo">
+
+    <h5 class="form-title">Basic Info</h5>
+
+    <div class="group-wrapper">
+        <div class="input-group">
+
+            <label asp-for="@Model.FirstName"></label>
+
+            @if (Model.IsExternalAccount)
+            {
+                <input asp-for="@Model.FirstName" disabled>
+            }
+            else
+            {
+                <span asp-validation-for="@Model.FirstName"></span>
+                <input asp-for="@Model.FirstName">
+            }
+
+        </div>
+        <div class="input-group">
+            <label asp-for="@Model.LastName"></label>
+
+            @if (Model.IsExternalAccount)
+            {
+                <input asp-for="@Model.LastName" disabled>
+            }
+            else
+            {
+                <span asp-validation-for="@Model.LastName"></span>
+                <input asp-for="@Model.LastName">
+            }
+
+
+        </div>
+    </div>
+
+    <div class="group-wrapper">
+        <div class="input-group">
+            <label asp-for="@Model.Email"></label>
+
+            @if (Model.IsExternalAccount)
+            {
+                <input asp-for="@Model.Email" disabled>
+            }
+            else
+            {
+                <span asp-validation-for="@Model.Email"></span>
+                <input asp-for="@Model.Email">
+            }
+        </div>
+        <div class="input-group">
+            <label asp-for="@Model.Phone"></label>
+            <span asp-validation-for="@Model.Phone"></span>
+            <input asp-for="@Model.Phone">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label asp-for="@Model.Biography"></label>
+        <span asp-validation-for="@Model.Biography"></span>
+        <textarea asp-for="@Model.Biography" rows="4"></textarea>
+    </div>
+
+    <div class="button-wrapper">
+        <button class="cancel btn-gray" type="reset">Cancel</button>
+        <button class="save btn-theme" type="submit">Save changes</button>
+    </div>
+
+</form>
