@@ -6,5 +6,18 @@
 
 <section class="account-details container">
     @await Html.PartialAsync("~/Views/Shared/Sections/Account/SideBarPartials/_AccountSidebarPartial.cshtml", Model.Sidebar)
-    @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AccountDetailsFormsPartial.cshtml")
+
+    <div class="content-box-account-details">
+        <h1 class="title">Account Details</h1>
+
+        @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", Model.BasicForm)
+
+        <div class="divider"></div>
+
+        @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AddressInfoPartial.cshtml", Model.AddressForm)
+
+    </div>
+
+    <script defer src="~/js/validation.js"></script>
+
 </section>

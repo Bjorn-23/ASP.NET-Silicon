@@ -1,0 +1,38 @@
+﻿@model AddressInfoModel
+
+<form method="post" class="address" asp-controller="Account" asp-action="AddressInfo">
+
+    <h5 class="form-title">Address</h5>
+
+    <div class="input-group">
+        <label asp-for="@Model.AddresLine_1"></label>
+        <span asp-validation-for="@Model.AddresLine_1"></span>
+        <input asp-for="@Model.AddresLine_1">
+    </div>
+
+    <div class="input-group">
+        <label asp-for="@Model.AddressLine_2"></label>
+        <span asp-validation-for="@Model.AddressLine_2"></span>
+        <input asp-for="@Model.AddressLine_2">
+    </div>
+
+    <div class="group-wrapper">
+        <div class="input-group">
+            <label asp-for="@Model.PostalCode"></label>
+            <span asp-validation-for="@Model.PostalCode"></span>
+            <input asp-for="@Model.PostalCode">
+        </div>
+        <div class="input-group">
+            <label asp-for="@Model.City"></label>
+            <span asp-validation-for="@Model.City"></span>
+            <input asp-for="@Model.City">
+        </div>
+    </div>
+
+    <div class="button-wrapper">
+        <button class="cancel btn-gray" type="reset">Cancel</button>
+        <button class="save btn-theme" type="submit">Save changes</button>
+    </div>
+
+</form>
+
