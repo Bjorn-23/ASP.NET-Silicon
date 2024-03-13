@@ -3,6 +3,8 @@ using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Silicon_design_webapp.Helpers;
 using Silicon_design_webapp.ViewModels.Auth;
 
 
@@ -28,6 +30,8 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     [HttpPost]
     public async Task<IActionResult> SignUp(SignUpViewModel viewModel)
     {
+        //var error = ErrorChecker.ModelStateErrorChecker(ModelState);
+
         if (ModelState.IsValid)
         {
             var result = await _userService.RegisterUserAsync(viewModel.Form);
@@ -55,26 +59,26 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
             return RedirectToAction("Details", "Account");
 
         var viewModel = new SignInViewModel();
-        ViewData["ReturnUrl"] = returnurl ?? Url.Content("~/");
+        ViewData["ReturnUrl"] = returnurl ?? "~/account";
        
         string statusMessage = TempData["StatusMessage"]?.ToString() ?? "";
         ViewBag.StatusMessage = statusMessage;
         
-        return View(viewModel);
+        return View("SignIn", viewModel);
     }
 
 
     [Route("/signin")]
     [HttpPost]
-    public async Task<IActionResult> SignIn(SignInViewModel viewModel, string returnurl)
+    public async Task<IActionResult> SignIn(SignInViewModel viewModel, string? returnUrl)
     {
         if (ModelState.IsValid)
         {
             var result = await _userService.SignInUserAsync(viewModel.Form);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
-                if (!string.IsNullOrEmpty(returnurl) && Url.IsLocalUrl(returnurl) && returnurl != "/") 
-                    return Redirect(returnurl);
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) 
+                    return Redirect(returnUrl);
 
                 return RedirectToAction("Details", "Account");
             }

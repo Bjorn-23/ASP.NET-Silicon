@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Silicon_design_webapp.ViewModels.Account;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Silicon_design_webapp.Controllers;
@@ -54,10 +53,6 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     }
     #endregion
 
-    //var errors = ModelState
-    //.Where(x => x.Value!.Errors.Count > 0)
-    //.Select(x => new { x.Key, x.Value!.Errors })
-    //.ToArray();
 
     #region AddressForm
     [HttpPost]
