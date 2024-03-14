@@ -1,6 +1,7 @@
 using Business.Services;
 using Infrastructure.Context;
 using Infrastructure.Entitites;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Silicon_design_webapp.Helpers;
 
@@ -29,12 +30,21 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.SlidingExpiration = true;
 });
 
-builder.Services.AddAuthentication().AddFacebook(x =>
+var configurate = builder.Configuration;
+
+builder.Services.AddAuthentication()
+.AddFacebook(x =>
 {
-    x.AppId = "409664668414436";
-    x.AppSecret = "b24b95514960f20a315c9e4468317c15";
+    x.AppId = configurate["Authentication:Facebook:ClientId"]!;
+    x.AppSecret = configurate["Authentication:Facebook:ClientSecret"]!;
     x.Fields.Add("first_name");
     x.Fields.Add("last_name");
+})
+.AddGoogle(x =>
+{
+    x.ClientId = configurate["Authentication:Google:ClientId"]!;
+    x.ClientSecret = configurate["Authentication:Google:ClientSecret"]!;
+
 });
 
 builder.Services.AddScoped<UserService>();
@@ -55,7 +65,6 @@ app.UseAuthentication();
 app.UseUserSessionValidationMiddleware();
 app.UseAuthorization();
 
-app.UseStatusCodePagesWithReExecute("/error/404", "?statusCode={0}"); // remove this when in main...
 
 app.MapControllerRoute(
         name: "default",
