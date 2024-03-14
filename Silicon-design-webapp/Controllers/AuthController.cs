@@ -125,5 +125,28 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     }
     #endregion
 
+    #region Google
+    [HttpGet]
+    public IActionResult Google()
+    {
+        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback"));
+        return new ChallengeResult("Google", authprops);
+    }
+
+    public async Task<IActionResult> GoogleCallback()
+    {
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+        if (info != null)
+        {
+            var result = await _userService.SignInOrRegisterExternalAccount(info);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+                return RedirectToAction("Details", "Account");
+        }
+
+        TempData["StatusMessage"] = "Failed to login with Google - please try again later";
+        return RedirectToAction("SignIn", "Account");
+    }
+    #endregion
+
     #endregion
 }
