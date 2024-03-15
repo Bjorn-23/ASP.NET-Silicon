@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Silicon_design_webapp.Controllers;
 
-[Authorize]
+[Authorize(Policy = "User")]
 public class AccountController(SignInManager<UserEntity> signInManager, UserService userService, AddressService addressService) : Controller
 {
     private readonly SignInManager<UserEntity> _signInManager = signInManager;

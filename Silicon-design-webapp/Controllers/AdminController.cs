@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Silicon_design_webapp.Controllers;
 
-[Authorize(Roles ="Admin")]
+[Authorize(Policy ="Admin")]
 public class AdminController : Controller
 {
     [Route("/admin")]

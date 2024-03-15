@@ -31,8 +31,20 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     x.SlidingExpiration = true;
+
 });
 
+builder.Services.AddAuthorization( x => 
+{
+    x.AddPolicy("SuperAdmin", policy => policy.RequireRole("SuperAdmin"));
+    x.AddPolicy("CIO", policy => policy.RequireRole("SuperAdmin", "CIO"));
+    x.AddPolicy("Admin", policy => policy.RequireRole("SuperAdmin", "CIO", "Admin"));
+    x.AddPolicy("Manager", policy => policy.RequireRole("SuperAdmin", "CIO", "Admin", "Manager"));
+    x.AddPolicy("User", policy => policy.RequireRole("SuperAdmin", "CIO", "Admin", "Manager", "User"));
+});
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
 var configurate = builder.Configuration;
 
@@ -77,9 +89,9 @@ using (var scope = app.Services.CreateScope())
 
     foreach (var role in roles)
     if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
+    {
+        await roleManager.CreateAsync(new IdentityRole(role));
+    }
 }
 
     app.MapControllerRoute(
