@@ -1,9 +1,44 @@
-﻿@{
+﻿@model AdminViewModel
+@{
     ViewData["Title"] = "Admin Portal";
 }
 
-<section class="admin-content">
-    <div class="container">
-        <h1>@ViewData["Title"]</h1>
-    </div>
+<section class="admin-content container">
+    
+    <nav class="admin-nav">
+        <a asp-action="UserInfo" asp-controller="Admin">User</a>
+        <a asp-action="AddressInfo" asp-controller="Admin">Address</a>
+        <a asp-action="PasswordInfo" asp-controller="Admin">Password</a>
+        <a asp-action="DeleteAccount" asp-controller="Admin">Delete account</a>
+    </nav>
+   
+    <h1>@ViewData["Title"]</h1>
+
+
+        @await Html.PartialAsync("~/Views/shared/Sections/Admin/_AdminSearchPartial.cshtml", Model.SearchModel)
+
+        <section class="content-box-account-details">
+            @if (Model.Users != null)
+            {
+                    foreach (var user in Model.Users)
+                    {
+                        @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", user)
+                    }
+            }
+        </section>
+
+
+
+    @if (Model.Addresses != null)
+    {
+        foreach (var address in Model.Addresses)
+        {
+            @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AddressInfoPartial.cshtml", address)
+        }
+    }
+
+    <div style="height: 1000px"></div>
+   
+
+
 </section>

@@ -1,0 +1,38 @@
+﻿
+.admin-content{
+   .admin-search{
+       display: flex;
+       justify-content: start;
+       margin: 2rem 0;
+
+
+       .btn-gray{
+           display: flex;
+           flex-direction: row;
+           @include card;
+           padding: 0 1.5rem;
+           
+           p, i {
+               display: inline;
+               padding: 0;
+               margin: 0;
+           }
+       }
+   }
+
+   form{
+       max-width: 50%;
+       margin: 0 0 2rem;
+
+       .group-wrapper {
+           display: flex;
+           gap: 1rem;
+       }
+       
+       .button-wrapper{
+           display: flex;
+           gap: 1rem;
+       }
+
+   }
+}

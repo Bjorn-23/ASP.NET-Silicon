@@ -1,8 +1,8 @@
-/// Generics
+/// generics
 @import './sections/_header.scss';
 @import './sections/_footer.scss';
 
-/// index.html
+/// home
 @import './sections/_showcase.scss';
 @import './sections/_features.scss';
 @import './sections/_dark-light-mode.scss';
@@ -11,30 +11,33 @@
 @import './sections/_integrate-tools.scss';
 @import './sections/_subscribe.scss';
 
-/// courses.html
+/// courses
 @import './sections/_courses.scss';
 
-/// course-details.html
+/// course-details
 @import './sections/_course-details.scss';
 
-///  contact.html
+///  contact
 @import './sections/contact';
 
-///  sign-in.html
+///  sign-in
 @import './sections/sign-in.scss';
 
-///  sign-up.html
+///  sign-up
 @import './sections/sign-up.scss';
 
-///  account-details.html
+///  account-details
 @import './sections/account-details.scss';
 
-///  account-security.html
+///  account-security
 @import 'sections/_account-security.scss';
 
-/// account-saved-courses.html
+/// account-saved-courses
 @import './sections/account-saved-courses';
 
-/// 404-error.html
+/// 404-error
 @import './sections/404-error';
+
+/// admin
+@import 'sections/_admin';
 

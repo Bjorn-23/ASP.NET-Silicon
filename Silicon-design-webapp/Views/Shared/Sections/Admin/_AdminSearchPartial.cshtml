@@ -1,0 +1,10 @@
+﻿@model AdminSearchModel
+
+<form class="admin-search" method="post" asp-action="Index" asp-controller="Admin" novalidate>
+    <div class="input-group">
+        <label asp-for="@Model.Expression" />
+        <input asp-for="@Model.Expression" />
+    </div>
+
+    <button class="btn-gray" type="submit"><span>Search</span><i class="fa-solid fa-magnifying-glass"></i></button>
+</form>

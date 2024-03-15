@@ -1,7 +1,6 @@
 using Business.Services;
 using Infrastructure.Context;
 using Infrastructure.Entitites;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Silicon_design_webapp.Helpers;
@@ -43,9 +42,6 @@ builder.Services.AddAuthorization( x =>
     x.AddPolicy("User", policy => policy.RequireRole("SuperAdmin", "CIO", "Admin", "Manager", "User"));
 });
 
-//------------------------------------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------
-
 var configurate = builder.Configuration;
 
 builder.Services.AddAuthentication()
@@ -65,8 +61,11 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<AdminService>();
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 var app = builder.Build();
