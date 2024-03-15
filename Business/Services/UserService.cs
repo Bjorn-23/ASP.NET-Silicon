@@ -5,6 +5,7 @@ using Infrastructure.Factories;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace Business.Services;
@@ -12,13 +13,17 @@ namespace Business.Services;
 public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signIn)
 {
     private readonly UserManager<UserEntity> _userManager = userManager;
-    private readonly SignInManager<UserEntity> _signIn = signIn;
+    private readonly SignInManager<UserEntity> _signInManager = signIn;
 
 
     public async Task<ResponseResult> RegisterUserAsync(SignUpModel model)
     {
         try
         {
+            //Checks if there are any users in DB
+            var anyUsers = await _userManager.Users.AnyAsync();
+
+            //Checks if a user with model.Email exists in DB
             var exists = await _userManager.Users.AnyAsync(User => User.Email == model.Email);
             if (!exists)
             {
@@ -27,10 +32,12 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 var result = await _userManager.CreateAsync(entity, model.Password);
                 if (result.Succeeded)
                 {
-                    return ResponseFactory.Ok(result, "User created succesfully");
+                    var assignRole = await RoleAssignerAsync(anyUsers, entity, "User");                    
+                    if (assignRole)
+                        return ResponseFactory.Ok(result, "User created succesfully");
                 }
             }
-
+            
             return ResponseFactory.Exists("A user with that email alredy exists");
         }
         catch (Exception ex)
@@ -47,7 +54,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             var existingUser = await _userManager.Users.AnyAsync(x => x.Email == user.Email);
             if (existingUser)
             {
-                var result = await _signIn.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
                 if (result.Succeeded)
                     return ResponseFactory.Ok("User succesfully signed in");
             }
@@ -159,6 +166,9 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
     {
         try
         {
+            //Checks if there are any users in DB
+            var anyUsers = await _userManager.Users.AnyAsync();
+
             var userEntity = UserFactory.Create(info);
 
             var user = await _userManager.FindByEmailAsync(userEntity.Email!);
@@ -167,7 +177,11 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 // No password should be added to this method as its authenticated externally.
                 var newUser = await _userManager.CreateAsync(userEntity);
                 if (newUser.Succeeded)
-                    user = await _userManager.FindByEmailAsync(userEntity.Email!);
+                {
+                    var assignRole = await RoleAssignerAsync(anyUsers, userEntity, "User");
+                    if (assignRole)
+                        user = await _userManager.FindByEmailAsync(userEntity.Email!);
+                }
             }
 
             if (user != null)
@@ -185,7 +199,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                     }
                 }
 
-                await _signIn.SignInAsync(user, isPersistent: false);
+                await _signInManager.SignInAsync(user, isPersistent: false);
                 return ResponseFactory.Ok();
             }
 
@@ -194,4 +208,26 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SignInOrRegisterExternalAccount"); }
 
     }
+
+
+    private async Task<bool> RoleAssignerAsync(bool anyUsers, UserEntity user, string role)
+    {
+        try
+        {
+            //Assigns the first registered user as "SuperAdmin" if its a locally created account.
+            if (anyUsers == false && user.IsExternalAccount == false)
+                role = "SuperAdmin";
+
+            // Assigns role according to sta
+            var roleresult = await _userManager.AddToRoleAsync(user, role);
+            if (roleresult.Succeeded)
+                return true;
+
+            return false;
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser"); return false; }
+    }
+
+
+
 }
