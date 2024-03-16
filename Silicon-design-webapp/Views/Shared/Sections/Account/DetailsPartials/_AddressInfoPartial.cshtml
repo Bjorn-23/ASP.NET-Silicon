@@ -1,6 +1,6 @@
 ﻿@model AddressInfoModel
 
-<form method="post" class="address" asp-controller="Account" asp-action="AddressInfo">
+<form method="post" class="address" asp-controller="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin") ? "Admin" : "Account")" asp-action="AddressInfo">
 
     <h5 class="form-title">Address</h5>
 

@@ -86,26 +86,75 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
         return null!;
     }
 
+
     private async Task<Object> ExecuteExpression(string search)
     {
         try
         {
             if (search != null)
             {
-                string[] searchArray = search.Split(',');
+                var emailUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == search);
+                if (emailUser != null)
+                    return UserFactory.Create(emailUser);
 
-                var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == searchArray[0] || x.FirstName == searchArray[1] && x.LastName == searchArray[2] );
-                if (user != null)
-                    return user;
-                
-            
-                var address = await _dbContext.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == searchArray[0] && x.PostalCode == searchArray[1]);
-                if ( address != null)
-                   return address;
+                //string[] searchArray = search.Split(',');
+                string[] searchArray = search.Split(", ");
+
+                if (searchArray.Length == 2)
+                {
+                    var users = await _dbContext.Users.Where(x => x.FirstName == searchArray[0] && x.LastName == searchArray[1]).ToListAsync();
+                    if (users.Count() >= 1)
+                    {
+                        List<BasicInfoModel> userModels = [];
+
+                        foreach (var user in users)
+                        {
+                            userModels.Add(UserFactory.Create(user));
+                        }
+
+                        return userModels;
+                    }
+
+                    var address = await _dbContext.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == searchArray[0] && x.PostalCode == searchArray[1]);
+                    if ( address != null)
+                       return AddressFactory.Create(address);                    
+                }
             }
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return null!;
     }
+
+    //private async Task<Object> ExecuteExpression(string search)
+    //{
+    //    try
+    //    {
+    //        if (search != null)
+    //        {
+    //            var emailUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == search);
+    //            if (emailUser != null)
+    //                return UserFactory.Create(emailUser);
+
+    //            //string[] searchArray = search.Split(',');
+    //            string[] searchArray = search.Split(",");
+
+    //            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.FirstName == searchArray[0]);
+    //            if (user != null)
+    //                return UserFactory.Create(user);
+    //            var address = await _dbContext.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == searchArray[0]);
+    //            if (address != null)
+    //                return AddressFactory.Create(address);
+    //            if (searchArray.Length == 2)
+    //            {
+
+    //            }
+
+
+
+    //        }
+    //    }
+    //    catch (Exception ex) { Debug.WriteLine(ex.Message); }
+    //    return null!;
+    //}
 
 }

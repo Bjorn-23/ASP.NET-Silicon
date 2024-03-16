@@ -3650,33 +3650,26 @@ footer, .google-map, .contact-form {
   margin: 2rem 0;
 }
 
-.admin-content .admin-search {
+.admin-content {
   display: flex;
-  justify-content: start;
-  margin: 2rem 0;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.admin-content .admin-search .btn-gray {
-  display: flex;
-  flex-direction: row;
-  box-shadow: 1px 1px 3px #D4D7E5, 1px 3px 5px #E2E5F1, 2px 6px 8px #EFF2FC, 3px 9px 12px #F3F6FF;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  padding: 0 1.5rem;
+.admin-content #adminSearchBar {
+  width: 29vw;
 }
-.admin-content .admin-search .btn-gray p, .admin-content .admin-search .btn-gray i {
-  display: inline;
-  padding: 0;
-  margin: 0;
+.admin-content .search-params {
+  margin: 1rem 0 2rem;
 }
 .admin-content form {
-  max-width: 50%;
   margin: 0 0 2rem;
 }
-.admin-content form .group-wrapper {
-  display: flex;
-  gap: 1rem;
+@media (min-width: 768px) {
+  .admin-content form {
+    width: 150%;
+  }
 }
-.admin-content form .button-wrapper {
+.admin-content form .group-wrapper, .admin-content form .button-wrapper {
   display: flex;
   gap: 1rem;
 }

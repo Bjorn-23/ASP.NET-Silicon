@@ -45,7 +45,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         {
             var result = await _userService.UpdateUserAsync(User, model);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction("Details");
         }
 
         //If Modelstate is not valid I get the view again and populate with valid details.

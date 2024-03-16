@@ -1,6 +1,9 @@
 ﻿@model BasicInfoModel
 
-<form method="post" class="basic-info" asp-controller="Account" asp-action="BasicInfo">
+
+<form method="post" class="basic-info"
+    asp-controller="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin") ? "Admin" : "Account")"
+    asp-action="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin") ? "Index" : "BasicInfo")">
 
     <h5 class="form-title">Basic Info</h5>
 

@@ -9,46 +9,51 @@ using System.Net;
 
 namespace Silicon_design_webapp.Controllers;
 
-[Authorize(Policy ="Admin")]
-public class AdminController(AdminService adminService) : Controller
+[Authorize(Policy = "Admin")]
+public class AdminController(AdminService adminService, UserService userService) : Controller
 {
     private readonly AdminService _adminService = adminService;
+    private readonly UserService _userService = userService;
+
 
     [Route("/admin")]
     [HttpGet]
     public IActionResult Index()
     {
-
         var viewModel = new AdminViewModel();
         return View(viewModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index(AdminSearchModel model)
+    public async Task<IActionResult> Index(AdminSearchModel? searchModel, BasicInfoModel? userModel, AddressInfoModel? addressModel)
     {
-        if (ModelState.IsValid)
-        {
-            var viewModel = new AdminViewModel();
+        var viewModel = new AdminViewModel();
 
-            var result = await _adminService.DetermineDataType(model);
+        if (searchModel != null)
+        {
+            var result = await _adminService.DetermineDataType(searchModel);
             if (result != null)
             {
-                if (result is IEnumerable<BasicInfoModel>)
-                {
-                    viewModel.Users = (IEnumerable<BasicInfoModel>)result;
-                }
-                else if (result is IEnumerable<AddressInfoModel>)
-                {
-                    viewModel.Addresses = (IEnumerable<AddressInfoModel>)result;
-                }
-   
-                return View(viewModel);           
+                ModelState.Clear();
+                viewModel = AddModels(result); 
+                return View(viewModel);
+            }           
+        }
+
+        if (userModel != null)
+        {
+            var result = await _userService.UpdateUserAsync(User, userModel);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+            {
+                ModelState.Clear();
+                viewModel.BasicInfo = (BasicInfoModel)result.ContentResult!;
+                return View(viewModel);
             }
         }
 
-        TempData["ErrorMessage"] = "Search not valid";
-        return RedirectToAction("Index");
-    } 
+        //TempData["ErrorMessage"] = "Search not valid";
+        return View(viewModel);
+    }
 
     [Route("/admin/userinfo")]
     [HttpGet]
@@ -86,5 +91,36 @@ public class AdminController(AdminService adminService) : Controller
     public IActionResult DeleteAccount()
     {
         return RedirectToAction("Index");
+    }
+
+    private AdminViewModel AddModels(Object result)
+    {
+        var viewModel = new AdminViewModel();
+        // Assigns the value of 'result' to a variable of matching type within this case block.
+        switch (result)
+        {
+            case IEnumerable<BasicInfoModel> basicInfoEnumerable:
+                viewModel.Users = basicInfoEnumerable;
+                break;
+            case IEnumerable<AddressInfoModel> addressInfoEnumerable:
+                viewModel.Addresses = addressInfoEnumerable;
+                break;
+            case BasicInfoModel basicInfo:
+                viewModel.BasicInfo = basicInfo;
+                break;
+            case AddressInfoModel addressInfo:
+                viewModel.AddressInfo = addressInfo;
+                break;
+            case PasswordUpdateModel passwordUpdate:
+                viewModel.PasswordUpdate = passwordUpdate;
+                break;
+            case DeleteAccountModel deleteAccount:
+                viewModel.DeleteAccount = deleteAccount;
+                break;
+            default:
+                break;
+        }
+
+        return viewModel;
     }
 }

@@ -3,42 +3,58 @@
     ViewData["Title"] = "Admin Portal";
 }
 
-<section class="admin-content container">
+<section class="container admin-content">
     
-    <nav class="admin-nav">
+@*     <nav class="admin-nav">
         <a asp-action="UserInfo" asp-controller="Admin">User</a>
         <a asp-action="AddressInfo" asp-controller="Admin">Address</a>
         <a asp-action="PasswordInfo" asp-controller="Admin">Password</a>
         <a asp-action="DeleteAccount" asp-controller="Admin">Delete account</a>
-    </nav>
+    </nav> *@
    
     <h1>@ViewData["Title"]</h1>
+    
+    @await Html.PartialAsync("~/Views/shared/Sections/Admin/_AdminSearchPartial.cshtml", Model.SearchModel)
+    <div class="search-params">
+        <span> Valid search parameters: <strong>"Email / UserName"</strong> OR <strong>"FirstName, LastName"</strong> OR <strong>"StreetName_1, PostalCode"</strong></span>
+        <br />
+        <span> For all users, type: <strong>"Users"</strong></span>
+        <br />
+        <span> For all addresses, type: <strong>"Addresses"</strong></span>
+    </div>
 
 
-        @await Html.PartialAsync("~/Views/shared/Sections/Admin/_AdminSearchPartial.cshtml", Model.SearchModel)
-
-        <section class="content-box-account-details">
-            @if (Model.Users != null)
-            {
-                    foreach (var user in Model.Users)
-                    {
-                        @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", user)
-                    }
-            }
-        </section>
-
-
-
-    @if (Model.Addresses != null)
-    {
-        foreach (var address in Model.Addresses)
+    <section class="content-box-account-details">
+        @if (Model.Users != null)
         {
-            @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AddressInfoPartial.cshtml", address)
+                foreach (var user in Model.Users)
+                {
+                    @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", user)
+                }
         }
-    }
+
+ 
+        @if (Model.BasicInfo != null)
+        {
+            @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", Model.BasicInfo)
+        }
+
+
+        @if (Model.Addresses != null)
+        {
+            foreach (var address in Model.Addresses)
+            {
+                @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AddressInfoPartial.cshtml", address)
+            }
+        }
+
+ 
+        @if (Model.AddressInfo != null)
+        {
+            @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_AddressInfoPartial.cshtml", Model.AddressInfo)
+        }
+    </section>
 
     <div style="height: 1000px"></div>
-   
-
 
 </section>
