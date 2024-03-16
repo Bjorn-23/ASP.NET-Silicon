@@ -115,46 +115,22 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
                         return userModels;
                     }
 
-                    var address = await _dbContext.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == searchArray[0] && x.PostalCode == searchArray[1]);
-                    if ( address != null)
-                       return AddressFactory.Create(address);                    
+                    var addresses = await _dbContext.Addresses.Where(x => x.StreetName_1 == searchArray[0] && x.PostalCode == searchArray[1]).ToListAsync();
+                    if ( addresses.Count() >= 1)
+                    {
+                        List<AddressInfoModel> addressModels = [];
+
+                        foreach (var address in addresses)
+                        {
+                            addressModels.Add(AddressFactory.Create(address));
+                        }
+
+                        return addressModels;
+                    }                                      
                 }
             }
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return null!;
     }
-
-    //private async Task<Object> ExecuteExpression(string search)
-    //{
-    //    try
-    //    {
-    //        if (search != null)
-    //        {
-    //            var emailUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == search);
-    //            if (emailUser != null)
-    //                return UserFactory.Create(emailUser);
-
-    //            //string[] searchArray = search.Split(',');
-    //            string[] searchArray = search.Split(",");
-
-    //            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.FirstName == searchArray[0]);
-    //            if (user != null)
-    //                return UserFactory.Create(user);
-    //            var address = await _dbContext.Addresses.FirstOrDefaultAsync(x => x.StreetName_1 == searchArray[0]);
-    //            if (address != null)
-    //                return AddressFactory.Create(address);
-    //            if (searchArray.Length == 2)
-    //            {
-
-    //            }
-
-
-
-    //        }
-    //    }
-    //    catch (Exception ex) { Debug.WriteLine(ex.Message); }
-    //    return null!;
-    //}
-
 }
