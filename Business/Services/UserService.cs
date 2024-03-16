@@ -5,6 +5,7 @@ using Infrastructure.Factories;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -91,8 +92,8 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 userEntity.FirstName = model.FirstName ?? userEntity.FirstName;
                 userEntity.LastName = model.LastName ?? userEntity.LastName;
                 userEntity.Email = model.Email ?? userEntity.Email;
-                userEntity.PhoneNumber = model.Phone;
-                userEntity.Biography = model.Biography;
+                userEntity.PhoneNumber = model.Phone ?? userEntity.PhoneNumber;
+                userEntity.Biography = model.Biography ?? userEntity.Biography;
 
                 var result = await _userManager.UpdateAsync(userEntity);
                 if (result.Succeeded)
@@ -128,6 +129,41 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 {
                     var result = await _userManager.ChangePasswordAsync(userEntity, model.CurrentPassword, model.NewPassword);
                     if (result.Succeeded)                   
+                        return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
+
+                    else
+                        return ResponseFactory.Error("Failed to update password");
+                }
+            }
+
+            //Possible unnecessary as method can only be reacched by logged in user? Maybe for admin??
+            return ResponseFactory.NotFound("No active user could be found");
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserPasswordAsync"); }
+    }
+
+    public async Task<ResponseResult> UpdateUserPasswordAsync(UserEntity userEntity, PasswordUpdateModel model)
+    {
+        try
+        {
+            if (userEntity != null)
+            {
+                if (userEntity.IsExternalAccount)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(userEntity);
+                    var resetResult = await _userManager.ResetPasswordAsync(userEntity, token, model.NewPassword);
+                    if (resetResult.Succeeded)
+                    {
+                        userEntity.IsExternalAccount = false;
+                        var userResult = await _userManager.UpdateAsync(userEntity);
+                        if (userResult.Succeeded)
+                            return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
+                    }
+                }
+                else
+                {
+                    var result = await _userManager.ChangePasswordAsync(userEntity, model.CurrentPassword, model.NewPassword);
+                    if (result.Succeeded)
                         return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
 
                     else
@@ -227,7 +263,19 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser"); return false; }
     }
-
-
-
+    
+    public async Task<ResponseResult> GetUserAsAdminAsync(string id)
+    {
+        try
+        {
+            var result = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (result != null)
+                return ResponseFactory.Ok(result);
+            
+            else
+            return ResponseFactory.NotFound("ex.Message");
+        }
+        catch (Exception ex) { return ResponseFactory.Error("ex.Message"); }
+       
+    }
 }

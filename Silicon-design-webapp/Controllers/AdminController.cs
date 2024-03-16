@@ -1,4 +1,5 @@
-﻿using Business.Models;
+﻿using Business.Factories;
+using Business.Models;
 using Business.Services;
 using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,7 @@ public class AdminController(AdminService adminService, UserService userService)
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index(AdminSearchModel? searchModel, BasicInfoModel? userModel, AddressInfoModel? addressModel)
+    public async Task<IActionResult> Index(AdminSearchModel? searchModel, BasicInfoModel? userModel, AddressInfoModel? addressModel, PasswordUpdateModel passwordModel)
     {
         var viewModel = new AdminViewModel();
 
@@ -40,6 +41,21 @@ public class AdminController(AdminService adminService, UserService userService)
             }           
         }
 
+        if (passwordModel != null && TempData["UserId"] != null)
+        {
+            string id = TempData["UserId"]!.ToString()!;
+            var user = await _userService.GetUserAsAdminAsync(id);
+            var userEntity = (UserEntity)user.ContentResult!;
+            var result = await _userService.UpdateUserPasswordAsync(userEntity, passwordModel);
+            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
+            {
+                ModelState.Clear();
+                //viewModel.PasswordUpdate = (PasswordUpdateModel)result.ContentResult!;
+                viewModel.BasicInfo = UserFactory.Create(userEntity);
+                return View(viewModel);
+            }
+        }
+
         if (userModel != null)
         {
             var result = await _userService.UpdateUserAsync(User, userModel);
@@ -50,6 +66,7 @@ public class AdminController(AdminService adminService, UserService userService)
                 return View(viewModel);
             }
         }
+
 
         //TempData["ErrorMessage"] = "Search not valid";
         return View(viewModel);

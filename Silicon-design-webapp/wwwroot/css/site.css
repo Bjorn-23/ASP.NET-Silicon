@@ -397,6 +397,22 @@ h6, .h6 {
   background-color: #e0e0e0;
 }
 
+.btn-delete-all {
+  text-decoration: none;
+  padding: 0.2rem 1rem;
+  border: 1px solid #EF4444;
+  border-radius: 0.4rem;
+  background-color: #fff;
+  color: #EF4444;
+  padding: 0.4rem 1.5rem;
+  cursor: pointer;
+}
+.btn-delete-all:hover {
+  text-decoration: none;
+  background-color: #EF4444;
+  color: #0B0F19;
+}
+
 .card {
   box-shadow: 1px 1px 3px #D4D7E5, 1px 3px 5px #E2E5F1, 2px 6px 8px #EFF2FC, 3px 9px 12px #F3F6FF;
   border-radius: 0.5rem;
@@ -3513,16 +3529,8 @@ footer, .google-map, .contact-form {
     text-align: start;
   }
 }
-.account-saved-courses .content-box-saved-courses .top-wrapper .btn-delete-all {
-  padding: 0.2rem 1rem;
-  border: 1px solid #EF4444;
-  border-radius: 0.4rem;
-  background-color: #fff;
-  color: #EF4444;
-}
 @media (min-width: 768px) {
   .account-saved-courses .content-box-saved-courses .top-wrapper .btn-delete-all {
-    padding: 0.4rem 2rem;
     transform: translateY(-15%);
   }
 }
@@ -3668,6 +3676,14 @@ footer, .google-map, .contact-form {
   .admin-content form {
     width: 150%;
   }
+}
+.admin-content form .title-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.admin-content form .title-wrapper span {
+  color: #EF4444;
 }
 .admin-content form .group-wrapper, .admin-content form .button-wrapper {
   display: flex;

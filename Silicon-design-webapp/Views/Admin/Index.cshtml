@@ -21,22 +21,31 @@
         <span> For all users, type: <strong>"Users"</strong></span>
         <br />
         <span> For all addresses, type: <strong>"Addresses"</strong></span>
+        <br />
+        <span> Empty search returns: <strong>"Logged in User"</strong></span>
     </div>
 
 
     <section class="content-box-account-details">
         @if (Model.Users != null)
         {
-                foreach (var user in Model.Users)
-                {
-                    @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", user)
-                }
+            TempData["SingleForm"] = "false";
+            foreach (var user in Model.Users)
+            {
+                @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", user)
+            }
         }
 
  
         @if (Model.BasicInfo != null)
         {
+            TempData["SingleForm"] = "true";
             @await Html.PartialAsync("~/Views/Shared/Sections/Account/DetailsPartials/_BasicInfoPartial.cshtml", Model.BasicInfo)
+
+            <div id="AdminPasswordField" class="hidden">
+                @await Html.PartialAsync("~/Views/Shared/Sections/Account/SecurityPartials/_AccountSecurityUpdatePasswordPartial.cshtml", Model.PasswordUpdate)
+            </div>
+
         }
 
 
@@ -57,4 +66,6 @@
 
     <div style="height: 1000px"></div>
 
+
+    <script src="~/js/admin.js"></script>
 </section>

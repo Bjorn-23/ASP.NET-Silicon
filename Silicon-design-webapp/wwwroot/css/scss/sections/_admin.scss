@@ -19,6 +19,16 @@
             width: 150%;
         }
 
+        .title-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            
+            span {
+                color: $danger;
+            }
+        }
+
         .group-wrapper, .button-wrapper {
             display: flex;
             gap: 1rem;
