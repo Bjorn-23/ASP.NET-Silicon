@@ -2,19 +2,21 @@
 using Business.Models;
 using Infrastructure.Context;
 using Infrastructure.Entitites;
+using Infrastructure.Factories;
+using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Business.Services;
 
-public class AdminService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, ApplicationDbContext dbContext)
+public class AdminService(UserManager<UserEntity> userManager, ApplicationDbContext dbContext)
 {
     private readonly UserManager<UserEntity> _userManager = userManager;
-    private readonly SignInManager<UserEntity> _signInManager = signInManager;
     private readonly ApplicationDbContext _dbContext = dbContext;
 
-    public async Task<Object> DetermineDataType(AdminSearchModel search)
+    #region Admin Search
+    public async Task<Object> SearchDataByStringInput(AdminSearchModel search)
     {
         try
         {
@@ -26,6 +28,13 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
                 {
                     case "users":
                         var users = await GetAllUsersAsync();
+                        if (users.Count() == 1)
+                        {
+                            var user = users.FirstOrDefault();
+                            if (user != null)
+                                return user;
+                        }
+
                         return (users);
  
                     case "addresses":
@@ -33,8 +42,8 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
                         return (addresses);                        
 
                     default:
-                        var result = await ExecuteExpression(search.Expression);
-                            return result;
+                        var result = await GetEntitiesByExpression(search.Expression);
+                        return result;
                         
                 }
             }
@@ -42,6 +51,71 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return (null!);
+    }
+
+    private async Task<Object> GetEntitiesByExpression(string search)
+    {
+        try
+        {
+            if (search != null)
+            {
+                var emailUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == search);
+                if (emailUser != null)
+                    return UserFactory.Create(emailUser);
+
+                //string[] searchArray = search.Split(',');
+                string[] searchArray = search.Split(", ");
+
+                if (searchArray.Length == 2)
+                {
+                    var users = await _dbContext.Users.Where(x => x.FirstName == searchArray[0] && x.LastName == searchArray[1]).ToListAsync();
+                    if (users.Count() > 1)
+                    {
+                        List<BasicInfoModel> userModels = [];
+
+                        foreach (var user in users)
+                        {
+                            userModels.Add(UserFactory.Create(user));
+                        }
+
+                        return userModels;
+                    }
+                    else
+                    {
+                        if (users.Count() == 1)
+                        {
+                            BasicInfoModel user = UserFactory.Create(users.FirstOrDefault()!);
+                            return user;
+
+                        }
+                    }
+
+                    var addresses = await _dbContext.Addresses.Where(x => x.StreetName_1 == searchArray[0] && x.PostalCode == searchArray[1]).ToListAsync();
+                    if ( addresses.Count() > 1)
+                    {
+                        List<AddressInfoModel> addressModels = [];
+
+                        foreach (var address in addresses)
+                        {
+                            addressModels.Add(AddressFactory.Create(address));
+                        }
+                                                
+                        return addressModels;
+                    }
+                    else
+                    {
+                        if (addresses.Count() == 1)
+                        {
+                            AddressInfoModel address = AddressFactory.Create(addresses.FirstOrDefault()!);
+                            return address;
+
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 
     private async Task<IEnumerable<BasicInfoModel>> GetAllUsersAsync()
@@ -65,7 +139,6 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
         return null!;
     }
 
-
     private async Task<IEnumerable<AddressInfoModel>> GetAllAddressesAsync()
     {
         try
@@ -85,52 +158,82 @@ public class AdminService(UserManager<UserEntity> userManager, SignInManager<Use
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return null!;
     }
+    #endregion
 
-
-    private async Task<Object> ExecuteExpression(string search)
+    public async Task<ResponseResult> UpdateUserAsync(BasicInfoModel model)
     {
         try
         {
-            if (search != null)
+            var userEntity = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if (userEntity != null)
             {
-                var emailUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == search);
-                if (emailUser != null)
-                    return UserFactory.Create(emailUser);
+                userEntity.FirstName = model.FirstName ?? userEntity.FirstName;
+                userEntity.LastName = model.LastName ?? userEntity.LastName;
+                userEntity.Email = model.Email ?? userEntity.Email;
+                userEntity.PhoneNumber = model.Phone ?? userEntity.PhoneNumber;
+                userEntity.Biography = model.Biography ?? userEntity.Biography;
 
-                //string[] searchArray = search.Split(',');
-                string[] searchArray = search.Split(", ");
-
-                if (searchArray.Length == 2)
+                var updatedUser = await _userManager.UpdateAsync(userEntity);
+                if (updatedUser.Succeeded)
                 {
-                    var users = await _dbContext.Users.Where(x => x.FirstName == searchArray[0] && x.LastName == searchArray[1]).ToListAsync();
-                    if (users.Count() >= 1)
-                    {
-                        List<BasicInfoModel> userModels = [];
-
-                        foreach (var user in users)
-                        {
-                            userModels.Add(UserFactory.Create(user));
-                        }
-
-                        return userModels;
-                    }
-
-                    var addresses = await _dbContext.Addresses.Where(x => x.StreetName_1 == searchArray[0] && x.PostalCode == searchArray[1]).ToListAsync();
-                    if ( addresses.Count() >= 1)
-                    {
-                        List<AddressInfoModel> addressModels = [];
-
-                        foreach (var address in addresses)
-                        {
-                            addressModels.Add(AddressFactory.Create(address));
-                        }
-
-                        return addressModels;
-                    }                                      
+                    return ResponseFactory.Ok(UserFactory.Create(userEntity));
                 }
             }
+
+            return ResponseFactory.NotFound("Could not find a user to update");
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message); }
-        return null!;
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserAsyncAsAdmin"); }
+
     }
+
+    public async Task<ResponseResult> UpdateUserPasswordAsync(UserEntity userEntity, PasswordUpdateModel model)
+    {
+        try
+        {
+            if (userEntity != null)
+            {
+                if (userEntity.IsExternalAccount)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(userEntity);
+                    var resetResult = await _userManager.ResetPasswordAsync(userEntity, token, model.NewPassword);
+                    if (resetResult.Succeeded)
+                    {
+                        userEntity.IsExternalAccount = false;
+                        var userResult = await _userManager.UpdateAsync(userEntity);
+                        if (userResult.Succeeded)
+                            return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
+                    }
+                }
+                else
+                {
+                    var result = await _userManager.ChangePasswordAsync(userEntity, model.CurrentPassword, model.NewPassword);
+                    if (result.Succeeded)
+                        return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
+
+                    else
+                        return ResponseFactory.Error("Failed to update password");
+                }
+            }
+
+            //Possible unnecessary as method can only be reacched by logged in user? Maybe for admin??
+            return ResponseFactory.NotFound("No active user could be found");
+        }
+        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserPasswordAsync"); }
+    }
+
+    public async Task<ResponseResult> GetOneUserByIdAsync(string id)
+    {
+        try
+        {
+            var result = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (result != null)
+                return ResponseFactory.Ok(result);
+
+            else
+                return ResponseFactory.NotFound("ex.Message");
+        }
+        catch (Exception ex) { return ResponseFactory.Error("ex.Message"); }
+
+    }
+
 }

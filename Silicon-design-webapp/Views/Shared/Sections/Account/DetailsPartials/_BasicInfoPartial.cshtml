@@ -14,10 +14,9 @@
     </div>
 
     <div class="group-wrapper">
-        <div class="input-group">
+        <div class="input-group">                      
 
             <label asp-for="@Model.FirstName"></label>
-
             @if (Model.IsExternalAccount)
             {
                 <input asp-for="@Model.FirstName" style="background-color: #f4f4f4;" readonly>
@@ -30,8 +29,8 @@
 
         </div>
         <div class="input-group">
-            <label asp-for="@Model.LastName"></label>
 
+            <label asp-for="@Model.LastName"></label>
             @if (Model.IsExternalAccount)
             {
                 <input asp-for="@Model.LastName" style="background-color: #f4f4f4;" readonly>
@@ -46,8 +45,8 @@
 
     <div class="group-wrapper">
         <div class="input-group">
-            <label asp-for="@Model.Email"></label>
 
+            <label asp-for="@Model.Email"></label>
             @if (Model.IsExternalAccount)
             {
                 <input asp-for="@Model.Email" style="background-color: #f4f4f4;" readonly>
@@ -59,8 +58,8 @@
             }
         </div>
         <div class="input-group">
-            <label asp-for="@Model.Phone"></label>
 
+            <label asp-for="@Model.Phone"></label>
              @if (Model.IsExternalAccount)
             {
                 <input asp-for="@Model.Phone" style="background-color: #f4f4f4;" readonly>
@@ -74,6 +73,7 @@
     </div>
 
     <div class="input-group">
+
         <label asp-for="@Model.Biography"></label>
         @if (Model.IsExternalAccount)
         {
@@ -85,6 +85,15 @@
             <textarea asp-for="@Model.Biography" rows="4"></textarea>
         }
     </div>
+
+    <div class="input-group">
+        @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin" && User.IsInRole("SuperAdmin") || User.IsInRole("CIO") || User.IsInRole("Admin"))
+        {
+            <label asp-for="@Model.Id">User id</label>
+            <input asp-for="@Model.Id" style="background-color: #f4f4f4;" readonly />
+        }
+    </div>
+
 
     @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin" && TempData["SingleForm"]!.ToString() == "true")
     {

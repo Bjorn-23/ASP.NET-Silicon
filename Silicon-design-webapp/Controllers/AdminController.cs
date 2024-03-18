@@ -11,11 +11,9 @@ using System.Net;
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize(Policy = "Admin")]
-public class AdminController(AdminService adminService, UserService userService) : Controller
+public class AdminController(AdminService adminService) : Controller
 {
     private readonly AdminService _adminService = adminService;
-    private readonly UserService _userService = userService;
-
 
     [Route("/admin")]
     [HttpGet]
@@ -30,45 +28,58 @@ public class AdminController(AdminService adminService, UserService userService)
     {
         var viewModel = new AdminViewModel();
 
-        if (searchModel != null)
+        if (searchModel != null &&  !string.IsNullOrWhiteSpace(searchModel.Expression))
         {
-            var result = await _adminService.DetermineDataType(searchModel);
+            var result = await _adminService.SearchDataByStringInput(searchModel);
             if (result != null)
             {
                 ModelState.Clear();
                 viewModel = AddModels(result); 
                 return View(viewModel);
-            }           
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = "No data found";
+                return View(viewModel);
+            }
         }
 
         if (passwordModel != null && TempData["UserId"] != null)
         {
             string id = TempData["UserId"]!.ToString()!;
-            var user = await _userService.GetUserAsAdminAsync(id);
+            var user = await _adminService.GetOneUserByIdAsync(id);
             var userEntity = (UserEntity)user.ContentResult!;
-            var result = await _userService.UpdateUserPasswordAsync(userEntity, passwordModel);
+            var result = await _adminService.UpdateUserPasswordAsync(userEntity, passwordModel);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
                 ModelState.Clear();
-                //viewModel.PasswordUpdate = (PasswordUpdateModel)result.ContentResult!;
                 viewModel.BasicInfo = UserFactory.Create(userEntity);
+                return View(viewModel);
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = "Failed to update users password";
                 return View(viewModel);
             }
         }
 
-        if (userModel != null)
+        if (userModel != null && userModel.Email != null) // Since isExternal is by default set to false, null check for Email makes sure that an empty search trigger this conditional statement. 
         {
-            var result = await _userService.UpdateUserAsync(User, userModel);
+            var result = await _adminService.UpdateUserAsync(userModel);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
                 ModelState.Clear();
                 viewModel.BasicInfo = (BasicInfoModel)result.ContentResult!;
                 return View(viewModel);
             }
+            else
+            {
+                ViewData["ErrorMessage"] = "Failed to update user information";
+                return View(viewModel);
+            }
         }
 
-
-        //TempData["ErrorMessage"] = "Search not valid";
+        ViewData["ErrorMessage"] = "Search not valid";
         return View(viewModel);
     }
 
