@@ -1,0 +1,54 @@
+﻿@model AdminSubscriptionViewModel
+
+@{
+}
+
+<section class="container">
+    @foreach (var subscriber in Model.Subscribers)
+    {
+        <form method="post" asp-controller="Admin" asp-action="Subscribe" novalidate>
+
+            <div class="top-wrapper">
+                <div class="grid-container">
+
+                    <div class="checkbox-group">
+                        <input asp-for="@subscriber.DailyNewsletter" type="checkbox">
+                        <label asp-for="@subscriber.DailyNewsletter"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@subscriber.AdvertisingUpdates" type="checkbox">
+                        <label asp-for="@subscriber.AdvertisingUpdates"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@subscriber.WeekInReview" type="checkbox">
+                        <label asp-for="@subscriber.WeekInReview"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@subscriber.EventUpdates" type="checkbox">
+                        <label asp-for="@subscriber.EventUpdates"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@subscriber.StartupsWeekly" type="checkbox">
+                        <label asp-for="@subscriber.StartupsWeekly"></label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input asp-for="@subscriber.Podcasts" type="checkbox">
+                        <label asp-for="@subscriber.Podcasts"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-wrapper">
+                <div class="input-group">
+                    <span asp-validation-for="@subscriber.Email"></span>
+                    <input asp-for="@subscriber.Email" placeholder="&#9993 Enter your Email" />
+                </div>
+
+                <button class="btn-theme" type="submit">Subscribe *</button>
+            </div>
+
+            <span class="terms-policy">* Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</span>
+
+        </form>
+    }
+</section>

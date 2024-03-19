@@ -4,9 +4,9 @@ using Business.Services;
 using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.JSInterop.Implementation;
+using Newtonsoft.Json;
+using Silicon_design_webapp.Helpers;
 using Silicon_design_webapp.ViewModels.Admin;
-using System.Net;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -15,6 +15,7 @@ public class AdminController(AdminService adminService) : Controller
 {
     private readonly AdminService _adminService = adminService;
 
+    #region Users
     [Route("/admin")]
     [HttpGet]
     public IActionResult Index()
@@ -28,13 +29,13 @@ public class AdminController(AdminService adminService) : Controller
     {
         var viewModel = new AdminViewModel();
 
-        if (searchModel != null &&  !string.IsNullOrWhiteSpace(searchModel.Expression))
+        if (searchModel != null && !string.IsNullOrWhiteSpace(searchModel.Expression))
         {
             var result = await _adminService.SearchDataByStringInput(searchModel);
             if (result != null)
             {
                 ModelState.Clear();
-                viewModel = AddModels(result); 
+                viewModel = AddModels(result);
                 return View(viewModel);
             }
             else
@@ -58,6 +59,8 @@ public class AdminController(AdminService adminService) : Controller
             }
             else
             {
+                ModelState.Clear();
+                viewModel.BasicInfo = UserFactory.Create(userEntity);
                 ViewData["ErrorMessage"] = "Failed to update users password";
                 return View(viewModel);
             }
@@ -150,5 +153,25 @@ public class AdminController(AdminService adminService) : Controller
         }
 
         return viewModel;
+
     }
+    #endregion
+
+    #region Subscribers        
+    [HttpGet]
+    public async Task<IActionResult> Subscription()
+    {
+        using var http = new HttpClient();
+        var response = await http.GetAsync("https://localhost:7034/api/Subscriptions/GetAll");
+
+        var jsonStrings = await response.Content.ReadAsStringAsync();
+        var models = JsonConvert.DeserializeObject<IEnumerable<AdminSubscribeModel>>(jsonStrings);
+
+        var viewModel = new AdminSubscriptionViewModel();
+        viewModel.Subscribers = models!;
+
+        return View(viewModel);
+    }
+    #endregion
+
 }
