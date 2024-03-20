@@ -18,7 +18,10 @@ public class AdminController(AdminService adminService) : Controller
 {
     private readonly AdminService _adminService = adminService;
 
-    #region Users
+    private readonly string _apiKey = "YmRhNGYwZDgtNDNkZi00N2EyLTliNmQtODYxZTA3OTQ3NDUy";
+
+    #region USERS
+
     [Route("/admin")]
     [HttpGet]
     public IActionResult Index()
@@ -158,16 +161,41 @@ public class AdminController(AdminService adminService) : Controller
         return viewModel;
 
     }
+
     #endregion
 
-    #region Subscribers        
+    #region SUBSCRIBERS  
+
+    #region CREATE
+
+    [HttpPost]
+    public async Task<IActionResult> CreateSubscription(AdminSubscriptionViewModel viewModel)
+    {
+        using var http = new HttpClient();
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
+
+        var response = await http.PostAsync($"https://localhost:7034/api/Subscriptions/?key={_apiKey}", content);
+        if (response.IsSuccessStatusCode)
+        {
+            TempData["SubscriptionStatus"] = "Subscription created succesfully";
+            return RedirectToAction("Subscription");
+        }
+        
+        TempData["SubscriptionStatus"] = "Subscription created succesfully";
+        return RedirectToAction("Subscribe");
+    }
+
+    #endregion
+
+    #region READ
+
     [HttpGet]
     public async Task<IActionResult> Subscription()
     {
         var viewModel = new AdminSubscriptionViewModel();
 
         using var http = new HttpClient();
-        var response = await http.GetAsync("https://localhost:7034/api/Subscriptions/GetAll");
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/GetAll?key={_apiKey}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -181,6 +209,34 @@ public class AdminController(AdminService adminService) : Controller
     }
 
 
+    [HttpGet("{Id}")]
+    public async Task<IActionResult> Subscription(string Id)
+    {
+        var viewModel = new AdminSubscriptionViewModel();
+
+        using var http = new HttpClient();
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/GetOne{Id}?key={_apiKey}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonStrings = await response.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<AdminSubscribeModel>(jsonStrings);
+            if (model != null)
+            {
+                List<AdminSubscribeModel> models = [];
+                models.Add(model);
+                viewModel.Subscribers = models!;
+                return View(viewModel);
+            }
+        }
+
+        ViewData["SubscriptionStatus"] = "No subscribers in list";
+        return View(viewModel);
+    }
+
+    #endregion
+
+    #region UPDATE
+
     [HttpPost]
     public async Task<IActionResult> Subscription(AdminSubscriptionViewModel viewModel)
     {
@@ -188,7 +244,7 @@ public class AdminController(AdminService adminService) : Controller
 
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
 
-        var response = await http.PutAsync("https://localhost:7034/api/Subscriptions/", content);
+        var response = await http.PutAsync($"https://localhost:7034/api/Subscriptions/?key={_apiKey}", content);
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -205,22 +261,9 @@ public class AdminController(AdminService adminService) : Controller
         return View(viewModel);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateSubscription(AdminSubscriptionViewModel viewModel)
-    {
-        using var http = new HttpClient();
-        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
+    #endregion
 
-        var response = await http.PostAsync("https://localhost:7034/api/Subscriptions/", content);
-        if (response.IsSuccessStatusCode)
-        {
-            TempData["SubscriptionStatus"] = "Subscription created succesfully";
-            return RedirectToAction("Subscription");
-        }
-        
-        TempData["SubscriptionStatus"] = "Subscription created succesfully";
-        return RedirectToAction("Subscribe");
-    }
+    #region DELETE
 
     [HttpPost]
     public async Task<IActionResult> DeleteSubscription(AdminSubscriptionViewModel viewModel)
@@ -232,7 +275,7 @@ public class AdminController(AdminService adminService) : Controller
         var cancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = cancellationTokenSource.Token;
 
-        var response = await http.DeleteAsync($"https://localhost:7034/api/Subscriptions/{Id}", cancellationToken);
+        var response = await http.DeleteAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_apiKey}", cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             TempData["SubscriptionStatus"] = "Subscription deleted succesfully";
@@ -243,6 +286,9 @@ public class AdminController(AdminService adminService) : Controller
         return RedirectToAction("Subscription");
 
     }
+
+    #endregion
+
     #endregion
 
 }
