@@ -33,11 +33,11 @@
 @import 'sections/_account-security.scss';
 
 /// account-saved-courses
-@import './sections/account-saved-courses';
+@import './sections/_account-saved-courses.scss';
 
 /// 404-error
-@import './sections/404-error';
+@import './sections/_404-error.scss';
 
 /// admin
-@import 'sections/_admin';
+@import 'sections/_admin.scss';
 

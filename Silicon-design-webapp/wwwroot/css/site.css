@@ -3720,3 +3720,73 @@ footer, .google-map, .contact-form {
   display: flex;
   gap: 1rem;
 }
+
+.admin-subscription .form-wrapper {
+  background-color: #fff;
+  padding: 0;
+}
+.admin-subscription .form-wrapper .container {
+  margin: 0 0 2rem;
+  background-color: #F3F6FF;
+  padding: 1rem;
+  border: 1px solid #E2E5F1;
+  border-radius: 0.5rem;
+}
+.admin-subscription .form-wrapper .container form {
+  margin: 0 0 0.5rem;
+}
+@media (min-width: 1200px) {
+  .admin-subscription .form-wrapper .container form .top-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "grid grid grid";
+    align-items: baseline;
+  }
+  .admin-subscription .form-wrapper .container form .top-wrapper .grid-container {
+    margin: 0;
+    padding: 0;
+  }
+}
+.admin-subscription .form-wrapper .container form .bottom-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .admin-subscription .form-wrapper .container form .bottom-wrapper {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+.admin-subscription .form-wrapper .container form .bottom-wrapper .input-group {
+  margin: 0.5rem 0;
+}
+.admin-subscription .form-wrapper .container form .bottom-wrapper .btn-theme {
+  background-color: #FFBA08;
+  color: #0B0F19;
+  margin: 0;
+}
+.admin-subscription .form-wrapper .container .subscription-delete-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.admin-subscription #subscriptionToggle {
+  margin: 0 0 1rem;
+}
+.admin-subscription #createSubscription {
+  margin: 0;
+  padding: 0;
+}
+.admin-subscription #createSubscription button {
+  background-color: #22C55E;
+  color: #fff;
+}
+
+.admin-nav .menu-link {
+  margin: 0 1rem 0 0;
+}
+.admin-nav .menu-link:hover {
+  text-decoration: underline;
+}

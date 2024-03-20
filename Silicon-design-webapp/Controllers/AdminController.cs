@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.Helpers;
 using Silicon_design_webapp.ViewModels.Admin;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Text;
 
 namespace Silicon_design_webapp.Controllers;
 
@@ -161,16 +164,84 @@ public class AdminController(AdminService adminService) : Controller
     [HttpGet]
     public async Task<IActionResult> Subscription()
     {
+        var viewModel = new AdminSubscriptionViewModel();
+
         using var http = new HttpClient();
         var response = await http.GetAsync("https://localhost:7034/api/Subscriptions/GetAll");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonStrings = await response.Content.ReadAsStringAsync();
+            var models = JsonConvert.DeserializeObject<IEnumerable<AdminSubscribeModel>>(jsonStrings);
+            viewModel.Subscribers = models!;
+            return View(viewModel);
+        }
 
-        var jsonStrings = await response.Content.ReadAsStringAsync();
-        var models = JsonConvert.DeserializeObject<IEnumerable<AdminSubscribeModel>>(jsonStrings);
+        ViewData["SubscriptionStatus"] = "No subscribers in list";
+        return View(viewModel);
+    }
 
-        var viewModel = new AdminSubscriptionViewModel();
-        viewModel.Subscribers = models!;
+
+    [HttpPost]
+    public async Task<IActionResult> Subscription(AdminSubscriptionViewModel viewModel)
+    {
+        using var http = new HttpClient();
+
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
+
+        var response = await http.PutAsync("https://localhost:7034/api/Subscriptions/", content);
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonStrings = await response.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<AdminSubscribeModel>(jsonStrings);
+            if (model != null)
+            {
+                List<AdminSubscribeModel> models = [];
+                models.Add(model);
+                viewModel.Subscribers = models!;
+                return View(viewModel);
+            }
+        }
 
         return View(viewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateSubscription(AdminSubscriptionViewModel viewModel)
+    {
+        using var http = new HttpClient();
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
+
+        var response = await http.PostAsync("https://localhost:7034/api/Subscriptions/", content);
+        if (response.IsSuccessStatusCode)
+        {
+            TempData["SubscriptionStatus"] = "Subscription created succesfully";
+            return RedirectToAction("Subscription");
+        }
+        
+        TempData["SubscriptionStatus"] = "Subscription created succesfully";
+        return RedirectToAction("Subscribe");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteSubscription(AdminSubscriptionViewModel viewModel)
+    {
+        using var http = new HttpClient();
+
+        var Id = viewModel.Subscriber.Id;
+        
+        var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
+
+        var response = await http.DeleteAsync($"https://localhost:7034/api/Subscriptions/{Id}", cancellationToken);
+        if (response.IsSuccessStatusCode)
+        {
+            TempData["SubscriptionStatus"] = "Subscription deleted succesfully";
+            return RedirectToAction("Subscription");
+        }
+        
+        TempData["SubscriptionStatus"] = "Failed to delete subscription";
+        return RedirectToAction("Subscription");
+
     }
     #endregion
 

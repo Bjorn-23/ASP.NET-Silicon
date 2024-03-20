@@ -1,4 +1,5 @@
 ﻿
+//Index.cs
 .admin-content {
     display: flex;
     flex-direction: column;
@@ -32,6 +33,96 @@
         .group-wrapper, .button-wrapper {
             display: flex;
             gap: 1rem;
+        }
+    }
+}
+
+//Subscription.cs
+
+.admin-subscription {
+    .form-wrapper {
+        background-color: #fff;
+        padding: 0;
+
+        .container {
+            margin: 0 0 2rem;
+            background-color: $gray-100;
+            padding: 1rem;
+            border: 1px solid $gray-300;
+            border-radius: 0.5rem;
+
+            form {
+                margin: 0 0 0.5rem;
+
+                .top-wrapper {
+                    @include xl {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1fr;
+                        grid-template-areas: "grid grid grid";
+                        align-items: baseline;
+
+                        .grid-container {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+                }
+
+                .bottom-wrapper {
+                    display: flex;
+                    flex-direction: column;
+
+                    @include md {
+                        flex-direction: row;
+                        align-items: baseline;
+                        justify-content: space-between;
+                        gap: 1rem;
+                    }
+
+                    .input-group {
+                        margin: 0.5rem 0;
+                    }
+
+                    .btn-theme {
+                        background-color: $warning;
+                        color: $gray-900;
+                        margin: 0;
+                    }
+                }
+            }
+
+            .subscription-delete-wrapper {
+                display: flex;
+                align-items: baseline;
+                gap: 1rem;
+            }
+        }
+    }
+
+    #subscriptionToggle {
+        margin: 0 0 1rem;
+    }
+
+    #createSubscription {
+            margin: 0;
+            padding: 0;
+
+            button {
+                background-color: $success;
+                color: #fff;
+            }
+
+    }
+}
+
+
+
+.admin-nav {
+    .menu-link {
+        margin: 0 1rem 0 0;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 }

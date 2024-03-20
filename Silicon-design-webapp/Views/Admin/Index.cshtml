@@ -5,12 +5,7 @@
 
 <section class="container admin-content">
     
-@*     <nav class="admin-nav">
-        <a asp-action="UserInfo" asp-controller="Admin">User</a>
-        <a asp-action="AddressInfo" asp-controller="Admin">Address</a>
-        <a asp-action="PasswordInfo" asp-controller="Admin">Password</a>
-        <a asp-action="DeleteAccount" asp-controller="Admin">Delete account</a>
-    </nav> *@
+    @await Html.PartialAsync("~/Views/Shared/Sections/Admin/_AdminNavPartial.cshtml")
    
     <h1>@ViewData["Title"]</h1>
     
