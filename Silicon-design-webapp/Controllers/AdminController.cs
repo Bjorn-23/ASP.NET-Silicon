@@ -5,10 +5,8 @@ using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Silicon_design_webapp.Helpers;
 using Silicon_design_webapp.ViewModels.Admin;
-using System.Net.Http.Headers;
-using System.Net.Http;
+
 using System.Text;
 
 namespace Silicon_design_webapp.Controllers;
@@ -174,7 +172,7 @@ public class AdminController(AdminService adminService) : Controller
         using var http = new HttpClient();
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
 
-        var response = await http.PostAsync($"https://localhost:7034/api/Subscriptions/?key={_apiKey}", content);
+        var response = await http.PostAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}", content);
         if (response.IsSuccessStatusCode)
         {
             TempData["SubscriptionStatus"] = "Subscription created succesfully";
@@ -195,7 +193,7 @@ public class AdminController(AdminService adminService) : Controller
         var viewModel = new AdminSubscriptionViewModel();
 
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -244,7 +242,7 @@ public class AdminController(AdminService adminService) : Controller
 
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
 
-        var response = await http.PutAsync($"https://localhost:7034/api/Subscriptions/?key={_apiKey}", content);
+        var response = await http.PutAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}", content);
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -293,8 +291,58 @@ public class AdminController(AdminService adminService) : Controller
 
     #region COURSES
 
-   
+    [HttpGet]
+    public async Task<IActionResult> Courses()
+    {
+        var viewModel = new AdminCoursesViewModel();
+        using var http = new HttpClient();
+        var response = await http.GetAsync($"https://localhost:7034/api/Courses?key={_apiKey}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonStrings = await response.Content.ReadAsStringAsync();
+            var models = JsonConvert.DeserializeObject<IEnumerable<CourseBoxModel>>(jsonStrings);
+            viewModel.Courses = models!;
+            return View(viewModel);
+        }
 
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateCourse(AdminCoursesViewModel viewModel)
+    {
+        using var http = new HttpClient();
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Course), Encoding.UTF8, "application/json");
+
+        var response = await http.PutAsync($"https://localhost:7034/api/Courses?key={_apiKey}", content);
+        if (response.IsSuccessStatusCode)
+        {
+            ViewData["CourseStatus"] = "Course updated succesfully";
+            return RedirectToAction("Courses");            
+        }
+
+        return RedirectToAction("Courses");
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCourse(AdminCoursesViewModel viewModel)
+    {
+        using var http = new HttpClient();
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.CreateCourse), Encoding.UTF8, "application/json");
+
+        var response = await http.PostAsync($"https://localhost:7034/api/Courses?key={_apiKey}", content);
+        if (response.IsSuccessStatusCode)
+        {
+            ViewData["CourseStatus"] = "Course created succesfully";
+            return RedirectToAction("Courses");
+        }
+
+        return RedirectToAction("Courses");
+    }
+
+    //[HttpPost]
+    //public async Task<IActionResult> CreateCourse(Admi)
     #endregion
 
 }

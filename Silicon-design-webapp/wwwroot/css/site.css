@@ -3689,6 +3689,13 @@ footer, .google-map, .contact-form {
   margin: 2rem 0;
 }
 
+.admin-nav .menu-link {
+  margin: 0 1rem 0 0;
+}
+.admin-nav .menu-link:hover {
+  text-decoration: underline;
+}
+
 .admin-content {
   display: flex;
   flex-direction: column;
@@ -3784,9 +3791,42 @@ footer, .google-map, .contact-form {
   color: #fff;
 }
 
-.admin-nav .menu-link {
-  margin: 0 1rem 0 0;
+.admin-courses .container .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
 }
-.admin-nav .menu-link:hover {
-  text-decoration: underline;
+.admin-courses .container .top-row .top-right {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.admin-courses .container .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.admin-courses .container .grid-container form {
+  background-color: #F3F6FF;
+  border: 1px solid #B4B7C9;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.admin-courses .container .grid-container form button {
+  background-color: #FFBA08;
+  margin: 1rem 0 0;
+}
+.admin-courses .container .bottom-row {
+  display: block;
+  margin: 0 0 2rem;
+}
+.admin-courses .container .bottom-row button {
+  width: calc(50% - 1rem);
+  margin: 0 0 1rem;
+}
+.admin-courses .container .bottom-row form {
+  width: calc(50% - 1rem);
+}
+.admin-courses .container .bottom-row form button {
+  background-color: #22C55E;
 }
