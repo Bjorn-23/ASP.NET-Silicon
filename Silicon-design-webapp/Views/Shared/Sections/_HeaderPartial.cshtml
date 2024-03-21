@@ -15,6 +15,10 @@
                 {
                     <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
                 }
+                @if (User.IsInRole("SuperAdmin") || User.IsInRole("CIO") || User.IsInRole("Admin"))
+                {
+                    <a class="menu-link" asp-action="Index" asp-controller="Admin">Admin Portal</a>
+                }
 
             </nav>
         </div>

@@ -55,6 +55,31 @@ public class UserFactory
         }
     }
 
+    public static UserEntity Create(BasicInfoModel model)
+    {
+        try
+        {
+            UserEntity entity = new()
+            {
+                Id = model.Id!,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email!,
+                PhoneNumber = model.Phone,
+                Biography = model.Biography,
+                IsExternalAccount = model.IsExternalAccount
+            };
+
+            return entity;
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message + "failed to create UserEntity in factory from UserModel");
+            return null!;
+        }
+    }
+
     public static UserEntity Create(ExternalLoginInfo info)
     {
         try

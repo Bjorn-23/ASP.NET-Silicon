@@ -1,0 +1,17 @@
+﻿@model AdminSearchModel
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="@((ViewData["ErrorMessage"] != null) ? "error-message" : "hidden")">@ViewData["ErrorMessage"]</div>
+}
+
+<form class="admin-search" method="post" asp-action="Index" asp-controller="Admin" novalidate>
+    <div class="input-group">
+        <label asp-for="@Model.Expression" />
+        <input id="adminSearchBar" asp-for="@Model.Expression" />
+    </div>
+    <div class="button-wrapper">
+        <button class="btn-theme" type="submit"><span>Search</span><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="btn-gray" type="reset">Clear</button>
+    </div>
+</form>

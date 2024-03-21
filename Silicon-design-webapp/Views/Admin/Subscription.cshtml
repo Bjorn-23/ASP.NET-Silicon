@@ -1,0 +1,129 @@
+﻿@model AdminSubscriptionViewModel
+
+@{
+    ViewData["Title"] = "Subscribers";
+}
+
+<section class="admin-subscription container">
+
+    @await Html.PartialAsync("~/Views/Shared/Sections/Admin/_AdminNavPartial.cshtml")
+
+    <h1>@ViewData["Title"]</h1>
+
+    @if (ViewData["SubscriptionStatus"] != null)
+    {
+        <div>@ViewData["SubscriptionStatus"]</div>
+    }
+
+    <button id="subscriptionToggle" class="btn-theme">Add subcription</button>
+
+    <div id ="createSubscription" class="form-wrapper subscribe hidden">
+        <div class="container">
+            <form method="post" asp-controller="Admin" asp-action="CreateSubscription" novalidate>
+
+                <div class="top-wrapper">
+                    <div class="grid-container">
+
+                        <div class="checkbox-group">
+                            <input asp-for="@Model.Subscriber.DailyNewsletter" type="checkbox">
+                            <label asp-for="@Model.Subscriber.DailyNewsletter"></label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input asp-for="@Model.Subscriber.AdvertisingUpdates" type="checkbox">
+                            <label asp-for="@Model.Subscriber.AdvertisingUpdates"></label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input asp-for="@Model.Subscriber.WeekInReview" type="checkbox">
+                            <label asp-for="@Model.Subscriber.WeekInReview"></label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input asp-for="@Model.Subscriber.EventUpdates" type="checkbox">
+                            <label asp-for="@Model.Subscriber.EventUpdates"></label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input asp-for="@Model.Subscriber.StartupsWeekly" type="checkbox">
+                            <label asp-for="@Model.Subscriber.StartupsWeekly"></label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input asp-for="@Model.Subscriber.Podcasts" type="checkbox">
+                            <label asp-for="@Model.Subscriber.Podcasts"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bottom-wrapper">
+                    <div class="input-group">
+                        <span asp-validation-for="@Model.Subscriber.Email"></span>
+                        <input asp-for="@Model.Subscriber.Email" placeholder="&#9993 Enter your Email" />
+                    </div>
+
+                    <button class="btn-theme create-subscription" type="submit">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    @foreach (var subscriber in Model.Subscribers)
+    {
+        <div class="form-wrapper subscribe">
+            <div class="container">
+                <form method="post" asp-controller="Admin" asp-action="Subscription" novalidate>
+
+                    <div class="top-wrapper">
+                        <div class="grid-container">
+
+                            <div class="checkbox-group">
+                                <input asp-for="@subscriber.DailyNewsletter" type="checkbox">
+                                <label asp-for="@subscriber.DailyNewsletter"></label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input asp-for="@subscriber.AdvertisingUpdates" type="checkbox">
+                                <label asp-for="@subscriber.AdvertisingUpdates"></label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input asp-for="@subscriber.WeekInReview" type="checkbox">
+                                <label asp-for="@subscriber.WeekInReview"></label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input asp-for="@subscriber.EventUpdates" type="checkbox">
+                                <label asp-for="@subscriber.EventUpdates"></label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input asp-for="@subscriber.StartupsWeekly" type="checkbox">
+                                <label asp-for="@subscriber.StartupsWeekly"></label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input asp-for="@subscriber.Podcasts" type="checkbox">
+                                <label asp-for="@subscriber.Podcasts"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-wrapper">
+                        <div class="input-group">
+                            <span asp-validation-for="@subscriber.Email"></span>
+                            <input asp-for="@subscriber.Email" placeholder="&#9993 Enter your Email" />
+                        </div>
+                        <div class="hidden">
+                            <span asp-validation-for="@subscriber.Id"></span>
+                            <input asp-for="@subscriber.Id" placeholder="Id" readonly />
+                        </div>
+
+                        <button class="btn-theme" type="submit">Save changes</button>
+                    </div>
+                </form>
+
+                <form class="subscription-delete-wrapper" method="post" asp-action="DeleteSubscription" asp-controller="Admin" novalidate>
+                    <div class="input-group">
+                        <span asp-validation-for="@subscriber.Id"></span>
+                        <input asp-for="@subscriber.Id" placeholder="Id" readonly />
+                    </div>
+                    <button class="btn-delete-all" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>            
+    }
+ 
+    <script src="~/js/subscription.js"></script>
+</section>

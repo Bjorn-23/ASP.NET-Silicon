@@ -1,17 +1,25 @@
 ﻿@model BasicInfoModel
 
-<form method="post" class="basic-info" asp-controller="Account" asp-action="BasicInfo">
 
-    <h5 class="form-title">Basic Info</h5>
+<form method="post" class="basic-info"
+    asp-controller="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin") ? "Admin" : "Account")"
+    asp-action="@((ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin") ? "Index" : "BasicInfo")">
+
+    <div class="title-wrapper">
+        <h5 class="form-title">Basic Info</h5>
+        @if (Model.IsExternalAccount)
+        {
+            <span>Add password on security tab to change information displayed below.</span>
+        }
+    </div>
 
     <div class="group-wrapper">
-        <div class="input-group">
+        <div class="input-group">                      
 
             <label asp-for="@Model.FirstName"></label>
-
             @if (Model.IsExternalAccount)
             {
-                <input asp-for="@Model.FirstName" disabled>
+                <input asp-for="@Model.FirstName" style="background-color: #f4f4f4;" readonly>
             }
             else
             {
@@ -21,29 +29,27 @@
 
         </div>
         <div class="input-group">
-            <label asp-for="@Model.LastName"></label>
 
+            <label asp-for="@Model.LastName"></label>
             @if (Model.IsExternalAccount)
             {
-                <input asp-for="@Model.LastName" disabled>
+                <input asp-for="@Model.LastName" style="background-color: #f4f4f4;" readonly>
             }
             else
             {
                 <span asp-validation-for="@Model.LastName"></span>
                 <input asp-for="@Model.LastName">
             }
-
-
         </div>
     </div>
 
     <div class="group-wrapper">
         <div class="input-group">
-            <label asp-for="@Model.Email"></label>
 
+            <label asp-for="@Model.Email"></label>
             @if (Model.IsExternalAccount)
             {
-                <input asp-for="@Model.Email" disabled>
+                <input asp-for="@Model.Email" style="background-color: #f4f4f4;" readonly>
             }
             else
             {
@@ -52,21 +58,68 @@
             }
         </div>
         <div class="input-group">
+
             <label asp-for="@Model.Phone"></label>
-            <span asp-validation-for="@Model.Phone"></span>
-            <input asp-for="@Model.Phone">
+             @if (Model.IsExternalAccount)
+            {
+                <input asp-for="@Model.Phone" style="background-color: #f4f4f4;" readonly>
+            }
+            else
+            {
+                <span asp-validation-for="@Model.Phone"></span>
+                <input asp-for="@Model.Phone">
+            }
         </div>
     </div>
 
     <div class="input-group">
+
         <label asp-for="@Model.Biography"></label>
-        <span asp-validation-for="@Model.Biography"></span>
-        <textarea asp-for="@Model.Biography" rows="4"></textarea>
+        @if (Model.IsExternalAccount)
+        {
+            <textarea asp-for="@Model.Biography" rows="4" style="background-color: #f4f4f4;" readonly></textarea>
+        }
+        else
+        {
+            <span asp-validation-for="@Model.Biography"></span>
+            <textarea asp-for="@Model.Biography" rows="4"></textarea>
+        }
     </div>
 
-    <div class="button-wrapper">
-        <button class="cancel btn-gray" type="reset">Cancel</button>
-        <button class="save btn-theme" type="submit">Save changes</button>
+    <div class="input-group">
+        @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin" && User.IsInRole("SuperAdmin") || User.IsInRole("CIO") || User.IsInRole("Admin"))
+        {
+            <label asp-for="@Model.Id">User id</label>
+            <input asp-for="@Model.Id" style="background-color: #f4f4f4;" readonly />
+        }
     </div>
+
+
+    @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin" && TempData["SingleForm"]!.ToString() == "true")
+    {
+        @if (Model.IsExternalAccount)
+        {
+            <button id="FormChangePasswordButton" class="btn-delete-all" type="button">Change Password</button>
+            TempData["UserId"] = Model.Id;
+        }
+        else
+        {
+            <div class="button-wrapper">
+                <button class="cancel btn-gray" type="reset">Cancel</button>
+                <button class="save btn-theme" type="submit">Save changes</button>
+                <button id="FormChangePasswordButton" class="btn-delete-all" type="button">Change Password</button>
+            </div>
+            TempData["UserId"] = Model.Id;
+        }
+
+    }
+    else if (Model.IsExternalAccount){} // No buttons displayed until account is local.
+    else
+    {
+        <div class="button-wrapper">
+            <button class="cancel btn-gray" type="reset">Cancel</button>
+            <button class="save btn-theme" type="submit">Save changes</button>
+        </div>
+    }
 
 </form>

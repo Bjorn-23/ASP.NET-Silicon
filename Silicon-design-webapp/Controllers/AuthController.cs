@@ -104,20 +104,25 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
 
     #region Facebook
     [HttpGet]
-    public IActionResult Facebook()
+    public IActionResult Facebook(string? returnUrl)
     {
-        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback"));
+        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback", new { returnUrl }), returnUrl);
         return new ChallengeResult("Facebook", authprops);
     }
 
-    public async Task<IActionResult> FacebookCallback()
+    public async Task<IActionResult> FacebookCallback(string? returnUrl)
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
         if (info != null)
         {
             var result = await _userService.SignInOrRegisterExternalAccount(info);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+            {
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                
                 return RedirectToAction("Details", "Account");
+            }
         }
 
         TempData["StatusMessage"] = "Failed to login with Facebook - please try again later";
@@ -127,20 +132,25 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
 
     #region Google
     [HttpGet]
-    public IActionResult Google()
+    public IActionResult Google(string? returnUrl)
     {
-        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback"));
+        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback", new { returnUrl }), returnUrl);
         return new ChallengeResult("Google", authprops);
     }
 
-    public async Task<IActionResult> GoogleCallback()
+    public async Task<IActionResult> GoogleCallback(string? returnUrl)
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
         if (info != null)
         {
             var result = await _userService.SignInOrRegisterExternalAccount(info);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+            {
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                
                 return RedirectToAction("Details", "Account");
+            }
         }
 
         TempData["StatusMessage"] = "Failed to login with Google - please try again later";
