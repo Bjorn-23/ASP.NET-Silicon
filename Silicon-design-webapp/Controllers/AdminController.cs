@@ -195,7 +195,7 @@ public class AdminController(AdminService adminService) : Controller
         var viewModel = new AdminSubscriptionViewModel();
 
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/GetAll?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/?key={_apiKey}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -215,7 +215,7 @@ public class AdminController(AdminService adminService) : Controller
         var viewModel = new AdminSubscriptionViewModel();
 
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/GetOne{Id}?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_apiKey}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -288,6 +288,12 @@ public class AdminController(AdminService adminService) : Controller
     }
 
     #endregion
+
+    #endregion
+
+    #region COURSES
+
+   
 
     #endregion
 
