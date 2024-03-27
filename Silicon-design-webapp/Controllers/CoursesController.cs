@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Courses;
 
 namespace Silicon_design_webapp.Controllers;
@@ -7,11 +9,24 @@ namespace Silicon_design_webapp.Controllers;
 [Authorize]
 public class CoursesController : Controller
 {
+    private readonly string _apiKey = "YmRhNGYwZDgtNDNkZi00N2EyLTliNmQtODYxZTA3OTQ3NDUy";
+
     [Route("/courses")]
     [HttpGet]
-    public IActionResult Index()
+    public async Task<ActionResult> Index()
     {
-        var viewModel = new CoursesIndexViewModel();
+        var viewModel = new CoursesViewModel();
+        var http = new HttpClient();
+
+        var response = await http.GetAsync($"https://localhost:7034/api/Courses/?key={_apiKey}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonStrings = await response.Content.ReadAsStringAsync();
+            var models = JsonConvert.DeserializeObject<IEnumerable<CourseBoxModel>>(jsonStrings);
+            viewModel.Courses = models!;
+            return View(viewModel);
+        }
+
         return View(viewModel);
     }
 
