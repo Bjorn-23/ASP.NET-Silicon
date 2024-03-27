@@ -1,4 +1,13 @@
-﻿
+﻿.admin-nav {
+    .menu-link {
+        margin: 0 1rem 0 0;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 //Index.cs
 .admin-content {
     display: flex;
@@ -107,7 +116,7 @@
             margin: 0;
             padding: 0;
 
-            button {
+            button {    
                 background-color: $success;
                 color: #fff;
             }
@@ -115,14 +124,70 @@
     }
 }
 
+.admin-courses {
+    .container {
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
 
+            .top-right {
+                display: flex;
+                gap: 1rem;
+                align-items: baseline;
+            }
+        }
 
-.admin-nav {
-    .menu-link {
-        margin: 0 1rem 0 0;
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
 
-        &:hover {
-            text-decoration: underline;
+            .form-wrapper {
+                background-color: $gray-100;
+                border: 1px solid $gray-500;
+                border-radius: 0.5rem;
+                padding: 1rem;
+
+                form {
+                    margin: 0 0 1rem;
+
+                    .button-wrapper {
+                        display: flex;
+                        align-items: baseline;
+                        gap: 1rem;
+
+                        .btn-theme {
+                            background-color: $warning;
+                            color: $gray-900;
+                            margin: 1rem 0 0;
+                        }
+
+                        .btn-gray {
+                            background-color: $gray-300;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .bottom-row {
+            display: block;
+            margin: 0 0 2rem;
+
+            button {
+                width: calc((50%) - 1rem);
+                margin: 0 0 1rem;
+            }
+
+            form {
+                width: calc((50%) - 1rem);
+
+                button {
+                    background-color: $success;
+                }
+            }
         }
     }
 }
