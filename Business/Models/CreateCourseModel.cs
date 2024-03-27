@@ -6,13 +6,18 @@ public class CreateCourseModel
 {
     [Required]
     public string Title { get; set; } = null!;
-    
+
     [Required]
     public string Author { get; set; } = null!;
 
-    
+    [Required]
+    public string ImageUrl { get; set; } = null!;
+
+    [Required]
+    public string AltText { get; set; } = null!;
+
     public bool BestSeller { get; set; } = false;
-    
+
     [Required]
     public string Currency { get; set; } = null!;
 
@@ -24,6 +29,5 @@ public class CreateCourseModel
     [Required]
     public string LengthInHours { get; set; } = null!;
 
-    [Required]
-    public string Rating { get; set; } = null!;
+    public string? Rating { get; set; }
 }
