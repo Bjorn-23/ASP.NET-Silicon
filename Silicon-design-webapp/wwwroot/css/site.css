@@ -3794,7 +3794,7 @@ footer, .google-map, .contact-form {
 .admin-courses .container .top-row {
   display: flex;
   justify-content: space-between;
-  align-items: last baseline;
+  align-items: baseline;
 }
 .admin-courses .container .top-row .top-right {
   display: flex;
@@ -3806,15 +3806,27 @@ footer, .google-map, .contact-form {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
-.admin-courses .container .grid-container form {
+.admin-courses .container .grid-container .form-wrapper {
   background-color: #F3F6FF;
   border: 1px solid #B4B7C9;
   border-radius: 0.5rem;
   padding: 1rem;
 }
-.admin-courses .container .grid-container form button {
+.admin-courses .container .grid-container .form-wrapper form {
+  margin: 0 0 1rem;
+}
+.admin-courses .container .grid-container .form-wrapper form .button-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.admin-courses .container .grid-container .form-wrapper form .button-wrapper .btn-theme {
   background-color: #FFBA08;
+  color: #0B0F19;
   margin: 1rem 0 0;
+}
+.admin-courses .container .grid-container .form-wrapper form .button-wrapper .btn-gray {
+  background-color: #E2E5F1;
 }
 .admin-courses .container .bottom-row {
   display: block;
