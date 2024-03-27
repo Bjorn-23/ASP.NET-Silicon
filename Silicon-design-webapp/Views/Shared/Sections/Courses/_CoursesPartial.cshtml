@@ -37,7 +37,7 @@
                     <a class="grid-item" asp-controller="Courses" asp-action="Details">
                         <div class="img-wrapper">
                             <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
-                            <p class="@course.BestSeller ? best-seller : hidden">Best Seller</p>
+                            <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
                         </div>
                         <div class="bookmark-wrapper">
                             <div class="circle">
