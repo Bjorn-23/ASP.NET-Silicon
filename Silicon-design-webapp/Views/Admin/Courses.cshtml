@@ -39,67 +39,81 @@
 
             @* Used for creating new courses *@
             <form id="coursesForm" class="hidden" method="post" asp-action="CreateCourse" asp-controller="Admin" novalidate>
-                    <div class="group-wrapper">
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.Title"></label>
-                        <span asp-validation-for="@Model.CreateCourse.Title"></span>
-                        <input asp-for="@Model.CreateCourse.Title">
-                        </div>
-
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.Author"></label>
-                        <span asp-validation-for="@Model.CreateCourse.Author"></span>
-                        <input asp-for="@Model.CreateCourse.Author">
-                        </div>
+                <div class="group-wrapper">
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.Title"></label>
+                    <span asp-validation-for="@Model.CreateCourse.Title"></span>
+                    <input asp-for="@Model.CreateCourse.Title">
                     </div>
 
-                    <div class="group-wrapper">
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.Price"></label>
-                        <span asp-validation-for="@Model.CreateCourse.Price"></span>
-                        <input asp-for="@Model.CreateCourse.Price" />
-                        </div>
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.Author"></label>
+                    <span asp-validation-for="@Model.CreateCourse.Author"></span>
+                    <input asp-for="@Model.CreateCourse.Author">
+                    </div>
+                </div>
 
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.DiscountPrice"></label>
-                        <input asp-for="@Model.CreateCourse.DiscountPrice">
-                        </div>
+                <div class="group-wrapper">
+                    <div class="input-group">
+                        <label asp-for="@Model.CreateCourse.ImageUrl"></label>
+                        <span asp-validation-for="@Model.CreateCourse.ImageUrl"></span>
+                        <input asp-for="@Model.CreateCourse.ImageUrl" />
                     </div>
 
-                    <div class="group-wrapper">
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.Currency"></label>
-                        <span asp-validation-for="@Model.CreateCourse.Currency"></span>
-                        <input asp-for="@Model.CreateCourse.Currency" />
-                        </div>
+                    <div class="input-group">
+                        <label asp-for="@Model.CreateCourse.AltText"></label>
+                        <span asp-validation-for="@Model.CreateCourse.AltText"></span>
+                        <input asp-for="@Model.CreateCourse.AltText">
+                    </div>
+                </div>
 
+                <div class="group-wrapper">
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.Price"></label>
+                    <span asp-validation-for="@Model.CreateCourse.Price"></span>
+                    <input asp-for="@Model.CreateCourse.Price" />
                     </div>
 
-                    <div class="group-wrapper">
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.LengthInHours"></label>
-                        <span asp-validation-for="@Model.CreateCourse.LengthInHours"></span>
-                        <input asp-for="@Model.CreateCourse.LengthInHours" />
-                        </div>
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.DiscountPrice"></label>
+                    <input asp-for="@Model.CreateCourse.DiscountPrice">
+                    </div>
+                </div>
 
-                        <div class="input-group">
-                        <label asp-for="@Model.CreateCourse.Rating"></label>
-                        <span asp-validation-for="@Model.CreateCourse.Rating"></span>
-                        <input asp-for="@Model.CreateCourse.Rating">
-                        </div>
+                <div class="group-wrapper">
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.Currency"></label>
+                    <span asp-validation-for="@Model.CreateCourse.Currency"></span>
+                    <input asp-for="@Model.CreateCourse.Currency" />
                     </div>
 
-                    <div class="group-wrapper">
-                        <div class="checkbox-group">
-                        <input asp-for="@Model.CreateCourse.BestSeller" />
-                        <label asp-for="@Model.CreateCourse.BestSeller"></label>
-                        <span asp-validation-for="@Model.CreateCourse.Author"></span>
-                        </div>
+                </div>
 
-                        <button class="btn-theme submit" type="submit">Create course</button>
+                <div class="group-wrapper">
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.LengthInHours"></label>
+                    <span asp-validation-for="@Model.CreateCourse.LengthInHours"></span>
+                    <input asp-for="@Model.CreateCourse.LengthInHours" />
                     </div>
-                </form>
-            </div>            
+
+                    <div class="input-group">
+                    <label asp-for="@Model.CreateCourse.Rating"></label>
+                    <span asp-validation-for="@Model.CreateCourse.Rating"></span>
+                    <input asp-for="@Model.CreateCourse.Rating">
+                    </div>
+                </div>
+
+                <div class="group-wrapper">
+                    <div class="checkbox-group">
+                    <input asp-for="@Model.CreateCourse.BestSeller" />
+                    <label asp-for="@Model.CreateCourse.BestSeller"></label>
+                    <span asp-validation-for="@Model.CreateCourse.Author"></span>
+                    </div>
+
+                    <button class="btn-theme submit" type="submit">Create course</button>
+                </div>
+            </form>
+        </div>            
 
         <div class="grid-container">
             @if (@Model.Courses.Count() >= 1)
@@ -122,6 +136,20 @@
                                     <label asp-for="@course.Author"></label>
                                     <span asp-validation-for="@course.Author"></span>
                                     <input asp-for="@course.Author">
+                                </div>
+                            </div>
+
+                            <div class="group-wrapper">
+                                <div class="input-group">
+                                    <label asp-for="@course.ImageUrl"></label>
+                                    <span asp-validation-for="@course.ImageUrl"></span>
+                                    <input asp-for="@course.ImageUrl" />
+                                </div>
+
+                                <div class="input-group">
+                                    <label asp-for="@course.AltText"></label>
+                                    <span asp-validation-for="@course.AltText"></span>
+                                    <input asp-for="@course.AltText">
                                 </div>
                             </div>
 
