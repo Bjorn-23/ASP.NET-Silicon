@@ -1,6 +1,6 @@
 a {
     @include standard-text;
-    color: $theme;
+    color: var(--color-theme);
     text-decoration: none;
     transition: all 0.25s ease-in-out;
 
@@ -18,7 +18,7 @@ a {
     &:active,
     &:focus,
     .active {
-        color: $theme;
+        color: var(--color-theme);
         text-decoration: none;
     }
 }

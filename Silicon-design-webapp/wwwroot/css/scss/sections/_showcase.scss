@@ -1,104 +1,101 @@
-.showcase{
+.showcase {
     margin-bottom: 1rem;
-    @include lg{
+
+    @include lg {
         margin-bottom: 8rem;
     }
-    
-    .container{
-        display: block;
-        position: relative;    
 
-        @include md{
+    .container {
+        display: block;
+        position: relative;
+
+        @include md {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
         }
-                
-        .showcase-left{
+
+        .showcase-left {
             text-align: center;
             margin-top: 1rem;
-            
-            @include md{
+
+            @include md {
                 text-align: start;
                 margin-top: 4rem;
             }
 
-            @include xl{
+            @include xl {
                 margin-right: 0px;
             }
 
-            @include xxl{
+            @include xxl {
                 margin-right: 680px;
             }
 
-            h1{
+            h1 {
                 @include h2;
 
-                @include xl{
+                @include xl {
                     @include d4;
                 }
             }
-            
-            .text{
+
+            .text {
                 @include text-lg;
                 margin-top: 2rem;
-                margin-right: 90px;                          
+                margin-right: 90px;
             }
 
-            .btn-theme-s{
+            .btn-theme-s {
                 margin: 2rem 0;
 
-                @include md{
+                @include md {
                     display: inline-block;
                     margin: 3rem 0 6rem 0;
                 }
             }
-
-            // h6{} // just here to show what the .logo-grid is using its margin-top with.
-
-            .brands{
+            
+            .brands {
                 margin-top: 2rem;
-                
-                img{
-                   margin-right: 0.9rem;
+
+                img {
+                    margin-right: 0.9rem;
                 }
-            } 
+            }
         }
 
-        .showcase-right{
+        .showcase-right {
             display: none;
 
-            @include md{
+            @include md {
                 display: block;
                 padding-top: 4rem;
             }
 
-            @include xxl{
+            @include xxl {
                 padding: 0;
             }
-            
-            img{
-                @include md{
+
+            img {
+                @include md {
                     width: 100%;
                     height: auto;
                     margin-right: -50px;
                 }
 
-                @include xl{
+                @include xl {
                     margin-right: 0;
                 }
-                
-                @include xxl{
-                    // display:none;
-                    position: absolute;
-                    right: -11.6rem;
-                    width: 75%;
-                    margin:0;
-                    overflow-x: hidden;
-                }
 
+                @include xxl {
+                    width: 75%;
+                    height: auto;
+                    position: absolute;
+                    right: -21.893%;
+                    top: 0;
+                    margin: 0;
+                }
             }
         }
-        
     }
 }

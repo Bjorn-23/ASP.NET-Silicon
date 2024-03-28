@@ -1,5 +1,5 @@
 .subscribe {
-    background-color: $gray-200;
+    background-color: var(--color-gray-200);
     padding: 2rem 0;
 
     @include lg {
@@ -79,7 +79,7 @@
                         margin: 0.5rem 0 0 0;
 
                         input {
-                            color: $gray-500;
+                            color: var(--color-gray-500);
                         }
 
                         label {
@@ -109,7 +109,7 @@
                     input {
                         display: block;
                         width: 100%;
-                        border: 1px solid $gray-400;
+                        border: 1px solid var(--color-gray-400);
                         border-radius: 0.5rem;
                         padding: 0.5rem;
 

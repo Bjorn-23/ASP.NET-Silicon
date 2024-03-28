@@ -1,13 +1,12 @@
 footer {
+    background-color: var(--color-gray-000) !important;
     padding: 3rem 0 2rem 0;
     @include text-m;
-    color: $gray-600;
+    color: var(--color-gray-600);
 
     @include lg{
         padding: 4rem 0;
     }
-
-
 
     .container {
         text-align: center;

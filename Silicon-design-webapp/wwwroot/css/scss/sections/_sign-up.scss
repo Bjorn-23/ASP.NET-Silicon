@@ -19,22 +19,22 @@
         .userAlreadyExists, .invalidSignUpForm {
             width: 100%;
             background-color: #EF444420;
-            border: 2px solid $danger;
+            border: 2px solid var(--color-danger);
             border-radius: 0.5rem;
             text-align: center;
             font-size: 0.8125rem;
-            color: $danger;
+            color: var(--color-danger);
             padding: 0.2rem 0.5rem;
             margin: 2rem 0 1rem;
 
             @include md {
                 @include text-m;
-                color: $danger;
+                color: var(--color-danger);
             }
 
             @include lg {
                 @include text-lg;
-                color: $danger;
+                color: var(--color-danger);
             }
         }
 

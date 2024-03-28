@@ -1,12 +1,12 @@
 .download-app{
     position: relative;
-    background-color: $gray-100;
+    background-color: var(--color-gray-100);
 
     .container{
         .blue-rectangle{
             display: flex;
             flex-direction: column-reverse;
-            background-color: $gray-200;
+            background-color: var(--color-gray-200);
             padding: 2rem 0;
 
             
@@ -102,14 +102,14 @@
         
                         .stars{
                             @include text-xs;
-                            color: $warning;
+                            color: var(--color-warning);
                             i{
                                 margin-right: 3px;
                             }
 
                             @include xl{
                                 @include text-s;
-                                color: $warning;  
+                                color: var(--color-warning);  
                             }
                         }
         
@@ -170,7 +170,7 @@
             bottom: -0.5rem;
             z-index: 2;
             left: calc(50% - 40.5rem);
-            background-color: $gray-100;
+            background-color: var(--color-gray-100);
             width: 81rem;
             height: 0.5rem;
         }

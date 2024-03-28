@@ -7,14 +7,15 @@
         gap: 0.6rem;
 
         i {
-            color: $gray-600;
+            color: var(--color-gray-600);
         }
+
 
         li {
             padding: 0.2rem;
 
             a {
-                color: $gray-600;
+                color: var(--color-gray-600);
             }
         }
 
@@ -22,8 +23,16 @@
             margin-left: -0.5rem;
 
             a {
-                color: $theme;
+                color: var(--color-theme);
             }
         }
-    }        
+
+        .breadcrumb-item {
+            + .breadcrumb-item {
+                &::before {
+                    color: var(--color-gray-900) !important;
+                }
+            }
+        }
+    }
 }
