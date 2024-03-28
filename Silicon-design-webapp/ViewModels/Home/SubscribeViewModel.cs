@@ -8,5 +8,5 @@ public class SubscribeViewModel
     public string Title { get; set; } = null!;
     public ImageModel Image { get; set; } = new ImageModel();
     public string Subheading { get; set; } = null!;
-    public SubscribeModel Subscribe { get; set; } = new();   
+    public SubscribeModel Subscribe { get; set; } = new();
 }

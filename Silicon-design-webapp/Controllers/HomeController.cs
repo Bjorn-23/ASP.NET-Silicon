@@ -1,32 +1,41 @@
 ﻿using Business.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Home;
+using System.Text;
 
 namespace Silicon_design_webapp.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly string _apiKey = "YmRhNGYwZDgtNDNkZi00N2EyLTliNmQtODYxZTA3OTQ3NDUy";
+
     [HttpGet]
     public IActionResult Index()
     {
         var viewModel = new HomeIndexViewModel();
         ViewData["Title"] = viewModel.Title;
+        TempData["SubscriptionStatus"] = TempData["SubscriptionStatus"] ?? "";
         return View(viewModel);
     }
 
     
     [HttpPost]
-    public IActionResult Subscribe(SubscribeModel subscribe)
+    public async Task<IActionResult> Subscribe(SubscribeModel subscribe)
     {
         if (ModelState.IsValid)
         {
-            //var result = _subscribeService.CreateNewSubscription(subscribe)
-            // Add notification saying that subscription was succesful.
-            return RedirectToAction(nameof(Index));
+            using var http = new HttpClient();
+            var content = new StringContent(JsonConvert.SerializeObject(subscribe), Encoding.UTF8, "application/json");
+            var response = await http.PostAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                TempData["SubscriptionStatus"] = "Subscription updated";
+                return RedirectToAction(nameof(Index));
+            }      
         }
 
-        var viewModel = new HomeIndexViewModel();
-        // Add an announcement function that opens a modal to confirm email subscription was succesful. Or similar
-        return View(nameof(Index), viewModel);
+        TempData["SubscriptionStatus"] = "Something went wrong";
+        return RedirectToAction("Index");
     }
 }
