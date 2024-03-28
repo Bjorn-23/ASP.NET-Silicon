@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="bottom-wrapper">
+            <div class="middle-wrapper">
                 <div class="input-group">
                     <span asp-validation-for="@Model.Subscribe.Email"></span>
                     <input asp-for="@Model.Subscribe.Email" placeholder="&#9993 Enter your Email" />
@@ -48,7 +48,7 @@
                 <button class="btn-theme" type="submit">Subscribe *</button>
             </div>
             
-            <div>
+            <div class="bottom-wrapper">
                 <span class="terms-policy">* Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</span>
                 @if (!string.IsNullOrWhiteSpace(TempData["SubscriptionStatus"]!.ToString()))
                 {

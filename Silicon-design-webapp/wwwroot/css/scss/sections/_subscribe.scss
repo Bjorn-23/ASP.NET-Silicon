@@ -84,8 +84,8 @@
 
                         label {
                             @include text-xs;
-                            
-                            @include xl{
+
+                            @include xl {
                                 @include text-m;
                             }
                         }
@@ -93,8 +93,9 @@
                 }
             }
 
-            .bottom-wrapper {
-                positive: relative;
+            .middle-wrapper {
+                position: relative;
+
                 @include xl {
                     display: flex;
                     justify-content: space-between;
@@ -138,12 +139,25 @@
                 }
             }
 
-            .terms-policy {
-                @include text-xs;
-            }
+            .bottom-wrapper {
+                position: relative;
 
-            .success-message {
-                //Add styling here
+                .terms-policy {
+                    @include text-xs;
+                }
+
+                .success-message {
+                    position: absolute;
+                    right: 0;
+                    bottom: 1.6rem;
+                    padding: 0.4rem 1rem;
+
+                    @include xl {
+                        right: 1rem;
+                        bottom: -100%;
+                    }
+
+                }
             }
         }
     }

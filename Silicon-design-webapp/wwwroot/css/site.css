@@ -1696,21 +1696,21 @@ footer .container .details {
     font-size: 1rem !important;
   }
 }
-.subscribe .container form .bottom-wrapper {
-  positive: relative;
+.subscribe .container form .middle-wrapper {
+  position: relative;
 }
 @media (min-width: 1200px) {
-  .subscribe .container form .bottom-wrapper {
+  .subscribe .container form .middle-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 0 1rem;
   }
 }
-.subscribe .container form .bottom-wrapper .input-group {
+.subscribe .container form .middle-wrapper .input-group {
   margin: 2rem 0 0.5rem;
 }
-.subscribe .container form .bottom-wrapper .input-group input {
+.subscribe .container form .middle-wrapper .input-group input {
   display: block;
   width: 100%;
   border: 1px solid #D4D7E5;
@@ -1718,34 +1718,50 @@ footer .container .details {
   padding: 0.5rem;
 }
 @media (min-width: 992px) {
-  .subscribe .container form .bottom-wrapper .input-group input {
+  .subscribe .container form .middle-wrapper .input-group input {
     margin-right: 1rem;
   }
 }
-.subscribe .container form .bottom-wrapper .input-group .mail-icon {
+.subscribe .container form .middle-wrapper .input-group .mail-icon {
   display: none;
 }
-.subscribe .container form .bottom-wrapper .input-group span {
+.subscribe .container form .middle-wrapper .input-group span {
   position: absolute;
   top: -65%;
   right: 0.5rem;
 }
-.subscribe .container form .bottom-wrapper .btn-theme {
+.subscribe .container form .middle-wrapper .btn-theme {
   white-space: nowrap;
   margin-top: 1rem;
 }
 @media (min-width: 1200px) {
-  .subscribe .container form .bottom-wrapper .btn-theme {
+  .subscribe .container form .middle-wrapper .btn-theme {
     margin: 0 1rem;
   }
 }
-.subscribe .container form .terms-policy {
+.subscribe .container form .bottom-wrapper {
+  position: relative;
+}
+.subscribe .container form .bottom-wrapper .terms-policy {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
   font-size: 0.75rem !important;
 }
+.subscribe .container form .bottom-wrapper .success-message {
+  position: absolute;
+  right: 0;
+  bottom: 1.6rem;
+  padding: 0.4rem 1rem;
+}
+@media (min-width: 1200px) {
+  .subscribe .container form .bottom-wrapper .success-message {
+    right: 1rem;
+    bottom: -100%;
+  }
+}
+
 .courses .container .top-row {
   display: flex;
   flex-direction: column;
