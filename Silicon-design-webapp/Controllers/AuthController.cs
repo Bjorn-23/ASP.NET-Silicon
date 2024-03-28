@@ -104,7 +104,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
 
     #region Facebook
     [HttpGet]
-    public IActionResult Facebook(string? returnUrl)
+    public  IActionResult Facebook(string? returnUrl)
     {
         var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback", new { returnUrl }), returnUrl);
         return new ChallengeResult("Facebook", authprops);

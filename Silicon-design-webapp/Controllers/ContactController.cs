@@ -6,6 +6,7 @@ namespace Silicon_design_webapp.Controllers;
 
 public class ContactController : Controller
 {
+    [HttpGet("/contact")]
     public IActionResult Index()
     {
         var viewModel = new ContactViewModel();
