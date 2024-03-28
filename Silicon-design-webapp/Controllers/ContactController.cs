@@ -6,6 +6,9 @@ namespace Silicon_design_webapp.Controllers;
 
 public class ContactController : Controller
 {
+
+    #region CONTACT
+
     [HttpGet("/contact")]
     public IActionResult Index()
     {
@@ -35,4 +38,6 @@ public class ContactController : Controller
         }
 
     }
+    #endregion
+
 }

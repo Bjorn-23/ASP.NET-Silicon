@@ -3,8 +3,6 @@ using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Silicon_design_webapp.Helpers;
 using Silicon_design_webapp.ViewModels.Auth;
 
 
@@ -15,7 +13,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     private readonly UserService _userService = userService;
     private readonly SignInManager<UserEntity> _signInManager = signInManager;
 
-    #region SignUp
+    #region SIGNUP
     [Route("/signup")]
     [HttpGet]
     public IActionResult SignUp()
@@ -50,7 +48,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     }
     #endregion
 
-    #region SignIn
+    #region SIGNIN
     [Route("/signin")]
     [HttpGet]
     public IActionResult SignIn(string returnurl)
@@ -90,7 +88,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     }
     #endregion
 
-    #region SignOut
+    #region SIGNOUT
     [Authorize]
     [HttpGet]
     public new async Task<IActionResult> SignOut()
@@ -100,7 +98,7 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     }
     #endregion
 
-    #region External Accounts
+    #region EXTERNAL ACCOUNTS
 
     #region Facebook
     [HttpGet]
