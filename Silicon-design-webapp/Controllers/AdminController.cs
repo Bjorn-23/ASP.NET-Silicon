@@ -20,8 +20,7 @@ public class AdminController(AdminService adminService) : Controller
 
     #region USERS
 
-    [Route("/admin")]
-    [HttpGet]
+    [HttpGet("/admin")]
     public IActionResult Index()
     {
         var viewModel = new AdminViewModel();
@@ -90,8 +89,7 @@ public class AdminController(AdminService adminService) : Controller
         return View(viewModel);
     }
 
-    [Route("/admin/userinfo")]
-    [HttpGet]
+    [HttpGet("/admin/userinfo")]
     public IActionResult UserInfo(Object user)
     {
         if (ModelState.IsValid && user != null)
@@ -100,9 +98,8 @@ public class AdminController(AdminService adminService) : Controller
         }
         return RedirectToAction("Index");
     }
-
-    [Route("/admin/addressinfo")]
-    [HttpGet]
+       
+    [HttpGet("/admin/addressinfo")]
     public IActionResult AddressInfo(AddressInfoModel address)
     {
         if (ModelState.IsValid && address != null)
@@ -113,15 +110,13 @@ public class AdminController(AdminService adminService) : Controller
         return RedirectToAction("Index");
     }
 
-    [Route("/admin/passwordinfo")]
-    [HttpGet]
+    [HttpGet("/admin/passwordinfo")]
     public IActionResult PasswordInfo()
     {
         return RedirectToAction("Index");
     }
 
-    [Route("/admin/deleteaccount")]
-    [HttpGet]
+    [HttpGet("/admin/deleteaccount")]
     public IActionResult DeleteAccount()
     {
         return RedirectToAction("Index");
@@ -186,7 +181,7 @@ public class AdminController(AdminService adminService) : Controller
 
     #region READ
 
-    [HttpGet]
+    [HttpGet("/admin/subscriptions")]
     public async Task<IActionResult> Subscription()
     {
         var viewModel = new AdminSubscriptionViewModel();
@@ -206,7 +201,7 @@ public class AdminController(AdminService adminService) : Controller
     }
 
 
-    [HttpGet("{Id}")]
+    [HttpGet("/admin/subscriptions/{Id}")]
     public async Task<IActionResult> Subscription(string Id)
     {
         var viewModel = new AdminSubscriptionViewModel();
@@ -290,7 +285,7 @@ public class AdminController(AdminService adminService) : Controller
 
     #region COURSES
 
-    [HttpGet]
+    [HttpGet("/admin/courses")]
     public async Task<IActionResult> Courses()
     {
         var viewModel = new AdminCoursesViewModel();
@@ -307,7 +302,7 @@ public class AdminController(AdminService adminService) : Controller
         return View(viewModel);
     }
 
-    [HttpGet("{Id}")]
+    [HttpGet("/admin/courses/{Id}")]
     public async Task<IActionResult> Courses(string Id)
     {
         var viewModel = new AdminCoursesViewModel();
