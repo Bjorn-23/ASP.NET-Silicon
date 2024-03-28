@@ -3838,153 +3838,200 @@ footer .container .details {
   text-decoration: underline;
 }
 
-.admin-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.admin-content #adminSearchBar {
-  width: 29vw;
-}
-.admin-content .search-params {
-  margin: 1rem 0 2rem;
-}
-.admin-content form {
-  margin: 0 0 2rem;
-}
-@media (min-width: 768px) {
-  .admin-content form {
-    width: 150%;
-  }
-}
-.admin-content form .title-wrapper {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-}
-.admin-content form .title-wrapper span {
-  color: var(--color-danger);
-}
-.admin-content form .group-wrapper, .admin-content form .button-wrapper {
-  display: flex;
-  gap: 1rem;
-}
-
-.admin-subscription .form-wrapper {
-  background-color: #fff;
-  padding: 0;
-}
-.admin-subscription .form-wrapper .container {
-  margin: 0 0 2rem;
-  background-color: var(--color-gray-100);
-  padding: 1rem;
-  border: 1px solid var(--color-gray-500);
-  border-radius: 0.5rem;
-}
-.admin-subscription .form-wrapper .container form {
-  margin: 0 0 0.5rem;
-}
-@media (min-width: 1200px) {
-  .admin-subscription .form-wrapper .container form .top-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: "grid grid grid";
-    align-items: baseline;
-  }
-  .admin-subscription .form-wrapper .container form .top-wrapper .grid-container {
-    margin: 0;
-    padding: 0;
-  }
-}
-.admin-subscription .form-wrapper .container form .bottom-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-@media (min-width: 768px) {
-  .admin-subscription .form-wrapper .container form .bottom-wrapper {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-}
-.admin-subscription .form-wrapper .container form .bottom-wrapper .input-group {
-  margin: 0.5rem 0;
-}
-.admin-subscription .form-wrapper .container form .bottom-wrapper .btn-theme {
-  background-color: var(--color-warning);
-  color: var(--color-gray-900);
-  margin: 0;
-}
-.admin-subscription .form-wrapper .container .subscription-delete-wrapper {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-}
-.admin-subscription #subscriptionToggle {
-  margin: 0 0 1rem;
-}
-.admin-subscription #createSubscription {
-  margin: 0;
-  padding: 0;
-}
-.admin-subscription #createSubscription button {
-  background-color: var(--color-success);
-  color: #fff;
-}
-
-.admin-courses .container .top-row {
+.admin-content .container .admin-search {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: last baseline;
+  gap: 1rem;
+  background-color: var(--color-gray-100);
+  border-radius: 0.5rem;
+  padding: 2rem;
 }
-.admin-courses .container .top-row .top-right {
+.admin-content .container .admin-search .button-wrapper {
   display: flex;
   gap: 1rem;
-  align-items: baseline;
 }
-.admin-courses .container .grid-container {
+.admin-content .container .admin-search .search-help-text {
+  line-height: 160%;
+  font-weight: 400;
+  color: var(--color-gray-700);
+  font-family: var(--font-manrope);
+  font-size: 1rem !important;
+  color: var(--color-danger);
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+.admin-content .container .search-params {
+  margin: 1rem 0 2rem;
+}
+.admin-content .container .content-box-account-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
-.admin-courses .container .grid-container .form-wrapper {
+.admin-content .container .content-box-account-details form {
   background-color: var(--color-gray-100);
-  border: 1px solid var(--color-gray-500);
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: 2rem;
 }
-.admin-courses .container .grid-container .form-wrapper form {
+.admin-content .container .content-box-account-details form .title-wrapper {
   margin: 0 0 1rem;
 }
-.admin-courses .container .grid-container .form-wrapper form .button-wrapper {
+.admin-content .container .content-box-account-details form .title-wrapper span {
+  color: var(--color-danger);
+}
+.admin-content .container .content-box-account-details form .button-wrapper {
   display: flex;
-  align-items: baseline;
   gap: 1rem;
 }
-.admin-courses .container .grid-container .form-wrapper form .button-wrapper .btn-theme {
-  background-color: var(--color-warning);
-  color: var(--color-gray-900);
-  margin: 1rem 0 0;
-}
-.admin-courses .container .grid-container .form-wrapper form .button-wrapper .btn-gray {
-  background-color: var(--color-gray-300);
-}
-.admin-courses .container .bottom-row {
-  display: block;
-  margin: 0 0 2rem;
-}
-.admin-courses .container .bottom-row button {
-  width: calc(50% - 1rem);
-  margin: 0 0 1rem;
-}
-.admin-courses .container .bottom-row form {
-  width: calc(50% - 1rem);
-}
-.admin-courses .container .bottom-row form button {
-  background-color: var(--color-success);
+
+/*//Subscription.cs
+
+.admin-subscription {
+    .form-wrapper {
+        background-color: var(--color-gray-000);
+        padding: 0;
+
+        .container {
+            margin: 0 0 2rem;
+            background-color: var(--color-gray-100);
+            padding: 1rem;
+            border: 1px solid var(--color-gray-500);
+            border-radius: 0.5rem;
+
+            form {
+                margin: 0 0 0.5rem;
+
+                .top-wrapper {
+                    @include xl {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1fr;
+                        grid-template-areas: "grid grid grid";
+                        align-items: baseline;
+
+                        .grid-container {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+                }
+
+                .bottom-wrapper {
+                    display: flex;
+                    flex-direction: column;
+
+                    @include md {
+                        flex-direction: row;
+                        align-items: baseline;
+                        justify-content: space-between;
+                        gap: 1rem;
+                    }
+
+                    .input-group {
+                        margin: 0.5rem 0;
+                    }
+
+                    .btn-theme {
+                        background-color: var(--color-warning);
+                        color: var(--color-gray-900);
+                        margin: 0;
+                    }
+                }
+            }
+
+            .subscription-delete-wrapper {
+                display: flex;
+                align-items: baseline;
+                gap: 1rem;
+            }
+        }
+    }
+
+    #subscriptionToggle {
+        margin: 0 0 1rem;
+    }
+
+    #createSubscription {
+            margin: 0;
+            padding: 0;
+
+            button {    
+                background-color: var(--color-success);
+                color: #fff;
+            }
+
+    }
 }
 
+.admin-courses {
+    .container {
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+
+            .top-right {
+                display: flex;
+                gap: 1rem;
+                align-items: baseline;
+            }
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+
+            .form-wrapper {
+                background-color: var(--color-gray-100);
+                border: 1px solid var(--color-gray-500);
+                border-radius: 0.5rem;
+                padding: 1rem;
+
+                form {
+                    margin: 0 0 1rem;
+
+                    .button-wrapper {
+                        display: flex;
+                        align-items: baseline;
+                        gap: 1rem;
+
+                        .btn-theme {
+                            background-color: var(--color-warning);
+                            color: var(--color-gray-900);
+                            margin: 1rem 0 0;
+                        }
+
+                        .btn-gray {
+                            background-color: var(--color-gray-300);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .bottom-row {
+            display: block;
+            margin: 0 0 2rem;
+
+            button {
+                width: calc((50%) - 1rem);
+                margin: 0 0 1rem;
+            }
+
+            form {
+                width: calc((50%) - 1rem);
+
+                button {
+                    background-color: var(--color-success);
+                }
+            }
+        }
+    }
+}*/
 #cookieConsent {
   background-color: var(--color-gray-300);
   padding: 2rem 0;

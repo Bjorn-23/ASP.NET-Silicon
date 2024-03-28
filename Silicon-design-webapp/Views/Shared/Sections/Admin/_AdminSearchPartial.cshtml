@@ -7,8 +7,9 @@
 
 <form class="admin-search" method="post" asp-action="Index" asp-controller="Admin" novalidate>
     <div class="input-group">
-        <label asp-for="@Model.Expression" />
-        <input id="adminSearchBar" asp-for="@Model.Expression" />
+        <span class="search-help-text">To change details on external accounts, search by email and add/change password</span>
+        <label asp-for="@Model.Expression">Search</label>
+        <input asp-for="@Model.Expression" />
     </div>
     <div class="button-wrapper">
         <button class="btn-theme" type="submit"><span>Search</span><i class="fa-solid fa-magnifying-glass"></i></button>

@@ -10,47 +10,68 @@
 
 //Index.cs
 .admin-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    #adminSearchBar {
-        width: 29vw;
-    }
-
-    .search-params {
-        margin: 1rem 0 2rem;
-    }
-
-    form {
-        margin: 0 0 2rem;
-
-        @include md {
-            width: 150%;
-        }
-
-        .title-wrapper {
+    .container {
+        .admin-search {
+            position: relative;
             display: flex;
-            align-items: baseline;
+            justify-content: space-between;
+            align-items: last baseline;
             gap: 1rem;
+            background-color: var(--color-gray-100);
+            border-radius: 0.5rem;
+            padding: 2rem;
 
-            span {
+            .button-wrapper {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .search-help-text {
+                @include text-m;
                 color: var(--color-danger);
+                position: absolute;
+                top: 100%;
+                left: 0;
             }
         }
 
-        .group-wrapper, .button-wrapper {
-            display: flex;
-            gap: 1rem;
+
+        .search-params {
+            margin: 1rem 0 2rem;
+        }
+
+        .content-box-account-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+
+            form {
+                background-color: var(--color-gray-100);
+                border-radius: 0.5rem;
+                padding: 2rem;
+
+                .title-wrapper {
+                    margin: 0 0 1rem;
+
+                    span {
+                        color: var(--color-danger);
+                    }
+                }
+
+                .button-wrapper {
+                    display: flex;
+                    gap: 1rem;
+                }
+            }
         }
     }
 }
 
-//Subscription.cs
+/*//Subscription.cs
 
 .admin-subscription {
     .form-wrapper {
-        background-color: #fff;
+        background-color: var(--color-gray-000);
         padding: 0;
 
         .container {
@@ -190,4 +211,4 @@
             }
         }
     }
-}
+}*/
