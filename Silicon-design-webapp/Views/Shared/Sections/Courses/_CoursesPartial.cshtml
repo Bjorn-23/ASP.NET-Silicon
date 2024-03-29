@@ -34,7 +34,7 @@
             {
                 foreach (var course in Model.Courses)
                 {
-                    <a class="grid-item" asp-controller="Courses" asp-action="Details">
+                    <a class="grid-item" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">
                         <div class="img-wrapper">
                             <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
                             <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
