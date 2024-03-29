@@ -2146,7 +2146,7 @@ footer .container .details {
   margin: 1rem 0;
 }
 .course-details .bg-container-s-to-lg {
-  background-image: url("/img/courses/course1.png");
+  /*background-image: url("/img/courses/course1.png");*/
   background-color: rgba(19, 16, 34, 0.7019607843);
   background-blend-mode: darken;
   background-size: cover;
@@ -3402,12 +3402,6 @@ footer .container .details {
     text-align: start;
   }
 }
-.account-details .content-box-account-details form {
-  /*            span {
-                  color: var(--color-gray-600);
-                  margin: 0 0 0 0.2rem;
-              }*/
-}
 @media (min-width: 768px) {
   .account-details .content-box-account-details form .group-wrapper {
     display: flex;
@@ -3887,151 +3881,122 @@ footer .container .details {
   gap: 1rem;
 }
 
-/*//Subscription.cs
-
-.admin-subscription {
-    .form-wrapper {
-        background-color: var(--color-gray-000);
-        padding: 0;
-
-        .container {
-            margin: 0 0 2rem;
-            background-color: var(--color-gray-100);
-            padding: 1rem;
-            border: 1px solid var(--color-gray-500);
-            border-radius: 0.5rem;
-
-            form {
-                margin: 0 0 0.5rem;
-
-                .top-wrapper {
-                    @include xl {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr 1fr;
-                        grid-template-areas: "grid grid grid";
-                        align-items: baseline;
-
-                        .grid-container {
-                            margin: 0;
-                            padding: 0;
-                        }
-                    }
-                }
-
-                .bottom-wrapper {
-                    display: flex;
-                    flex-direction: column;
-
-                    @include md {
-                        flex-direction: row;
-                        align-items: baseline;
-                        justify-content: space-between;
-                        gap: 1rem;
-                    }
-
-                    .input-group {
-                        margin: 0.5rem 0;
-                    }
-
-                    .btn-theme {
-                        background-color: var(--color-warning);
-                        color: var(--color-gray-900);
-                        margin: 0;
-                    }
-                }
-            }
-
-            .subscription-delete-wrapper {
-                display: flex;
-                align-items: baseline;
-                gap: 1rem;
-            }
-        }
-    }
-
-    #subscriptionToggle {
-        margin: 0 0 1rem;
-    }
-
-    #createSubscription {
-            margin: 0;
-            padding: 0;
-
-            button {    
-                background-color: var(--color-success);
-                color: #fff;
-            }
-
-    }
+.admin-subscription .form-wrapper {
+  background-color: var(--color-gray-000);
+  padding: 0;
+}
+.admin-subscription .form-wrapper .container {
+  margin: 0 0 2rem;
+  background-color: var(--color-gray-100);
+  padding: 1rem;
+  border: 1px solid var(--color-gray-500);
+  border-radius: 0.5rem;
+}
+.admin-subscription .form-wrapper .container form {
+  margin: 0 0 0.5rem;
+}
+@media (min-width: 1200px) {
+  .admin-subscription .form-wrapper .container form .top-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "grid grid grid";
+    align-items: baseline;
+  }
+  .admin-subscription .form-wrapper .container form .top-wrapper .grid-container {
+    margin: 0;
+    padding: 0;
+  }
+}
+.admin-subscription .form-wrapper .container form .bottom-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .admin-subscription .form-wrapper .container form .bottom-wrapper {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+.admin-subscription .form-wrapper .container form .bottom-wrapper .input-group {
+  margin: 0.5rem 0;
+}
+.admin-subscription .form-wrapper .container form .bottom-wrapper .btn-theme {
+  background-color: var(--color-warning);
+  color: var(--color-gray-900);
+  margin: 0;
+  white-space: nowrap;
+}
+.admin-subscription .form-wrapper .container .subscription-delete-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.admin-subscription #subscriptionToggle {
+  margin: 0 0 1rem;
+}
+.admin-subscription #createSubscription {
+  margin: 0;
+  padding: 0;
+}
+.admin-subscription #createSubscription button {
+  background-color: var(--color-success);
+  color: #fff;
 }
 
-.admin-courses {
-    .container {
-        .top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+.admin-courses .container .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.admin-courses .container .top-row .top-right {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.admin-courses .container .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.admin-courses .container .grid-container .form-wrapper {
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-500);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.admin-courses .container .grid-container .form-wrapper form {
+  margin: 0 0 1rem;
+}
+.admin-courses .container .grid-container .form-wrapper form .button-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.admin-courses .container .grid-container .form-wrapper form .button-wrapper .btn-theme {
+  background-color: var(--color-warning);
+  color: var(--color-gray-900);
+  margin: 1rem 0 0;
+}
+.admin-courses .container .grid-container .form-wrapper form .button-wrapper .btn-gray {
+  background-color: var(--color-gray-300);
+}
+.admin-courses .container .bottom-row {
+  display: block;
+  margin: 0 0 2rem;
+}
+.admin-courses .container .bottom-row button {
+  width: calc(50% - 1rem);
+  margin: 0 0 1rem;
+}
+.admin-courses .container .bottom-row form {
+  width: calc(50% - 1rem);
+}
+.admin-courses .container .bottom-row form button {
+  background-color: var(--color-success);
+}
 
-            .top-right {
-                display: flex;
-                gap: 1rem;
-                align-items: baseline;
-            }
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-
-            .form-wrapper {
-                background-color: var(--color-gray-100);
-                border: 1px solid var(--color-gray-500);
-                border-radius: 0.5rem;
-                padding: 1rem;
-
-                form {
-                    margin: 0 0 1rem;
-
-                    .button-wrapper {
-                        display: flex;
-                        align-items: baseline;
-                        gap: 1rem;
-
-                        .btn-theme {
-                            background-color: var(--color-warning);
-                            color: var(--color-gray-900);
-                            margin: 1rem 0 0;
-                        }
-
-                        .btn-gray {
-                            background-color: var(--color-gray-300);
-                        }
-                    }
-                }
-            }
-
-        }
-
-        .bottom-row {
-            display: block;
-            margin: 0 0 2rem;
-
-            button {
-                width: calc((50%) - 1rem);
-                margin: 0 0 1rem;
-            }
-
-            form {
-                width: calc((50%) - 1rem);
-
-                button {
-                    background-color: var(--color-success);
-                }
-            }
-        }
-    }
-}*/
 #cookieConsent {
   background-color: var(--color-gray-300);
   padding: 2rem 0;

@@ -6,7 +6,7 @@
 
 <section class="course-details">
 
-    <div class="bg-container-s-to-lg container-fluid"></div>
+    <div class="bg-container-s-to-lg container-fluid" style="background-image: url(@Model.Course.ImageUrl)"></div>
 
     <div class="top-container container">
         <div class="grid-container">
@@ -15,6 +15,10 @@
                 {
                     <span class="best-seller">Best Seller</span>                    
                 }
+@*                 @if (Model.Course.isDigital)
+                {
+                    <span class="digital">Digital</span>
+                } *@
                 <span class="digital">Digital</span>
             </div>
 
@@ -44,7 +48,7 @@
             </div>
 
             <div class="ratings-wrapper">
-                <span class="stars">
+                <span class="stars"> @* Loop through stars? *@
                     <i class="fa-solid fa-star leftmost-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-light fa-star"></i>
                 </span>
                 <span class="course-details">(@Model.Course.Rating K reviews)</span>
@@ -81,8 +85,12 @@
 
             <!-- Exactly the same layout as manage your work from index - reuse this box in ASP.NET -->
             <div class="what-you-learn-box">
-                <h3>
-                    What you'll learn</h2>
+                <h3>What you'll learn</h3>
+
+@*                 @foreach(var bulletPoint in Model.Course.WhatYouLearn)
+                {
+                    <p><i class="fa-regular fa-circle-check"></i>bulletPoint</p>
+                } *@
 
                     <p><i class="fa-regular fa-circle-check"></i>Sed lectus donec amet eu turpis interdum.</p>
                     <p><i class="fa-regular fa-circle-check"></i>Nulla at consectetur vitae dignissim porttitor.</p>
@@ -103,8 +111,8 @@
                 @if (Model.Course.DiscountPrice > 0)
                 {
                     <span class="discount-price">@Model.Course.Currency@Model.Course.DiscountPrice</span>                    
-                }
-                <span class="price">@Model.Course.Currency@Model.Course.Price</span> @* Add conditional styling for this if there is discount price, add class to strikethrough price. *@
+                }                
+                <span class="@(Model.Course.DiscountPrice > 0 ? "price strikethrough" : "price")">@Model.Course.Currency@Model.Course.Price</span> @* style strikethrough in scss*@
 
                 <button class="btn-theme">Join course</button>
             </div>

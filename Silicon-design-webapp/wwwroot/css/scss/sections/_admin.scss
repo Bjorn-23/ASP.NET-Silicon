@@ -67,7 +67,7 @@
     }
 }
 
-/*//Subscription.cs
+//Subscription.cs
 
 .admin-subscription {
     .form-wrapper {
@@ -117,6 +117,7 @@
                         background-color: var(--color-warning);
                         color: var(--color-gray-900);
                         margin: 0;
+                        white-space: nowrap;
                     }
                 }
             }
@@ -211,4 +212,4 @@
             }
         }
     }
-}*/
+}
