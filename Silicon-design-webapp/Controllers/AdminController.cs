@@ -184,8 +184,8 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> Subscription()
     {
         var viewModel = new AdminSubscriptionViewModel();
-
         using var http = new HttpClient();
+
         var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
@@ -204,8 +204,8 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> Subscription(string Id)
     {
         var viewModel = new AdminSubscriptionViewModel();
-
         using var http = new HttpClient();
+
         var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
@@ -232,7 +232,6 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> Subscription(AdminSubscriptionViewModel viewModel)
     {
         using var http = new HttpClient();
-
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
 
         var response = await http.PutAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}", content);
@@ -260,7 +259,6 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> DeleteSubscription(AdminSubscriptionViewModel viewModel)
     {
         using var http = new HttpClient();
-
         var Id = viewModel.Subscriber.Id;
 
         var cancellationTokenSource = new CancellationTokenSource();
@@ -289,6 +287,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
     {
         var viewModel = new AdminCoursesViewModel();
         using var http = new HttpClient();
+
         var response = await http.GetAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
@@ -306,6 +305,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
     {
         var viewModel = new AdminCoursesViewModel();
         using var http = new HttpClient();
+
         var response = await http.GetAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
@@ -356,7 +356,6 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> DeleteCourse(AdminCoursesViewModel viewModel)
     {
         using var http = new HttpClient();
-
         var Id = viewModel.Course.Id;
 
         var cancellationTokenSource = new CancellationTokenSource();
@@ -374,8 +373,6 @@ public class AdminController(AdminService adminService, IConfiguration configura
             return RedirectToAction("Courses");
         }
     }
-
-
 
     #endregion
 
