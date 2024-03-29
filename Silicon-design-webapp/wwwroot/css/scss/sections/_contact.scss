@@ -1,11 +1,12 @@
 .contact-body {
-    background-color: $gray-100;
+    background-color: var(--color-gray-100);
+}
+
+.contact-form{
+    background-color: var(--color-gray-000) !important;
 }
 
 
-footer, .google-map, .contact-form{
-    background-color: #fff !important;
-}
 
 .breadcrumbs{
     margin: 2rem 0 0;
@@ -61,7 +62,7 @@ footer, .google-map, .contact-form{
                 gap: 1rem;
                 margin: 1rem 0;
                 padding: 1rem;
-                border: 1px solid $gray-300;
+                border: 1px solid var(--color-gray-300);
                 border-radius: 0.5rem;
 
                 @include md {
@@ -75,7 +76,7 @@ footer, .google-map, .contact-form{
 
                 .icon-wrapper {
                     position: relative;
-                    background-color: white;
+                    background-color: var(--color-gray-000);
                     width: 1px;
                     height: 1px;
                     padding: 1.5rem;
@@ -85,7 +86,7 @@ footer, .google-map, .contact-form{
                     i {
                         position: absolute;
                         display: block;
-                        color: $theme;
+                        color: var(--color-theme);
                         transform: translate(-50%, -50%);
                     }
                 }
@@ -132,17 +133,17 @@ footer, .google-map, .contact-form{
                 transform: translateX(-50%);
                 width: calc(100% - 1rem);
                 background-color: #EF444420;
-                border: 2px solid $danger;
+                border: 2px solid var(--color-danger);
                 border-radius: 0.5rem;
                 text-align: center;
                 white-space: nowrap;
-                color: $danger;
+                color: var(--color-danger);
                 padding: 0.2rem 0;
                 margin: 1rem 0;
 
                 @include md {
                     @include text-lg;
-                    color: $danger;
+                    color: var(--color-danger);
                     padding: 0.2rem 2rem;
                     top: unset;
                     right: 0.5rem;
@@ -165,11 +166,11 @@ footer, .google-map, .contact-form{
 
             .form-success {
                 background-color: #22C55E20;
-                border: 2px solid $success;
-                color: $gray-700;
+                border: 2px solid var(--color-success);
+                color: var(--color-gray-700);
 
                 @include xl {
-                    color: $gray-700;
+                    color: var(--color-gray-700);
                     width: calc(100% - 8rem);
                 }
             }
@@ -184,17 +185,17 @@ footer, .google-map, .contact-form{
 
             input::placeholder, textarea::placeholder {
                 font-size: 0.875rem;
-                color: $gray-500;
+                color: var(--color-gray-500);
             }
 
             select {
                 font-size: 0.875rem;
-                color: $gray-500;
+                color: var(--color-gray-500);
             }
 
             select option {
                 font-size: 0.875rem;
-                color: $gray-900;
+                color: var(--color-gray-900);
             }
 
             button {

@@ -1,25 +1,26 @@
-section{
+section {
     .sidebar {
         grid-area: sidebar;
         text-align: start;
 
-        @include lg{
-            border-right: 1px solid $gray-300;
+        @include lg {
+            border-right: 1px solid var(--color-gray-300);
         }
-    
+
         .profile-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-                        
+
             .image-wrapper {
                 position: relative;
-    
-                .profile-picture{
+
+                .profile-picture {
                     width: 100%;
                     height: auto;
                 }
-                .change-pic{
+
+                .change-pic {
                     position: absolute;
                     bottom: 0;
                     right: 0;
@@ -29,31 +30,31 @@ section{
                     height: 1px;
                     padding: 1rem;
                     background-color: #fff;
-    
-                    i{
+
+                    i {
                         position: absolute;
                         top: 50%;
                         left: 50%;
                         transform: translate(-50%, -50%);
                     }
-                }    
+                }
             }
-        }        
-    
+        }
+
         a {
             display: block;
             text-decoration: none;
-            color: $gray-900;
+            color: var(--color-gray-900);
             padding: 0.5rem 5rem;
             margin: 0.5rem 1rem 0;
             border-radius: 0.4rem;
 
-            @include md{
+            @include md {
                 margin: 0 25%;
                 padding: 0.5rem auto;
             }
 
-            @include lg{
+            @include lg {
                 padding: 0.5rem 1rem;
                 margin: 0.5rem 1rem 0;
             }
@@ -61,26 +62,26 @@ section{
             &.active {
                 // @include button;
                 @include card;
-                background: $theme;
-                color: $white;
+                background: var(--color-theme);
+                color: var(--color-white);
                 border: none;
             }
-    
-            &:hover{
+
+            &:hover {
                 text-decoration: none;
-                background: $gray-700;
-                color: $white;
+                background: var(--color-gray-700);
+                color: var(--color-gray-000);
             }
-    
-            i{
-                color: $gray-500;
+
+            i {
+                color: var(--color-gray-500);
                 margin: 0 1rem 0 0;
             }
-    
-            .sign-out{
+
+            .sign-out {
                 rotate: 180deg;
                 margin-left: -0.2rem;
             }
-        }   
+        }
     }
 }

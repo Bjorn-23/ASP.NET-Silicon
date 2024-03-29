@@ -33,3 +33,22 @@ if (container && slider && gradientText) {
         gradientText.style.backgroundImage = `linear-gradient(90deg, #fff ${value}%-1px, #000 ${value}%+1px)`;
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sw = document.querySelectorAll('#switchMode')
+
+    sw.forEach(sw => {
+        sw.addEventListener("change", function () {
+            let theme = this.checked ? "dark" : "light"
+
+            fetch(`/sitesettings/changetheme?theme=${theme}`)
+                .then(res => {
+                    if (res.ok)
+                        window.location.reload()
+                    else
+                        console.log("Error, please contact site owner if issue persists")
+                })
+        })
+
+    })
+})

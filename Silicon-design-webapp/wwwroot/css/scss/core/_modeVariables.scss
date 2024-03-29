@@ -1,0 +1,57 @@
+﻿:root {
+    --color-gray-000: #FFFFFF;
+    --color-gray-100: #F3F6FF;
+    --color-gray-200: #EFF2FC;
+    --color-gray-300: #E2E5F1;
+    --color-gray-400: #D4D7ES;
+    --color-gray-500: #B4B7C9;
+    --color-gray-600: #9397AD;
+    --color-gray-700: #565973;
+    --color-gray-800: #33354D;
+    --color-gray-900: #0B0F19;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray: #B4B7C9;
+    --color-danger: #EF4444;
+    --color-danger-bg: #EF444420;
+    --color-success: #22C55E;
+    --color-success-bg: #22C55E20;
+    --color-warning: #FFBA08;
+    --color-info: #4C82F7;
+    --color-theme: #6366F1;
+    --color-transparent: transparent;
+    --color-theme-secondary: #8B5CF6;
+    --color-theme-opacity: #6365f114;
+    --color-theme-gradient: linear-gradient(90deg, #6366F1 0%, #8B5CF6 50%, #D946EF 100%);
+    --color-theme-gradient-background: linear-gradient(-1deg, rgba(99, 101, 241, 0.10) 0%, rgba(216, 70, 239, 0.05) 45%, rgba(241, 244, 253, 0.07) 75%);
+    --font-manrope: 'Manrope', sans-serif;
+}
+
+:root.dark {
+    --color-gray-000: #0B0F19;
+    --color-gray-100: #33354D;
+    --color-gray-200: #565973;
+    --color-gray-300: #9397AD;
+    --color-gray-400: #B4B7C9;
+    --color-gray-500: #D4D7ES;
+    --color-gray-600: #E2E5F1;
+    --color-gray-700: #EFF2FC;
+    --color-gray-800: #F3F6FF;
+    --color-gray-900: #FFFFFF;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray: #B4B7C9;
+    --color-danger: #EF4444;
+    --color-danger-bg: #EF444420;
+    --color-success: #22C55E;
+    --color-success-bg: #22C55E20;
+    --color-warning: #FFBA08;
+    --color-info: #4C82F7;
+    --color-theme: #6366F1;
+    --color-transparent: transparent;
+    --color-theme-secondary: #8B5CF6;
+    --color-theme-opacity: #6365f114;
+    --color-theme-gradient: linear-gradient(90deg, #6366F1 0%, #8B5CF6 50%, #D946EF 100%);
+    --color-theme-gradient-background: linear-gradient(-1deg, rgba(99, 101, 241, 0.10) 0%, rgba(216, 70, 239, 0.05) 45%, rgba(241, 244, 253, 0.07) 75%);
+    --font-manrope: 'Manrope', sans-serif;
+}

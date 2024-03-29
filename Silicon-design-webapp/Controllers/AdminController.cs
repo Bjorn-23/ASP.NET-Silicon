@@ -12,11 +12,10 @@ using System.Text;
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize(Policy = "Admin")]
-public class AdminController(AdminService adminService) : Controller
+public class AdminController(AdminService adminService, IConfiguration configuration) : Controller
 {
     private readonly AdminService _adminService = adminService;
-
-    private readonly string _apiKey = "YmRhNGYwZDgtNDNkZi00N2EyLTliNmQtODYxZTA3OTQ3NDUy";
+    private readonly IConfiguration _configuration = configuration;   
 
     #region USERS
 
@@ -98,7 +97,7 @@ public class AdminController(AdminService adminService) : Controller
         }
         return RedirectToAction("Index");
     }
-       
+
     [HttpGet("/admin/addressinfo")]
     public IActionResult AddressInfo(AddressInfoModel address)
     {
@@ -166,13 +165,13 @@ public class AdminController(AdminService adminService) : Controller
         using var http = new HttpClient();
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
 
-        var response = await http.PostAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}", content);
+        var response = await http.PostAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
         {
             TempData["SubscriptionStatus"] = "Subscription created succesfully";
             return RedirectToAction("Subscription");
         }
-        
+
         TempData["SubscriptionStatus"] = "Subscription created succesfully";
         return RedirectToAction("Subscribe");
     }
@@ -187,7 +186,7 @@ public class AdminController(AdminService adminService) : Controller
         var viewModel = new AdminSubscriptionViewModel();
 
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -207,7 +206,7 @@ public class AdminController(AdminService adminService) : Controller
         var viewModel = new AdminSubscriptionViewModel();
 
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -236,7 +235,7 @@ public class AdminController(AdminService adminService) : Controller
 
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
 
-        var response = await http.PutAsync($"https://localhost:7034/api/Subscriptions?key={_apiKey}", content);
+        var response = await http.PutAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -263,17 +262,17 @@ public class AdminController(AdminService adminService) : Controller
         using var http = new HttpClient();
 
         var Id = viewModel.Subscriber.Id;
-        
+
         var cancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = cancellationTokenSource.Token;
 
-        var response = await http.DeleteAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_apiKey}", cancellationToken);
+        var response = await http.DeleteAsync($"https://localhost:7034/api/Subscriptions/{Id}?key={_configuration["ApiKey:Secret"]}", cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             TempData["SubscriptionStatus"] = "Subscription deleted succesfully";
             return RedirectToAction("Subscription");
         }
-        
+
         TempData["SubscriptionStatus"] = "Failed to delete subscription";
         return RedirectToAction("Subscription");
 
@@ -290,7 +289,7 @@ public class AdminController(AdminService adminService) : Controller
     {
         var viewModel = new AdminCoursesViewModel();
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Courses?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -307,7 +306,7 @@ public class AdminController(AdminService adminService) : Controller
     {
         var viewModel = new AdminCoursesViewModel();
         using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7034/api/Courses/{Id}?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -325,11 +324,11 @@ public class AdminController(AdminService adminService) : Controller
         using var http = new HttpClient();
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Course), Encoding.UTF8, "application/json");
 
-        var response = await http.PutAsync($"https://localhost:7034/api/Courses?key={_apiKey}", content);
+        var response = await http.PutAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
         {
             ViewData["CourseStatus"] = "Course updated succesfully";
-            return RedirectToAction("Courses");            
+            return RedirectToAction("Courses");
         }
 
         return RedirectToAction("Courses");
@@ -342,7 +341,7 @@ public class AdminController(AdminService adminService) : Controller
         using var http = new HttpClient();
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.CreateCourse), Encoding.UTF8, "application/json");
 
-        var response = await http.PostAsync($"https://localhost:7034/api/Courses?key={_apiKey}", content);
+        var response = await http.PostAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
         {
             ViewData["CourseStatus"] = "Course created succesfully";
@@ -363,7 +362,7 @@ public class AdminController(AdminService adminService) : Controller
         var cancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = cancellationTokenSource.Token;
 
-        var response = await http.DeleteAsync($"https://localhost:7034/api/Courses/{Id}?key={_apiKey}", cancellationToken);
+        var response = await http.DeleteAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}", cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             ViewData["CourseStatus"] = "Course deleted succesfully";

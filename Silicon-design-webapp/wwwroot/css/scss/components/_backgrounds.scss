@@ -1,18 +1,18 @@
 
-@mixin background{
-    background-image: url("/img/course1.png");
+@mixin background {
+    /*background-image: url("/img/courses/course1.png");*/
     background-color: #131022b3;
-    background-blend-mode:darken;
+    background-blend-mode: darken;
     background-size: cover;
     background-position: center center;
     background-clip: border-box;
     aspect-ratio: 2.5 / 1;
-    
-    @include xl{
+
+    @include xl {
         aspect-ratio: 3/1;
     }
 
-    @include xxl{
+    @include xxl {
         max-width: 1920px;
         max-height: 720px;
     }

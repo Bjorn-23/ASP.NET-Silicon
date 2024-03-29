@@ -7,18 +7,18 @@ using Silicon_design_webapp.ViewModels.Courses;
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize]
-public class CoursesController : Controller
+public class CoursesController(IConfiguration configuration) : Controller
 {
-    private readonly string _apiKey = "YmRhNGYwZDgtNDNkZi00N2EyLTliNmQtODYxZTA3OTQ3NDUy";
+    private readonly IConfiguration _configuration = configuration;
 
     [Route("/courses")]
     [HttpGet]
     public async Task<ActionResult> Index()
     {
         var viewModel = new CoursesViewModel();
-        var http = new HttpClient();
+        using var http = new HttpClient();
 
-        var response = await http.GetAsync($"https://localhost:7034/api/Courses/?key={_apiKey}");
+        var response = await http.GetAsync($"https://localhost:7034/api/Courses/?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -30,15 +30,22 @@ public class CoursesController : Controller
         return View(viewModel);
     }
 
-    [Route("/course-details")]
+    [Route("/courses/details")]
     [HttpGet]
-    public IActionResult Details(/*string id*/)
+    public async Task<IActionResult> Details(string id)
     {
-        //var course = _coursesService.get(id);
-        //ViewData["Title"] = course.Title;
-        //return View(course);
-
         var viewModel = new CourseDetailsViewModel();
+        using var http = new HttpClient();
+
+        var response = await http.GetAsync($"https://localhost:7034/api/Courses/{id}?key={_configuration["ApiKey:Secret"]}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonStrings = await response.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<CourseBoxModel>(jsonStrings);
+            viewModel.Course = model!;
+            return View(viewModel);
+        };
+
         ViewData["Title"] = viewModel.Title;
         return View(viewModel);
     }

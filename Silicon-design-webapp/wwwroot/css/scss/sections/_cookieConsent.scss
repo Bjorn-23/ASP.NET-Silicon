@@ -1,0 +1,35 @@
+﻿#cookieConsent {
+    background-color: var(--color-gray-300);
+    padding: 2rem 0;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+
+        @include md {
+            justify-content: space-around;
+            align-items: baseline;
+            flex-direction: row;
+        }
+
+        @include xl {
+            justify-content: center;
+        }
+
+        span {
+            @include text-s;
+            padding: 0 2rem;
+
+            @include md {
+                @include text-lg;
+                padding: 0;
+            }
+
+            @include xl {
+                @include text-xl;
+            }
+        }
+    }
+}

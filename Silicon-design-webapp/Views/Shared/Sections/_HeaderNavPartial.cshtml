@@ -1,0 +1,45 @@
+﻿@inject SignInManager<UserEntity> _signInManager;
+
+@{
+    var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
+    bool isDark = (themeMode == "dark") ? true : false;
+}
+
+<div id="menu">
+    <nav>
+        <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview">Overview</a>
+        <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="features">Features</a>
+        <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
+        }
+        @if (User.IsInRole("SuperAdmin") || User.IsInRole("CIO") || User.IsInRole("Admin"))
+        {
+            <a class="menu-link" asp-action="Index" asp-controller="Admin">Admin Portal</a>
+        }
+
+    </nav>
+</div>
+
+<div class="btn-switch">
+    <span>Light</span>
+    <label class="switch">
+        <input type="checkbox" id="switchMode" checked="@isDark" role="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <span>Dark</span>
+
+</div>
+
+<div class="account-buttons">
+    @if (_signInManager.IsSignedIn(User))
+    {
+        <a class="user-logged-in" asp-controller="Account" asp-action="Details"><img class="user-profile-pic" src="/img/user-logged-in.png" alt="profile picture of user"></a>
+    }
+    else
+    {
+        <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><img class="sign-in" src="/img/icons/sign-in.svg" alt="account logo">Sign in</a>
+        <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><img class="sign-up" src="/img/icons/sign-up.svg" alt="sign in logo">Sign up</a>
+    }
+</div>

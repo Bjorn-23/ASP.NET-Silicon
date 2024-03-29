@@ -48,7 +48,7 @@
             }
 
             .form-title {
-                color: $theme;
+                color: var(--color-theme);
                 margin: 1rem 0 0;
 
                 @include xl {
@@ -61,13 +61,8 @@
             }
 
             input::placeholder, textarea::placeholder {
-                color: $gray-500;
+                color: var(--color-gray-500);
             }
-
-/*            span {
-                color: $gray-600;
-                margin: 0 0 0 0.2rem;
-            }*/
 
             .button-wrapper {
                 display: flex;
@@ -81,7 +76,7 @@
         }
 
         .divider {
-            border: 1px solid $gray-300;
+            border: 1px solid var(--color-gray-300);
             margin: 3rem 0 2rem;
         }
     }

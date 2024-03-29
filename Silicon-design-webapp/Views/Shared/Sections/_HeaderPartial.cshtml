@@ -1,81 +1,22 @@
-﻿
-@inject SignInManager<UserEntity> _signInManager;
+﻿@{
+    var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
+    bool isDark = (themeMode == "dark") ? true : false;
+}
 
 <header>
     <div class="container">
+        
+        <a id="logo" asp-controller="Home" asp-action="Index"><img src="/img/@(isDark ? "logo-dark.svg" : "logo-light.svg")" alt="Silicon logo"></a>
+        
+        
+        @await Html.PartialAsync("~/Views/Shared/Sections/_HeaderNavPartial.cshtml")
 
-        <a id="logo" asp-controller="Home" asp-action="Index"><img src="/img/logo.svg" alt="Silicon logo"></a>
-
-        <div id="menu">
-            <nav>
-                <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview">Overview</a>
-                <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="features">Features</a>
-                <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
-                @if (_signInManager.IsSignedIn(User))
-                {
-                    <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
-                }
-                @if (User.IsInRole("SuperAdmin") || User.IsInRole("CIO") || User.IsInRole("Admin"))
-                {
-                    <a class="menu-link" asp-action="Index" asp-controller="Admin">Admin Portal</a>
-                }
-
-            </nav>
-        </div>
-
-        <div class="btn-switch">
-            <span>Light</span>
-            <label class="switch">
-                <input type="checkbox" id="switch" role="checkbox">
-                <span class="slider round"></span>
-            </label>
-            <span>Dark</span>
-
-        </div>
-
-        <div class="account-buttons">
-            @if (_signInManager.IsSignedIn(User))
-            {
-                <a asp-controller="Account" asp-action="Details"><img class="user-logged-in" src="/img/user-logged-in.png" alt="profile picture of user"></a>
-            }
-            else
-            {
-                <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><img class="sign-in" src="/img/icons/sign-in.svg" alt="account logo">Sign in</a>
-                <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><img class="sign-up" src="/img/icons/sign-up.svg" alt="sign in logo">Sign up</a>
-            }
-        </div>
 
         <button class="btn btn-mobile" id="btn-mobile" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
 
         <div id="mobile-menu" aria-expanded="false">
-            <div class="btn-switch">
-                <span>Light</span>
-                <label class="switch">
-                    <input type="checkbox" id="switch" role="checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <span>Dark</span>
-            </div>
-
-            <div class="account-buttons">
-                @if (_signInManager.IsSignedIn(User))
-                {
-                    <a asp-controller="Account" asp-action="Details"><img class="user-logged-in" src="/img/user-logged-in.png" alt="profile picture of user"></a>
-                }
-                else
-                {
-                    <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><img class="sign-in" src="/img/icons/sign-in.svg" alt="account logo">Sign in</a>
-                    <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><img class="sign-up" src="/img/icons/sign-up.svg" alt="sign in logo">Sign up</a>
-                }
-            </div>
-
-            <nav>
-                <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="overview">Overview</a>
-                <a class="menu-link" asp-controller="Home" asp-action="Index" asp-fragment="features">Features</a>
-                <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
-                <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
-            </nav>
-
+            @await Html.PartialAsync("~/Views/Shared/Sections/_HeaderNavPartial.cshtml")
         </div>
+
     </div>
 </header>

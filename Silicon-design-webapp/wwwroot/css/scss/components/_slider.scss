@@ -1,4 +1,4 @@
-.dark-light-slider{
+/*.dark-light-slider{
 
     .slider-container {
         display: flex;
@@ -83,7 +83,7 @@
         }
 
         .slider:focus-visible~.slider-line {
-            outline: 5px solid $gray-900;           
+            outline: 5px solid var(--color-gray-900);           
         }
 
         .slider-line {
@@ -97,4 +97,4 @@
             pointer-events: none;
         }
     }    
-}
+}*/

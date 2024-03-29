@@ -1,51 +1,51 @@
-.courses{
-    .container{
-        .top-row{
+.courses {
+    .container {
+
+        .top-row {
             display: flex;
             flex-direction: column;
 
-            @include xl{
+            @include xl {
                 justify-content: space-between;
                 flex-direction: row;
                 align-items: center;
             }
 
-            h1{
+            h1 {
                 @include h3;
 
-                @include md{
+                @include md {
                     @include h2;
                 }
 
-                @include lg{
+                @include lg {
                     @include h1;
                 }
             }
-            
-            .top-right{                
+
+            .top-right {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
 
-                @include md{
+                @include md {
                     flex-direction: row;
                     gap: 2rem;
                 }
 
 
-                .form-select{ 
-                    option[selected]{
-                        color: $gray-600;
+                .form-select {
+                    option[selected] {
+                        color: var(--color-gray-600);
                     }
-
                 }
 
-                .search-wrapper{
+                .search-wrapper {
                     position: relative;
                     width: 100%;
 
-                    .fa-magnifying-glass{
+                    .fa-magnifying-glass {
                         position: absolute;
                         top: 0.7rem;
                         right: 0.7rem;
@@ -54,54 +54,56 @@
             }
         }
 
-        .grid-container{
+        .grid-container {
             display: grid;
             grid-template-columns: auto;
             margin-top: 2rem;
             gap: 2rem 1rem;
 
-            @include md{
+            @include md {
                 grid-template-columns: auto auto;
             }
-            
-            @include lg{
+
+            @include lg {
                 grid-template-columns: auto auto auto;
             }
 
-            @include xl{
+            @include xl {
                 gap: 3rem 2rem;
             }
-            .grid-item{                
+
+            .grid-item {
                 position: relative;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 1px 2px 2px #00000030, 2px 4px 4px #00000017, 3px 6px 6px #00000009, 5px 10px 10px #00000005;
-                border-radius: 0.5rem;
+/*                box-shadow: 1px 2px 2px #00000030, 2px 4px 4px #00000017, 3px 6px 6px #00000009, 5px 10px 10px #00000005;
+*/                border-radius: 0.5rem;
                 overflow: hidden;
                 text-decoration: none;
+                @include course-card;
 
-                .img-wrapper{
-                    .course-image{
+                .img-wrapper {
+                    .course-image {
                         width: 100%;
                         height: auto;
-                        object-fit: cover;                 
+                        object-fit: cover;
                     }
-                    
-                    .best-seller{
+
+                    .best-seller {
                         @include course-button;
                         position: absolute;
                         top: 1rem;
                         left: 1rem;
                     }
-                }                
-                
-                .bookmark-wrapper{
+                }
+
+                .bookmark-wrapper {
                     position: absolute;
                     top: 0;
                     right: 0;
                     z-index: 2;
-                    
-                    .circle{
+
+                    .circle {
                         position: relative;
                         top: 1rem;
                         right: 1rem;
@@ -111,83 +113,83 @@
                         border-radius: 50%;
                         background-color: #fff;
 
-                        .bookmark, .bookmark-filled{
+                        .bookmark, .bookmark-filled {
                             position: absolute;
                             top: 0.2rem;
                             right: 0.2rem;
                             width: 80%;
-                            color: $gray-800;
+                            color: var(--color-gray-800);
                             z-index: 2;
                         }
 
-                        .marked{
-                            color: $warning;
+                        .marked {
+                            color: var(--color-warning);
                         }
                     }
-                }                
+                }
 
-                .text-wrapper{
+                .text-wrapper {
                     padding: 0.5rem;
 
-                    .by{
+                    .by {
                         margin-right: 0.2rem;
                     }
 
-                    .price-wrapper{
-                        display:flex;
+                    .price-wrapper {
+                        display: flex;
                         gap: 1rem;
                         margin: 0.5rem 0;
 
-                        .price{
+                        .price {
                             @include h5;
-                            color: $theme;
+                            color: var(--color-theme);
                         }
 
-                        .discount-applied{
+                        .discount-applied {
                             text-decoration-line: line-through;
                         }
 
-                        .discount-price{
+                        .discount-price {
                             @include h5;
-                            color: $danger;
+                            color: var(--color-danger);
                         }
                     }
 
-                    .divider{
+                    .divider {
                         width: 100%;
                         height: 1px;
-                        background-color:  $gray-300;
+                        background-color: var(--color-gray-300);
                         margin-bottom: 1rem;
                     }
 
-                    .description-wrapper{
+                    .description-wrapper {
                         margin-bottom: 0.5rem;
                     }
                 }
             }
         }
 
-        .pagination{
+        .pagination {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 1rem 0 2rem;
 
-            @include md{
+            @include md {
                 margin: 2rem 0 4rem;
             }
 
-            @include lg{
+            @include lg {
                 margin: 3rem 0 6rem;
             }
 
-            .list-wrapper{
+            .list-wrapper {
                 display: flex;
                 padding: 0;
                 margin: 0;
 
-                ul{
-                    color: $gray-900;
+                ul {
+                    color: var(--color-gray-900);
                     font-weight: 700;
                     padding: 0.5rem 1rem;
                     margin: 0 0.2rem;
@@ -195,69 +197,69 @@
             }
         }
 
-        .get-started{
-            background-color: $gray-100;
+        .get-started {
+            background-color: var(--color-gray-100);
             border-radius: 0.5rem;
             padding: 2rem 1rem;
             text-align: center;
 
-            @include md{
+            @include md {
                 display: grid;
                 grid-template-columns: 1fr auto;
                 text-align: start;
             }
-            
-            .text-wrapper{
-                @include md{
+
+            .text-wrapper {
+                @include md {
                     padding: 1rem;
                 }
 
-                @include lg{
+                @include lg {
                     padding: 4rem;
                 }
-                
-                @include xl{
+
+                @include xl {
                     padding: 4rem 4rem;
                 }
 
-                p{
-                    color: $gray-700;
+                p {
+                    color: var(--color-gray-700);
                 }
-                
-                h2{
-                    @include xl{
+
+                h2 {
+                    @include xl {
                         @include h1;
                         padding-right: 0rem;
                     }
                 }
 
-                .theme-text{
-                    color: $theme;
+                .theme-text {
+                    color: var(--color-theme);
                 }
 
-                .btn-theme{
+                .btn-theme {
                     width: 100%;
                     @include theme-shadow;
                     margin: 2rem 0 0;
 
-                    @include md{
+                    @include md {
                         width: inherit;
                     }
                 }
             }
 
-            .image-wrapper{
+            .image-wrapper {
                 display: none;
 
-                @include md{
+                @include md {
                     display: block;
                 }
 
-                @include xl{
+                @include xl {
                     padding: 2rem 4rem;
                 }
 
-                img{
+                img {
                     width: 100%;
                 }
             }

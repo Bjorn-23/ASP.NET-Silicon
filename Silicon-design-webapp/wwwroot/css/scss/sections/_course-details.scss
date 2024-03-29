@@ -50,8 +50,8 @@
 
                 .digital {
                     @include course-button;
-                    background-color: $gray-200;
-                    color: $gray-900;
+                    background-color: var(--color-gray-200);
+                    color: var(--color-gray-900);
                     position: absolute;
                     top: 3.5rem;
                     right: 1rem;
@@ -79,7 +79,7 @@
                     }
 
                     i, li > a, .active > a, .breadcrumb-details {
-                        color: $gray-900;
+                        color: var(--color-gray-900);
 
                         @include xl {
                             color: #fff;
@@ -109,7 +109,7 @@
                     .breadcrumb-item {
                         + .breadcrumb-item {
                             &::before {
-                                color: #fff;
+                                color: var(--color-white);
                             }
                         }
                     }
@@ -152,11 +152,11 @@
                     }
 
                     .fa-solid {
-                        color: $warning;
+                        color: var(--color-warning);
                     }
 
                     .fa-light {
-                        color: $gray-500;
+                        color: var(--color-gray-500);
                     }
 
                     .fa-star {
@@ -208,7 +208,7 @@
                     p {
                         margin: 0;
                         padding: 0;
-                        color: $gray-900;
+                        color: var(--color-gray-900);
                     }
 
                     .by {
@@ -401,15 +401,15 @@
                     .outer-circle {
                         position: relative;
                         padding: 0.4rem;
-                        background-color: $gray-100;
+                        background-color: var(--color-gray-100);
                         border-radius: 100%;
-                        box-shadow: 1px 1px 3px $gray-400, 1px 3px 5px $gray-300, 2px 6px 8px $gray-200, 3px 9px 12px $gray-100;
+                        box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
 
                         .inner-circle {
                             padding: 0.8rem;
-                            background-color: #fefefe;
+                            background-color: var(--color-gray-000);
                             border-radius: 100%;
-                            box-shadow: 1px 1px 3px $gray-500, 2px 3px 5px $gray-400, 2px 5px 7px $gray-300, 3px 7px 9px $gray-200;
+                            box-shadow: 1px 1px 3px var(--color-gray-500), 2px 3px 5px var(--color-gray-400), 2px 5px 7px var(--color-gray-300), 3px 7px 9px var(--color-gray-200);
 
                             .number {
                                 position: absolute;
@@ -427,7 +427,7 @@
                             transform: translateX(-50%);
                             height: 2rem;
                             width: 0.1rem;
-                            background-color: $gray-100;
+                            background-color: var(--color-gray-100);
 
                             @include md {
                                 height: 8rem;
@@ -473,7 +473,7 @@
     .about-author-box {
 
         .grid-wrapper {
-            box-shadow: 1px 1px 3px $gray-400, 1px 3px 5px $gray-300, 2px 6px 8px $gray-200, 3px 9px 12px $gray-100;
+            box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
             border-radius: 0.5rem;
             overflow: hidden;
             display: grid;
@@ -498,7 +498,7 @@
 
             .bio-wrapper {
                 position: relative;
-                background-color: $gray-900;
+                background-color: var(--color-gray-900);
                 padding: 0.5rem;
 
                 @include md {
@@ -510,7 +510,7 @@
                 }
 
                 .sub-heading, .about-heading, .text, button {
-                    color: #fff;
+                    color: var(--color-gray-000);
                 }
 
                 p {
@@ -549,11 +549,11 @@
                     }
 
                     .subscribers {
-                        background-color: $danger;
+                        background-color: var(--color-danger);
                     }
 
                     .followers {
-                        background-color: $info;
+                        background-color: var(--color-info);
                     }
                 }
 
