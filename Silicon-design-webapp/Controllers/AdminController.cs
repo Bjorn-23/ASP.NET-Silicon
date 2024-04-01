@@ -3,6 +3,7 @@ using Business.Models;
 using Business.Services;
 using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Admin;
@@ -372,6 +373,73 @@ public class AdminController(AdminService adminService, IConfiguration configura
             ViewData["CourseStatus"] = response.StatusCode;
             return RedirectToAction("Courses");
         }
+    }
+
+    #endregion
+
+    #region CONTACT
+
+    [HttpGet("/admin/contact")]
+    public async Task<IActionResult> Contact()
+    {
+        var viewModel = new AdminContactViewModel();
+        using var http = new HttpClient();
+
+        var response = await http.GetAsync($"https://localhost:7034/api/Contact?key={_configuration["ApiKey:Secret"]}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var models = JsonConvert.DeserializeObject<IEnumerable<AdminContactModel>>(jsonString);
+            //var models = JsonConvert.DeserializeObject<IEnumerable<AdminContactModel>>(jsonString); // just for testing, remove
+
+            if (models != null)
+            {
+                viewModel.ContactForms = models!;
+                //viewModel.Contact = models.FirstOrDefault()!;
+                return View(viewModel);
+            }
+            else
+                ViewData["ErrorMessage"] = "Something went wrong, contact site owner if issue persists!";
+            return View(viewModel);
+        }
+        else
+            ViewData["ErrorMessage"] = response.StatusCode.ToString();
+            return View();
+    }
+
+
+    [HttpPost("admin/update-contact")]
+    public async Task<IActionResult> UpdateContact(AdminContactViewModel viewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            using var http = new HttpClient();
+
+            var content = new StringContent(JsonConvert.SerializeObject(viewModel.Contact), Encoding.UTF8, "application/json");
+
+            var response = await http.PutAsync($"https://localhost:7034/api/Contact?key={_configuration["ApiKey:Secret"]}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<AdminContactModel>(jsonString);
+                if (model != null)
+                {
+                    viewModel.Contact = model!;
+                    return View(viewModel);
+                }
+                else
+                {
+                    ViewData["ErrorMessage"] = "Something went wrong, contact site owner if issue persists!";
+                    return View(viewModel);
+                }
+            }
+
+            ViewData["ErrorMessage"] = response.StatusCode.ToString();
+            return RedirectToAction("Contact");
+        }
+
+        ViewData["ErrorMessage"] = BadRequest();
+        return RedirectToAction("Contact");
     }
 
     #endregion

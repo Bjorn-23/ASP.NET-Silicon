@@ -1,0 +1,79 @@
+﻿@model AdminContactViewModel
+
+<section class="container admin-contact">
+
+    @{
+        ViewData["Title"] = "Admin Contact forms";
+    }
+
+    <div class="top-left">
+        @await Html.PartialAsync("~/Views/Shared/Sections/Admin/_AdminNavPartial.cshtml")
+
+        <h1>Contact Forms</h1>
+    </div>
+
+
+    <div class="grid-container"> 
+        @if (Model.ContactForms.Count() >= 1)
+        {
+            @foreach (var form in Model.ContactForms)
+            {
+                <div class="form-wrapper">
+                    <form method="post" asp-action="UpdateContact" asp-controller="Admin" novalidate>
+
+                        <div class="input-group">
+                            <label asp-for="@form.Id"></label>
+                            <span asp-validation-for="@form.Id"></span>
+                            <input asp-for="@form.Id" readonly>
+                        </div>
+
+                        <div class="input-group">
+                            <label asp-for="@form.FullName"></label>
+                            <span asp-validation-for="@form.FullName"></span>
+                            <input asp-for="@form.FullName">
+                        </div>
+
+                        <div class="input-group">
+                            <label asp-for="@form.Email"></label>
+                            <span asp-validation-for="@form.Email"></span>
+                            <input asp-for="@form.Email">
+                        </div>
+
+                        <div class="input-group">
+                            <label asp-for="@form.Services"></label>
+                            <select asp-for="@form.Services">
+                                <option disabled selected style="display: none;">Choose the service you are interested in</option>
+                                <option value="Consulting">Consulting</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label asp-for="@form.Message"></label>
+                            <span asp-validation-for="@form.Message"></span>
+                            <textarea asp-for="@form.Message" rows="4"></textarea>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn-theme submit" type="submit">Save changes</button>
+                            <button class="btn-gray" type="reset">Cancel</button>
+                        </div>
+
+                    </form>
+
+                    <form method="post" asp-action="DeleteContact" asp-controller="Admin" novalidate>
+
+                        <div class="input-group">
+                            <label asp-for="@form.Id"></label>
+                            <span asp-validation-for="@form.Id"></span>
+                            <input asp-for="@form.Id" readonly>
+                        </div>
+
+                        <button type="submit" class="btn-delete-all">Delete</button>
+
+                    </form>
+                </div>
+            }
+        }
+    </div>
+
+</section>
