@@ -7,22 +7,37 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Admin;
-
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize(Policy = "Admin")]
-public class AdminController(AdminService adminService, IConfiguration configuration) : Controller
+public class AdminController(AdminService adminService, IConfiguration configuration, HttpClient httpClient) : Controller
 {
     private readonly AdminService _adminService = adminService;
     private readonly IConfiguration _configuration = configuration;
+    private readonly HttpClient _httpClient = httpClient;
 
     #region USERS
 
     [HttpGet("/admin")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        var tokenResponse = await _httpClient.SendAsync(new HttpRequestMessage
+        {
+            RequestUri = new Uri($"https://localhost:7034/api/Auth?key={_configuration["ApiKey:Secret"]}"),
+            Method = HttpMethod.Post,
+        });
+        if (tokenResponse.IsSuccessStatusCode)
+        {
+            var token = await tokenResponse.Content.ReadAsStringAsync();
+            HttpContext.Session.SetString("token", token);
+        }
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+
         var viewModel = new AdminViewModel();
         return View(viewModel);
     }
@@ -290,9 +305,8 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> Courses()
     {
         var viewModel = new AdminCoursesViewModel();
-        using var http = new HttpClient();
 
-        var response = await http.GetAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}");
+        var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -311,9 +325,8 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> Courses(string Id)
     {
         var viewModel = new AdminCoursesViewModel();
-        using var http = new HttpClient();
 
-        var response = await http.GetAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}");
+        var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -331,10 +344,10 @@ public class AdminController(AdminService adminService, IConfiguration configura
     [HttpPost("/admin/courses/update")]
     public async Task<IActionResult> UpdateCourse(AdminCoursesViewModel viewModel)
     {
-        using var http = new HttpClient();
-        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Course), Encoding.UTF8, "application/json");
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-        var response = await http.PutAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.Course), Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
         {
             ViewData["CourseStatus"] = "Course updated succesfully";
@@ -351,10 +364,10 @@ public class AdminController(AdminService adminService, IConfiguration configura
     [HttpPost("/admin/courses/create")]
     public async Task<IActionResult> CreateCourse(AdminCoursesViewModel viewModel)
     {
-        using var http = new HttpClient();
-        var content = new StringContent(JsonConvert.SerializeObject(viewModel.CreateCourse), Encoding.UTF8, "application/json");
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-        var response = await http.PostAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
+        var content = new StringContent(JsonConvert.SerializeObject(viewModel.CreateCourse), Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
         {
             ViewData["CourseStatus"] = "Course created succesfully";
@@ -371,13 +384,13 @@ public class AdminController(AdminService adminService, IConfiguration configura
     [HttpPost("/admin/courses/delete")]
     public async Task<IActionResult> DeleteCourse(AdminCoursesViewModel viewModel)
     {
-        using var http = new HttpClient();
-        var Id = viewModel.Course.Id;
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
+        var Id = viewModel.Course.Id;
         var cancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = cancellationTokenSource.Token;
 
-        var response = await http.DeleteAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}", cancellationToken);
+        var response = await _httpClient.DeleteAsync($"https://localhost:7034/api/Courses/{Id}?key={_configuration["ApiKey:Secret"]}", cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             ViewData["CourseStatus"] = "Course deleted succesfully";
@@ -396,7 +409,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
 
     [HttpGet("/admin/contact")]
     public async Task<IActionResult> Contact()
-     {
+    {
         var viewModel = new AdminContactViewModel();
         using var http = new HttpClient();
 
@@ -452,7 +465,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
 
             var response = await http.PutAsync($"https://localhost:7034/api/Contact?key={_configuration["ApiKey:Secret"]}", content);
             if (response.IsSuccessStatusCode)
-            {                
+            {
                 TempData["StatusMessage"] = "Success - Contact updated";
                 return RedirectToAction("Contact");
             }
