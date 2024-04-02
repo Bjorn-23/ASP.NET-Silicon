@@ -16,7 +16,7 @@ namespace Silicon_design_webapp.Controllers;
 public class AdminController(AdminService adminService, IConfiguration configuration) : Controller
 {
     private readonly AdminService _adminService = adminService;
-    private readonly IConfiguration _configuration = configuration;   
+    private readonly IConfiguration _configuration = configuration;
 
     #region USERS
 
@@ -230,7 +230,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
     #region UPDATE
 
     [HttpPost]
-    public async Task<IActionResult> Subscription(AdminSubscriptionViewModel viewModel)
+    public async Task<IActionResult> UpdateSubscription(AdminSubscriptionViewModel viewModel)
     {
         using var http = new HttpClient();
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Subscriber), Encoding.UTF8, "application/json");
@@ -242,21 +242,24 @@ public class AdminController(AdminService adminService, IConfiguration configura
             var model = JsonConvert.DeserializeObject<AdminSubscribeModel>(jsonStrings);
             if (model != null)
             {
-                List<AdminSubscribeModel> models = [];
-                models.Add(model);
-                viewModel.Subscribers = models!;
-                return View(viewModel);
+                TempData["SubscriptionStatus"] = "Subscription updated succesfully";
+                return RedirectToAction("Subscription");
+                //List<AdminSubscribeModel> models = [];
+                //models.Add(model);
+                //viewModel.Subscribers = models!;
+                //return View(viewModel);
             }
         }
 
-        return View(viewModel);
+        TempData["SubscriptionStatus"] = "Failed to update subscription";
+        return RedirectToAction("Subscription");
     }
 
     #endregion
 
     #region DELETE
 
-    [HttpPost]
+    [HttpPost("/admin/subscriptions/delete")]
     public async Task<IActionResult> DeleteSubscription(AdminSubscriptionViewModel viewModel)
     {
         using var http = new HttpClient();
@@ -297,8 +300,11 @@ public class AdminController(AdminService adminService, IConfiguration configura
             viewModel.Courses = models!;
             return View(viewModel);
         }
-
-        return View(viewModel);
+        else
+        {
+            ViewData["CourseStatus"] = response.StatusCode;
+            return View(viewModel);
+        }
     }
 
     [HttpGet("/admin/courses/{Id}")]
@@ -315,11 +321,14 @@ public class AdminController(AdminService adminService, IConfiguration configura
             viewModel.Course = model!;
             return View(viewModel);
         }
-
-        return View(viewModel);
+        else
+        {
+            ViewData["CourseStatus"] = response.StatusCode;
+            return View(viewModel);
+        }
     }
 
-    [HttpPost]
+    [HttpPost("/admin/courses/update")]
     public async Task<IActionResult> UpdateCourse(AdminCoursesViewModel viewModel)
     {
         using var http = new HttpClient();
@@ -331,12 +340,15 @@ public class AdminController(AdminService adminService, IConfiguration configura
             ViewData["CourseStatus"] = "Course updated succesfully";
             return RedirectToAction("Courses");
         }
-
-        return RedirectToAction("Courses");
+        else
+        {
+            ViewData["CourseStatus"] = response.StatusCode;
+            return RedirectToAction("Courses");
+        }
     }
 
 
-    [HttpPost]
+    [HttpPost("/admin/courses/create")]
     public async Task<IActionResult> CreateCourse(AdminCoursesViewModel viewModel)
     {
         using var http = new HttpClient();
@@ -348,12 +360,15 @@ public class AdminController(AdminService adminService, IConfiguration configura
             ViewData["CourseStatus"] = "Course created succesfully";
             return RedirectToAction("Courses");
         }
-
-        return RedirectToAction("Courses");
+        else
+        {
+            ViewData["CourseStatus"] = response.StatusCode;
+            return RedirectToAction("Courses");
+        }
     }
 
 
-    [HttpPost]
+    [HttpPost("/admin/courses/delete")]
     public async Task<IActionResult> DeleteCourse(AdminCoursesViewModel viewModel)
     {
         using var http = new HttpClient();
@@ -381,36 +396,54 @@ public class AdminController(AdminService adminService, IConfiguration configura
 
     [HttpGet("/admin/contact")]
     public async Task<IActionResult> Contact()
-    {
+     {
         var viewModel = new AdminContactViewModel();
         using var http = new HttpClient();
+
+        ViewData["StatusMessage"] = TempData["StatusMessage"] ?? "";
 
         var response = await http.GetAsync($"https://localhost:7034/api/Contact?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonString = await response.Content.ReadAsStringAsync();
             var models = JsonConvert.DeserializeObject<IEnumerable<AdminContactModel>>(jsonString);
-            //var models = JsonConvert.DeserializeObject<IEnumerable<AdminContactModel>>(jsonString); // just for testing, remove
-
-            if (models != null)
-            {
-                viewModel.ContactForms = models!;
-                //viewModel.Contact = models.FirstOrDefault()!;
-                return View(viewModel);
-            }
-            else
-                ViewData["ErrorMessage"] = "Something went wrong, contact site owner if issue persists!";
+            viewModel.ContactForms = models!;
             return View(viewModel);
         }
         else
+        {
             ViewData["ErrorMessage"] = response.StatusCode.ToString();
-            return View();
+            return View(viewModel);
+        }
     }
 
+    [HttpGet("/admin/contactdetails/{Id}")]
+    public async Task<IActionResult> ContactDetails(string Id)
+    {
+        var viewModel = new AdminContactViewModel();
+        using var http = new HttpClient();
 
-    [HttpPost("admin/update-contact")]
+        ViewData["StatusMessage"] = TempData["StatusMessage"] ?? "";
+
+        var response = await http.GetAsync($"https://localhost:7034/api/Contact/{Id}?key={_configuration["ApiKey:Secret"]}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<AdminContactModel>(jsonString);
+            viewModel.Contact = model!;
+            return View(viewModel);
+        }
+        else
+        {
+            ViewData["ErrorMessage"] = response.StatusCode.ToString();
+            return View(viewModel);
+        }
+    }
+
+    [HttpPost("/admin/contact/update")]
     public async Task<IActionResult> UpdateContact(AdminContactViewModel viewModel)
     {
+
         if (ModelState.IsValid)
         {
             using var http = new HttpClient();
@@ -419,28 +452,40 @@ public class AdminController(AdminService adminService, IConfiguration configura
 
             var response = await http.PutAsync($"https://localhost:7034/api/Contact?key={_configuration["ApiKey:Secret"]}", content);
             if (response.IsSuccessStatusCode)
-            {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<AdminContactModel>(jsonString);
-                if (model != null)
-                {
-                    viewModel.Contact = model!;
-                    return View(viewModel);
-                }
-                else
-                {
-                    ViewData["ErrorMessage"] = "Something went wrong, contact site owner if issue persists!";
-                    return View(viewModel);
-                }
+            {                
+                TempData["StatusMessage"] = "Success - Contact updated";
+                return RedirectToAction("Contact");
             }
 
-            ViewData["ErrorMessage"] = response.StatusCode.ToString();
+            TempData["StatusMessage"] = response.StatusCode.ToString();
             return RedirectToAction("Contact");
         }
 
         ViewData["ErrorMessage"] = BadRequest();
         return RedirectToAction("Contact");
     }
+
+
+    [HttpPost("/admin/contact/delete")]
+    public async Task<IActionResult> DeleteContact(AdminContactViewModel viewModel)
+    {
+        using var http = new HttpClient();
+        string id = viewModel.Contact.Id;
+
+        var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
+
+        var response = await http.DeleteAsync($"https://localhost:7034/api/Contact/{id}?key={_configuration["ApiKey:Secret"]}", cancellationToken);
+        if (response.IsSuccessStatusCode)
+        {
+            TempData["StatusMessage"] = "Success - Contact deleted";
+            return RedirectToAction("Contact");
+        }
+
+        TempData["StatusMessage"] = response.StatusCode.ToString();
+        return RedirectToAction("Contact");
+    }
+
 
     #endregion
 
