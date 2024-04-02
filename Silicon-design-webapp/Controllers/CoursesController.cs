@@ -46,7 +46,8 @@ public class CoursesController(IConfiguration configuration) : Controller
             return View(viewModel);
         };
 
-        ViewData["Title"] = viewModel.Title;
+        //Should probably be returned to other view with an errormessage here...
+        ViewData["Title"] = viewModel.Course.Title;
         return View(viewModel);
     }
 }

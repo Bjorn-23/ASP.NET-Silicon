@@ -5,7 +5,7 @@ namespace Business.Models;
 
 public class ContactModel
 {
-    public string? StatusMessage { get; set; } = "";
+    //public string? StatusMessage { get; set; } = "";
 
     [Display(Name ="Full name", Prompt="Enter your full name", Order = 0)]
     [DataType(DataType.Text)]
@@ -21,9 +21,9 @@ public class ContactModel
     public string Email { get; set; } = null!;
 
 
-    [Display(Name ="Service", Prompt ="Choose the service you are interested in", Order = 2)]
+    [Display(Name = "Service", Prompt = "Choose the service you are interested in", Order = 2)]
     [DataType(DataType.Text)]
-    public string? Services { get; set; }
+    public string? Services { get; set; } = "";
 
 
     [Display(Name ="Message", Prompt ="Enter your message here")]
