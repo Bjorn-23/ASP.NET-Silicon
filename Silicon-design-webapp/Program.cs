@@ -60,6 +60,15 @@ builder.Services.AddAuthentication()
 
 });
 
+builder.Services.AddHttpClient();
+builder.Services.AddSession( x=>
+{
+    x.IdleTimeout = TimeSpan.FromMinutes(20);
+    x.Cookie.IsEssential = true;
+    //x.Cookie.HttpOnly = true;
+
+});
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<AdminService>();
@@ -74,6 +83,7 @@ app.UseHsts();
 app.UseStatusCodePagesWithReExecute("/error/404", "?statusCode={0}");
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 app.UseStaticFiles();
 
 
