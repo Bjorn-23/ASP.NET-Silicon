@@ -2,7 +2,17 @@
 
 <form class="contact-form" method="post" asp-action="Index" asp-controller="Contact" novalidate>
 
-    <div class="@((ViewData["StatusMessage"]!.ToString() == "Success - Form submitted") ? "form-success" : ((ViewData["StatusMessage"]!.ToString() == "Error - Form not submitted") ? "form-error" : "hidden"))">@ViewData["StatusMessage"]</div>
+    @if (!string.IsNullOrWhiteSpace(ViewData["StatusMessage"]!.ToString()))
+    {
+        @if (ViewData["StatusMessage"]!.ToString() == "Success - Form submitted")
+        {
+            <div class="form-success">@ViewData["StatusMessage"]</div>
+        }
+        else
+        {
+            <div class="form-error">@ViewData["StatusMessage"]</div>
+        }        
+    }
 
     <h2>Get In Contact With Us</h2>
 

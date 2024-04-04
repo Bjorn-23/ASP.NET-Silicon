@@ -46,7 +46,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, operation failed",
+            Message = message ?? "Error, Operation Failed",
             StatusCode = StatusCode.BAD_REQUEST
         };
     }
@@ -55,7 +55,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Access denied - please login",
+            Message = message ?? "Access denied - Please Login",
             StatusCode = StatusCode.UNAUTHORIZED
         };
     }
@@ -64,7 +64,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Access denied - you don't have the right credentials",
+            Message = message ?? "Forbidden",
             StatusCode = StatusCode.FORBIDDEN
         };
     }
@@ -73,7 +73,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, not found",
+            Message = message ?? "Error, Not Found",
             StatusCode = StatusCode.NOT_FOUND
         };
     }
@@ -82,7 +82,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, method not allowed",
+            Message = message ?? "Error, Method Not Allowed",
             StatusCode = StatusCode.NOT_FOUND
         };
     }
@@ -91,7 +91,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, already exists",
+            Message = message ?? "Error, Already Exists",
             StatusCode = StatusCode.EXISTS
         };
     }
@@ -100,7 +100,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, media not supported",
+            Message = message ?? "Error, Media Not Supported",
             StatusCode = StatusCode.UNSUPPORTED_MEDIA_TYPE
         };
     }
@@ -109,7 +109,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, internal server error",
+            Message = message ?? "Internal Server Error - please try again later",
             StatusCode = StatusCode.INTERNAL_SERVER_ERROR
         };
     }
@@ -118,7 +118,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, service not implemented",
+            Message = message ?? "Error, Service Not Implemented",
             StatusCode = StatusCode.NOT_INPLEMENTED
         };
     }
@@ -127,7 +127,7 @@ public class ResponseFactory
     {
         return new ResponseResult()
         {
-            Message = message ?? "Error, bad gateway",
+            Message = message ?? "Error, Bad Gateway",
             StatusCode = StatusCode.BAD_GATEWAY
         };
     }

@@ -30,7 +30,5 @@ public class UserSessionValidationMiddleware(RequestDelegate next)
         }
 
         await _next.Invoke(context);
-    }
-
-    
+    }    
 }
