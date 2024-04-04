@@ -27,7 +27,6 @@ public class UserSessionValidationMiddleware(RequestDelegate next)
                     return;
                 }
             }
-
         }
 
         await _next.Invoke(context);

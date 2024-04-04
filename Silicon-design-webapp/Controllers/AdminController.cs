@@ -67,7 +67,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
         {
             string id = TempData["UserId"]!.ToString()!;
             var user = await _adminService.GetOneUserByIdAsync(id);
-            var userEntity = (UserEntity)user.ContentResult!;
+            var userEntity = (UserEntity)user.Content!;
             var result = await _adminService.UpdateUserPasswordAsync(userEntity, passwordModel);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
@@ -90,7 +90,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
             {
                 ModelState.Clear();
-                viewModel.BasicInfo = (BasicInfoModel)result.ContentResult!;
+                viewModel.BasicInfo = (BasicInfoModel)result.Content!;
                 return View(viewModel);
             }
             else

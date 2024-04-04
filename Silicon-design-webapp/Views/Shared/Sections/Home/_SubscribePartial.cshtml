@@ -52,7 +52,14 @@
                 <span class="terms-policy">* Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</span>
                 @if (!string.IsNullOrWhiteSpace(TempData["SubscriptionStatus"]!.ToString()))
                 {
-                    <span class="@(TempData["SubscriptionStatus"]!.ToString() == "Subscription updated" ? "success-message" : "hidden")">@TempData["SubscriptionStatus"]</span>
+                    if (TempData["SubscriptionStatus"]!.ToString() == "Subscription created" || TempData["SubscriptionStatus"]!.ToString() == "Subscription updated")
+                    {
+                        <span class="success-message">@TempData["SubscriptionStatus"]</span>
+                    }
+                    else
+                    {
+                        <span class="error-message">@TempData["SubscriptionStatus"]</span>
+                    }
                 }
             </div>
 

@@ -41,10 +41,8 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             
             return ResponseFactory.Exists("A user with that email alredy exists");
         }
-        catch (Exception ex)
-        {
-            return ResponseFactory.Error(ex.Message + "CreateUserAsync");
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "CreateUserAsync"); }
+        return ResponseFactory.BadRequest();
     }
 
 
@@ -63,7 +61,8 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             return ResponseFactory.NotFound("User or password incorrect");
 
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SignInUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "SignInUserAsync"); }
+        return ResponseFactory.BadRequest();
     }
 
 
@@ -77,7 +76,8 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "GetActiveUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "GetActiveUserAsync"); }
+        return ResponseFactory.BadRequest();
 
     }
 
@@ -102,7 +102,8 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "UpdateUserAsync"); }
+        return ResponseFactory.BadRequest();
     }
 
 
@@ -132,14 +133,15 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                         return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
 
                     else
-                        return ResponseFactory.Error("Failed to update password");
+                        return ResponseFactory.BadRequest("Failed to update password");
                 }
             }
 
             //Possible unnecessary as method can only be reacched by logged in user? Maybe for admin??
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserPasswordAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "UpdateUserPasswordAsync"); }
+        return ResponseFactory.BadRequest();
     }
 
 
@@ -154,12 +156,13 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 if (result.Succeeded)
                     return ResponseFactory.Ok("account deleted successfully");
                 else
-                    return ResponseFactory.Error("Failed to delete account");
+                    return ResponseFactory.BadRequest("Failed to delete account");
             }
             return ResponseFactory.NotFound("No User found");
 
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "DeleteUserAccount"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "DeleteUserAccount"); }
+        return ResponseFactory.BadRequest();
     }
 
 
@@ -204,10 +207,10 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 return ResponseFactory.Ok();
             }
 
-            return ResponseFactory.Error("External login failed.");
+            return ResponseFactory.BadRequest("External login failed.");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "SignInOrRegisterExternalAccount"); }
-
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "SignInOrRegisterExternalAccount"); }
+        return ResponseFactory.BadRequest();
     }
 
 

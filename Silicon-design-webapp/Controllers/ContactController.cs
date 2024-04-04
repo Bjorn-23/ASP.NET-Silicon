@@ -15,14 +15,14 @@ public class ContactController(IConfiguration configuration) : Controller
     [HttpGet("/contact")]
     public IActionResult Index()
     {
-        ViewData["StatusMessage"] = ViewData["StatusMessage"] ?? "";
+        ViewData["StatusMessage"] = TempData["StatusMessage"] ?? ViewData["StatusMessage"] ?? "";
         var viewModel = new ContactViewModel();
         return View(viewModel);
     }
 
     [HttpPost]
     public async Task<IActionResult> Index(ContactModel model)
-    {            
+    {
         var viewModel = new ContactViewModel();
 
         if (ModelState.IsValid)
@@ -33,9 +33,8 @@ public class ContactController(IConfiguration configuration) : Controller
             var response = await http.PostAsync($"https://localhost:7034/api/Contact?key={_configuration["ApiKey:Secret"]}", content);
             if (response.IsSuccessStatusCode)
             {
-                ViewData["StatusMessage"] = "Success - Form submitted";
-                viewModel.Form = new ContactModel();
-                return View(viewModel);
+                TempData["StatusMessage"] = "Success - Form submitted";
+                return RedirectToAction("Index");
             }
         }
 

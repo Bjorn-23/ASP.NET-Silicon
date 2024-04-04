@@ -182,8 +182,8 @@ public class AdminService(UserManager<UserEntity> userManager, ApplicationDbCont
 
             return ResponseFactory.NotFound("Could not find a user to update");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserAsyncAsAdmin"); }
-
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "UpdateUserAsyncAsAdmin"); }
+        return ResponseFactory.BadRequest();
     }
 
     public async Task<ResponseResult> UpdateUserPasswordAsync(UserEntity userEntity, PasswordUpdateModel model)
@@ -211,14 +211,15 @@ public class AdminService(UserManager<UserEntity> userManager, ApplicationDbCont
                         return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
 
                     else
-                        return ResponseFactory.Error("Failed to update password");
+                        return ResponseFactory.BadRequest("Failed to update password");
                 }
             }
 
             //Possible unnecessary as method can only be reacched by logged in user? Maybe for admin??
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "UpdateUserPasswordAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "UpdateUserPasswordAsync"); }
+        return ResponseFactory.BadRequest();
     }
 
     public async Task<ResponseResult> GetOneUserByIdAsync(string id)
@@ -232,8 +233,8 @@ public class AdminService(UserManager<UserEntity> userManager, ApplicationDbCont
             else
                 return ResponseFactory.NotFound("ex.Message");
         }
-        catch (Exception ex) { return ResponseFactory.Error("ex.Message"); }
-
+        catch (Exception ex) { Debug.WriteLine(ex.Message + "GetOneUserByIdAsync"); }
+        return ResponseFactory.BadRequest();
     }
 
 }

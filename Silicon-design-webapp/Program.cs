@@ -65,8 +65,7 @@ builder.Services.AddSession( x=>
 {
     x.IdleTimeout = TimeSpan.FromMinutes(20);
     x.Cookie.IsEssential = true;
-    //x.Cookie.HttpOnly = true;
-
+    x.Cookie.HttpOnly = true;
 });
 
 builder.Services.AddScoped<UserService>();
