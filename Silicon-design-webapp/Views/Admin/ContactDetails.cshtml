@@ -57,22 +57,10 @@
                         <div class="button-group">
                             <button class="btn-theme submit" type="submit">Save changes</button>
                             <button class="btn-gray" type="reset">Cancel</button>
+                            <a class="btn-delete-all" href="/admin/deletecontact/@Model.Contact.Id">Delete contact form</a>
                         </div>
 
                     </form>
-
-                    <form class="form-delete" method="post" asp-action="DeleteContact" asp-controller="Admin" novalidate>
-
-                        <div class="input-group hidden">
-                            <label asp-for="@Model.Contact.Id"></label>
-                            <span asp-validation-for="@Model.Contact.Id"></span>
-                            <input asp-for="@Model.Contact.Id" readonly>
-                        </div>
-
-                        <button type="submit" class="btn-delete-all">Delete</button>
-
-                    </form>
-
                 </div>
             }
         </div>
