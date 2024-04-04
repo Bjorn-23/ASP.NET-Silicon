@@ -89,7 +89,7 @@
     <div class="input-group">
         @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Admin" && User.IsInRole("SuperAdmin") || User.IsInRole("CIO") || User.IsInRole("Admin"))
         {
-            <label asp-for="@Model.Id">User id</label>
+            <label asp-for="@Model.Id">User Id</label>
             <input asp-for="@Model.Id" style="background-color: #f4f4f4;" readonly />
         }
     </div>
