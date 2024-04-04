@@ -2,7 +2,7 @@
 
 <form class="contact-form" method="post" asp-action="Index" asp-controller="Contact" novalidate>
 
-    <div class="@((ViewData["StatusMessage"]!.ToString() == "Success - Form submitted") ? "form-success" : ((ViewData["StatusMessage"]!.ToString() == "Error - Form could not be submitted") ? "form-error" : "hidden"))">@ViewData["StatusMessage"]</div>
+    <div class="@((ViewData["StatusMessage"]!.ToString() == "Success - Form submitted") ? "form-success" : ((ViewData["StatusMessage"]!.ToString() == "Error - Form not submitted") ? "form-error" : "hidden"))">@ViewData["StatusMessage"]</div>
 
     <h2>Get In Contact With Us</h2>
 

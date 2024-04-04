@@ -6,6 +6,7 @@ using Infrastructure.Factories;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Security.Claims;
 namespace Business.Services;
 
@@ -38,7 +39,7 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
                         return ResponseFactory.Ok("Address added to user succefully");
                 }
             }
-            else
+            if (exists == null)
             {
                 var newAddress = await _context.Addresses.AddAsync(addressEntity);
                 var result = await _context.SaveChangesAsync();
@@ -54,10 +55,9 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
                     }
                 }
             }
-
-            return ResponseFactory.Error("GetOrCreateAddressAsync");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "CreateOrUpdateAddressAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return ResponseFactory.BadRequest();
     }
 
     public async Task<ResponseResult> GetUserAddressAsync(ClaimsPrincipal User)
@@ -74,7 +74,8 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
 
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { return ResponseFactory.Error(ex.Message + "GetActiveUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return ResponseFactory.BadRequest();
 
     }
 

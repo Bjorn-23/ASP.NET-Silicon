@@ -24,15 +24,15 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         var viewModel = new AccountDetailsViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);
-        if (activeUser.ContentResult != null)
+        if (activeUser.Content != null)
         {
-            viewModel.BasicForm = (BasicInfoModel)activeUser.ContentResult;
+            viewModel.BasicForm = (BasicInfoModel)activeUser.Content;
             viewModel.Sidebar.AccountInfo = viewModel.BasicForm;
         }
 
         var UserAddress = await _addressService.GetUserAddressAsync(User);
-        if (UserAddress.ContentResult != null)
-            viewModel.AddressForm = (AddressInfoModel)UserAddress.ContentResult;
+        if (UserAddress.Content != null)
+            viewModel.AddressForm = (AddressInfoModel)UserAddress.Content;
 
         return View(viewModel);
     }
@@ -78,9 +78,9 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         var viewModel = new AccountSecurityViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);
-        if (activeUser.ContentResult != null)
+        if (activeUser.Content != null)
         {
-            viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.ContentResult;
+            viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.Content;
             ViewBag.isExternalAccount = viewModel.Sidebar.AccountInfo.IsExternalAccount;
         }
         return View(viewModel);
@@ -148,9 +148,9 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         var viewModel = new AccountSavedCoursesViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);
-        if (activeUser.ContentResult != null)
+        if (activeUser.Content != null)
         {
-            viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.ContentResult;
+            viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.Content;
         }
         return View(viewModel);
     }

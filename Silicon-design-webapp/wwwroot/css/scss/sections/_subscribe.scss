@@ -146,17 +146,17 @@
                     @include text-xs;
                 }
 
-                .success-message {
+                .success-message, .error-message {
                     position: absolute;
                     right: 0;
                     bottom: 1.6rem;
-                    padding: 0.4rem 1rem;
+                    margin: 2rem 0 1rem;
+                    padding: 0.2rem 1rem;
 
                     @include xl {
                         right: 1rem;
                         bottom: -100%;
                     }
-
                 }
             }
         }

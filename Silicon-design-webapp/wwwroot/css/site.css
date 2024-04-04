@@ -1844,14 +1844,15 @@ footer .container .details {
   font-family: var(--font-manrope);
   font-size: 0.75rem !important;
 }
-.subscribe .container form .bottom-wrapper .success-message {
+.subscribe .container form .bottom-wrapper .success-message, .subscribe .container form .bottom-wrapper .error-message {
   position: absolute;
   right: 0;
   bottom: 1.6rem;
-  padding: 0.4rem 1rem;
+  margin: 2rem 0 1rem;
+  padding: 0.2rem 1rem;
 }
 @media (min-width: 1200px) {
-  .subscribe .container form .bottom-wrapper .success-message {
+  .subscribe .container form .bottom-wrapper .success-message, .subscribe .container form .bottom-wrapper .error-message {
     right: 1rem;
     bottom: -100%;
   }
