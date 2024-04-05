@@ -225,7 +225,7 @@ h6, .h6 {
   --color-gray-100: #F3F6FF;
   --color-gray-200: #EFF2FC;
   --color-gray-300: #E2E5F1;
-  --color-gray-400: #D4D7ES;
+  --color-gray-400: #D4D7E5;
   --color-gray-500: #B4B7C9;
   --color-gray-600: #9397AD;
   --color-gray-700: #565973;
@@ -255,7 +255,7 @@ h6, .h6 {
   --color-gray-200: #565973;
   --color-gray-300: #9397AD;
   --color-gray-400: #B4B7C9;
-  --color-gray-500: #D4D7ES;
+  --color-gray-500: #D4D7E5;
   --color-gray-600: #E2E5F1;
   --color-gray-700: #EFF2FC;
   --color-gray-800: #F3F6FF;
@@ -558,25 +558,37 @@ section .sidebar .profile-wrapper .image-wrapper {
 section .sidebar .profile-wrapper .image-wrapper .profile-picture {
   width: 100%;
   height: auto;
+  max-width: 6rem;
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+@media (min-width: 768px) {
+  section .sidebar .profile-wrapper .image-wrapper .profile-picture {
+    max-width: 8rem;
+  }
+}
+@media (min-width: 1200px) {
+  section .sidebar .profile-wrapper .image-wrapper .profile-picture {
+    max-width: 10rem;
+  }
 }
 section .sidebar .profile-wrapper .image-wrapper .change-pic {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
-  border-radius: 0.5rem;
-  overflow: hidden;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  border: 1px solid var(--color-gray-400);
   border-radius: 100%;
-  width: 1px;
-  height: 1px;
   padding: 1rem;
-  background-color: #fff;
+  background-color: var(--color-gray-000);
 }
 section .sidebar .profile-wrapper .image-wrapper .change-pic i {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: var(--color-gray-900);
 }
 section .sidebar a {
   display: block;
@@ -836,6 +848,21 @@ header .container .account-buttons .user-profile-pic {
   width: 50%;
   height: auto;
   transform: translateX(100%);
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: 50% 50%;
+  max-width: 4rem;
+}
+@media (min-width: 768px) {
+  header .container .account-buttons .user-profile-pic {
+    max-width: 6rem;
+  }
+}
+@media (min-width: 1200px) {
+  header .container .account-buttons .user-profile-pic {
+    max-width: 8rem;
+  }
 }
 header .container .btn-mobile {
   grid-area: mobile;
@@ -1954,7 +1981,7 @@ footer .container .details {
   border-radius: 0.5rem;
   overflow: hidden;
   text-decoration: none;
-  box-shadow: 1px 1px 3px var(--color-gray-600), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
+  box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
   border-radius: 0.5rem;
   overflow: hidden;
 }

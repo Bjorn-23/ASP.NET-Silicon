@@ -155,6 +155,12 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         return View(viewModel);
     }
 
+    public async Task<IActionResult> UploadImage(IFormFile file)
+    {
+        var result = await _userService.UploadUserProfileImageAsync(User, file);
+        return RedirectToAction("index");
+    }
+
     // How do I pick just one item to delete?
     [HttpPost]
     public IActionResult DeleteBookmarkedCourse(AccountSavedCoursesViewModel viewModel)

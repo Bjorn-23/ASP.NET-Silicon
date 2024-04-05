@@ -44,4 +44,6 @@ public class SignUpModel
     [Required(ErrorMessage = "You must accept the terms and conditions")]
     [Display(Order = 5)]
     public bool TermsConditions { get; set; } = false;
+
+    public string ProfileImageUrl { get; set; } = "avatar.png";
 }

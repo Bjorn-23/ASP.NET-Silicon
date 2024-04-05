@@ -3,25 +3,24 @@
 <div class="sidebar">
     <div class="profile-wrapper">
         <div class="image-wrapper">
-            <img class="profile-picture" src="@Model.ProfileImage.ImageUrl" alt="A picture of @Model.AccountInfo.FirstName @Model.AccountInfo.LastName">
-            @* The div below should be a button for fileupload or similar *@
-            <button class="btn change-pic" id="changePic"><i class="fa-sharp fa-solid fa-rotate-reverse"></i></button>
+            <img class="profile-picture" src="~/uploads/@Model.AccountInfo.ProfileImageUrl" alt="Profile picture of @Model.AccountInfo.FirstName @Model.AccountInfo.LastName">
+
+            <form enctype="multipart/form-data" method="post" asp-action="UploadImage" asp-controller="Account">
+                <input class="hidden" id="fileUploader" type="file" name="file"/>
+                <label for="fileUploader" class="btn change-pic" id="changePic"><i class="fa-sharp fa-solid fa-rotate-reverse"></i></label>
+            </form>
         </div>
         <h4 class="profile-name">@Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h4>
         <p class="profile-email">@User.Identity!.Name</p>
     </div>
 
     @* class of active is determined based on what the current value of action route is. *@
-@*     <nav>
-        <a class="@(ViewContext.RouteData.Values["action"]!.ToString()! == "Details" ? "active" : "")" asp-controller="Account" asp-action="Details"><i class="fa-light fa-gear"></i>Account Details</a>
-        <a class="@(ViewContext.RouteData.Values["action"]!.ToString()! == "Security" ? "active" : "")" asp-controller="Account" asp-action="Security"><i class="fa-regular fa-lock"></i>Security</a>
-        <a class="@(ViewContext.RouteData.Values["action"]!.ToString()! == "SavedCourses" ? "active" : "")" asp-controller="Account" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i>Saved Courses</a>
-        <a class="@(ViewContext.RouteData.Values["action"]!.ToString()! == "SignOut" ? "active" : "")" asp-controller="Auth" asp-action="SignOut"><i class="fa-sharp fa-light fa-arrow-right-from-bracket sign-out"></i>Sign Out</a>
-    </nav> *@
     <nav>
         <a class="@((ViewContext.RouteData.Values["action"] as string == "Details") ? "active" : "")" asp-controller="Account" asp-action="Details"><i class="fa-light fa-gear"></i>Account Details</a>
         <a class="@((ViewContext.RouteData.Values["action"] as string == "Security" || ViewContext.RouteData.Values["action"] as string == "UpdatePassword" || ViewContext.RouteData.Values["action"] as string == "DeleteAccount") ? "active" : "")" asp-controller="Account" asp-action="Security"><i class="fa-regular fa-lock"></i>Security</a>
         <a class="@((ViewContext.RouteData.Values["action"] as string == "SavedCourses") ? "active" : "")" asp-controller="Account" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i>Saved Courses</a>
         <a class="@((ViewContext.RouteData.Values["action"] as string == "SignOut") ? "active" : "")" asp-controller="Auth" asp-action="SignOut"><i class="fa-sharp fa-light fa-arrow-right-from-bracket sign-out"></i>Sign Out</a>
     </nav>
+
+    <script src="~/js/accountSidebar.js"></script>
 </div>

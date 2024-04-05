@@ -58,6 +58,19 @@ header {
                 width: 50%;
                 height: auto;
                 transform: translateX(100%);
+                border-radius: 100%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                object-position: 50% 50%;
+                max-width: 4rem;
+
+                @include md {
+                    max-width: 6rem;
+                }
+
+                @include xl {
+                    max-width: 8rem;
+                }
             }
         }
 
@@ -97,7 +110,6 @@ header {
         flex-direction: column-reverse;
         gap: 1rem;
         align-items: center;
-
         // In order of appearance with flex-direction: column-reverse;
         .account-buttons {
             display: flex;
