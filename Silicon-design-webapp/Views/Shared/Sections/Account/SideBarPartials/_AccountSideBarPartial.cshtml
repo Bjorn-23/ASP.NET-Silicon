@@ -3,7 +3,7 @@
 <div class="sidebar">
     <div class="profile-wrapper">
         <div class="image-wrapper">
-            <img class="profile-picture" src="~/uploads/@Model.AccountInfo.ProfileImageUrl" alt="Profile picture of @Model.AccountInfo.FirstName @Model.AccountInfo.LastName">
+            <img class="profile-picture" src="/uploads/@Model.AccountInfo.ProfileImageUrl" alt="Profile picture of @Model.AccountInfo.FirstName @Model.AccountInfo.LastName">
 
             <form enctype="multipart/form-data" method="post" asp-action="UploadImage" asp-controller="Account">
                 <input class="hidden" id="fileUploader" type="file" name="file"/>

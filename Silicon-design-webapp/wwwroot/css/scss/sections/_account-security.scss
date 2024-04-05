@@ -139,6 +139,10 @@
                         right: calc(50% + 0.5rem);
                     }
                 }
+
+                .external-account-text {
+                    color: var(--color-danger);
+                }
             }
 
             .button-wrapper {

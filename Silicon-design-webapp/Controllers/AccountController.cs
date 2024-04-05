@@ -73,9 +73,9 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     #region Security
     [Route("/security")]
     [HttpGet]
-    public async Task<IActionResult> Security()
+    public async Task<IActionResult> Security(AccountSecurityViewModel? returnViewmodel)
     {
-        var viewModel = new AccountSecurityViewModel();
+        var viewModel = returnViewmodel ?? new AccountSecurityViewModel();
 
         var activeUser = await _userService.GetActiveUserAsync(User);
         if (activeUser.Content != null)
@@ -107,13 +107,13 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
             {
                 ModelState.Clear();
                 accountViewModel.StatusMessage = result.Message;
-                return View("Security", accountViewModel);
+                return RedirectToAction("Security", accountViewModel);
             }
         }
 
         ViewBag.isExternalAccount = user?.IsExternalAccount;
         accountViewModel.StatusMessage = "Failed to update password";
-        return View("Security", accountViewModel);
+        return RedirectToAction("Security", accountViewModel);
     }
     #endregion
 
@@ -135,7 +135,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         var viewModelError = new AccountSecurityViewModel();
         viewModelError.StatusMessage = "Account could not be deleted";
         ModelState.Clear();
-        return View("Security", viewModelError);
+        return RedirectToAction("Security", viewModelError);
     }
     #endregion
     #endregion

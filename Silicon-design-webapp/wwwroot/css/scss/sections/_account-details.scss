@@ -34,7 +34,11 @@
             }
         }
 
-        form {
+        .basic-info {
+            .external-account-text {
+                color: var(--color-danger);
+            }
+            
             .group-wrapper {
                 @include md {
                     display: flex;

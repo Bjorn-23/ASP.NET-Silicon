@@ -85,6 +85,10 @@
                     transform: scale(102%, 102%);
                 }
 
+                &:active {
+                    transform: scale(99%, 99%);
+                }
+
                 .img-wrapper {
                     .course-image {
                         width: 100%;
