@@ -18,6 +18,7 @@ public class UserFactory
                 LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Email,
+                ProfileImageUrl = model.ProfileImageUrl,
             };
 
             return entity;
@@ -42,7 +43,9 @@ public class UserFactory
                 Email = entity.Email!,
                 Phone = entity.PhoneNumber,
                 Biography = entity.Biography,
-                IsExternalAccount = entity.IsExternalAccount
+                IsExternalAccount = entity.IsExternalAccount,
+                ProfileImageUrl = entity.ProfileImageUrl,
+
             };
 
             return model;
@@ -67,7 +70,8 @@ public class UserFactory
                 Email = model.Email!,
                 PhoneNumber = model.Phone,
                 Biography = model.Biography,
-                IsExternalAccount = model.IsExternalAccount
+                IsExternalAccount = model.IsExternalAccount,
+                ProfileImageUrl = model.ProfileImageUrl,
             };
 
             return entity;
@@ -90,7 +94,8 @@ public class UserFactory
                 LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
                 Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
                 UserName = info.Principal.FindFirstValue(ClaimTypes.Email)!,
-                IsExternalAccount = true
+                IsExternalAccount = true,
+                ProfileImageUrl = "avatar.png",
             };
 
             return entity;

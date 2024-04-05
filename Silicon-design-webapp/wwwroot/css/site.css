@@ -558,14 +558,27 @@ section .sidebar .profile-wrapper .image-wrapper {
 section .sidebar .profile-wrapper .image-wrapper .profile-picture {
   width: 100%;
   height: auto;
+  max-width: 6rem;
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+@media (min-width: 768px) {
+  section .sidebar .profile-wrapper .image-wrapper .profile-picture {
+    max-width: 8rem;
+  }
+}
+@media (min-width: 1200px) {
+  section .sidebar .profile-wrapper .image-wrapper .profile-picture {
+    max-width: 10rem;
+  }
 }
 section .sidebar .profile-wrapper .image-wrapper .change-pic {
   position: absolute;
   bottom: 0;
   right: 0;
-  box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
-  border-radius: 0.5rem;
-  overflow: hidden;
+  border: 1px solid var(--color-gray-300);
   border-radius: 100%;
   width: 1px;
   height: 1px;
@@ -836,6 +849,21 @@ header .container .account-buttons .user-profile-pic {
   width: 50%;
   height: auto;
   transform: translateX(100%);
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: 50% 50%;
+  max-width: 4rem;
+}
+@media (min-width: 768px) {
+  header .container .account-buttons .user-profile-pic {
+    max-width: 6rem;
+  }
+}
+@media (min-width: 1200px) {
+  header .container .account-buttons .user-profile-pic {
+    max-width: 8rem;
+  }
 }
 header .container .btn-mobile {
   grid-area: mobile;

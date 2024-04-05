@@ -1,9 +1,10 @@
-﻿@inject SignInManager<UserEntity> _signInManager;
-
-@{
+﻿@{
+    var user = await UserManager.GetUserAsync(User);
+    var _signInManager = SignInManager;
     var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
     bool isDark = (themeMode == "dark") ? true : false;
 }
+
 
 <div id="menu">
     <nav>
@@ -33,9 +34,9 @@
 </div>
 
 <div class="account-buttons">
-    @if (_signInManager.IsSignedIn(User))
+    @if (_signInManager.IsSignedIn(User) && user != null)
     {
-        <a class="user-logged-in" asp-controller="Account" asp-action="Details"><img class="user-profile-pic" src="/img/user-logged-in.png" alt="profile picture of user"></a>
+        <a class="user-logged-in" asp-controller="Account" asp-action="Details"><img class="user-profile-pic" src="~/uploads/@user.ProfileImageUrl" alt="Profile picture of @user.FirstName @user.LastName"></a>
     }
     else
     {

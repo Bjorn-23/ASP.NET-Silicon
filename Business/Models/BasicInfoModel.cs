@@ -39,4 +39,7 @@ public class BasicInfoModel
     public string? Biography { get; set; }
 
     public bool IsExternalAccount { get; set; }
+
+    public string ProfileImageUrl { get; set; } = null!;
+
 }

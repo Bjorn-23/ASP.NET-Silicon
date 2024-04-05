@@ -3,16 +3,19 @@ using Business.Models;
 using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Claims;
 
 namespace Business.Services;
 
-public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signIn)
+public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signIn, IConfiguration configuration)
 {
+    private readonly IConfiguration _configuration = configuration;
     private readonly UserManager<UserEntity> _userManager = userManager;
     private readonly SignInManager<UserEntity> _signInManager = signIn;
 
@@ -33,12 +36,12 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 var result = await _userManager.CreateAsync(entity, model.Password);
                 if (result.Succeeded)
                 {
-                    var assignRole = await RoleAssignerAsync(anyUsers, entity, "User");                    
+                    var assignRole = await RoleAssignerAsync(anyUsers, entity, "User");
                     if (assignRole)
                         return ResponseFactory.Ok(result, "User created succesfully");
                 }
             }
-            
+
             return ResponseFactory.Exists("A user with that email alredy exists");
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message + "CreateUserAsync"); }
@@ -117,7 +120,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 if (userEntity.IsExternalAccount)
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(userEntity);
-                    var resetResult= await _userManager.ResetPasswordAsync(userEntity, token, model.NewPassword);
+                    var resetResult = await _userManager.ResetPasswordAsync(userEntity, token, model.NewPassword);
                     if (resetResult.Succeeded)
                     {
                         userEntity.IsExternalAccount = false;
@@ -129,7 +132,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 else
                 {
                     var result = await _userManager.ChangePasswordAsync(userEntity, model.CurrentPassword, model.NewPassword);
-                    if (result.Succeeded)                   
+                    if (result.Succeeded)
                         return ResponseFactory.Ok(UserFactory.Create(userEntity), "Password updated successfully");
 
                     else
@@ -229,7 +232,35 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return false;
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser"); return false; }
+        catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser");
+        return false; }
     }
-    
+
+    public async Task<bool> UploadUserProfileImageAsync(ClaimsPrincipal user, IFormFile file)
+    {
+        try
+        {
+            if (user != null && file != null && file.Length != 0)
+            {
+                var userEntity = await _userManager.GetUserAsync(user);
+                if (userEntity != null)
+                {
+                    var fileName = $"p_{userEntity.Id}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["FilePaths:FileUploadPath"]!, fileName);
+                    // Path.Combine needs a catalog that already exists, can not create folder structures.
+
+                    using var fs = new FileStream(filePath, FileMode.Create);
+                    await file.CopyToAsync(fs);
+
+                    userEntity.ProfileImageUrl = fileName;
+                    await _userManager.UpdateAsync(userEntity);
+
+                    return true;
+                }
+            }
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser"); }
+        return false;
+    }
+
 }

@@ -18,13 +18,26 @@ section {
                 .profile-picture {
                     width: 100%;
                     height: auto;
+                    max-width: 6rem;
+                    border-radius: 100%;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                    object-position: 50% 50%;
+
+                    @include md {
+                        max-width: 8rem;
+                    }
+
+                    @include xl {
+                        max-width: 10rem;
+                    }
                 }
 
                 .change-pic {
                     position: absolute;
                     bottom: 0;
                     right: 0;
-                    @include card;
+                    border: 1px solid var(--color-gray-300);
                     border-radius: 100%;
                     width: 1px;
                     height: 1px;
