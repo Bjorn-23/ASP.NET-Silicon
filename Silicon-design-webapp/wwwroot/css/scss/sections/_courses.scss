@@ -76,11 +76,14 @@
                 position: relative;
                 display: flex;
                 flex-direction: column;
-/*                box-shadow: 1px 2px 2px #00000030, 2px 4px 4px #00000017, 3px 6px 6px #00000009, 5px 10px 10px #00000005;
-*/                border-radius: 0.5rem;
+                border-radius: 0.5rem;
                 overflow: hidden;
                 text-decoration: none;
-                @include course-card;
+                @include card;
+
+                &:hover {
+                    transform: scale(102%, 102%);
+                }
 
                 .img-wrapper {
                     .course-image {
