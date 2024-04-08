@@ -8,44 +8,45 @@
 
             <div class="top-right">
 
-                <select class="form-select" name="category" id="category-select">
-                    <option selected>All categories</option>
-                    <option value="Html">Html</option>
-                    <option value="Css/Scss">Css/Scss</option>
-                    <option value="Javascript">Javascript</option>
-                    <option value="C#">C#</option>
-                    <option value="SQL">SQL</option>
-                    <option value="Fullstack">Fullstack</option>
-                    <option value="Frontend">Frontend</option>
-                    <option value="Backend">Backend</option>
-                </select>
+                <div class="select">
+                    <div class="selected">All Categories</div>
+                    <div class="select-options">
+                        <div class="option" data-value="all">All Categories</div>
+                        @if (Model.Categories != null && Model.Categories.Count() > 0)
+                        {
+                            foreach (var category in Model.Categories)
+                            {
+                                <div class="option" data-value="@category.CategoryName">@category.CategoryName</div>
+                            }
+                        }
+                    </div>
+                </div>
 
                 <div class="search-wrapper">
-                    <input class="search-field form-control" type="search" name="search-bar" id="search-bar"
-                           placeholder="Search courses">
-                    <i class="fa-light fa-magnifying-glass"></i>
+                    <input class="search-field" type="search" name="searchQuery" id="searchQuery" placeholder="Search courses" />
+                    <i class="fa-light fa-search"></i>
                 </div>
 
             </div>
         </div>
 
-        <div class="grid-container">
+        <div class="grid-container items">
             @if (@Model.Courses.Count() >= 1)
             {
                 foreach (var course in Model.Courses)
                 {
-                    <a class="grid-item" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">
+                    <div class="grid-item" onclick="location.href='@Url.Action("Details", "Courses", new { id = course.Id })'">
                         <div class="img-wrapper">
                             <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
                             <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
                         </div>
-                        <div class="bookmark-wrapper">
+                        <a class="bookmark-wrapper">
                             <div class="circle">
                                 @* NEED LOGIC HERE FOR LOOPING THROUGH CORRESPONDING BOOKMARKS *@
 @*                                 <img class="@(course.Bookmark != true ? "bookmark" : "bookmark hidden")" src="/img/bookmark.svg" alt="Bookmark">
                                 <img class="@(course.Bookmark == true ? "bookmark-filled" : "bookmark-filled hidden")" src="/img/bookmark-filled.svg" alt="Bookmark Filled in"> *@
                             </div>
-                        </div>
+                        </a>
                         <div class="text-wrapper">
                             <h5>@course.Title</h5>
                             <span class="by">By</span><span class="author">@course.Author</span>
@@ -60,7 +61,7 @@
                                 <span class="description">&#128077 @course.Rating</span>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 }
             }
         </div>
@@ -88,4 +89,6 @@
         </div>
 
     </div>
+
+    <script src="~/js/coursesFilter.js"></script>
 </section>

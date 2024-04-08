@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Silicon_design_webapp.Helpers;
 using Silicon_design_webapp.ViewModels.Admin;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,11 +14,12 @@ using System.Text;
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize(Policy = "Admin")]
-public class AdminController(AdminService adminService, IConfiguration configuration, HttpClient httpClient) : Controller
+public class AdminController(AdminService adminService, IConfiguration configuration, HttpClient httpClient, CategoryIdAssigner categoryIdAssigner) : Controller
 {
     private readonly AdminService _adminService = adminService;
     private readonly IConfiguration _configuration = configuration;
     private readonly HttpClient _httpClient = httpClient;
+    private readonly CategoryIdAssigner _categoryIdAssigner = categoryIdAssigner;
 
     #region USERS
 
@@ -346,6 +348,14 @@ public class AdminController(AdminService adminService, IConfiguration configura
     {
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
+        var categoryResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Category/{viewModel.Course.Category}?key={_configuration["ApiKey:Secret"]}");
+        if (categoryResponse.IsSuccessStatusCode)
+        {
+            var category = await _categoryIdAssigner.assignIdAsync(categoryResponse);
+            viewModel.Course.CategoryId = category.Id;
+            viewModel.Course.Category = category.CategoryName;
+        }
+
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.Course), Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);
         if (response.IsSuccessStatusCode)
@@ -365,6 +375,14 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> CreateCourse(AdminCoursesViewModel viewModel)
     {
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+        var categoryResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Category/{viewModel.CreateCourse.Category}?key={_configuration["ApiKey:Secret"]}");
+        if (categoryResponse.IsSuccessStatusCode)
+        {
+            var category = await _categoryIdAssigner.assignIdAsync(categoryResponse);
+            viewModel.CreateCourse.CategoryId = category.Id;
+            viewModel.CreateCourse.Category = category.CategoryName;
+        }
 
         var content = new StringContent(JsonConvert.SerializeObject(viewModel.CreateCourse), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}", content);

@@ -68,6 +68,7 @@ builder.Services.AddSession( x=>
     x.Cookie.HttpOnly = true;
 });
 
+builder.Services.AddScoped<CategoryIdAssigner>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<AdminService>();
