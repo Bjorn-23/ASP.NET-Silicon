@@ -104,14 +104,24 @@
                 </div>
 
                 <div class="group-wrapper">
-                    <div class="checkbox-group">
-                    <input asp-for="@Model.CreateCourse.BestSeller" />
-                    <label asp-for="@Model.CreateCourse.BestSeller"></label>
-                    <span asp-validation-for="@Model.CreateCourse.Author"></span>
+                    <div class="input-group">
+                        <label asp-for="@Model.CreateCourse.Category"></label>
+                        <select asp-for="@Model.CreateCourse.Category">
+                            <option selected>All Categories</option>
+                            <option value="Frontend Development">Frontend Development</option>
+                            <option value="App Development">App Development</option>
+                            <option value="HTML & CSS">HTML & CSS</option>
+                            <option value="Python">Python</option>
+                            <option value="Game Development">Game Development</option>
+                        </select>
                     </div>
-
-                    <button class="btn-theme submit" type="submit">Create course</button>
+                    <div class="checkbox-group">
+                        <input asp-for="@Model.CreateCourse.BestSeller" />
+                        <label asp-for="@Model.CreateCourse.BestSeller"></label>
+                        <span asp-validation-for="@Model.CreateCourse.Author"></span>
+                    </div>
                 </div>
+                <button class="btn-theme submit" type="submit">Create course</button>
             </form>
         </div>            
 
@@ -122,6 +132,8 @@
                 foreach (var course in Model.Courses)
                 {
                     <div class="form-wrapper">
+
+                        
                         
                         @* Course form *@
                         <form method="post" asp-action="UpdateCourse" asp-controller="Admin" novalidate>
@@ -198,13 +210,24 @@
                                     <label asp-for="@course.BestSeller"></label>
                                     <span asp-validation-for="@course.Author"></span>
                                 </div>
+                                <div class="input-group">
+                                    <label asp-for="@course.Category"></label>
+                                    <select asp-for="@course.Category">
+                                        <option selected>@course.Category</option>
+                                        <option value="Frontend Development">Frontend Development</option>
+                                        <option value="App Development">App Development</option>
+                                        <option value="HTML & CSS">HTML & CSS</option>
+                                        <option value="Python">Python</option>
+                                        <option value="Game Development">Game Development</option>
+                                    </select>
+                                </div>
+
+                            </div>
 
                                 <div class="button-wrapper">
                                     <button class="btn-theme submit" type="submit">Save changes</button>
                                     <button class="btn-gray" type="reset">Cancel</button>
                                 </div>
-                            </div>
-
                         </form>
 
                         @* Delete Form *@

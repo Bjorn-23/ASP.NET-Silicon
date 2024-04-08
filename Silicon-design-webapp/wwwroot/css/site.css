@@ -1939,17 +1939,54 @@ footer .container .details {
     gap: 2rem;
   }
 }
-.courses .container .top-row .top-right .form-select option[selected] {
-  color: var(--color-gray-600);
+.courses .container .top-row .top-right .select {
+  position: relative;
+  min-width: 300px;
+  background-image: url(/img/dropdownCourses.svg);
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 0.5rem;
+}
+.courses .container .top-row .top-right .select .selected {
+  white-space: nowrap;
+}
+.courses .container .top-row .top-right .select .select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: 0.5rem;
+}
+.courses .container .top-row .top-right .select .select-options .option {
+  padding: 0.8rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-gray-300);
+}
+.courses .container .top-row .top-right .select .select-options .option:hover {
+  background-color: var(--color-gray-300);
 }
 .courses .container .top-row .top-right .search-wrapper {
   position: relative;
   width: 100%;
 }
-.courses .container .top-row .top-right .search-wrapper .fa-magnifying-glass {
+.courses .container .top-row .top-right .search-wrapper .search-field {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--color-gray-400);
+  border-radius: 0.5rem;
+}
+.courses .container .top-row .top-right .search-wrapper ::placeholder {
+  color: var(--color-gray-500);
+}
+.courses .container .top-row .top-right .search-wrapper .fa-search {
   position: absolute;
   top: 0.7rem;
-  right: 0.7rem;
+  right: 0.6rem;
 }
 .courses .container .grid-container {
   display: grid;

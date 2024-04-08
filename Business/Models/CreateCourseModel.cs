@@ -30,4 +30,8 @@ public class CreateCourseModel
     public string LengthInHours { get; set; } = null!;
 
     public string? Rating { get; set; }
+
+    public int? CategoryId { get; set; }
+
+    public string? Category { get; set; }
 }
