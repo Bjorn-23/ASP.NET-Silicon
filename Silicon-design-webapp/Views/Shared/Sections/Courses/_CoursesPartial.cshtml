@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="search-wrapper">
-                    <input class="search-field" type="search" name="searchQuery" id="searchQuery" placeholder="Search courses" />
-                    <i class="fa-light fa-search"></i>
+                    <input class="search-query" name="searchQuery" id="searchQuery" placeholder="Search courses"><i class="fa-light fa-search"></i></input>
+
                 </div>
 
             </div>
@@ -66,16 +66,31 @@
             }
         </div>
 
-        <div class="pagination">
-            <ol class="list-wrapper">
-                <ul class=""><</ul>
-                <ul class="">1</ul>
-                <ul class="btn-gray">2</ul>
-                <ul class="btn-theme">3</ul>
-                <ul class="">4</ul>
-                <ul class="">></ul>
-            </ol>
-        </div>
+        @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
+        {
+            <div class="pagination">
+                @for(int i = 1; i <= Model.Pagination.TotalPages; i++)
+                {
+                    if (i == Model.Pagination.CurrentPage)
+                    {
+                        <span class="btn-theme">@i</span>
+                    }
+                    else
+                    {
+                        <a class="btn-gray" href="@Url.Action("Index", new { pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
+                    }
+                }
+@* 
+                <ol class="list-wrapper">
+                    <ul class=""><</ul>
+                    <ul class="">1</ul>
+                    <ul class="btn-gray">2</ul>
+                    <ul class="btn-theme">3</ul>
+                    <ul class="">4</ul>
+                    <ul class="">></ul>
+                </ol> *@
+            </div>            
+        }
 
         <div class="get-started">
             <div class="text-wrapper">

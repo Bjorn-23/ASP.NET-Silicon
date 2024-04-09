@@ -1,5 +1,6 @@
 ﻿using Business.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Courses;
@@ -15,15 +16,16 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
 
     [Route("/courses")]
     [HttpGet]
-    public async Task<IActionResult> Index(string category = "", string? searchQuery = "")
+    public async Task<IActionResult> Index(string category = "", string searchQuery = "", int pageNumber = 1, int pageSize = 6)
     {
         var viewModel = new CoursesViewModel();
 
-        var models = await PopulateCourses(category, searchQuery);
+        var models = await PopulateCourses(category, searchQuery, pageNumber, pageSize);
         if ( models.Courses != null && models.Categories != null)
         {
             viewModel.Courses = models.Courses;
             viewModel.Categories = models.Categories;
+            viewModel.Pagination = models.Pagination;
             return View(viewModel);
         }
 
@@ -50,28 +52,32 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
         return View(viewModel);
     }
 
-    public async Task<(IEnumerable<CourseBoxModel> Courses, IEnumerable<CategoryModel> Categories)> PopulateCourses(string category, string searchQuery)
+    public async Task<(IEnumerable<CourseBoxModel> Courses, Pagination Pagination, IEnumerable<CategoryModel> Categories)> PopulateCourses(string category, string searchQuery, int pageNumber, int pageSize)
     
     {
         try
-        {
+        {          
+
             var categoriesResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Category/?key={_configuration["ApiKey:Secret"]}");
-            var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.UnescapeDataString(category)}&searchQuery={Uri.UnescapeDataString(searchQuery)}&key={_configuration["ApiKey:Secret"]}"); //?category={category}
-            if (courseResponse.IsSuccessStatusCode && categoriesResponse.IsSuccessStatusCode)
+            if (categoriesResponse.IsSuccessStatusCode)
             {
-                var categoryStrings = await categoriesResponse.Content.ReadAsStringAsync();
-                var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(categoryStrings);
-
-                var courseStrings = await courseResponse.Content.ReadAsStringAsync();
-                var courses = JsonConvert.DeserializeObject<IEnumerable<CourseBoxModel>>(courseStrings);
-
-                if (courses != null && categories != null)
+                //var categoryStrings = await categoriesResponse.Content.ReadAsStringAsync();
+                var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(await categoriesResponse.Content.ReadAsStringAsync());
+            
+                var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.UnescapeDataString(category)}&searchQuery={Uri.UnescapeDataString(searchQuery)}&pageNumber={pageNumber}&pageSize={pageSize}&key={_configuration["ApiKey:Secret"]}"); //&pageNumber={pageNumber}&pageSize={pageSize}
+                if (courseResponse.IsSuccessStatusCode)
                 {
-                    return (courses, categories);
+                    var courseStrings = await courseResponse.Content.ReadAsStringAsync();
+                    var courseResult = JsonConvert.DeserializeObject<CourseResult>(courseStrings);
+
+                    if (courseResult != null && categories != null)
+                    {
+                        return (courseResult.ReturnCourses, courseResult.Pagination, categories);
+                    }
                 }
             }
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
-        return (null!,  null!);
+        return (null!, null!,  null!);
     }
 }
