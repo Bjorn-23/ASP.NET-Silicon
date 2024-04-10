@@ -1,13 +1,15 @@
-﻿using Business.Factories;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using System.Diagnostics;
+
 using Business.Models;
+using Business.Factories;
 using Infrastructure.Context;
 using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Utilities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Security.Claims;
+
 namespace Business.Services;
 
 public class AddressService(ApplicationDbContext context, UserManager<UserEntity> userManager)
@@ -15,6 +17,12 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
     private readonly ApplicationDbContext _context = context;
     private readonly UserManager<UserEntity> _userManager = userManager;
 
+    /// <summary>
+    /// Gets a user address if it exists, else creates it.
+    /// </summary>
+    /// <param name="User"></param>
+    /// <param name="model"></param>
+    /// <returns>ResponseResult with address.</returns>
     public async Task<ResponseResult> GetOrCreateAddressAsync(ClaimsPrincipal User, AddressInfoModel model)
     {
         try
@@ -36,7 +44,7 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
                     user.AddressId = exists.Id;
                     var updateUser = await _userManager.UpdateAsync(user);
                     if (updateUser != null)
-                        return ResponseFactory.Ok("Address added to user succefully");
+                        return ResponseFactory.Created("Address added to user succefully");
                 }
             }
             if (exists == null)
@@ -51,7 +59,9 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
                         user.AddressId = newAddress.Entity.Id;
                         var updateUser = await _userManager.UpdateAsync(user);
                         if (updateUser != null)
-                            return ResponseFactory.Ok("Address created succefully");
+                        {
+                            return ResponseFactory.Created("Address created succefully");
+                        }
                     }
                 }
             }
@@ -79,6 +89,7 @@ public class AddressService(ApplicationDbContext context, UserManager<UserEntity
 
     }
 
+    // Theses can be used for admin purposes on addresses
     //public async Task<ResponseResult> GetOrCreateOneAdressAsync(AccountDetailsAddressInfoModel address)
     //{
     //    try

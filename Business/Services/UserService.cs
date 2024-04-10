@@ -1,15 +1,15 @@
-﻿using Business.Factories;
-using Business.Models;
-using Infrastructure.Entitites;
-using Infrastructure.Factories;
-using Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Claims;
+
+using Business.Models;
+using Business.Factories;
+using Infrastructure.Entitites;
+using Infrastructure.Factories;
+using Infrastructure.Utilities;
 
 namespace Business.Services;
 
