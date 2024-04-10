@@ -19,4 +19,6 @@ public class UserEntity : IdentityUser
     public bool IsExternalAccount { get; set; } = false;
 
     public string ProfileImageUrl { get; set; } = null!;
+
+    public ICollection<SavedCoursesEntity>? SavedCourses { get; set; }
 }

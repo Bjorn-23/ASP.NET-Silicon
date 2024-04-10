@@ -18,7 +18,7 @@ public class UserFactory
                 LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Email,
-                ProfileImageUrl = model.ProfileImageUrl,
+                ProfileImageUrl = model.ProfileImageUrl,                
             };
 
         }
@@ -40,7 +40,7 @@ public class UserFactory
                 Biography = entity.Biography,
                 IsExternalAccount = entity.IsExternalAccount,
                 ProfileImageUrl = entity.ProfileImageUrl,
-
+                SavedCourses = entity.SavedCourses ?? [],
             };
 
         }
@@ -62,6 +62,7 @@ public class UserFactory
                 Biography = model.Biography,
                 IsExternalAccount = model.IsExternalAccount,
                 ProfileImageUrl = model.ProfileImageUrl,
+                SavedCourses = model.SavedCourses ?? [],
             };
 
         }

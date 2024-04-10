@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,11 @@ using System.Diagnostics;
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize]
-public class CoursesController(IConfiguration configuration, HttpClient httpClient) : Controller
+public class CoursesController(IConfiguration configuration, HttpClient httpClient, UserService userService) : Controller
 {
     private readonly IConfiguration _configuration = configuration;
     private readonly HttpClient _httpClient = httpClient;
+    private readonly UserService _userService = userService;
 
     [Route("/courses")]
     [HttpGet]
@@ -21,8 +23,9 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
         var viewModel = new CoursesViewModel();
 
         var models = await PopulateCourses(category, searchQuery, pageNumber, pageSize);
-        if ( models.Courses != null && models.Categories != null)
+        if (models.Courses != null && models.Categories != null)
         {
+            viewModel.SavedCourses = models.SavedCourses;
             viewModel.Courses = models.Courses;
             viewModel.Categories = models.Categories;
             viewModel.Pagination = models.Pagination;
@@ -52,19 +55,18 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
         return View(viewModel);
     }
 
-    public async Task<(IEnumerable<CourseBoxModel> Courses, Pagination Pagination, IEnumerable<CategoryModel> Categories)> PopulateCourses(string category, string searchQuery, int pageNumber, int pageSize)
-    
+    public async Task<(IEnumerable<CourseBoxModel> Courses, Pagination Pagination, IEnumerable<CategoryModel> Categories, IEnumerable<SavedCoursesModel> SavedCourses)> PopulateCourses(string category, string searchQuery, int pageNumber, int pageSize)
     {
         try
-        {          
-
+        {
+            var savedCourses = await _userService.GetSavedCourses(User);
             var categoriesResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Category/?key={_configuration["ApiKey:Secret"]}");
             if (categoriesResponse.IsSuccessStatusCode)
             {
                 //var categoryStrings = await categoriesResponse.Content.ReadAsStringAsync();
                 var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(await categoriesResponse.Content.ReadAsStringAsync());
-            
-                var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.UnescapeDataString(category)}&searchQuery={Uri.UnescapeDataString(searchQuery)}&pageNumber={pageNumber}&pageSize={pageSize}&key={_configuration["ApiKey:Secret"]}"); //&pageNumber={pageNumber}&pageSize={pageSize}
+
+                var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.EscapeDataString(category)}&searchQuery={Uri.EscapeDataString(searchQuery)}&pageNumber={pageNumber}&pageSize={pageSize}&key={_configuration["ApiKey:Secret"]}"); //&pageNumber={pageNumber}&pageSize={pageSize}
                 if (courseResponse.IsSuccessStatusCode)
                 {
                     var courseStrings = await courseResponse.Content.ReadAsStringAsync();
@@ -72,12 +74,12 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
 
                     if (courseResult != null && categories != null)
                     {
-                        return (courseResult.ReturnCourses, courseResult.Pagination, categories);
+                        return (courseResult.ReturnCourses, courseResult.Pagination, categories, savedCourses);
                     }
                 }
             }
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
-        return (null!, null!,  null!);
+        return (null!, null!, null!, null!);
     }
 }

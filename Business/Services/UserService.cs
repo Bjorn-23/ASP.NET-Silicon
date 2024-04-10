@@ -10,14 +10,16 @@ using Business.Factories;
 using Infrastructure.Entitites;
 using Infrastructure.Factories;
 using Infrastructure.Utilities;
+using Infrastructure.Context;
 
 namespace Business.Services;
 
-public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signIn, IConfiguration configuration)
+public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signIn, IConfiguration configuration, ApplicationDbContext context)
 {
     private readonly IConfiguration _configuration = configuration;
     private readonly UserManager<UserEntity> _userManager = userManager;
     private readonly SignInManager<UserEntity> _signInManager = signIn;
+    private readonly ApplicationDbContext _context = context;
 
 
     public async Task<ResponseResult> RegisterUserAsync(SignUpModel model)
@@ -44,7 +46,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return ResponseFactory.Exists("A user with that email alredy exists");
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "CreateUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
     }
 
@@ -64,7 +66,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             return ResponseFactory.NotFound("User or password incorrect");
 
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "SignInUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
     }
 
@@ -79,7 +81,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "GetActiveUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
 
     }
@@ -105,7 +107,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "UpdateUserAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
     }
 
@@ -143,7 +145,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             //Possible unnecessary as method can only be reacched by logged in user? Maybe for admin??
             return ResponseFactory.NotFound("No active user could be found");
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "UpdateUserPasswordAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
     }
 
@@ -164,7 +166,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             return ResponseFactory.NotFound("No User found");
 
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "DeleteUserAccount"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
     }
 
@@ -212,7 +214,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return ResponseFactory.BadRequest("External login failed.");
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message + "SignInOrRegisterExternalAccount"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return ResponseFactory.BadRequest();
     }
 
@@ -232,8 +234,11 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
             return false;
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser");
-        return false; }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
     }
 
     public async Task<bool> UploadUserProfileImageAsync(ClaimsPrincipal user, IFormFile file)
@@ -259,8 +264,110 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 }
             }
         }
-        catch (Exception ex) { Debug.WriteLine(ex.Message, "IsFirstUser"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return false;
     }
+
+    public async Task<IEnumerable<SavedCoursesModel>> GetSavedCourses(ClaimsPrincipal User)
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var savedCourses = await _context.SavedCourses.Where(x => x.UserId == user.Id).ToListAsync();
+                return SavedCoursesFactory.Create(savedCourses);
+            }
+
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
+    }
+
+    public async Task<SavedCoursesEntity> GetOneSavedCourse(ClaimsPrincipal User, string courseId)
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var savedCourse = await _context.SavedCourses.FirstOrDefaultAsync(x => x.UserId == user.Id && x.CourseId == courseId);
+                if (savedCourse != null)
+                {
+                    return savedCourse;
+                }
+            }
+
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
+    }
+
+    public async Task<bool> CreateSavedCourse(ClaimsPrincipal User, string courseId)
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                SavedCoursesEntity course = new() { CourseId = courseId, UserId = user.Id };
+
+                await _context.SavedCourses.AddAsync(course);
+                var result = await _context.SaveChangesAsync();
+                if (result == 1)
+                {
+                    return true;
+                }
+            }
+            
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return false;
+    }
+
+    public async Task<bool> DeleteSavedCourse(SavedCoursesEntity savedCourse)
+    {
+        var tracked = _context.ChangeTracker.Entries<SavedCoursesEntity>().Any(e => e.Entity.UserId == savedCourse.UserId && e.Entity.CourseId == savedCourse.CourseId);
+
+        try
+        {
+            if (savedCourse != null)
+            {
+                    _context.SavedCourses.Remove(savedCourse);
+                    var result = await _context.SaveChangesAsync();
+                    if (result == 1)
+                    {
+                        return true;
+                    }
+            }
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return false;
+    }
+
+    public async Task<bool> DeleteAllSavedCourses(ClaimsPrincipal User)
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var savedCourses = await _context.SavedCourses.Where(x => x.UserId == user.Id).ToListAsync();
+                if (savedCourses != null)
+                {
+                    _context.SavedCourses.RemoveRange(savedCourses);
+                    var result = await _context.SaveChangesAsync();
+                    if (result == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return false;
+    }
+
+    
 
 }

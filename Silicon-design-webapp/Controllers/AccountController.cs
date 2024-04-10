@@ -1,20 +1,28 @@
-﻿using Business.Models;
+﻿using Business.Factories;
+using Business.Models;
 using Business.Services;
+using Infrastructure.Context;
 using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Account;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Silicon_design_webapp.Controllers;
 
 [Authorize(Policy = "User")]
-public class AccountController(SignInManager<UserEntity> signInManager, UserService userService, AddressService addressService) : Controller
+public class AccountController(SignInManager<UserEntity> signInManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, ApplicationDbContext context) : Controller
 {
     private readonly SignInManager<UserEntity> _signInManager = signInManager;
     private readonly UserService _userService = userService;
     private readonly AddressService _addressService = addressService;
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly ApplicationDbContext _context = context;
+
 
     #region Details
     [Route("/account")]
@@ -40,7 +48,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     #region Basic Form
     [HttpPost]
     public async Task<IActionResult> BasicInfo(BasicInfoModel model)
-    { 
+    {
         if (ModelState.IsValid)
         {
             var result = await _userService.UpdateUserAsync(User, model);
@@ -62,7 +70,7 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
         {
             var result = await _addressService.GetOrCreateAddressAsync(User, model);
             if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK)
-                return RedirectToAction("Details");            
+                return RedirectToAction("Details");
         }
 
         return RedirectToAction("Details");
@@ -147,33 +155,83 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     {
         var viewModel = new AccountSavedCoursesViewModel();
 
+        var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}");
+        if (courseResponse.IsSuccessStatusCode)
+        {
+            var courseStrings = await courseResponse.Content.ReadAsStringAsync();
+            var courseResult = JsonConvert.DeserializeObject<CourseResult>(courseStrings);
+            if (courseResult != null)
+            {
+                viewModel.Courses = courseResult.ReturnCourses;
+            }
+        }
+        var savedCourses = await _userService.GetSavedCourses(User);
+        if (savedCourses != null)
+        {
+            viewModel.SavedCourses = savedCourses;
+        }
+
         var activeUser = await _userService.GetActiveUserAsync(User);
         if (activeUser.Content != null)
         {
             viewModel.Sidebar.AccountInfo = (BasicInfoModel)activeUser.Content;
         }
+
+        ViewData["CourseStatus"] = TempData["CourseStatus"] ?? "";
         return View(viewModel);
     }
+
+    [Route("/account/bookmarkcourse{courseId}")]
+    [HttpPost]
+    public async Task<IActionResult> BookmarkCourse(string courseId)
+    {
+        //var tracked = _context.ChangeTracker.Entries<SavedCoursesEntity>().Any(e => e.Entity.UserId == savedCourse.UserId && e.Entity.CourseId == savedCourse.CourseId);
+
+        var existingSavedCourse = await _userService.GetOneSavedCourse(User, courseId);
+        if (existingSavedCourse == null)
+        {
+            var savedCourse = await _userService.CreateSavedCourse(User, courseId);
+            if (savedCourse)
+            {
+                TempData["CourseStatus"] = "Course saved Successfully.";
+                return RedirectToAction("SavedCourses");
+            }
+        }
+        else
+        {
+            var result = await _userService.DeleteSavedCourse(existingSavedCourse);
+            if (result)
+            {
+                TempData["CourseStatus"] = "Course deleted.";
+                return RedirectToAction("Index", "Courses");
+            }
+        }
+
+        TempData["CourseStatus"] = "Something went wrong, contact site owner if issue persists.";
+        return RedirectToAction("SavedCourses");
+    }
+
+    //[Route("/account/deleteAllSavedCourses")]
+    [HttpPost]
+    public async Task<IActionResult> DeleteAllSavedCourses()
+    {
+            var result = await _userService.DeleteAllSavedCourses(User);
+            if (result)
+            {
+                TempData["CourseStatus"] = "Courses deleted.";
+                return RedirectToAction("Index", "Courses");
+            }
+
+        TempData["CourseStatus"] = "Something went wrong, contact site owner if issue persists.";
+        return RedirectToAction("SavedCourses");
+    }
+
+
 
     public async Task<IActionResult> UploadImage(IFormFile file)
     {
         var result = await _userService.UploadUserProfileImageAsync(User, file);
         return RedirectToAction("index");
-    }
-
-    // How do I pick just one item to delete?
-    [HttpPost]
-    public IActionResult DeleteBookmarkedCourse(AccountSavedCoursesViewModel viewModel)
-    {
-        // _accountService.UpdateSavedCourses(viewModel.Courses) // set one bookmark to false?
-        return RedirectToAction(nameof(SavedCourses));
-    }
-
-    [HttpPost]
-    public IActionResult DeleteAllSavedCourses(AccountSavedCoursesViewModel viewModel)
-    {
-        // _accountService.UpdateSavedCourses(viewModel.Courses) // set all bookmarks to false?
-        return RedirectToAction(nameof(SavedCourses));
     }
     #endregion
 }

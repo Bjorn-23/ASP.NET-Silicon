@@ -50,6 +50,24 @@ namespace Infrastructure.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entitites.SavedCoursesEntity", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserEntityId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("UserEntityId");
+
+                    b.ToTable("SavedCourses");
+                });
+
             modelBuilder.Entity("Infrastructure.Entitites.UserEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -275,6 +293,13 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Entitites.SavedCoursesEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entitites.UserEntity", null)
+                        .WithMany("SavedCourses")
+                        .HasForeignKey("UserEntityId");
+                });
+
             modelBuilder.Entity("Infrastructure.Entitites.UserEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entitites.AddressEntity", "Address")
@@ -339,6 +364,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Entitites.AddressEntity", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entitites.UserEntity", b =>
+                {
+                    b.Navigation("SavedCourses");
                 });
 #pragma warning restore 612, 618
         }
