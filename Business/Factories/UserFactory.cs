@@ -12,7 +12,7 @@ public class UserFactory
     {
         try
         {
-            UserEntity entity = new()
+            return new UserEntity
             {                
                 FirstName = model.FirstName,
                 LastName = model.LastName,
@@ -21,21 +21,16 @@ public class UserFactory
                 ProfileImageUrl = model.ProfileImageUrl,
             };
 
-            return entity;
-
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message + "failed to create UserEntity in factory from SignUpModel");
-            return null!;
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 
     public static BasicInfoModel Create(UserEntity entity)
     {
         try
         {
-            BasicInfoModel model = new()
+            return new BasicInfoModel
             {
                 Id = entity.Id,
                 FirstName = entity.FirstName,
@@ -48,21 +43,16 @@ public class UserFactory
 
             };
 
-            return model;
-
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message + "failed to create UserModel in factory from UserEntity");
-            return null!;
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 
     public static UserEntity Create(BasicInfoModel model)
     {
         try
         {
-            UserEntity entity = new()
+            return new UserEntity
             {
                 Id = model.Id!,
                 FirstName = model.FirstName,
@@ -74,21 +64,16 @@ public class UserFactory
                 ProfileImageUrl = model.ProfileImageUrl,
             };
 
-            return entity;
-
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message + "failed to create UserEntity in factory from UserModel");
-            return null!;
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 
     public static UserEntity Create(ExternalLoginInfo info)
     {
         try
         {
-            UserEntity entity = new()
+            return new UserEntity
             {
                 FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
                 LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
@@ -98,13 +83,8 @@ public class UserFactory
                 ProfileImageUrl = "avatar.png",
             };
 
-            return entity;
-
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message + "failed to create External user in factory from ExternalLoginInfo");
-            return null!;
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 }

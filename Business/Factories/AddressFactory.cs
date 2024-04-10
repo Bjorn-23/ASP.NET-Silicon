@@ -11,7 +11,7 @@ public class AddressFactory
     {
         try
         {
-            var address = new AddressEntity()
+            return new AddressEntity()
             {
                 Id = model.Id,
                 StreetName_1 = model.AddresLine_1,
@@ -19,20 +19,17 @@ public class AddressFactory
                 PostalCode = model.PostalCode,
                 City = model.City
             };
-            return address;
+
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return null!;
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 
     public static AddressInfoModel Create(AddressEntity entity)
     {
         try
         {
-            var address = new AddressInfoModel()
+            return new AddressInfoModel()
             {
                 Id = entity.Id,
                 AddresLine_1 = entity.StreetName_1,
@@ -40,13 +37,9 @@ public class AddressFactory
                 PostalCode = entity.PostalCode,
                 City = entity.City
             };
-            return address;
 
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return null!;
-        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+        return null!;
     }
 }

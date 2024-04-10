@@ -3,7 +3,6 @@ using Business.Models;
 using Business.Services;
 using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.Helpers;
@@ -312,15 +311,16 @@ public class AdminController(AdminService adminService, IConfiguration configura
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
-            var models = JsonConvert.DeserializeObject<IEnumerable<CourseBoxModel>>(jsonStrings);
-            viewModel.Courses = models!;
-            return View(viewModel);
+            var models = JsonConvert.DeserializeObject<CourseResult>(jsonStrings);
+            if (models != null)
+            {
+                viewModel.Courses = models!.ReturnCourses;
+                return View(viewModel);
+            }
         }
-        else
-        {
-            ViewData["CourseStatus"] = response.StatusCode;
-            return View(viewModel);
-        }
+
+        ViewData["CourseStatus"] = response.StatusCode;
+        return View(viewModel);   
     }
 
     [HttpGet("/admin/courses/{Id}")]
