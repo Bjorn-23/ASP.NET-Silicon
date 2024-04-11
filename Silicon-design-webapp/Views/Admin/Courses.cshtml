@@ -110,6 +110,20 @@
 
                 <div class="group-wrapper">
                     <div class="input-group">
+                        <label asp-for="@Model.CreateCourse.NumberOfLikes"></label>
+                        <span asp-validation-for="@Model.CreateCourse.NumberOfLikes"></span>
+                        <input asp-for="@Model.CreateCourse.NumberOfLikes" />
+                    </div>
+
+                    <div class="input-group">
+                        <label asp-for="@Model.CreateCourse.NumberOfReviews"></label>
+                        <span asp-validation-for="@Model.CreateCourse.NumberOfReviews"></span>
+                        <input asp-for="@Model.CreateCourse.NumberOfReviews">
+                    </div>
+                </div>
+
+                <div class="group-wrapper">
+                    <div class="input-group">
                         <label asp-for="@Model.CreateCourse.Category"></label>
                         <select asp-for="@Model.CreateCourse.Category">
                             <option selected>All Categories</option>
@@ -206,6 +220,20 @@
                                     <label asp-for="@course.Rating"></label>
                                     <span asp-validation-for="@course.Rating"></span>
                                     <input asp-for="@course.Rating">
+                                </div>
+                            </div>
+
+                            <div class="group-wrapper">
+                                <div class="input-group">
+                                    <label asp-for="@course.NumberOfLikes"></label>
+                                    <span asp-validation-for="@course.NumberOfLikes"></span>
+                                    <input asp-for="@course.NumberOfLikes" />
+                                </div>
+
+                                <div class="input-group">
+                                    <label asp-for="@course.NumberOfReviews"></label>
+                                    <span asp-validation-for="@course.NumberOfReviews"></span>
+                                    <input asp-for="@course.NumberOfReviews">
                                 </div>
                             </div>
 

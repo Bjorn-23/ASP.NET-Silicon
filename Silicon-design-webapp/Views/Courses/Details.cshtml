@@ -49,21 +49,18 @@
 
             <div class="ratings-wrapper">
                 <span class="stars">
-@*                     <i class="fa-solid fa-star leftmost-star"></i>
-                    @for (int i = 0; i <= 3; i++) // replace i <= 3 with Math.Round(int32(@Model.Rating -20)/20, 0.5)
-                    {
-                        <i class="fa-solid fa-star"></i>
-                    } *@
-
                     @{
-                        int maxStars = Convert.ToInt32(Math.Round((@Model.Course.Rating - 20) / 20.0, MidpointRounding.AwayFromZero));
-                        maxStars = Math.Max(0, Math.Min(4, maxStars)); // Ensure maxStars is between 0 and 4
+                        int maxStars = Convert.ToInt32(Math.Round((@Model.Course.Rating) / 20.0, MidpointRounding.AwayFromZero)); // takes rating in percentage and splits by 20 (1/5) as max stars are 5.
+                        maxStars = Math.Max(1, Math.Min(5, maxStars)); // Ensure maxStars is between 0 and 5
                     }
-
-                    <i class="fa-solid fa-star leftmost-star"></i>
-                    @foreach (var star in Enumerable.Range(1, maxStars))
+                    @foreach (var star in Enumerable.Range(1, maxStars)) // render out solid stars between 1 and 5.
                     {
                         <i class="fa-solid fa-star"></i>
+                    }
+                    
+                    @for (int i = (maxStars + 1); i <= 5; i++) // Renders reamaining how stars depending on the amount of solid stars.
+                    {
+                        <i class="fa-light fa-star"></i>
                     }
 
                 </span>
@@ -71,16 +68,15 @@
                 @{
                     double likesInK = Math.Max(0, (Math.Round(Model.Course.NumberOfLikes / 1000.0, 1)));
                     double reviewsInK = Math.Max(0, (Math.Round(Model.Course.NumberOfReviews / 1000.0, 1)));
-
-
-                    <span class="course-details">(@reviewsInK K reviews)</span>
-                    <i class="fa-thin fa-pipe"></i>
-                    <i class="fa-regular fa-thumbs-up"></i>
-                    <span>@likesInK K likes</span>
-                    <i class="fa-thin fa-pipe"></i>
-                    <i class="fa-light fa-clock"></i>
-                    <span class="course-ingress">@Model.Course.LengthInHours hours</span>
                 }
+
+                <span class="course-details">@Model.Course.Rating% (@reviewsInK K reviews)</span>
+                <i class="fa-thin fa-pipe"></i>
+                <i class="fa-regular fa-thumbs-up"></i>
+                <span>@likesInK K likes</span>
+                <i class="fa-thin fa-pipe"></i>
+                <i class="fa-light fa-clock"></i>
+                <span class="course-ingress">@Model.Course.LengthInHours hours</span>
             </div>
 
             <div class="author-wrapper">
