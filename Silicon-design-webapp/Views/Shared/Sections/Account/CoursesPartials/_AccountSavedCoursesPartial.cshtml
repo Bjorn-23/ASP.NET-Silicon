@@ -18,7 +18,7 @@
                     {
                         <form class="bookmark-form" id="bookmarkForm" method="post" action="@Url.Action("BookmarkCourse", "Account", new { courseId = course.Id })">
 
-                            <a class="grid-item" asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
+                            <a class="grid-item card" asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
                                 <div class="img-wrapper">
                                     <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
                                     <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>

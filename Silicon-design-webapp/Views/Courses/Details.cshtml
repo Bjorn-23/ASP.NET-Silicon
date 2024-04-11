@@ -15,10 +15,6 @@
                 {
                     <span class="best-seller">Best Seller</span>                    
                 }
-@*                 @if (Model.Course.isDigital)
-                {
-                    <span class="digital">Digital</span>
-                } *@
                 <span class="digital">Digital</span>
             </div>
 
@@ -277,7 +273,7 @@
             <div class="image-wrapper"><img src="/img/albert-flores-lg.png" alt=""></div>
             <div class="bio-wrapper">
                 <p class="sub-heading">Learn from the best</p>
-                <h3 class="about-heading">Albert Flores</h3>
+                <h3 class="about-heading">@Model.Course.Author</h3>
                 <p class="text">
                     Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac
                     dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in

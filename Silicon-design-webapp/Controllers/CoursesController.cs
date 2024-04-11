@@ -25,6 +25,7 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
         var models = await PopulateCourses(category, searchQuery, pageNumber, pageSize);
         if (models.Courses != null && models.Categories != null)
         {
+            viewModel.CategoryQuery = category;
             viewModel.SavedCourses = models.SavedCourses;
             viewModel.Courses = models.Courses;
             viewModel.Categories = models.Categories;

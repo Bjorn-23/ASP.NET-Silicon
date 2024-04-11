@@ -44,7 +44,7 @@
 
             @* Used for creating new courses *@
             <form id="coursesForm" class="hidden" method="post" asp-action="CreateCourse" asp-controller="Admin" novalidate>
-                <div class="group-wrapper">
+                <div class="group-wrapper-nonflex">
                     <div class="input-group">
                         <label asp-for="@Model.CreateCourse.Title"></label>
                         <span asp-validation-for="@Model.CreateCourse.Title"></span>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
 
-                <div class="group-wrapper">
+                <div class="group-wrapper-nonflex">
                     <div class="input-group">
                         <label asp-for="@Model.CreateCourse.Category"></label>
                         <select asp-for="@Model.CreateCourse.Category">
@@ -152,11 +152,10 @@
                 {
                     <div class="form-wrapper">
 
-
-
                         @* Course form *@
                         <form method="post" asp-action="UpdateCourse" asp-controller="Admin" novalidate>
-                            <div class="group-wrapper">
+
+                            <div class="group-wrapper-nonflex">
                                 <div class="input-group">
                                     <label asp-for="@course.Title"></label>
                                     <span asp-validation-for="@course.Title"></span>
@@ -236,26 +235,24 @@
                                     <input asp-for="@course.NumberOfReviews">
                                 </div>
                             </div>
-
-                            <div class="group-wrapper">
-                                <div class="checkbox-group">
-                                    <input asp-for="@course.BestSeller" />
-                                    <label asp-for="@course.BestSeller"></label>
-                                    <span asp-validation-for="@course.Author"></span>
-                                </div>
-                                <div class="input-group">
-                                    <label asp-for="@course.Category"></label>
-                                    <select asp-for="@course.Category">
-                                        <option selected>@course.Category</option>
-                                        <option value="Frontend Development">Frontend Development</option>
-                                        <option value="App Development">App Development</option>
-                                        <option value="HTML & CSS">HTML & CSS</option>
-                                        <option value="Python">Python</option>
-                                        <option value="Game Development">Game Development</option>
-                                    </select>
-                                </div>
-
+                            
+                            <div class="checkbox-group">
+                                <label asp-for="@course.BestSeller"></label>
+                                <input asp-for="@course.BestSeller" />
+                                <span asp-validation-for="@course.Author"></span>
                             </div>
+
+                            <div class="input-group">
+                                <label asp-for="@course.Category"></label>
+                                <select asp-for="@course.Category">
+                                    <option selected>@course.Category</option>
+                                    <option value="Frontend Development">Frontend Development</option>
+                                    <option value="App Development">App Development</option>
+                                    <option value="HTML & CSS">HTML & CSS</option>
+                                    <option value="Python">Python</option>
+                                    <option value="Game Development">Game Development</option>
+                                </select>
+                            </div>                           
 
                             <div class="button-wrapper">
                                 <button class="btn-theme submit" type="submit">Save changes</button>

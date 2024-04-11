@@ -14,4 +14,5 @@ public class CoursesViewModel
 
     public Pagination Pagination { get; set; } = new();
 
+    public string? CategoryQuery { get; set; }
 }

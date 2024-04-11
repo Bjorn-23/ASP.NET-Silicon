@@ -52,6 +52,8 @@ function updateCoursesByFilters() {
         const searchQuery = document.querySelector('#searchQuery').value
         const url = `/courses?category=${encodeURIComponent(category)}&searchQuery=${encodeURIComponent(searchQuery)}`
 
+        console.log("clicked")
+
         fetch(url).then(res => res.text()).then(data => {
             const parser = new DOMParser()
             const dom = parser.parseFromString(data, 'text/html')

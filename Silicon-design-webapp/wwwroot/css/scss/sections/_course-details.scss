@@ -422,14 +422,13 @@
                         position: relative;
                         padding: 0.4rem;
                         background-color: var(--color-gray-100);
+                        @include card;
                         border-radius: 100%;
-                        box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
 
                         .inner-circle {
                             padding: 0.8rem;
                             background-color: var(--color-gray-000);
                             border-radius: 100%;
-                            box-shadow: 1px 1px 3px var(--color-gray-500), 2px 3px 5px var(--color-gray-400), 2px 5px 7px var(--color-gray-300), 3px 7px 9px var(--color-gray-200);
 
                             .number {
                                 position: absolute;
@@ -447,7 +446,7 @@
                             transform: translateX(-50%);
                             height: 2rem;
                             width: 0.1rem;
-                            background-color: var(--color-gray-100);
+                            background-color: var(--color-gray-200);
 
                             @include md {
                                 height: 8rem;
