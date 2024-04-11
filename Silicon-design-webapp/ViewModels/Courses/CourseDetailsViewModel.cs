@@ -6,4 +6,6 @@ public class CourseDetailsViewModel()
 {
     public CourseBoxModel Course { get; set; } = new();
 
+    public IEnumerable<SavedCoursesModel> SavedCourses { get; set;} = [];
+
 }

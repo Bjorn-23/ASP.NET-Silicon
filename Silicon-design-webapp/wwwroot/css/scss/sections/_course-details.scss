@@ -349,6 +349,14 @@
                 }
 
                 .price {
+                    @include h6;
+
+                    @include xl {
+                        @include h4;
+                    }
+                }
+
+                .strikethrough {
                     @include text-xs;
                     text-decoration-line: line-through;
 
@@ -357,8 +365,20 @@
                     }
                 }
 
-                button {
-                    margin: 1rem 0;
+                .join-course-wrapper {
+                    display: flex;
+                    gap: 1rem;
+
+                    button, div {
+                        margin: 1rem 0;
+                        white-space: nowrap;
+                    }
+
+                    .btn {
+                        background-color: var(--color-success);
+                        color: var(--color-gray-900);
+                        cursor: default;
+                    }
                 }
             }
         }

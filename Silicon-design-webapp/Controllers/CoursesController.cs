@@ -41,12 +41,14 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
     {
         var viewModel = new CourseDetailsViewModel();
 
+        var savedCourses = await _userService.GetSavedCourses(User);
         var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses/{id}?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
             var model = JsonConvert.DeserializeObject<CourseBoxModel>(jsonStrings);
             viewModel.Course = model!;
+            viewModel.SavedCourses = savedCourses;
             return View(viewModel);
         };
 
