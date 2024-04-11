@@ -178,12 +178,21 @@
                 .select {
                     position: relative;
                     min-width: 300px;
-                    background-image: url(/img/dropdownCourses.svg);
-                    background-repeat: no-repeat;
-                    background-position: right 0.5rem center;
                     padding: 0.4rem 1rem;
                     border: 1px solid var(--color-gray-300);
                     border-radius: 0.5rem;
+                    cursor: pointer;
+
+                    .drop-down-icon {
+                        width: 1rem;
+                        height: 1rem;
+                        position: absolute;
+                        right: 0.5rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        color: var(--color-gray-800);
+                        cursor: pointer;
+                    }
 
                     .selected {
                         white-space: nowrap;

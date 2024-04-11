@@ -1,4 +1,4 @@
-.courses {
+﻿.courses {
     .container {
 
         .top-row {
@@ -38,12 +38,21 @@
                 .select {
                     position: relative;
                     min-width: 300px;
-                    background-image: url(/img/dropdownCourses.svg);
-                    background-repeat: no-repeat;
-                    background-position: right 0.5rem center;
                     padding: 0.4rem 1rem;
                     border: 1px solid var(--color-gray-300);
                     border-radius: 0.5rem;
+                    cursor: pointer;
+
+                    .drop-down-icon {
+                        width: 1rem;
+                        height: 1rem;
+                        position: absolute;
+                        right: 0.5rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        color: var(--color-gray-800);
+                        cursor: pointer;
+                    }
 
                     .selected {
                         white-space: nowrap;
@@ -180,7 +189,8 @@
                     top: 1rem;
                     right: 1rem;
                     z-index: 100;
-                    background-color: var(--color-gray-000);
+                    background-color: var(--color-white);
+                    border: 1px solid var(--color-gray-400);
                     border-radius: 100%;
                     padding: 1rem;
                     cursor: pointer;
@@ -190,20 +200,11 @@
                         top: 50%;
                         left: 50%;
                         transform: translate(-50%, -50%);
+                        color: var(--color-black);
                     }
-
-                    .bookmark-empty {
-                        color: var(--color-gray-900);
-                    }
-
-                    .bookmark-filled {
-                        color: var(--color-gray-900);
-                        background-color: var(--color-gray-000);
-                    }
-
-                    .marked {
+                    /*.marked {
                         color: var(--color-warning);
-                    }
+                    }*/
                 }
 
                 .text-wrapper {

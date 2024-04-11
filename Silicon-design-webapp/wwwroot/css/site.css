@@ -1949,12 +1949,20 @@ footer .container .details {
 .courses .container .top-row .top-right .select {
   position: relative;
   min-width: 300px;
-  background-image: url(/img/dropdownCourses.svg);
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
   padding: 0.4rem 1rem;
   border: 1px solid var(--color-gray-300);
   border-radius: 0.5rem;
+  cursor: pointer;
+}
+.courses .container .top-row .top-right .select .drop-down-icon {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-800);
+  cursor: pointer;
 }
 .courses .container .top-row .top-right .select .selected {
   white-space: nowrap;
@@ -2080,26 +2088,21 @@ footer .container .details {
   top: 1rem;
   right: 1rem;
   z-index: 100;
-  background-color: var(--color-gray-000);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
   border-radius: 100%;
   padding: 1rem;
   cursor: pointer;
+  /*.marked {
+      color: var(--color-warning);
+  }*/
 }
 .courses .container .grid-container .grid-item .bookmark-circle .fa-bookmark {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-.courses .container .grid-container .grid-item .bookmark-circle .bookmark-empty {
-  color: var(--color-gray-900);
-}
-.courses .container .grid-container .grid-item .bookmark-circle .bookmark-filled {
-  color: var(--color-gray-900);
-  background-color: var(--color-gray-000);
-}
-.courses .container .grid-container .grid-item .bookmark-circle .marked {
-  color: var(--color-warning);
+  color: var(--color-black);
 }
 .courses .container .grid-container .grid-item .text-wrapper {
   padding: 0.5rem;
@@ -3982,26 +3985,21 @@ footer .container .details {
   top: 1rem;
   right: 1rem;
   z-index: 100;
-  background-color: var(--color-gray-000);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
   border-radius: 100%;
   padding: 1rem;
   cursor: pointer;
+  /*                    .marked {
+                          color: var(--color-warning);
+                      }*/
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-circle .fa-bookmark {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-circle .bookmark-empty {
-  color: var(--color-gray-900);
-}
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-circle .bookmark-filled {
-  color: var(--color-gray-900);
-  background-color: var(--color-gray-000);
-}
-.account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-circle .marked {
-  color: var(--color-warning);
+  color: var(--color-black);
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper {
   padding: 0.5rem;
@@ -4229,12 +4227,20 @@ footer .container .details {
 .admin-courses .container .top-row .top-right .select {
   position: relative;
   min-width: 300px;
-  background-image: url(/img/dropdownCourses.svg);
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
   padding: 0.4rem 1rem;
   border: 1px solid var(--color-gray-300);
   border-radius: 0.5rem;
+  cursor: pointer;
+}
+.admin-courses .container .top-row .top-right .select .drop-down-icon {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-800);
+  cursor: pointer;
 }
 .admin-courses .container .top-row .top-right .select .selected {
   white-space: nowrap;

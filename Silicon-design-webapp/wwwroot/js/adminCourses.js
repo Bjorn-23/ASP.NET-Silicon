@@ -10,8 +10,8 @@ function select() {
         let selected = select.querySelector(".selected")
         let selectOptions = select.querySelector(".select-options")
 
-
-        selected.addEventListener("click", function () {
+        //if eventlistener is attached to selected instead, svg icon can not be clicked. 
+        select.addEventListener("click", function () {
             selectOptions.style.display = (selectOptions.style.display === 'block') ? 'none' : 'block'
         })
 
@@ -20,7 +20,7 @@ function select() {
         options.forEach(function (option) {
             option.addEventListener('click', function () {
                 selected.innerHTML = this.textContent
-                selectOptions.style.display = "none"
+                //selectOptions.style.display = "none" //If using selected as eventlistener for dropdown menu, enable this line of code.
                 let category = this.getAttribute('data-value')
                 if (category !== null) {
                     selected.setAttribute('data-value', category)
@@ -57,8 +57,9 @@ function updateCoursesByFilters() {
             const dom = parser.parseFromString(data, 'text/html')
             document.querySelector('.items').innerHTML = dom.querySelector('.items').innerHTML
 
-            const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ""
-            document.querySelector('.pagination').innerHTML = pagination
+            // enable below lines of code if pagination is to be used.
+            //const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ""
+            //document.querySelector('.pagination').innerHTML = pagination
         })
     }
     catch { }
