@@ -52,8 +52,8 @@
                                     <div class="text-rest">
                                         <span class="by">By</span><span class="author">@course.Author</span>
                                         <div class="price-wrapper">
-                                            <div class="@(course.DiscountPrice >= 1 ? "discount-price" : "hidden")"><span>@course.Currency</span><span>@course.DiscountPrice</span></div>
-                                            <div class="@(course.DiscountPrice >= 1 ? "price discount-applied" : "price")"><span>@course.Currency</span><span>@course.Price</span></div>
+                                            <div class="@(course.DiscountPrice >= 1 ? "discount-price" : "hidden")">@course.Currency@course.DiscountPrice</div>
+                                            <div class="@(course.DiscountPrice >= 1 ? "price discount-applied" : "price")">@course.Currency@course.Price</div>
                                         </div>
                                         <div class="divider"></div>
                                         <div class="description-wrapper">

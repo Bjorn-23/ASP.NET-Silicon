@@ -220,6 +220,10 @@
                     .text-rest {
                         grid-area: rest;
 
+                        span {
+                            color: var(--color-gray-900);
+                        }
+
                         .by {
                             margin-right: 0.2rem;
                         }

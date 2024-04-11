@@ -2116,6 +2116,9 @@ footer .container .details {
 .courses .container .grid-container .grid-item .text-wrapper .text-rest {
   grid-area: rest;
 }
+.courses .container .grid-container .grid-item .text-wrapper .text-rest span {
+  color: var(--color-gray-900);
+}
 .courses .container .grid-container .grid-item .text-wrapper .text-rest .by {
   margin-right: 0.2rem;
 }
@@ -3991,8 +3994,8 @@ footer .container .details {
   padding: 1rem;
   cursor: pointer;
   /*                    .marked {
-                          color: var(--color-warning);
-                      }*/
+      color: var(--color-warning);
+  }*/
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .bookmark-circle .fa-bookmark {
   position: absolute;
@@ -4012,6 +4015,9 @@ footer .container .details {
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .text-rest {
   grid-area: rest;
+}
+.account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .text-rest span {
+  color: var(--color-gray-900);
 }
 .account-saved-courses .content-box-saved-courses .grid-container .grid-item .text-wrapper .text-rest .by {
   margin-right: 0.2rem;
