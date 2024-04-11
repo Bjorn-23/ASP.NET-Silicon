@@ -32,7 +32,11 @@ public class CourseBoxModel
     [Required]
     public string LengthInHours { get; set; } = null!;
 
-    public string? Rating { get; set; }
+    public int Rating { get; set; } = 0;
+
+    public int NumberOfReviews { get; set; } = 0;
+
+    public int NumberOfLikes { get; set; } = 0;
 
     public int? CategoryId { get; set; }
 
