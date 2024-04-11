@@ -10,6 +10,8 @@ public class CoursesViewModel
 
     public IEnumerable<CategoryModel> Categories { get; set; } = [];
 
+    public IEnumerable<SavedCoursesModel> SavedCourses { get; set; } = [];
+
     public Pagination Pagination { get; set; } = new();
 
 }

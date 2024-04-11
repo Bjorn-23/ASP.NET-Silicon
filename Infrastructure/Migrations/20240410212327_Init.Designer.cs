@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240311173945_ExternalAccount Column Added")]
-    partial class ExternalAccountColumnAdded
+    [Migration("20240410212327_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,24 @@ namespace Infrastructure.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entitites.SavedCoursesEntity", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserEntityId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("UserEntityId");
+
+                    b.ToTable("SavedCourses");
+                });
+
             modelBuilder.Entity("Infrastructure.Entitites.UserEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -82,6 +100,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsExternalAccount")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -109,6 +130,10 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -118,9 +143,6 @@ namespace Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("isExternalAccount")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -274,6 +296,13 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Entitites.SavedCoursesEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entitites.UserEntity", null)
+                        .WithMany("SavedCourses")
+                        .HasForeignKey("UserEntityId");
+                });
+
             modelBuilder.Entity("Infrastructure.Entitites.UserEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entitites.AddressEntity", "Address")
@@ -338,6 +367,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Entitites.AddressEntity", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entitites.UserEntity", b =>
+                {
+                    b.Navigation("SavedCourses");
                 });
 #pragma warning restore 612, 618
         }

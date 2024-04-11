@@ -6,5 +6,7 @@ public class AccountSavedCoursesViewModel
 {
     public AccountSidebarViewModel Sidebar { get; set; } = new();
 
-    public List<CourseBoxModel> Courses { get; set; } = [];
+    public IEnumerable<SavedCoursesModel> SavedCourses { get; set; } = [];
+
+    public IEnumerable<CourseBoxModel> Courses { get; set; } = [];
 }

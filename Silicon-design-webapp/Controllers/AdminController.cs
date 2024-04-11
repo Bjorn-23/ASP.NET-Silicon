@@ -3,7 +3,6 @@ using Business.Models;
 using Business.Services;
 using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.Helpers;
@@ -202,9 +201,8 @@ public class AdminController(AdminService adminService, IConfiguration configura
     public async Task<IActionResult> Subscription()
     {
         var viewModel = new AdminSubscriptionViewModel();
-        using var http = new HttpClient();
 
-        var response = await http.GetAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}");
+        var response = await _httpClient.GetAsync($"https://localhost:7034/api/Subscriptions?key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
@@ -304,23 +302,35 @@ public class AdminController(AdminService adminService, IConfiguration configura
     #region COURSES
 
     [HttpGet("/admin/courses")]
-    public async Task<IActionResult> Courses()
+    public async Task<IActionResult> Courses(string category = "", string searchQuery = "")
     {
         var viewModel = new AdminCoursesViewModel();
 
-        var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?key={_configuration["ApiKey:Secret"]}");
+        var categoriesResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Category?key={_configuration["ApiKey:Secret"]}");
+        if (categoriesResponse.IsSuccessStatusCode)
+        {
+            var jsonStrings = await categoriesResponse.Content.ReadAsStringAsync();
+            var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(jsonStrings);
+            if (categories != null)
+            {
+                viewModel.Categories = categories!;
+            }
+        }
+
+        var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.EscapeDataString(category)}&searchQuery={Uri.EscapeDataString(searchQuery)}&key={_configuration["ApiKey:Secret"]}");
         if (response.IsSuccessStatusCode)
         {
             var jsonStrings = await response.Content.ReadAsStringAsync();
-            var models = JsonConvert.DeserializeObject<IEnumerable<CourseBoxModel>>(jsonStrings);
-            viewModel.Courses = models!;
-            return View(viewModel);
+            var courses = JsonConvert.DeserializeObject<CourseResult>(jsonStrings);
+            if (courses != null)
+            {
+                viewModel.Courses = courses!.ReturnCourses;
+                return View(viewModel);
+            }
         }
-        else
-        {
-            ViewData["CourseStatus"] = response.StatusCode;
-            return View(viewModel);
-        }
+
+        ViewData["CourseStatus"] = response.StatusCode;
+        return View(viewModel);   
     }
 
     [HttpGet("/admin/courses/{Id}")]

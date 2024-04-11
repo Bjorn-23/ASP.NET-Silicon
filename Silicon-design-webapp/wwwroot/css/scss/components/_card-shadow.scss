@@ -1,15 +1,25 @@
-@mixin card{
-    box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
+@mixin card {
+    box-shadow: 2px 2px 3px var(--color-gray-400), 2px 3px 3px var(--color-gray-300), 2px 4px 4px var(--color-gray-100), 2px 5px 5px var(--color-gray-000);
     border-radius: 0.5rem;
     overflow: hidden;
 }
 
-@mixin course-card {
-    box-shadow: 1px 1px 3px var(--color-gray-400), 1px 3px 5px var(--color-gray-300), 2px 6px 8px var(--color-gray-200), 3px 9px 12px var(--color-gray-100);
-    border-radius: 0.5rem;
-    overflow: hidden;
+@mixin cardHover {
+    box-shadow: 1px 2px 4px var(--color-gray-500), 1px 3px 4px var(--color-gray-300), 2px 4px 5px var(--color-gray-200), 2px 5px 6px var(--color-gray-100);
 }
 
-.card{
+@mixin cardActive {
+    box-shadow: 0px 1px 2px var(--color-gray-500), 0px 1px 3px var(--color-gray-400), 0px 2px 3px var(--color-gray-200), 1px 2px 3px var(--color-gray-100);
+}
+
+.grid-item{
     @include card;
+
+    &:hover {
+        @include cardHover;
+    }
+
+    &:active {
+        @include cardActive;
+    }
 }

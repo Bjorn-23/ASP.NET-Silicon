@@ -1,5 +1,6 @@
 ﻿@model CoursesViewModel
 
+
 <section class="courses">
     <div class="container">
         <div class="top-row">
@@ -9,6 +10,14 @@
             <div class="top-right">
 
                 <div class="select">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="drop-down-icon" pointer-events="inherit" viewBox="0 0 448 512">
+                        <path
+                            fill="currentColor"
+                            d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                            />
+                    </svg>
+
                     <div class="selected">All Categories</div>
                     <div class="select-options">
                         <div class="option" data-value="all">All Categories</div>
@@ -23,8 +32,8 @@
                 </div>
 
                 <div class="search-wrapper">
-                    <input class="search-query" name="searchQuery" id="searchQuery" placeholder="Search courses"><i class="fa-light fa-search"></i></input>
-
+                    <input class="search-query" name="searchQuery" id="searchQuery" placeholder="Search courses" />
+                    <i class="fa-light fa-search"></i>
                 </div>
 
             </div>
@@ -35,33 +44,60 @@
             {
                 foreach (var course in Model.Courses)
                 {
-                    <div class="grid-item" onclick="location.href='@Url.Action("Details", "Courses", new { id = course.Id })'">
-                        <div class="img-wrapper">
-                            <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
-                            <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
-                        </div>
-                        <a class="bookmark-wrapper">
-                            <div class="circle">
-                                @* NEED LOGIC HERE FOR LOOPING THROUGH CORRESPONDING BOOKMARKS *@
-@*                                 <img class="@(course.Bookmark != true ? "bookmark" : "bookmark hidden")" src="/img/bookmark.svg" alt="Bookmark">
-                                <img class="@(course.Bookmark == true ? "bookmark-filled" : "bookmark-filled hidden")" src="/img/bookmark-filled.svg" alt="Bookmark Filled in"> *@
+                    <form class="bookmark-form" id="bookmarkForm" method="post" action="@Url.Action("BookmarkCourse", "Account", new { courseId = course.Id })">
+
+                        <a class="grid-item" asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">                  
+                            <div class="img-wrapper">
+                                <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
+                                <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
+                            </div>
+
+                            <span class="bookmark-circle" onclick="submitForm(event)">
+                                @if (@Model.SavedCourses.Count() > 0)
+                                {
+                                    @foreach (var savedCourse in @Model.SavedCourses)
+                                    {
+                                        if (course.Id == savedCourse.CourseId)
+                                        {
+                                            //gets filled in because the icon i solid.
+                                            <i class="fa-solid fa-bookmark bookmark-filled"></i>                                            
+                                        }
+                                        else
+                                        {
+                                            // doesnt get filled in because the icon is only a border.
+                                            <i class="fa-light fa-bookmark bookmark-empty"></i>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <i class="fa-light fa-bookmark bookmark-empty"></i>
+                                }
+                            </span>
+
+                            <div class="text-wrapper">
+
+                                <div class="text-title">
+                                    <h5 class="course-title">@course.Title</h5>
+                                </div>
+
+                                <div class="text-rest">
+                                    <span class="by">By</span><span class="author">@course.Author</span>
+                                    <div class="price-wrapper">
+                                        <div class="@(course.DiscountPrice >= 1 ? "discount-price" : "hidden")"><span>@course.Currency</span><span>@course.DiscountPrice</span></div>
+                                        <div class="@(course.DiscountPrice >= 1 ? "price discount-applied" : "price")"><span>@course.Currency</span><span>@course.Price</span></div>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <div class="description-wrapper">
+                                        <!-- maybe replace html unicode with font awesome icons instead? -->
+                                        <span class="description"><i class="fa-light fa-clock"></i> @course.LengthInHours hours</span>
+                                        <span class="description"><i class="fa-light fa-thumbs-up"></i> @course.Rating</span>
+                                    </div>
+                                </div>
+
                             </div>
                         </a>
-                        <div class="text-wrapper">
-                            <h5>@course.Title</h5>
-                            <span class="by">By</span><span class="author">@course.Author</span>
-                            <div class="price-wrapper">
-                                <div class="@(course.DiscountPrice >= 1 ? "discount-price" : "hidden")"><span>@course.Currency</span><span>@course.DiscountPrice</span></div>
-                                <div class="@(course.DiscountPrice >= 1 ? "price discount-applied" : "price")"><span>@course.Currency</span><span>@course.Price</span></div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="description-wrapper">
-                                <!-- maybe replace html unicode with font awesome icons instead? -->
-                                <span class="description">&#128340 @course.LengthInHours hours</span>
-                                <span class="description">&#128077 @course.Rating</span>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 }
             }
         </div>
@@ -69,7 +105,7 @@
         @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
         {
             <div class="pagination">
-                @for(int i = 1; i <= Model.Pagination.TotalPages; i++)
+                @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
                 {
                     if (i == Model.Pagination.CurrentPage)
                     {
@@ -80,16 +116,7 @@
                         <a class="btn-gray" href="@Url.Action("Index", new { pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
                     }
                 }
-@* 
-                <ol class="list-wrapper">
-                    <ul class=""><</ul>
-                    <ul class="">1</ul>
-                    <ul class="btn-gray">2</ul>
-                    <ul class="btn-theme">3</ul>
-                    <ul class="">4</ul>
-                    <ul class="">></ul>
-                </ol> *@
-            </div>            
+            </div>
         }
 
         <div class="get-started">

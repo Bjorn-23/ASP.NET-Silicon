@@ -8,39 +8,69 @@
     </form>
 
     <div class="grid-container">
-        @if (@Model.Courses.Count >= 1)
+        @if (@Model.SavedCourses.Count() > 0)
         {
             foreach (var course in Model.Courses)
             {
-                //Need a way to target the course that is clicked so bookmark can be removed and added.
-                <a class="grid-item" href="/course-details.html">
-                    <div class="img-wrapper">
-                        <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
-                        <p class="@course.BestSeller ? best-seller : hidden">Best Seller</p>
-                    </div>
-                    <form method="post" asp-controller="Account" asp-action="DeleteBookmarkedCourse" class="bookmark-wrapper">
-                        <button type="submit" class="btn circle">
-@*                             <img class="@(box.Bookmark != true ? "bookmark" : "bookmark hidden")" src="/img/bookmark.svg" alt="Bookmark">
-                            <img class="@(box.Bookmark == true ? "bookmark-filled" : "bookmark-filled hidden")" src="/img/bookmark-filled.svg" alt="Bookmark Filled in"> *@
-                        </button>
-                    </form>
-                    <div class="text-wrapper">
-                        <h5>@course.Title</h5>
-                        <span class="by">By</span><span class="author">@course.Author</span>
-                        <div class="price-wrapper">
-                            <div class="@(course.DiscountPrice >= 1 ? "discount-price" : "hidden")"><span>@course.Currency</span><span>@course.DiscountPrice</span></div>
-                            <div class="@(course.DiscountPrice >= 1 ? "price discount-applied" : "price")"><span>@course.Currency</span><span>@course.Price</span></div>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="description-wrapper">
-                            <!-- maybe replace html unicode with font awesome icons instead? -->
-                            <span class="description">&#128340 @course.LengthInHours hours</span>
-                            <span class="description">&#128077 @course.Rating</span>
-                        </div>
-                    </div>
-                </a>
-            }
-        }       
-    </div>
+                foreach (var savedCourse in Model.SavedCourses!)
+                {
+                    if (savedCourse.CourseId == course.Id)
+                    {
+                        <form class="bookmark-form" id="bookmarkForm" method="post" action="@Url.Action("BookmarkCourse", "Account", new { courseId = course.Id })">
 
+                            <a class="grid-item" asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
+                                <div class="img-wrapper">
+                                    <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
+                                    <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
+                                </div>
+
+                                <span class="bookmark-circle" onclick="submitForm(event)">
+                                    @if (Model.SavedCourses != null &&  Model.SavedCourses.Count() > 0)
+                                    {
+                                            if (course.Id == savedCourse.CourseId)
+                                            {
+                                                <i class="fa-solid fa-bookmark bookmark-filled"></i>
+                                            }
+                                            else
+                                            {
+                                            <i class="fa-solid fa-bookmark bookmark-empty"></i>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-bookmark bookmark-empty"></i>                                        
+                                    }
+
+                                </span>
+
+                                <div class="text-wrapper">
+
+                                    <div class="text-title">
+                                        <h5 class="course-title">@course.Title</h5>
+                                    </div>
+
+                                    <div class="text-rest">
+                                        <span class="by">By</span><span class="author">@course.Author</span>
+                                        <div class="price-wrapper">
+                                            <div class="@(course.DiscountPrice >= 1 ? "discount-price" : "hidden")"><span>@course.Currency</span><span>@course.DiscountPrice</span></div>
+                                            <div class="@(course.DiscountPrice >= 1 ? "price discount-applied" : "price")"><span>@course.Currency</span><span>@course.Price</span></div>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="description-wrapper">
+                                            <!-- maybe replace html unicode with font awesome icons instead? -->
+                                            <span class="description"><i class="fa-light fa-clock"></i> @course.LengthInHours hours</span>
+                                            <span class="description"><i class="fa-light fa-thumbs-up"></i> @course.Rating</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </form>
+                    }
+                }
+            }
+        }
+
+    </div>
+    <script src="~/js/coursesFilter.js"></script>
 </div>

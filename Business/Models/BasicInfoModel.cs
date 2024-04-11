@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Infrastructure.Entitites;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Eventing.Reader;
 
 
@@ -41,5 +42,7 @@ public class BasicInfoModel
     public bool IsExternalAccount { get; set; }
 
     public string ProfileImageUrl { get; set; } = null!;
+
+    public ICollection<SavedCoursesEntity>? SavedCourses { get; set; }
 
 }

@@ -1,5 +1,6 @@
 ﻿namespace Business.Models;
 
+//Try to get rid of this...
 public class LinkModel
 {
     public string ControllerName { get; set; } = null!;

@@ -10,8 +10,8 @@ function select() {
         let selected = select.querySelector(".selected")
         let selectOptions = select.querySelector(".select-options")
 
-
-        selected.addEventListener("click", function () {
+        //if eventlistener is attached to selected instead, svg icon can not be clicked. 
+        select.addEventListener("click", function () {
             selectOptions.style.display = (selectOptions.style.display === 'block') ? 'none' : 'block'
         })
 
@@ -20,7 +20,7 @@ function select() {
         options.forEach(function (option) {
             option.addEventListener('click', function () {
                 selected.innerHTML = this.textContent
-                selectOptions.style.display = "none"
+                //selectOptions.style.display = "none" //If using selected as eventlistener for dropdown menu, enable this line of code.
                 let category = this.getAttribute('data-value')
                 if (category !== null) {
                     selected.setAttribute('data-value', category)
@@ -41,7 +41,6 @@ function searchQuery() {
         document.querySelector('#searchQuery').addEventListener('keyup', function () {
             updateCoursesByFilters()
         })
-
     }
     catch { }
 }
@@ -49,6 +48,7 @@ function searchQuery() {
 function updateCoursesByFilters() {
     try {
         const category = document.querySelector('.select .selected').getAttribute('data-value') || "all"
+
         const searchQuery = document.querySelector('#searchQuery').value
         const url = `/courses?category=${encodeURIComponent(category)}&searchQuery=${encodeURIComponent(searchQuery)}`
 
@@ -62,4 +62,19 @@ function updateCoursesByFilters() {
         })
     }
     catch { }
+}
+
+
+function submitForm(event) {
+    event.preventDefault();
+
+    var submitButtons = document.querySelectorAll(".bookmark-form");
+    submitButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Find the parent form of the clicked button
+            var form = button.closest('form');
+
+            form.submit();
+        });
+    });
 }
