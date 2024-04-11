@@ -111,10 +111,34 @@
                 @if (Model.Course.DiscountPrice > 0)
                 {
                     <span class="discount-price">@Model.Course.Currency@Model.Course.DiscountPrice</span>                    
-                }                
-                <span class="@(Model.Course.DiscountPrice > 0 ? "price strikethrough" : "price")">@Model.Course.Currency@Model.Course.Price</span> @* style strikethrough in scss*@
+                    <span class="price strikethrough">@Model.Course.Currency@Model.Course.Price</span>
+                }
+                else
+                {
+                    <span class="price">@Model.Course.Currency@Model.Course.Price</span>
 
-                <button class="btn-theme">Join course</button>
+                }
+
+                <form class="join-course-wrapper" method="post" asp-action="Bookmarkcourse" asp-controller="Account" asp-route-courseId="@Model.Course.Id" >                   
+                        
+                    @if (Model.SavedCourses.Count() == 0 || Model.SavedCourses == null)
+                    {
+                        <button class="btn-theme" type="submit">join Course</button>
+                    }
+                    else
+                    {
+                        @foreach (var savedCourse in Model.SavedCourses!)
+                        {
+                            if (Model.Course.Id == savedCourse.CourseId)
+                            {
+                                <button class="btn-theme" type="submit">Leave Course</button>
+                                <div class="btn">You are signed up <i class="fa-solid fa-thumbs-up"></i></div>
+                            }
+                        }                                
+                    }                   
+                    
+                </form>
+
             </div>
 
         </div>

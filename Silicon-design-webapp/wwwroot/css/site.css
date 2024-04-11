@@ -2033,19 +2033,18 @@ footer .container .details {
   grid-template-columns: auto;
   margin-top: 2rem;
   gap: 2rem 1rem;
+  /* @include lg {
+      grid-template-columns: 1fr 1fr 1fr;
+  }*/
 }
 @media (min-width: 768px) {
   .courses .container .grid-container {
     grid-template-columns: 1fr 1fr;
   }
 }
-@media (min-width: 992px) {
-  .courses .container .grid-container {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
 @media (min-width: 1200px) {
   .courses .container .grid-container {
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 3rem 2rem;
   }
 }
@@ -2692,8 +2691,9 @@ footer .container .details {
   font-weight: 400;
   color: var(--color-gray-700);
   font-family: var(--font-manrope);
-  font-size: 0.75rem !important;
-  text-decoration-line: line-through;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  font-size: 1rem !important;
 }
 @media (min-width: 1200px) {
   .course-details .course-description .grid-container .course-includes-box .price {
@@ -2701,11 +2701,40 @@ footer .container .details {
     font-weight: 400;
     color: var(--color-gray-700);
     font-family: var(--font-manrope);
+    font-weight: 800;
+    color: var(--color-gray-900);
+    font-size: 1.5rem !important;
+  }
+}
+.course-details .course-description .grid-container .course-includes-box .strikethrough {
+  line-height: 160%;
+  font-weight: 400;
+  color: var(--color-gray-700);
+  font-family: var(--font-manrope);
+  font-size: 0.75rem !important;
+  text-decoration-line: line-through;
+}
+@media (min-width: 1200px) {
+  .course-details .course-description .grid-container .course-includes-box .strikethrough {
+    line-height: 160%;
+    font-weight: 400;
+    color: var(--color-gray-700);
+    font-family: var(--font-manrope);
     font-size: 1rem !important;
   }
 }
-.course-details .course-description .grid-container .course-includes-box button {
+.course-details .course-description .grid-container .course-includes-box .join-course-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+.course-details .course-description .grid-container .course-includes-box .join-course-wrapper button, .course-details .course-description .grid-container .course-includes-box .join-course-wrapper div {
   margin: 1rem 0;
+  white-space: nowrap;
+}
+.course-details .course-description .grid-container .course-includes-box .join-course-wrapper .btn {
+  background-color: var(--color-success);
+  color: var(--color-gray-900);
+  cursor: default;
 }
 .course-details .program-details {
   margin-top: 2rem;
@@ -3518,29 +3547,29 @@ footer .container .details {
     text-align: start;
   }
 }
-.account-details .content-box-account-details .basic-info .external-account-text {
+.account-details .content-box-account-details .basic-info .external-account-text, .account-details .content-box-account-details .address .external-account-text {
   color: var(--color-danger);
 }
 @media (min-width: 768px) {
-  .account-details .content-box-account-details .basic-info .group-wrapper {
+  .account-details .content-box-account-details .basic-info .group-wrapper, .account-details .content-box-account-details .address .group-wrapper {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
   }
-  .account-details .content-box-account-details .basic-info .group-wrapper input {
+  .account-details .content-box-account-details .basic-info .group-wrapper input, .account-details .content-box-account-details .address .group-wrapper input {
     width: 100%;
   }
 }
-.account-details .content-box-account-details .basic-info .form-title {
+.account-details .content-box-account-details .basic-info .form-title, .account-details .content-box-account-details .address .form-title {
   color: var(--color-theme);
   margin: 1rem 0 0;
 }
 @media (min-width: 1200px) {
-  .account-details .content-box-account-details .basic-info .form-title {
+  .account-details .content-box-account-details .basic-info .form-title, .account-details .content-box-account-details .address .form-title {
     text-align: start;
   }
 }
-.account-details .content-box-account-details .basic-info label {
+.account-details .content-box-account-details .basic-info label, .account-details .content-box-account-details .address label {
   line-height: 160%;
   font-weight: 400;
   color: var(--color-gray-700);
@@ -3549,16 +3578,16 @@ footer .container .details {
   color: var(--color-gray-900);
   font-size: 1rem !important;
 }
-.account-details .content-box-account-details .basic-info input::placeholder, .account-details .content-box-account-details .basic-info textarea::placeholder {
+.account-details .content-box-account-details .basic-info input::placeholder, .account-details .content-box-account-details .basic-info textarea::placeholder, .account-details .content-box-account-details .address input::placeholder, .account-details .content-box-account-details .address textarea::placeholder {
   color: var(--color-gray-500);
 }
-.account-details .content-box-account-details .basic-info .button-wrapper {
+.account-details .content-box-account-details .basic-info .button-wrapper, .account-details .content-box-account-details .address .button-wrapper {
   display: flex;
   gap: 1rem;
   margin: 1rem 0;
 }
 @media (min-width: 1200px) {
-  .account-details .content-box-account-details .basic-info .button-wrapper {
+  .account-details .content-box-account-details .basic-info .button-wrapper, .account-details .content-box-account-details .address .button-wrapper {
     margin: 2rem 0;
   }
 }
