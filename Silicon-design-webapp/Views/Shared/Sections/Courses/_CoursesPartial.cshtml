@@ -9,7 +9,51 @@
 
             <div class="top-right">
 
-                <div class="select">
+                @if (Model.Pagination.TotalItems < Model.Pagination.PageSize)
+                {
+                    <span data-value="@Model.Pagination.TotalItems">@Model.Pagination.TotalItems.ToString()</span>
+                }
+                else
+                {
+                    <span data-value="@Model.Pagination.PageSize">@Model.Pagination.PageSize.ToString()</span>
+
+                }
+
+                <div class="select" id="pageSizeSelect">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="drop-down-icon" pointer-events="inherit" viewBox="0 0 448 512">
+                        <path fill="currentColor"
+                              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+                    </svg>
+
+                    @if (Model.Pagination.TotalItems < Model.Pagination.PageSize)
+                    {
+                        <div class="selected" id="selectedPageSize" data-value="@Model.Pagination.TotalItems">@Model.Pagination.TotalItems</div>
+                    }
+                    else
+                    {
+                        <div class="selected" id="selectedPageSize" data-value="@Model.Pagination.PageSize">@Model.Pagination.PageSize</div>
+
+                    }
+
+                    <div class="select-options" id="pageSizeOptions">
+                        @for (int i = 1; i <= Model.Pagination.TotalItems; i++)
+                        {
+                            if (i == Model.Pagination.TotalItems)
+                            {
+                                <div class="option" data-value="@i">Show All</div>
+
+                            }
+                            else
+                            {
+                                <div class="option" data-value="@i">@i</div>                                
+                            }
+                        }
+
+                    </div>
+                </div>
+
+                <div class="select" id="selectCategory">
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="drop-down-icon" pointer-events="inherit" viewBox="0 0 448 512">
                         <path
@@ -18,16 +62,17 @@
                             />
                     </svg>
 
-                    @if (!string.IsNullOrEmpty(Model.CategoryQuery))
+
+                    @if (!string.IsNullOrEmpty(Model.CategoryQuery) && Model.CategoryQuery != "all")
                     {
-                        <div class="selected">@Model.CategoryQuery</div>
+                        <div class="selected" id="selectedCategory">@Model.CategoryQuery</div>
                     }
                     else
                     {
-                        <div class="selected">All Categories</div>
+                        <div class="selected" id="selectedCategory">All Categories</div>
 
                     }
-                    <div class="select-options">
+                    <div class="select-options" id="categorySelectOptions">
                         <div class="option" data-value="all">All Categories</div>
                         @if (Model.Categories != null && Model.Categories.Count() > 0)
                         {
@@ -118,40 +163,99 @@
             <div class="pagination">
 
                 @{
+                    var totalPages = Model.Pagination.TotalPages;
+                    var currentPage = Model.Pagination.CurrentPage;
                     var previousPage = Model.Pagination.CurrentPage - 1;
                     var nextPage = Model.Pagination.CurrentPage + 1;
+                    var tolerance = 2; // sets the size the number can deivate from currenPage to be printed IF the TotalPages exceed 5.
+                    var totalPaginationButtons = 0;
+
+                    <a class="btn-gray first-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 1, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angles-left"></i></a>
 
                     if (previousPage < 1)
                     {
-                        var lastpage = Model.Pagination.TotalPages;
-                        <a class="btn-gray previous-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = lastpage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-left"></i></a>
+                        previousPage = totalPages;
                     }
-                    else
-                    {
-                        <a class="btn-gray previous-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = previousPage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-left"></i></a>
-                    }
+                    <a class="btn-gray previous-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = previousPage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-left"></i></a>
 
-                    @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
-                    {
 
-                        if (i == Model.Pagination.CurrentPage)
+                    @for (int i = 1; i <= totalPages && totalPaginationButtons < 5; i++)
+                    {
+                        if (Model.Pagination.TotalPages <= 5)
                         {
-                            <span class="btn-theme current-page">@i</span>
+                            if (i == Model.Pagination.CurrentPage) // Sets value of the currentpage button.
+                            {
+                                <span class="btn-theme current-page">@i</span>
+                                totalPaginationButtons++;
+                            }
+                            else // Sets value of other pages if there are NO more than 5 total pages.
+                            {
+                                <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
+                                totalPaginationButtons++;
+                            }
                         }
-                        else
+                        else // If more than 5 total pages.
                         {
-                            <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
+                            if (currentPage == 1 && totalPaginationButtons == 0) // Prints the second to last and last page buttons prior to the current page button if current page is page 1.
+                            {
+                                <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = totalPages -1, pagesize = Model.Pagination.PageSize})">@Math.Abs(totalPages - 1)</a>
+                                <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = totalPages, pagesize = Model.Pagination.PageSize})">@totalPages</a>
+                                totalPaginationButtons += 2;
+                            }
+
+                            if (currentPage == 2 && totalPaginationButtons == 0) // Prints the last page prior to printing page 1 if current pages is page 2.
+                            {
+                                <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = totalPages, pagesize = Model.Pagination.PageSize})">@totalPages</a>
+                                totalPaginationButtons++;
+                            }
+
+                            if (i == Model.Pagination.CurrentPage) // Prints the current page button
+                            {
+                                <span class="btn-theme current-page">@i</span>
+                                totalPaginationButtons++;
+
+                                if (Model.Pagination.CurrentPage == Model.Pagination.TotalPages && totalPaginationButtons >= 3) // If currentpage is the last page then this prints page button 1 and 2.
+                                {
+                                    <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 1, pagesize = Model.Pagination.PageSize})">1</a>
+                                    <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 2, pagesize = Model.Pagination.PageSize})">2</a>
+                                    totalPaginationButtons += 2;
+                                }
+                            }
+
+                            else
+                            {
+                                if (Math.Abs(i - Model.Pagination.CurrentPage) <= tolerance) // Only prints a total of 2 buttons above or below the currentpage.
+                                {
+                                    <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
+                                    totalPaginationButtons++;
+                                }
+                                if (Model.Pagination.CurrentPage == Model.Pagination.TotalPages - 1 && totalPaginationButtons >= 3) // prints page button 1 when on the second to last page.
+                                {
+                                    <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 1, pagesize = Model.Pagination.PageSize})">1</a>
+                                    totalPaginationButtons++;
+                                }
+                                else // skips other numbers
+                                {
+                                    continue;
+                                }
+                                if (totalPaginationButtons == 5) // breaks loop when totalbuttons are 5.
+                                {
+                                    break;
+                                }
+
+                            }
                         }
+
+                        
                     }
 
-                    if (nextPage <= Model.Pagination.TotalPages)
+                    if (nextPage > totalPages)
                     {
-                        <a class="btn-gray next-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = nextPage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-right"></i></a>
+                        nextPage = 1;
                     }
-                    else
-                    {                        
-                        <a class="btn-gray next-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 1, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-right"></i></a>
-                    }
+                    <a class="btn-gray next-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = nextPage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-right"></i></a>
+
+                    <a class="btn-gray last-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber =totalPages, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angles-right"></i></a>
 
                 }
             </div>

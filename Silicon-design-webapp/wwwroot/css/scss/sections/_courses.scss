@@ -34,7 +34,6 @@
                     gap: 2rem;
                 }
 
-
                 .select {
                     position: relative;
                     min-width: 300px;
@@ -78,6 +77,15 @@
                                 background-color: var(--color-gray-300);
                             }
                         }
+                    }
+                }
+
+                #pageSizeSelect {
+                    min-width: 7rem;
+
+                    .option {
+                        text-align: right;
+                        padding: 0.5rem 0.8rem 0.5rem 0.5rem;
                     }
                 }
 
@@ -134,9 +142,6 @@
             @include md {
                 grid-template-columns: 1fr 1fr;
             }
-            /* @include lg {
-                grid-template-columns: 1fr 1fr 1fr;
-            }*/
 
             @include xl {
                 grid-template-columns: 1fr 1fr 1fr;
@@ -152,18 +157,15 @@
                 overflow: hidden;
                 text-decoration: none;
                 z-index: 2;
-                //@include card;
                 transition: all 0.3s ease-out;
 
 
                 &:hover {
-                    //@include cardHover;
                     transform: scale(101%, 101%);
                     transition: all 0.3s ease-in;
                 }
 
                 &:active {
-                    //@include cardActive;
                     transform: scale(99%, 99%);
                     transition: all 0.3s ease-in;
                 }
@@ -279,20 +281,41 @@
                 margin: 3rem 0 6rem;
             }
 
-            a, span {
-                color: var(--color-gray-900);
-                font-weight: 700;
-                padding: 0.5rem 1rem;
+            .btn-theme, .btn-gray {
+                @include h6;
                 margin: 0 0.2rem;
+                padding: 0.8rem;
+                width: 2rem;
+                height: 2rem;
+
+                @include md {
+                    padding: 0;
+                    width: 2.5rem;
+                    height: 2.5rem;
+                }
             }
 
-/*            .btn-theme {
-                padding: 
-            }*/
+            .btn-theme {
+                width: 2.2rem;
+                height: 2.2rem;
+
+                @includ md{
+                    width: 3rem;
+                    height: 3rem;
+                }
+            }
 
             .previous-page, .next-page {
-                padding: 0.6rem 0.8rem;
+                max-width: 2rem;
+                max-height: 2rem;
                 background-color: var(--color-gray-300);
+            }
+
+            .first-page, .last-page {
+                max-width: 1.7rem;
+                max-height: 1.7rem;
+                font-size: 0.75rem !important;
+                background-color: var(--color-gray-400);
             }
         }
 

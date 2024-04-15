@@ -2,6 +2,7 @@
 using Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Silicon_design_webapp.ViewModels.Courses;
@@ -33,6 +34,7 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
             return View(viewModel);
         }
 
+        ViewData["StatusMessage"] = "Something went wrong, please contact site owner if issue persists.";
         return View(viewModel);
     }
 
@@ -58,29 +60,38 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
         return View(viewModel);
     }
 
+
+    /// <summary>
+    /// Populates the CoursesViewModel by getting each Model from the Web Api.
+    /// </summary>
+    /// <param name="category">Lets the Api query with lamba expression which category should be fetched from DB, defaults to empty string which gets all (logic is in Api)</param>
+    /// <param name="searchQuery">Lets Api query with .Contains(searchQuery) to return matches from DB</param>
+    /// <param name="pageNumber">The Current page number</param>
+    /// <param name="pageSize">The number of items displayed on a page</param>
+    /// <returns></returns>
     public async Task<(IEnumerable<CourseBoxModel> Courses, Pagination Pagination, IEnumerable<CategoryModel> Categories, IEnumerable<SavedCoursesModel> SavedCourses)> PopulateCourses(string category, string searchQuery, int pageNumber, int pageSize)
     {
         try
         {
             var savedCourses = await _userService.GetSavedCourses(User);
+
+            var categories = new List<CategoryModel>();
             var categoriesResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Category/?key={_configuration["ApiKey:Secret"]}");
             if (categoriesResponse.IsSuccessStatusCode)
             {
-                //var categoryStrings = await categoriesResponse.Content.ReadAsStringAsync();
-                var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(await categoriesResponse.Content.ReadAsStringAsync());
-
-                var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.EscapeDataString(category)}&searchQuery={Uri.EscapeDataString(searchQuery)}&pageNumber={pageNumber}&pageSize={pageSize}&key={_configuration["ApiKey:Secret"]}"); //&pageNumber={pageNumber}&pageSize={pageSize}
-                if (courseResponse.IsSuccessStatusCode)
-                {
-                    var courseStrings = await courseResponse.Content.ReadAsStringAsync();
-                    var courseResult = JsonConvert.DeserializeObject<CourseResult>(courseStrings);
-
-                    if (courseResult != null && categories != null)
-                    {
-                        return (courseResult.ReturnCourses, courseResult.Pagination, categories, savedCourses);
-                    }
-                }
+                categories = JsonConvert.DeserializeObject<List<CategoryModel>>(await categoriesResponse.Content.ReadAsStringAsync())!;
             }
+
+            var courseResult = new CourseResult();
+            var courseResponse = await _httpClient.GetAsync($"https://localhost:7034/api/Courses?category={Uri.EscapeDataString(category)}&searchQuery={Uri.EscapeDataString(searchQuery)}&pageNumber={pageNumber}&pageSize={pageSize}&key={_configuration["ApiKey:Secret"]}"); //&pageNumber={pageNumber}&pageSize={pageSize}
+            if (courseResponse.IsSuccessStatusCode)
+            {
+                var courseStrings = await courseResponse.Content.ReadAsStringAsync();
+                courseResult = JsonConvert.DeserializeObject<CourseResult>(courseStrings)!;
+            }
+                        
+            return (courseResult.ReturnCourses, courseResult.Pagination, categories, savedCourses);
+            
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return (null!, null!, null!, null!);

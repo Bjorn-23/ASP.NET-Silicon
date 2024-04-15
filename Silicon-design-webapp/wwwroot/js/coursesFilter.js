@@ -1,32 +1,83 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    select()
+    pageSizeSelect()
+    categorySelect()
     searchQuery()
+    submitForm()
+
+    console.log(selectedPageSize)
 })
 
-function select() {
-    try {
-        let select = document.querySelector(".select")
-        let selected = select.querySelector(".selected")
-        let selectOptions = select.querySelector(".select-options")
+const pageSizeSelector = document.querySelector("#pageSizeSelect")
+const selectedPageSize = pageSizeSelector.querySelector("#selectedPageSize")
+const pageSizeOptions = pageSizeSelector.querySelector("#pageSizeOptions")
 
+const categorySelector = document.querySelector("#selectCategory")
+const selectedCategory = categorySelector.querySelector("#selectedCategory")
+const categoryOptions = categorySelector.querySelector("#categorySelectOptions")
+
+//let pagination = document.querySelector('.pagination')
+//let paginationButtons = pagination.querySelectorAll('.btn-gray')
+
+//paginationButtons.forEach(function (button) {
+
+//    button.addEventListener('click', function (e) {
+//        e.preventDefault()
+//        console.log("link clicked")
+
+//        if (selectedPageSize.getAttribute('data-value') === null) {
+//            var initialPage = pageSizeOptions.querySelector(':nth-child(6)').getAttribute('data-value')   //sets initial pagesize
+//            console.log(initialPage + ' intitialPage set')
+//            selectedPageSize.setAttribute('data-value', initialPage)
+//        }
+
+//        //updateCoursesByFilters()
+//    })
+
+//})
+
+function pageSizeSelect() {
+    try {
         //if eventlistener is attached to selected instead, svg icon can not be clicked. 
-        select.addEventListener("click", function () {
-            selectOptions.style.display = (selectOptions.style.display === 'block') ? 'none' : 'block'
+        pageSizeSelector.addEventListener("click", function () {
+            pageSizeOptions.style.display = (pageSizeOptions.style.display === 'block') ? 'none' : 'block'
+            document.querySelector('#categorySelectOptions').style.display = 'none'
         })
 
-        let options = selectOptions.querySelectorAll(".option")
+        let options = pageSizeOptions.querySelectorAll(".option")
+
+        options.forEach(function (Option) {
+            Option.addEventListener('click', function () {
+                selectedPageSize.innerHTML = this.textContent
+                let pageSize = this.getAttribute('data-value')
+                selectedPageSize.setAttribute('data-value', pageSize)
+                updateCoursesByFilters()
+            })
+        })
+
+    }
+    catch { }
+}
+
+function categorySelect() {
+    try {
+        //if eventlistener is attached to selected instead, svg icon can not be clicked. 
+        categorySelector.addEventListener("click", function () {
+            categoryOptions.style.display = (categoryOptions.style.display === 'block') ? 'none' : 'block'
+            document.querySelector('#pageSizeOptions').style.display = 'none'
+        })
+
+        let options = categoryOptions.querySelectorAll(".option")
 
         options.forEach(function (option) {
             option.addEventListener('click', function () {
-                selected.innerHTML = this.textContent
-                //selectOptions.style.display = "none" //If using selected as eventlistener for dropdown menu, enable this line of code.
+                selectedCategory.innerHTML = this.textContent
                 let category = this.getAttribute('data-value')
                 if (category !== null) {
-                    selected.setAttribute('data-value', category)
+                    selectedCategory.setAttribute('data-value', category)
                 }
                 else {
-                    selected.setAttribute('data-value', "all")
+                    selectedCategory.setAttribute('data-value', "all")
                 }
                 updateCoursesByFilters()
             })
@@ -47,12 +98,15 @@ function searchQuery() {
 
 function updateCoursesByFilters() {
     try {
-        const category = document.querySelector('.select .selected').getAttribute('data-value') || "all"
-
+        const pageSize = document.querySelector("#selectedPageSize").getAttribute('data-value').toString()
+        const category = document.querySelector('#selectedCategory').getAttribute('data-value') || "all"
         const searchQuery = document.querySelector('#searchQuery').value
-        const url = `/courses?category=${encodeURIComponent(category)}&searchQuery=${encodeURIComponent(searchQuery)}`
-
-        console.log("clicked")
+        const url = `/courses?category=${encodeURIComponent(category)}&searchQuery=${encodeURIComponent(searchQuery)}&pageSize=${encodeURIComponent(pageSize)}`
+               
+        //console.log(category)
+        console.log(pageSize)
+        //console.log(searchQuery)
+        //console.log(url)
 
         fetch(url).then(res => res.text()).then(data => {
             const parser = new DOMParser()
