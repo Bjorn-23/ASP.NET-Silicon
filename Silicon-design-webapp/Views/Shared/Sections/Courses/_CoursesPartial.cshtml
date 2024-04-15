@@ -2,13 +2,14 @@
 
 <section class="courses">
 
-    @* @if (!string.IsNullOrEmpty(Model.CategoryQuery) && Model.CategoryQuery != "all")
-    {
-        <p>@Model.CategoryQuery</p>
-    } *@
-
     <div class="container">
         <div class="top-row">
+            
+@*             @if (!string.IsNullOrWhiteSpace(Model.CategoryQuery) && Model.CategoryQuery != "all") // ASK WHY THIS DOESNT WORK
+            {
+                var cq = Model.CategoryQuery;
+                <p>@cq</p>
+            } *@
 
             <h1>@Model.Title</h1>
             
@@ -264,6 +265,5 @@
 
     </div>
     <script src="~/js/coursesFilter.js"></script>
-    @*<script src="~/js/coursesFilter.js"></script>*@
 
 </section>
