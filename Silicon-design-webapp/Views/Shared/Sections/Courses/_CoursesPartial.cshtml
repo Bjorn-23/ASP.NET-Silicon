@@ -18,7 +18,15 @@
                             />
                     </svg>
 
-                    <div class="selected">All Categories</div>
+                    @if (!string.IsNullOrEmpty(Model.CategoryQuery))
+                    {
+                        <div class="selected">@Model.CategoryQuery</div>
+                    }
+                    else
+                    {
+                        <div class="selected">All Categories</div>
+
+                    }
                     <div class="select-options">
                         <div class="option" data-value="all">All Categories</div>
                         @if (Model.Categories != null && Model.Categories.Count() > 0)
@@ -108,16 +116,43 @@
         @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
         {
             <div class="pagination">
-                @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
-                {
-                    if (i == Model.Pagination.CurrentPage)
+
+                @{
+                    var previousPage = Model.Pagination.CurrentPage - 1;
+                    var nextPage = Model.Pagination.CurrentPage + 1;
+
+                    if (previousPage < 1)
                     {
-                        <span class="btn-theme">@i</span>
+                        var lastpage = Model.Pagination.TotalPages;
+                        <a class="btn-gray previous-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = lastpage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-left"></i></a>
                     }
                     else
                     {
-                        <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
+                        <a class="btn-gray previous-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = previousPage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-left"></i></a>
                     }
+
+                    @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                    {
+
+                        if (i == Model.Pagination.CurrentPage)
+                        {
+                            <span class="btn-theme current-page">@i</span>
+                        }
+                        else
+                        {
+                            <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
+                        }
+                    }
+
+                    if (nextPage <= Model.Pagination.TotalPages)
+                    {
+                        <a class="btn-gray next-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = nextPage, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-right"></i></a>
+                    }
+                    else
+                    {                        
+                        <a class="btn-gray next-page" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 1, pagesize = Model.Pagination.PageSize})"><i class="fa-solid fa-angle-right"></i></a>
+                    }
+
                 }
             </div>
         }

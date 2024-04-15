@@ -68,15 +68,18 @@ function updateCoursesByFilters() {
 
 
 function submitForm(event) {
-    event.preventDefault();
+    try {
+        event.preventDefault();
 
-    var submitButtons = document.querySelectorAll(".bookmark-form");
-    submitButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            // Find the parent form of the clicked button
-            var form = button.closest('form');
+        var submitButtons = document.querySelectorAll(".bookmark-form");
+        submitButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Find the parent form of the clicked button
+                var form = button.closest('form');
 
-            form.submit();
+                form.submit();
+            });
         });
-    });
+    }
+    catch { }
 }

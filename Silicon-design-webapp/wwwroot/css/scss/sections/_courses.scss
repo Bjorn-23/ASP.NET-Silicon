@@ -153,19 +153,19 @@
                 text-decoration: none;
                 z-index: 2;
                 //@include card;
-                transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+                transition: all 0.3s ease-out;
 
 
                 &:hover {
                     //@include cardHover;
                     transform: scale(101%, 101%);
-                    transition: transform 0.2s ease-in, box-shadow 0.2s ease-in;
+                    transition: all 0.3s ease-in;
                 }
 
                 &:active {
                     //@include cardActive;
                     transform: scale(99%, 99%);
-                    transition: transform 0.2s ease-in, box-shadow 0.2s ease-in;
+                    transition: all 0.3s ease-in;
                 }
 
                 .img-wrapper {
@@ -284,6 +284,15 @@
                 font-weight: 700;
                 padding: 0.5rem 1rem;
                 margin: 0 0.2rem;
+            }
+
+/*            .btn-theme {
+                padding: 
+            }*/
+
+            .previous-page, .next-page {
+                padding: 0.6rem 0.8rem;
+                background-color: var(--color-gray-300);
             }
         }
 

@@ -2055,15 +2055,15 @@ footer .container .details {
   overflow: hidden;
   text-decoration: none;
   z-index: 2;
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  transition: all 0.3s ease-out;
 }
 .courses .container .grid-container .grid-item:hover {
   transform: scale(101%, 101%);
-  transition: transform 0.2s ease-in, box-shadow 0.2s ease-in;
+  transition: all 0.3s ease-in;
 }
 .courses .container .grid-container .grid-item:active {
   transform: scale(99%, 99%);
-  transition: transform 0.2s ease-in, box-shadow 0.2s ease-in;
+  transition: all 0.3s ease-in;
 }
 .courses .container .grid-container .grid-item .img-wrapper .course-image {
   width: 100%;
@@ -2162,6 +2162,9 @@ footer .container .details {
   align-items: center;
   justify-content: center;
   margin: 1rem 0 2rem;
+  /*            .btn-theme {
+                  padding: 
+              }*/
 }
 @media (min-width: 768px) {
   .courses .container .pagination {
@@ -2178,6 +2181,10 @@ footer .container .details {
   font-weight: 700;
   padding: 0.5rem 1rem;
   margin: 0 0.2rem;
+}
+.courses .container .pagination .previous-page, .courses .container .pagination .next-page {
+  padding: 0.6rem 0.8rem;
+  background-color: var(--color-gray-300);
 }
 .courses .container .get-started {
   background-color: var(--color-gray-100);
