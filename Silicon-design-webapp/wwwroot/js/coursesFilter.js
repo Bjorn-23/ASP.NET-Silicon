@@ -4,41 +4,22 @@
     categorySelect()
     searchQuery()
     submitForm()
-
-    console.log(selectedPageSize)
 })
 
-const pageSizeSelector = document.querySelector("#pageSizeSelect")
-const selectedPageSize = pageSizeSelector.querySelector("#selectedPageSize")
-const pageSizeOptions = pageSizeSelector.querySelector("#pageSizeOptions")
+//const pageSizeSelector = document.querySelector("#pageSizeSelect")
+//const selectedPageSize = pageSizeSelector.querySelector("#selectedPageSize")
+//const pageSizeOptions = pageSizeSelector.querySelector("#pageSizeOptions")
 
-const categorySelector = document.querySelector("#selectCategory")
-const selectedCategory = categorySelector.querySelector("#selectedCategory")
-const categoryOptions = categorySelector.querySelector("#categorySelectOptions")
-
-//let pagination = document.querySelector('.pagination')
-//let paginationButtons = pagination.querySelectorAll('.btn-gray')
-
-//paginationButtons.forEach(function (button) {
-
-//    button.addEventListener('click', function (e) {
-//        e.preventDefault()
-//        console.log("link clicked")
-
-//        if (selectedPageSize.getAttribute('data-value') === null) {
-//            var initialPage = pageSizeOptions.querySelector(':nth-child(6)').getAttribute('data-value')   //sets initial pagesize
-//            console.log(initialPage + ' intitialPage set')
-//            selectedPageSize.setAttribute('data-value', initialPage)
-//        }
-
-//        //updateCoursesByFilters()
-//    })
-
-//})
+//const categorySelector = document.querySelector("#selectCategory")
+//const selectedCategory = categorySelector.querySelector("#selectedCategory")
+//const categoryOptions = categorySelector.querySelector("#categorySelectOptions")
 
 function pageSizeSelect() {
     try {
-        //if eventlistener is attached to selected instead, svg icon can not be clicked. 
+        const pageSizeSelector = document.querySelector("#pageSizeSelect")
+        const selectedPageSize = pageSizeSelector.querySelector("#selectedPageSize")
+        const pageSizeOptions = pageSizeSelector.querySelector("#pageSizeOptions")
+        //if eventlistener is attached to selectedPageSize instead, svg icon can not be clicked.
         pageSizeSelector.addEventListener("click", function () {
             pageSizeOptions.style.display = (pageSizeOptions.style.display === 'block') ? 'none' : 'block'
             document.querySelector('#categorySelectOptions').style.display = 'none'
@@ -61,7 +42,10 @@ function pageSizeSelect() {
 
 function categorySelect() {
     try {
-        //if eventlistener is attached to selected instead, svg icon can not be clicked. 
+        const categorySelector = document.querySelector("#selectCategory")
+        const selectedCategory = categorySelector.querySelector("#selectedCategory")
+        const categoryOptions = categorySelector.querySelector("#categorySelectOptions")
+        //if eventlistener is attached to selectedCategory instead, svg icon can not be clicked.
         categorySelector.addEventListener("click", function () {
             categoryOptions.style.display = (categoryOptions.style.display === 'block') ? 'none' : 'block'
             document.querySelector('#pageSizeOptions').style.display = 'none'
@@ -104,7 +88,7 @@ function updateCoursesByFilters() {
         const url = `/courses?category=${encodeURIComponent(category)}&searchQuery=${encodeURIComponent(searchQuery)}&pageSize=${encodeURIComponent(pageSize)}`
                
         //console.log(category)
-        console.log(pageSize)
+        //console.log(pageSize)
         //console.log(searchQuery)
         //console.log(url)
 

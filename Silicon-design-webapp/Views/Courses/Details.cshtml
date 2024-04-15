@@ -102,16 +102,22 @@
             <div class="what-you-learn-box">
                 <h3>What you'll learn</h3>
 
-@*                 @foreach(var bulletPoint in Model.Course.WhatYouLearn)
-                {
-                    <p><i class="fa-regular fa-circle-check"></i>bulletPoint</p>
-                } *@
+                @{
+                    string[] bulletPoints =
+                    [
+                        "Sed lectus donec amet eu turpis interdum.",
+                        "Nulla at consectetur vitae dignissim porttitor.",
+                        "Phasellus id vitae dui aliquet mi.",
+                        "Integer cursus vitae, odio feugiat iaculis aliquet diam, et purus.",
+                        "In aenean dolor diam tortor orci eu."
+                    ];
 
-                    <p><i class="fa-regular fa-circle-check"></i>Sed lectus donec amet eu turpis interdum.</p>
-                    <p><i class="fa-regular fa-circle-check"></i>Nulla at consectetur vitae dignissim porttitor.</p>
-                    <p><i class="fa-regular fa-circle-check"></i>Phasellus id vitae dui aliquet mi.</p>
-                    <p><i class="fa-regular fa-circle-check"></i>Integer cursus vitae, odio feugiat iaculis aliquet diam, et purus.</p>
-                    <p><i class="fa-regular fa-circle-check"></i>In aenean dolor diam tortor orci eu.</p>
+                    foreach ( var bulletPoint in bulletPoints)
+                    {
+                        <p><i class="fa-regular fa-circle-check"></i>@bulletPoint</p>
+                    }
+                }
+
             </div>
 
             <div class="course-includes-box">
@@ -152,7 +158,7 @@
 
                         if (isSignedUp)
                         {
-                            <button class="btn-theme" type="submit">Leave Course</button>
+                            <button class="btn-delete-all" type="submit">Leave Course</button>
                             <div class="btn">You are signed up <i class="fa-solid fa-thumbs-up"></i></div>
                         }
                         else

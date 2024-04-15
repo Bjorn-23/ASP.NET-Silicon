@@ -1,23 +1,18 @@
 ﻿@model CoursesViewModel
 
-
 <section class="courses">
+
+    @* @if (!string.IsNullOrEmpty(Model.CategoryQuery) && Model.CategoryQuery != "all")
+    {
+        <p>@Model.CategoryQuery</p>
+    } *@
+
     <div class="container">
         <div class="top-row">
 
             <h1>@Model.Title</h1>
-
+            
             <div class="top-right">
-
-                @if (Model.Pagination.TotalItems < Model.Pagination.PageSize)
-                {
-                    <span data-value="@Model.Pagination.TotalItems">@Model.Pagination.TotalItems.ToString()</span>
-                }
-                else
-                {
-                    <span data-value="@Model.Pagination.PageSize">@Model.Pagination.PageSize.ToString()</span>
-
-                }
 
                 <div class="select" id="pageSizeSelect">
 
@@ -26,14 +21,13 @@
                               d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
                     </svg>
 
-                    @if (Model.Pagination.TotalItems < Model.Pagination.PageSize)
+                    @if (Model.Pagination.TotalItems < Model.Pagination.PageSize) // Seems to get stuck on cached values.
                     {
                         <div class="selected" id="selectedPageSize" data-value="@Model.Pagination.TotalItems">@Model.Pagination.TotalItems</div>
                     }
                     else
                     {
                         <div class="selected" id="selectedPageSize" data-value="@Model.Pagination.PageSize">@Model.Pagination.PageSize</div>
-
                     }
 
                     <div class="select-options" id="pageSizeOptions">
@@ -42,7 +36,6 @@
                             if (i == Model.Pagination.TotalItems)
                             {
                                 <div class="option" data-value="@i">Show All</div>
-
                             }
                             else
                             {
@@ -61,7 +54,6 @@
                             d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                             />
                     </svg>
-
 
                     @if (!string.IsNullOrEmpty(Model.CategoryQuery) && Model.CategoryQuery != "all")
                     {
@@ -229,7 +221,7 @@
                                     <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = i, pagesize = Model.Pagination.PageSize})">@i</a>
                                     totalPaginationButtons++;
                                 }
-                                if (Model.Pagination.CurrentPage == Model.Pagination.TotalPages - 1 && totalPaginationButtons >= 3) // prints page button 1 when on the second to last page.
+                                if (Model.Pagination.CurrentPage == Model.Pagination.TotalPages - 1 && totalPaginationButtons >= 4) // prints page button 1 when on the second to last page.
                                 {
                                     <a class="btn-gray" href="@Url.Action("Index", new { category = Model.CategoryQuery, pageNumber = 1, pagesize = Model.Pagination.PageSize})">1</a>
                                     totalPaginationButtons++;
@@ -242,10 +234,8 @@
                                 {
                                     break;
                                 }
-
                             }
                         }
-
                         
                     }
 
@@ -273,6 +263,7 @@
         </div>
 
     </div>
-
     <script src="~/js/coursesFilter.js"></script>
+    @*<script src="~/js/coursesFilter.js"></script>*@
+
 </section>
