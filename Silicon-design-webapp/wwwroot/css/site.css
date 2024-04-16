@@ -1207,6 +1207,7 @@ footer .container .details {
   position: relative;
   overflow: hidden;
   --position: 50%;
+  --imagePosition: 50%;
   padding: 2rem 0 2rem;
 }
 @media (min-width: 1200px) {
@@ -1268,7 +1269,7 @@ footer .container .details {
 .dark-light-slider .slider-container .image-container #mbp-dark {
   position: absolute;
   inset: 0;
-  width: var(--position);
+  width: var(--imagePosition);
 }
 .dark-light-slider .slider-container .image-container .slider-image {
   width: 100%;
@@ -4461,7 +4462,7 @@ footer .container .details {
 .admin-contact .container .grid-container .form-wrapper form .button-group .btn-gray {
   background-color: var(--color-gray-300);
 }
-.admin-contact .container .grid-container .form-wrapper .form-delete {
+.admin-contact .container .grid-container .form-wrapper form .btn-delete-all {
   margin: 1rem 0 0;
 }
 

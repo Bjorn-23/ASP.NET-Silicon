@@ -507,7 +507,7 @@ public class AdminController(AdminService adminService, IConfiguration configura
     }
 
 
-    [HttpPost("/admin/contact/delete")]
+    [HttpPost("/admin/contact/delete/")]
     public async Task<IActionResult> DeleteContact(AdminContactViewModel viewModel)
     {
         using var http = new HttpClient();
