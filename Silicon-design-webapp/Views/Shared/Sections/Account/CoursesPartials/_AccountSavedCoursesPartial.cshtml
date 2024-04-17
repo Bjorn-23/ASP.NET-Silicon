@@ -20,7 +20,7 @@
 
                             <a class="grid-item card" asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
                                 <div class="img-wrapper">
-                                    <img class="course-image" src="@course.ImageUrl" alt="@course.AltText">
+                                    <img class="course-image" src="/img/courses/@course.ImageUrl" alt="@course.AltText">
                                     <p class="@(course.BestSeller ? "best-seller" : "hidden")">Best Seller</p>
                                 </div>
 

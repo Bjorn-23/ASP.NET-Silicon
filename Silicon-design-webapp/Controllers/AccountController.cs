@@ -31,17 +31,20 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     {
         var viewModel = new AccountDetailsViewModel();
 
-        var activeUser = await _userService.GetActiveUserAsync(User);
-        if (activeUser.Content != null)
+        if (ModelState.IsValid)
         {
-            viewModel.BasicForm = (BasicInfoModel)activeUser.Content;
-            viewModel.Sidebar.AccountInfo = viewModel.BasicForm;
+            var activeUser = await _userService.GetActiveUserAsync(User);
+            if (activeUser.Content != null)
+            {
+                viewModel.BasicForm = (BasicInfoModel)activeUser.Content;
+                viewModel.Sidebar.AccountInfo = viewModel.BasicForm;
+            }
+
+            var UserAddress = await _addressService.GetUserAddressAsync(User);
+            if (UserAddress.Content != null)
+                viewModel.AddressForm = (AddressInfoModel)UserAddress.Content;
         }
-
-        var UserAddress = await _addressService.GetUserAddressAsync(User);
-        if (UserAddress.Content != null)
-            viewModel.AddressForm = (AddressInfoModel)UserAddress.Content;
-
+        
         return View(viewModel);
     }
 
