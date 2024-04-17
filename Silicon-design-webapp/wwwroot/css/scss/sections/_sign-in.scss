@@ -14,9 +14,16 @@
         width: 30%;
     }
 
+    @include xxl {
+        max-width: 550px
+    }
+
+    @include xxxl {
+        margin: 12rem auto;
+    }
+
     .sign-in-form {
-
-
+ 
         .incorrectEmailOrPassword, .userCreateSuccess {
             text-align: center;
             background-color: #EF444420;

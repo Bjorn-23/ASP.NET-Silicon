@@ -6,8 +6,7 @@
 
 <section class="sign-up container">
 
-@*     Add conditionally display div if sign up fails, display statusmessages frrom responseresult.
- *@
+
     <form class="sign-up-form" method="post" asp-controller="Auth" asp-action="SignUp" novalidate>
 
         <p class="@((ViewData["StatusMessage"]!.ToString() == "A user with that email alredy exists") ? "userAlreadyExists" : ((ViewData["StatusMessage"]!.ToString() == "Invalid form, please check all fields and try again") ? "invalidSignUpForm" : "field-validation-valid" ))">@ViewData["StatusMessage"]</p>

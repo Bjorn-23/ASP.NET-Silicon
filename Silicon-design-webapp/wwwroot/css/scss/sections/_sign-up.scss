@@ -16,6 +16,14 @@
             width: 40%;
         }
 
+        @include xxl {
+            max-width: 550px
+        }
+
+        @include xxxl {
+            margin: 12rem auto;
+        }
+
         .userAlreadyExists, .invalidSignUpForm {
             width: 100%;
             background-color: #EF444420;

@@ -1,62 +1,63 @@
-.features{
+.features {
     background-color: var(--color-gray-100);
     padding: 2rem 0 4rem 0;
 
-    @include md{
-
+    @include md {
     }
 
-    @include lg{
+    @include lg {
         padding-top: 4rem;
         padding-bottom: 10rem;
     }
 
-    .container{
-        text-align: center;            
-        
-        h1{
+    .container {
+        text-align: center;
+
+        h1 {
             @include h4;
         }
 
-        span{
+        span {
             @include text-lg;
         }
 
-        .grid-container{
+        .grid-container {
             display: grid;
             grid-template-columns: auto;
-            background-color: var(--color-gray-300);
+            background-color: var(--color-gray-200);
             gap: 0.1rem;
 
-            @include md{
+            @include md {
                 grid-template-columns: auto auto;
                 margin-top: 4rem;
             }
 
-            @include lg{
+            @include lg {
                 grid-template-columns: auto auto auto;
             }
 
-            .grid-item{
+            .grid-item {
                 background-color: var(--color-gray-100);
                 padding: 2.5rem;
 
-                img{
+                img {
                     background-color: var(--color-gray-100);
                     padding: 1rem;
                     border-radius: 1rem;
                     margin-bottom: 2rem;
                 }
 
-                span{
+                span {
                     @include text-m;
                 }
 
-                &:hover{
+                &:hover {
                     background-color: var(--color-gray-000);
                     text-decoration: none;
                     transform: scale(1.01125);
-                    transition: all 0.1s ease-in-out;
+                    border-radius: 0.5rem;
+                    @include card;
+                    transition: all 0.05s ease-in-out;
                 }
             }
         }

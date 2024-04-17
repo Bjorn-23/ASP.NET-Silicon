@@ -10,13 +10,15 @@
             <h1 class="gradient-text">@Model.Title</h1>
         </div>
 
-        <div class="image-container">
+        <div class="image-container" id="imageContainer">
             <img class="image-before slider-image" id="mbp-dark" src="@Model.ImageOne.ImageUrl" alt="@Model.ImageOne.AltText">
-            <img class="image-after slider-image" src="@Model.ImageTwo.ImageUrl" alt="@Model.ImageTwo.AltText">
+            <img class="image-after slider-image" id="mbp-light" src="@Model.ImageTwo.ImageUrl" alt="@Model.ImageTwo.AltText">
         </div>
 
         <input id="slider" class="slider" type="range" min="0" max="100" value="50" aria-label="percentage of before photo shown">
         <img class="slider-line" src="/img/blue-slider.svg" alt="">
 
     </div>
+
+    <script src="/js/darkModeSlider.js"></script>
 </section>

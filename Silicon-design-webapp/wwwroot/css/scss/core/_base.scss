@@ -39,6 +39,13 @@ h6, .h6 { @include h6; }
     grid-template-rows: auto auto auto;
 }
 
+.auth-wrap {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+
 .hidden{
     display: none !important; 
 }

@@ -139,14 +139,13 @@
     }
 
     #createSubscription {
-            margin: 0;
-            padding: 0;
+        margin: 0;
+        padding: 0;
 
-            button {    
-                background-color: var(--color-success);
-                color: #fff;
-            }
-
+        button {
+            background-color: var(--color-success);
+            color: #fff;
+        }
     }
 }
 
@@ -275,26 +274,6 @@
                 border: 1px solid var(--color-gray-500);
                 border-radius: 0.5rem;
                 padding: 1rem;
-
-                form {
-                    margin: 0 0 1rem;
-
-                    .button-wrapper {
-                        display: flex;
-                        align-items: baseline;
-                        gap: 1rem;
-
-                        .btn-theme {
-                            background-color: var(--color-warning);
-                            color: var(--color-gray-900);
-                            margin: 1rem 0 0;
-                        }
-
-                        .btn-gray {
-                            background-color: var(--color-gray-300);
-                        }
-                    }
-                }
             }
         }
 
@@ -313,6 +292,40 @@
                 button {
                     background-color: var(--color-success);
                 }
+            }
+        }
+    }
+
+    form, #coursesForm {
+        margin: 0 0 1rem;
+
+        .group-wrapper {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group {
+            padding: 0;
+            margin: 0.5rem 0 1rem;
+
+            label {
+                @include h6;
+            }
+        }
+
+        .button-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+
+            .btn-theme {
+                background-color: var(--color-warning);
+                color: var(--color-gray-900);
+                margin: 1rem 0 0;
+            }
+
+            .btn-gray {
+                background-color: var(--color-gray-300);
             }
         }
     }
@@ -352,10 +365,10 @@
                             background-color: var(--color-gray-300);
                         }
                     }
-                }
 
-                .form-delete {
-                    margin: 1rem 0 0;
+                    .btn-delete-all {
+                        margin: 1rem 0 0;
+                    }
                 }
             }
         }
