@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Entitites;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Silicon_design_webapp.Helpers;
 
@@ -12,8 +13,11 @@ public class UserSessionValidationMiddleware(RequestDelegate next)
     {
         if (context.User.Identity!.IsAuthenticated)
         {
-            //if (!await userManager.Users.AnyAsync(x => x.UserName == context.User.Identity.Name))
-            //    await signInManager.SignOutAsync();
+            //checks if a user has been deleted but is still flagged as being logged in, if so logs the User out.
+            if (!await userManager.Users.AnyAsync(x => x.UserName == context.User.Identity.Name))
+            {
+                await signInManager.SignOutAsync(); 
+            }
 
             var user = await userManager.GetUserAsync(context.User);
             if (user == null)

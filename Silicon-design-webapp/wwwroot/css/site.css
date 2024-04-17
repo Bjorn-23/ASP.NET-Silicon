@@ -211,6 +211,12 @@ h6, .h6 {
   grid-template-rows: auto auto auto;
 }
 
+.auth-wrap {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
 .hidden {
   display: none !important;
 }
@@ -3294,6 +3300,16 @@ footer .container .details {
     width: 30%;
   }
 }
+@media (min-width: 1400px) {
+  .sign-in-section {
+    max-width: 550px;
+  }
+}
+@media (min-width: 1920px) {
+  .sign-in-section {
+    margin: 12rem auto;
+  }
+}
 .sign-in-section .sign-in-form .incorrectEmailOrPassword, .sign-in-section .sign-in-form .userCreateSuccess {
   text-align: center;
   background-color: rgba(239, 68, 68, 0.1254901961);
@@ -3432,6 +3448,16 @@ footer .container .details {
   .sign-up .sign-up-form {
     margin: 4rem auto;
     width: 40%;
+  }
+}
+@media (min-width: 1400px) {
+  .sign-up .sign-up-form {
+    max-width: 550px;
+  }
+}
+@media (min-width: 1920px) {
+  .sign-up .sign-up-form {
+    margin: 12rem auto;
   }
 }
 .sign-up .sign-up-form .userAlreadyExists, .sign-up .sign-up-form .invalidSignUpForm {

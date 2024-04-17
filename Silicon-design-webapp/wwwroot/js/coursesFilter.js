@@ -100,6 +100,8 @@ function updateCoursesByFilters() {
             const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ""
             document.querySelector('.pagination').innerHTML = pagination
         })
+
+        ///window.location.reload()
     }
     catch { }
 }
