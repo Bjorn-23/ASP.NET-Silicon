@@ -18,21 +18,17 @@ const gradientText = document.querySelector('.gradient-text')
 //and calling windowResizeHandler in the ComContent loaded eventlistener
 window.addEventListener("resize", function () {
     window.location.reload()
-    //windowResizeHandler()
 })
 
 function windowResizeHandler() {
-    console.log('resizing')
+    //console.log('resizing')
     if (window.innerWidth >= 1200) {
         windowWidth = document.documentElement.clientWidth
     }
-
     imageSize = parseFloat(window.getComputedStyle(document.querySelector('#mbp-light')).width);
     imageStart = Math.abs((windowWidth - imageSize) / 2) // split in 2 provided image is centered
     leftSide = Math.abs((imageStart / windowWidth) * 100)
     rightSide = Math.abs(((windowWidth - imageStart) / windowWidth) * 100)
-
-    console.log(imageSize, windowWidth)
 }
 
 
