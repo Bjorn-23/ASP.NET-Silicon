@@ -7,6 +7,7 @@
         position: relative;
         overflow: hidden;
         --position: 50%;
+        --imagePosition: 50%;
         padding: 2rem 0 2rem;
 
         @include xl {
@@ -55,6 +56,8 @@
             position: relative;
             text-align: center;
 
+            @include md {
+            }
 
             @include xl {
                 max-width: 1400px;
@@ -64,7 +67,8 @@
             #mbp-dark {
                 position: absolute;
                 inset: 0;
-                width: var(--position);
+                //width: (var(--position));
+                width: (var(--imagePosition));
             }
 
             .slider-image {
