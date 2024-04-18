@@ -19,43 +19,57 @@ public class CoursesController(IConfiguration configuration, HttpClient httpClie
     [HttpGet]
     public async Task<IActionResult> Index(string category = "", string searchQuery = "", int pageNumber = 1, int pageSize = 6)
     {
-        var viewModel = new CoursesViewModel();
-
-        var models = await PopulateCourses(category, searchQuery, pageNumber, pageSize);
-        if (models.Courses != null && models.Categories != null)
+        try
         {
-            viewModel.CategoryQuery = category;
-            viewModel.SavedCourses = models.SavedCourses;
-            viewModel.Courses = models.Courses;
-            viewModel.Categories = models.Categories;
-            viewModel.Pagination = models.Pagination;
-            return View(viewModel);
-        }
+            var viewModel = new CoursesViewModel();
 
-        ViewData["StatusMessage"] = "Something went wrong, please contact site owner if issue persists.";
-        return View(viewModel);
+            var models = await PopulateCourses(category, searchQuery, pageNumber, pageSize);
+            if (models.Courses != null && models.Categories != null)
+            {
+                viewModel.CategoryQuery = category;
+                viewModel.SavedCourses = models.SavedCourses;
+                viewModel.Courses = models.Courses;
+                viewModel.Categories = models.Categories;
+                viewModel.Pagination = models.Pagination;
+                return View(viewModel);
+            }
+
+            ViewData["StatusMessage"] = "Something went wrong, please contact site owner if issue persists.";
+            return View(viewModel);
+
+        }
+        catch (Exception ex) { Debug.Write(ex.Message); }
+        return StatusCode(500);
+
+
     }
 
     [Route("/courses/details")]
     [HttpGet]
     public async Task<IActionResult> Details(string id)
     {
-        var viewModel = new CourseDetailsViewModel();
-
-        var savedCourses = await _userService.GetSavedCourses(User);
-        var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses/{id}?key={_configuration["ApiKey:Secret"]}");
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var jsonStrings = await response.Content.ReadAsStringAsync();
-            var model = JsonConvert.DeserializeObject<CourseBoxModel>(jsonStrings);
-            viewModel.Course = model!;
-            viewModel.SavedCourses = savedCourses;
-            return View(viewModel);
-        };
+            var viewModel = new CourseDetailsViewModel();
 
-        //Should probably be returned to other view with an errormessage here...
-        ViewData["Title"] = viewModel.Course.Title;
-        return View(viewModel);
+            var savedCourses = await _userService.GetSavedCourses(User);
+            var response = await _httpClient.GetAsync($"https://localhost:7034/api/Courses/{id}?key={_configuration["ApiKey:Secret"]}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonStrings = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<CourseBoxModel>(jsonStrings);
+                viewModel.Course = model!;
+                viewModel.SavedCourses = savedCourses;
+                return View(viewModel);
+            };
+
+            //Should probably be returned to other view with an errormessage here...
+            ViewData["Title"] = viewModel.Course.Title;
+            return View(viewModel);
+
+        }
+        catch (Exception ex) { Debug.Write(ex.Message); }
+        return StatusCode(500);
     }
 
 

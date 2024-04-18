@@ -30,10 +30,9 @@ public class ContactController(IConfiguration configuration) : Controller
     [HttpPost]
     public async Task<IActionResult> Index(ContactModel model)
     {
-
-        if (ModelState.IsValid)
+        try
         {
-            try
+            if (ModelState.IsValid)
             {
                 using var http = new HttpClient();
                 var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
@@ -53,17 +52,15 @@ public class ContactController(IConfiguration configuration) : Controller
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.Message);
-                TempData["StatusMessage"] = ResponseFactory.InternalServerError().Message;
-                return RedirectToAction("Index");
-            }
-        }
 
-        var viewModel = new ContactViewModel();
-        ViewData["StatusMessage"] = "Error - Form could not be submitted";
-        return View(viewModel);
+            var viewModel = new ContactViewModel();
+            ViewData["StatusMessage"] = "Error - Form could not be submitted";
+            return View(viewModel);
+        }
+        catch (Exception ex) { Debug.Write(ex.Message); }
+
+        TempData["StatusMessage"] = ResponseFactory.InternalServerError().Message;
+        return RedirectToAction("Index");
     }
 
     #endregion
