@@ -57,12 +57,16 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
             return RedirectToAction("Details", "Account");
 
         var viewModel = new SignInViewModel();
-        ViewData["ReturnUrl"] = returnurl ?? "~/account";
+
+        if (ModelState.IsValid)
+        {
+            ViewData["ReturnUrl"] = returnurl ?? "~/account";
+        }
        
         string statusMessage = TempData["StatusMessage"]?.ToString() ?? "";
         ViewBag.StatusMessage = statusMessage;
         
-        return View("SignIn", viewModel);
+        return View(viewModel);
     }
 
 
@@ -104,22 +108,31 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     [HttpGet]
     public  IActionResult Facebook(string? returnUrl)
     {
-        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback", new { returnUrl }), returnUrl);
-        return new ChallengeResult("Facebook", authprops);
+        if (ModelState.IsValid)
+        {
+            var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback", new { returnUrl }), returnUrl);
+            return new ChallengeResult("Facebook", authprops);
+        }
+
+        TempData["StatusMessage"] = "Failed to login with Facebook - please try again later";
+        return RedirectToAction("SignIn", "Account");
     }
 
     public async Task<IActionResult> FacebookCallback(string? returnUrl)
     {
-        var info = await _signInManager.GetExternalLoginInfoAsync();
-        if (info != null)
+        if (ModelState.IsValid)
         {
-            var result = await _userService.SignInOrRegisterExternalAccount(info);
-            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info != null)
             {
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                    return Redirect(returnUrl);
+                var result = await _userService.SignInOrRegisterExternalAccount(info);
+                if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
                 
-                return RedirectToAction("Details", "Account");
+                    return RedirectToAction("Details", "Account");
+                }
             }
         }
 
@@ -132,22 +145,31 @@ public class AuthController(UserService userService, SignInManager<UserEntity> s
     [HttpGet]
     public IActionResult Google(string? returnUrl)
     {
-        var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback", new { returnUrl }), returnUrl);
-        return new ChallengeResult("Google", authprops);
+        if (ModelState.IsValid)
+        {
+            var authprops = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback", new { returnUrl }), returnUrl);
+            return new ChallengeResult("Google", authprops);
+        }
+
+        TempData["StatusMessage"] = "Failed to login with Google - please try again later";
+        return RedirectToAction("SignIn", "Account");
     }
 
     public async Task<IActionResult> GoogleCallback(string? returnUrl)
     {
-        var info = await _signInManager.GetExternalLoginInfoAsync();
-        if (info != null)
+        if (ModelState.IsValid)
         {
-            var result = await _userService.SignInOrRegisterExternalAccount(info);
-            if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info != null)
             {
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                    return Redirect(returnUrl);
+                var result = await _userService.SignInOrRegisterExternalAccount(info);
+                if (result.StatusCode == Infrastructure.Utilities.StatusCode.OK && HttpContext.User != null)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
                 
-                return RedirectToAction("Details", "Account");
+                    return RedirectToAction("Details", "Account");
+                }
             }
         }
 
