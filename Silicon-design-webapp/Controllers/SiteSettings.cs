@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Silicon_design_webapp.Controllers
 {
@@ -7,27 +8,37 @@ namespace Silicon_design_webapp.Controllers
         [HttpGet]
         public IActionResult ChangeTheme(string theme)
         {
-            var option = new CookieOptions
+            try
             {
-                Expires = DateTime.Now.AddDays(60),
-            };
+                var option = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(60),
+                };
 
-            Response.Cookies.Append("ThemeMode", theme, option);
-            return Ok();
+                Response.Cookies.Append("ThemeMode", theme, option);
+                return Ok();
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return StatusCode(500);
         }
 
         [HttpPost]
         public IActionResult CookieConsent()
         {
-            var option = new CookieOptions
+            try
             {
-                Expires = DateTime.Now.AddYears(1),
-                HttpOnly = true,
-                Secure = true,
-            };
+                var option = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddYears(1),
+                    HttpOnly = true,
+                    Secure = true,
+                };
 
-            Response.Cookies.Append("CookieConsent", "true", option);
-            return Ok();
+                Response.Cookies.Append("CookieConsent", "true", option);
+                return Ok();
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return StatusCode(500);
         }
     }
 }
