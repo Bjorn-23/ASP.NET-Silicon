@@ -237,6 +237,8 @@ h6, .h6 {
   --color-gray-000: #0B0F19;
   --color-gray-100: #13161D;
   --color-gray-200: #1C1F26;
+  /*   --color-gray-alt100: #565973;
+     --color-gray-alt200: #33354D;*/
   --color-gray-300: #9397AD;
   --color-gray-400: #B4B7C9;
   --color-gray-500: #D4D7E5;
@@ -2855,7 +2857,7 @@ footer .container .details {
 .course-details .program-details .grid-container .progression-boxes .progress-box .outer-circle {
   position: relative;
   padding: 0.4rem;
-  background-color: var(--color-gray-100);
+  background-color: var(--color-gray-200);
   box-shadow: 2px 2px 3px var(--color-gray-400), 2px 3px 3px var(--color-gray-300), 2px 4px 4px var(--color-gray-100), 2px 5px 5px var(--color-gray-000);
   border-radius: 100%;
 }
