@@ -189,24 +189,26 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     public async Task<IActionResult> BookmarkCourse(string courseId)
     {
         //var tracked = _context.ChangeTracker.Entries<SavedCoursesEntity>().Any(e => e.Entity.UserId == savedCourse.UserId && e.Entity.CourseId == savedCourse.CourseId);
-
-        var existingSavedCourse = await _userService.GetOneSavedCourse(User, courseId);
-        if (existingSavedCourse == null)
+        if (ModelState.IsValid)
         {
-            var savedCourse = await _userService.CreateSavedCourse(User, courseId);
-            if (savedCourse)
+            var existingSavedCourse = await _userService.GetOneSavedCourse(User, courseId);
+            if (existingSavedCourse == null)
             {
-                TempData["CourseStatus"] = "Course saved Successfully.";
-                return RedirectToAction("SavedCourses");
+                var savedCourse = await _userService.CreateSavedCourse(User, courseId);
+                if (savedCourse)
+                {
+                    TempData["CourseStatus"] = "Course saved Successfully.";
+                    return RedirectToAction("SavedCourses");
+                }
             }
-        }
-        else
-        {
-            var result = await _userService.DeleteSavedCourse(existingSavedCourse);
-            if (result)
+            else
             {
-                TempData["CourseStatus"] = "Course deleted.";
-                return RedirectToAction("Index", "Courses");
+                var result = await _userService.DeleteSavedCourse(existingSavedCourse);
+                if (result)
+                {
+                    TempData["CourseStatus"] = "Course deleted.";
+                    return RedirectToAction("SavedCourses");
+                }
             }
         }
 
@@ -218,12 +220,15 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
     [HttpPost]
     public async Task<IActionResult> DeleteAllSavedCourses()
     {
+        if (ModelState.IsValid)
+        {
             var result = await _userService.DeleteAllSavedCourses(User);
             if (result)
             {
                 TempData["CourseStatus"] = "Courses deleted.";
                 return RedirectToAction("Index", "Courses");
             }
+        }
 
         TempData["CourseStatus"] = "Something went wrong, contact site owner if issue persists.";
         return RedirectToAction("SavedCourses");
@@ -233,7 +238,13 @@ public class AccountController(SignInManager<UserEntity> signInManager, UserServ
 
     public async Task<IActionResult> UploadImage(IFormFile file)
     {
-        var result = await _userService.UploadUserProfileImageAsync(User, file);
+        if (ModelState.IsValid)
+        {
+            var result = await _userService.UploadUserProfileImageAsync(User, file);
+            return RedirectToAction("index");
+        }
+
+        TempData["AccountStatus"] = "Something went wrong, contact site owner if issue persists.";
         return RedirectToAction("index");
     }
     #endregion
