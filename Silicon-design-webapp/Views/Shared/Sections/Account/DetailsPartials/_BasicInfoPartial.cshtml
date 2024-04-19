@@ -26,7 +26,6 @@
                 <span asp-validation-for="@Model.FirstName"></span>
                 <input asp-for="@Model.FirstName">
             }
-
         </div>
         <div class="input-group">
 
@@ -40,6 +39,10 @@
                 <span asp-validation-for="@Model.LastName"></span>
                 <input asp-for="@Model.LastName">
             }
+        </div>
+        <div class="input-group hidden">
+            <span asp-validation-for="@Model.ProfileImageUrl"></span>
+            <input asp-for="@Model.ProfileImageUrl">
         </div>
     </div>
 

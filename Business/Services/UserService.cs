@@ -97,8 +97,8 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 userEntity.FirstName = model.FirstName ?? userEntity.FirstName;
                 userEntity.LastName = model.LastName ?? userEntity.LastName;
                 userEntity.Email = model.Email ?? userEntity.Email;
-                userEntity.PhoneNumber = model.Phone ?? userEntity.PhoneNumber;
-                userEntity.Biography = model.Biography ?? userEntity.Biography;
+                userEntity.PhoneNumber = model.Phone;
+                userEntity.Biography = model.Biography;
 
                 var result = await _userManager.UpdateAsync(userEntity);
                 if (result.Succeeded)
